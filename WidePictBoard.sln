@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidePictBoard", "WidePictBoard\WidePictBoard.csproj", "{0B3FCA35-3572-4767-8035-E4D48241204F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidePictBoard", "Core\Core.csproj", "{0B3FCA35-3572-4767-8035-E4D48241204F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
