@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace WidePictBoard
+namespace WidePictBoard.Core
 {
     public static partial class CoreSetup
     {
@@ -50,7 +50,7 @@ namespace WidePictBoard
                         }
                     });
             });
-            AddSecurity(services, configuration);
+            CoreSetup.AddSecurity(services, configuration);
         }
     }
 }

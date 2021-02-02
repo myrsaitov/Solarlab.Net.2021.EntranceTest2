@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>WidePictBoard.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Class1.cs~" />
+    </ItemGroup>
+
+</Project>

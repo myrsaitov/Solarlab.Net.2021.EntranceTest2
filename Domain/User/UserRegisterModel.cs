@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Models.User
+﻿namespace WidePictBoard.Domain.User
 {
     public class UserRegisterModel
     {
