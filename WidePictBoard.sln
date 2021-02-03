@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidePictBoard", "Core\Core.csproj", "{0B3FCA35-3572-4767-8035-E4D48241204F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{0B3FCA35-3572-4767-8035-E4D48241204F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{642DDCBB-DA16-49AA-9076-25CE14F2196B}"
 EndProject

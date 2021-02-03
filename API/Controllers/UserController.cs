@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using WidePictBoard.Application.UserService;
+using WidePictBoard.Application.User.Contracts;
+using WidePictBoard.Application.User.Service;
+using WidePictBoard.Core.Models.User;
 using WidePictBoard.Domain.User;
 
 namespace WidePictBoard.Core.Controllers
@@ -29,8 +33,10 @@ namespace WidePictBoard.Core.Controllers
         {
             try
             {
-                if (!registerModel.Password.Equals(registerModel.ConfirmPassword)) throw new Exception("Password must be the same");
-                await _userService.RegisterUserAsync(new UserDto(), registerModel.Password, registerModel.ReturnUrl);
+                if (!registerModel.Password.Equals(registerModel.ConfirmPassword)) 
+                    throw new Exception("Password must be the same");
+                await _userService.RegisterUser(registerModel.Adapt<Register.Request>(), registerModel.Password, 
+                    registerModel.ReturnUrl, CancellationToken.None);
                 return Ok();
             }
             catch (Exception e)

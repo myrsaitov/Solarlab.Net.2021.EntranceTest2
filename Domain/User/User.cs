@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace WidePictBoard.Domain.User
 {
@@ -6,6 +7,7 @@ namespace WidePictBoard.Domain.User
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public UserImage Avatar { get; set; }
+        public string Avatar { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }
