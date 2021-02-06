@@ -10,15 +10,15 @@ namespace WidePictBoard.Core
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        private IConfiguration Configuration { get; }
+        private readonly IConfiguration _configuration;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            CoreSetup.Configure(services, Configuration);
+            CoreSetup.Configure(services, _configuration);
             
         }
 

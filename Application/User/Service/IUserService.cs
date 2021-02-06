@@ -7,8 +7,8 @@ namespace WidePictBoard.Application.User.Service
 {
     public interface IUserService
     {
-        public Task<Register.Response> RegisterUser(Register.Request request, string password, string returnUrl, CancellationToken token);
-        public Task ConfirmEmail(UserDto user, string returnUrl, CancellationToken token);
-        public Task<Login.Response> LoginUser(Login.Request request, CancellationToken token);
+        Task<Register.Response> RegisterUser(Register.Request request, string returnUrl, CancellationToken token);
+        Task ConfirmEmail(string email, string returnUrl, CancellationToken token);
+        Task<Login.Response> LoginUser(Login.Request request, CancellationToken token);
     }
 }

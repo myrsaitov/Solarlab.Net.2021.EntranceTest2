@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace WidePictBoard.Application
 {
-    public interface IRepository<TEntity, TId>
+    public interface IRepository<TEntity, in TId>
     {
-        public Task<TEntity> FindById(TId id, CancellationToken token);
-        public Task Save(TEntity entity, CancellationToken token);
-        public Task<TEntity> FindWhere(Expression<Func<TEntity, bool>> query, CancellationToken token);
+        Task<TEntity> FindById(TId id, CancellationToken token);
+        Task Save(TEntity entity, CancellationToken token);
+        Task<TEntity> FindWhere(Expression<Func<TEntity, bool>> query, CancellationToken token);
     }
 }

@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.User.Contracts;
 using WidePictBoard.Application.User.Service;
 using WidePictBoard.Core.Models.User;
-using WidePictBoard.Domain.User;
 
 namespace WidePictBoard.Core.Controllers
 {
@@ -16,11 +15,23 @@ namespace WidePictBoard.Core.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [ApiVersion("1.0")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
-        public UserController(IConfiguration configuration, IUserService userService)
+        public UserController(IConfiguration configuration, IUserService userService) : base(
+            async func =>
+            {
+                try
+                {
+                    return await func.Invoke();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            })
         {
             _configuration = configuration;
             _userService = userService;
@@ -31,19 +42,12 @@ namespace WidePictBoard.Core.Controllers
         [MapToApiVersion("1.0")]
         public async Task<IActionResult> Register(UserRegisterModel registerModel)
         {
-            try
+            return await ValidateAndRun(async () =>
             {
-                if (!registerModel.Password.Equals(registerModel.ConfirmPassword)) 
-                    throw new Exception("Password must be the same");
-                await _userService.RegisterUser(registerModel.Adapt<Register.Request>(), registerModel.Password, 
-                    registerModel.ReturnUrl, CancellationToken.None);
+                await _userService.RegisterUser(registerModel.Adapt<Register.Request>(), registerModel.ReturnUrl,
+                    CancellationToken.None);
                 return Ok();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return BadRequest();
-            }
+            });
         }
     }
 }
