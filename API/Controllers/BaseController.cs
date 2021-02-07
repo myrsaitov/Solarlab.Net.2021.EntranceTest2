@@ -14,15 +14,24 @@ namespace WidePictBoard.Core.Controllers
 {
     public class BaseController : ControllerBase
     {
-        private readonly Func<Func<Task<IActionResult>>, Task<IActionResult>> _exceptionHandler;
-        public BaseController(Func<Func<Task<IActionResult>>, Task<IActionResult>> exceptionHandler)
+        private readonly Func<Exception, IActionResult> _exceptionHandler;
+        public BaseController(Func<Exception, IActionResult> exceptionHandler)
         {
             _exceptionHandler = exceptionHandler;
         }
 
         protected async Task<IActionResult> ValidateAndRun(Func<Task<IActionResult>> func)
         {
-            return await _exceptionHandler.Invoke(func);
+            try
+            {
+                return await func.Invoke();
+            }
+            catch (Exception e)
+            {
+                // Need logger here
+                
+                return _exceptionHandler.Invoke(e);
+            }
         }
     }
 }

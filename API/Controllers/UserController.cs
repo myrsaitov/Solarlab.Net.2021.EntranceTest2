@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.User.Contracts;
@@ -20,17 +22,15 @@ namespace WidePictBoard.Core.Controllers
         private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
         public UserController(IConfiguration configuration, IUserService userService) : base(
-            async func =>
+            e =>
             {
-                try
+                return e switch
                 {
-                    return await func.Invoke();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                    _ => new ObjectResult("#eS")
+                    {
+                       StatusCode = StatusCodes.Status500InternalServerError
+                    }
+                };
             })
         {
             _configuration = configuration;
@@ -42,12 +42,24 @@ namespace WidePictBoard.Core.Controllers
         [MapToApiVersion("1.0")]
         public async Task<IActionResult> Register(UserRegisterModel registerModel)
         {
+            // Captcha for later
+            /*if (!await Captcha(registerModel.Token)) return BadRequest("#eRC Wrong captcha");*/
+            
             return await ValidateAndRun(async () =>
             {
                 await _userService.RegisterUser(registerModel.Adapt<Register.Request>(), registerModel.ReturnUrl,
                     CancellationToken.None);
                 return Ok();
             });
+        }
+
+        private async Task<bool> Captcha(string token)
+        {
+            var captcha = await new HttpClient()
+                .GetAsync(
+                    "https://www.google.com/recaptcha/api/siteverify?secret=" +
+                    $"{_configuration["Security:Recaptcha:Key"]}&response={token}");
+            return captcha.IsSuccessStatusCode;
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.User.Contracts;
-using WidePictBoard.Domain.User;
-
 namespace WidePictBoard.Application.User.Service
 {
     public interface IUserService
