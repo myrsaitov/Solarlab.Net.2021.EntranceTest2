@@ -2,7 +2,7 @@
 
 namespace WidePictBoard.Domain.General.Exceptions
 {
-    public class DomainException : ApplicationException
+    public class DomainException : Exception
     {
         public DomainException(string message) : base(message)
         {

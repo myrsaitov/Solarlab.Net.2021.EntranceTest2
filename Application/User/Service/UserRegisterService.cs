@@ -7,7 +7,7 @@ using WidePictBoard.Domain.User;
 
 namespace WidePictBoard.Application.User.Service
 {
-    public class UserService : IUserService
+    public partial class UserService
     {
         public async Task<Register.Response> RegisterUser(Register.Request request, string returnUrl, 
             CancellationToken token)
@@ -16,11 +16,6 @@ namespace WidePictBoard.Application.User.Service
         }
 
         public async Task ConfirmEmail(string email, string returnUrl, CancellationToken token)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<Login.Response> LoginUser(Login.Request request, CancellationToken token)
         {
             throw new System.NotImplementedException();
         }

@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <Folder Include="Content\Contracts" />
+      <Folder Include="Content\Interface" />
     </ItemGroup>
 
     <ItemGroup>
