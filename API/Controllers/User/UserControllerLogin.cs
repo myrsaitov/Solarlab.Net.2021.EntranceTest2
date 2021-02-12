@@ -1,46 +1,20 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.User.Contracts;
-using WidePictBoard.Application.User.Interface;
 using WidePictBoard.Core.Models.User;
 
-namespace WidePictBoard.Core.Controllers
+namespace WidePictBoard.Core.Controllers.User
 {
-    [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
-    [ApiVersion("1.0")]
-    public class UserController : BaseController
+    public partial class UserController
     {
-        private readonly IConfiguration _configuration;
-        private readonly IUserService _userService;
-        public UserController(IConfiguration configuration, IUserService userService) : base(
-            e =>
-            {
-                return e switch
-                {
-                    _ => new ObjectResult("#errorServer")
-                    {
-                       StatusCode = StatusCodes.Status500InternalServerError
-                    }
-                };
-            })
-        {
-            _configuration = configuration;
-            _userService = userService;
-        }
-
         [AllowAnonymous]
         [HttpPut("signup")]
         [MapToApiVersion("1.0")]
-        public async Task<IActionResult> Register(UserRegisterModel registerModel)
+        public async Task<IActionResult> Login(UserRegisterModel registerModel)
         {
             // Captcha for later
             /*if (!await Captcha(registerModel.Token)) return BadRequest("#eRC Wrong captcha");*/
