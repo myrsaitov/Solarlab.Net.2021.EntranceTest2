@@ -26,7 +26,7 @@ namespace WidePictBoard.Core.Controllers
             {
                 return e switch
                 {
-                    _ => new ObjectResult("#eS")
+                    _ => new ObjectResult("#errorServer")
                     {
                        StatusCode = StatusCodes.Status500InternalServerError
                     }

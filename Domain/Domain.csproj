@@ -9,9 +9,4 @@
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Albums" />
-      <Folder Include="User" />
-    </ItemGroup>
-
 </Project>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using WidePictBoard.Domain.General;
 
-namespace WidePictBoard.Domain.Content
+namespace WidePictBoard.Domain
 {
-    public class Content : EntityMutable<string>
+    public class Content : EntityPriced<string>
     {
         public string Title { get; set; }
         public string Description { get; set; }

@@ -15,7 +15,11 @@ namespace WidePictBoard.Infrastructure.Services.User
         {
             var user = request.Adapt<Infrastructure.User>();
             var result = await _userManager.CreateAsync(user, request.Password);
-            if (result.Succeeded) return new Register.Response();
+            if (result.Succeeded)
+            {
+                result = await _userManager.AddToRoleAsync(user,"RoleUser");
+                if(result.Succeeded) return new Register.Response();
+            }
             var errors = result.Errors.Select(error => (error.Code, error.Description)).ToList();
             throw new IdentityException(errors);
         }
