@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.User.Contracts;
 using WidePictBoard.Application.User.Interface;
-using WidePictBoard.Application.User.Service;
 using WidePictBoard.Core.Models.User;
 
 namespace WidePictBoard.Core.Controllers

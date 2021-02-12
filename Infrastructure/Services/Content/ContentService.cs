@@ -1,5 +1,7 @@
-﻿using WidePictBoard.Domain.Content;
-namespace WidePictBoard.Application.Content.Service
+﻿using WidePictBoard.Application;
+using WidePictBoard.Application.Content.Service;
+
+namespace WidePictBoard.Infrastructure.Services.Content
 {
     public class ContentService : IContentService
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
-using WidePictBoard.Domain.User;
 
 namespace WidePictBoard.Infrastructure
 {
-    public class User : IdentityUser, IUser
+    public class User : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

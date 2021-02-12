@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <Folder Include="Albums" />
+      <Folder Include="User" />
     </ItemGroup>
 
 </Project>
