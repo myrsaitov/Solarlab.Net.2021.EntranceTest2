@@ -6,5 +6,6 @@ namespace WidePictBoard.Domain.General
     {
         public string CreatorId { get; set; }
         public decimal Price { get; set; }
+        public User Creator { get; set; }
     }
 }
