@@ -11,16 +11,14 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="BaseController.cs" t="Include" />
-          <e p="BuyController.cs" t="Include" />
-          <e p="ContentController.cs" t="Include" />
-          <e p="UserController.cs" t="Include" />
+          <e p="user" t="Include">
+            <e p="UserController.cs" t="Include" />
+            <e p="UserControllerLogin.cs" t="Include" />
+            <e p="UserControllerRegister.cs" t="Include" />
+          </e>
         </e>
         <e p="CoreSetup.cs" t="Include" />
         <e p="Models" t="Include">
-          <e p="Content" t="Include">
-            <e p="ContentCreateModel.cs" t="Include" />
-            <e p="ContentUpdateModel.cs" t="Include" />
-          </e>
           <e p="user" t="Include">
             <e p="UserRegisterModel.cs" t="Include" />
           </e>
@@ -42,15 +40,6 @@
       <e p="Application" t="IncludeRecursive">
         <e p="Application.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Buy" t="Include">
-          <e p="Contracts" t="Include">
-            <e p="BuyById.cs" t="Include" />
-          </e>
-          <e p="Service" t="Include">
-            <e p="BuyService.cs" t="Include" />
-            <e p="IBuyService.cs" t="Include" />
-          </e>
-        </e>
         <e p="Content" t="Include">
           <e p="Contracts" t="Include">
             <e p="Create.cs" t="Include" />
@@ -59,8 +48,7 @@
             <e p="GetPaged.cs" t="Include" />
             <e p="Update.cs" t="Include" />
           </e>
-          <e p="Service" t="Include">
-            <e p="ContentService.cs" t="Include" />
+          <e p="Interface" t="Include">
             <e p="IContentService.cs" t="Include" />
           </e>
         </e>
@@ -74,28 +62,25 @@
         </e>
         <e p="user" t="Include">
           <e p="Contracts" t="Include">
+            <e p="IdentityException.cs" t="Include" />
             <e p="Login.cs" t="Include" />
             <e p="Register.cs" t="Include" />
           </e>
-          <e p="Service" t="Include">
+          <e p="Interface" t="Include">
             <e p="IUserService.cs" t="Include" />
-            <e p="UserService.cs" t="Include" />
           </e>
         </e>
       </e>
       <e p="Domain" t="IncludeRecursive">
-        <e p="Albums" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Buy" t="Include">
-          <e p="IBuy.cs" t="Include" />
-        </e>
-        <e p="Content" t="Include">
-          <e p="IContent.cs" t="Include" />
-        </e>
+        <e p="Bundle.cs" t="Include" />
+        <e p="Content.cs" t="Include" />
+        <e p="ContentOwned.cs" t="Include" />
         <e p="Domain.csproj" t="IncludeRecursive" />
         <e p="General" t="Include">
           <e p="Entity.cs" t="Include" />
           <e p="EntityMutable.cs" t="Include" />
+          <e p="EntityPriced.cs" t="Include" />
           <e p="EntityTimed.cs" t="Include" />
           <e p="Exceptions" t="Include">
             <e p="DomainException.cs" t="Include" />
@@ -109,19 +94,26 @@
             </e>
           </e>
         </e>
-        <e p="user" t="Include">
-          <e p="IUser.cs" t="Include" />
-        </e>
+        <e p="User.cs" t="Include" />
       </e>
       <e p="Infrastructure" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="Content.cs" t="Include" />
         <e p="Infrastructure.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="net5.0" t="Include">
               <e p="Infrastructure.AssemblyInfo.cs" t="Include" />
             </e>
+          </e>
+        </e>
+        <e p="Repos" t="Include" />
+        <e p="Services" t="Include">
+          <e p="Content" t="Include">
+            <e p="ContentService.cs" t="Include" />
+          </e>
+          <e p="user" t="Include">
+            <e p="UserLoginService.cs" t="Include" />
+            <e p="UserRegisterService.cs" t="Include" />
           </e>
         </e>
         <e p="User.cs" t="Include" />
