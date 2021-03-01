@@ -12,7 +12,7 @@ namespace WidePictBoard.Core.Controllers.User
     public partial class UserController
     {
         [AllowAnonymous]
-        [HttpPut("signup")]
+        [HttpPut("login")]
         [MapToApiVersion("1.0")]
         public async Task<IActionResult> Login(UserRegisterModel registerModel)
         {
