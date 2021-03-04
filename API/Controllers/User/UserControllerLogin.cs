@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WidePictBoard.Application.User.Contracts;
 using WidePictBoard.Core.Models.User;
 
-namespace WidePictBoard.Core.Controllers.User
+namespace WidePictBoard.API.Controllers.User
 {
     public partial class UserController
     {

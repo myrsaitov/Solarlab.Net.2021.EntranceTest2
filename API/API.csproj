@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>WidePictBoard.Core</RootNamespace>
+        <RootNamespace>WidePictBoard.API</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

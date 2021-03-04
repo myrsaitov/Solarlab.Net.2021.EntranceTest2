@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.PublicApi.Controllers
+namespace WidePictBoard.API.Controllers
 {
     public class BaseController : ControllerBase
     {

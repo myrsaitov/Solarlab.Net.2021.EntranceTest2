@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.User.Interface;
+using WidePictBoard.PublicApi.Controllers;
 
-namespace WidePictBoard.Core.Controllers.User
+namespace WidePictBoard.API.Controllers.User
 {
     [Authorize]
     [ApiController]

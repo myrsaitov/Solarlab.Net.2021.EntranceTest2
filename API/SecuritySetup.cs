@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WidePictBoard.Core
+namespace WidePictBoard.API
 {
     public static partial class CoreSetup
     {

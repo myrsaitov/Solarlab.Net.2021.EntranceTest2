@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace WidePictBoard.Core
+namespace WidePictBoard.API
 {
     public static partial class CoreSetup
     {

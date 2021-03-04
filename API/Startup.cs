@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace WidePictBoard.Core
+namespace WidePictBoard.API
 {
     public class Startup
     {
