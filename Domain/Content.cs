@@ -5,6 +5,18 @@ namespace WidePictBoard.Domain
 {
     public class Content : EntityPriced<string>
     {
+        public enum Statuses
+        {
+            Created,
+            Payed,
+            Closed
+        }
+        public string Name { get; set; }
+        //public decimal Price { get; set; }
+
+        public Statuses Status { get; set; }
+
+        public User Owner { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Formats { get; set; } // "svg;png;jpg"
