@@ -16,7 +16,6 @@
 
     <ItemGroup>
       <Folder Include="Comment\Implementations\" />
-      <Folder Include="Comment\Interfaces\" />
     </ItemGroup>
 
 </Project>
