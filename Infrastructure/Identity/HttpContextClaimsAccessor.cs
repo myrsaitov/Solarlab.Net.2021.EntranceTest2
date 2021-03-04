@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.User.Interfaces;
 using Microsoft.AspNetCore.Http;
 
-namespace Advertisement.Infrastructure.Identity
+namespace WidePictBoard.Infrastructure.Identity
 {
     public sealed class HttpContextClaimsAccessor : IClaimsAccessor
     {
