@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.User.Interface;
-using WidePictBoard.PublicApi.Controllers;
+using WidePictBoard.API.Controllers;
 
 namespace WidePictBoard.API.Controllers.User
 {
