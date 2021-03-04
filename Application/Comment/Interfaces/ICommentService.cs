@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WidePictBoard.Application.Comment.Contracts;
 
-namespace Advertisement.Application.Services.Comment.Interfaces
+namespace WidePictBoard.Application.Services.Comment.Interfaces
 {
     public interface ICommentService
     {
