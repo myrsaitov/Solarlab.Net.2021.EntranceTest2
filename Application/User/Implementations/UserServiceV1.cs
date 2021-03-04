@@ -22,19 +22,16 @@ namespace WidePictBoard.Application.User.Implementations
         private readonly IClaimsAccessor _claimsAccessor;
         private readonly IRepository<Domain.User, int> _repository;
 
-        public UserServiceV1(IHttpContextAccessor contextAccessor, IRepository<Domain.User, int> repository, IConfiguration configuration)
+        public UserServiceV1(IRepository<Domain.User, int> repository, IConfiguration configuration, IClaimsAccessor claimsAccessor)
         {
-            _contextAccessor = contextAccessor;
             _repository = repository;
             _configuration = configuration;
+            _claimsAccessor = claimsAccessor;
         }
 
         public async Task<Domain.User> GetCurrent(CancellationToken cancellationToken)
         {
-            var claim = _contextAccessor
-                .HttpContext
-                .User
-                .Claims
+            var claim = (await _claimsAccessor.GetCurrentClaims(cancellationToken))
                 .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
                 ?.Value;
 
