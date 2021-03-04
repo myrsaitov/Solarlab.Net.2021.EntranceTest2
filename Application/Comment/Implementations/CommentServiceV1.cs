@@ -8,7 +8,7 @@ using WidePictBoard.Application.Comment.Interfaces;
 using WidePictBoard.Application.User.Contracts.Exceptions;
 using WidePictBoard.Application.User.Interfaces;
 
-namespace Advertisement.Application.Services.Comment.Implementations
+namespace WidePictBoard.Application.Comment.Implementations
 {
     public sealed class CommentServiceV1 : ICommentService
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using WidePictBoard.Application;
+using WidePictBoard.Domain;
 using WidePictBoard.Infrastructure.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -30,7 +31,7 @@ namespace Advertisement.Infrastructure
             configurator.Services
                 .AddSingleton<InMemoryRepository>()
                 .AddSingleton<IRepository<Domain.Comment, int>>(sp => sp.GetService<InMemoryRepository>())
-                .AddSingleton<IRepository<Domain.Ad, int>>(sp => sp.GetService<InMemoryRepository>())
+                .AddSingleton<IRepository<Domain.Content, int>>(sp => sp.GetService<InMemoryRepository>())
                 .AddSingleton<IRepository<Domain.User, int>>(sp => sp.GetService<InMemoryRepository>());
 
             return configurator;
