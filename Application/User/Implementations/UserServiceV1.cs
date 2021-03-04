@@ -19,7 +19,7 @@ namespace WidePictBoard.Application.User.Implementations
     {
         private readonly IConfiguration _configuration;
 
-        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IClaimsAccessor _claimsAccessor;
         private readonly IRepository<Domain.User, int> _repository;
 
         public UserServiceV1(IHttpContextAccessor contextAccessor, IRepository<Domain.User, int> repository, IConfiguration configuration)
