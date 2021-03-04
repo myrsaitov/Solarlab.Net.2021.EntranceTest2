@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Content.Interface;
+using WidePictBoard.Application.Content.Interfaces;
 using System.Collections.Generic;
 using WidePictBoard.API.Controllers.User;
 using WidePictBoard.API.Controllers;

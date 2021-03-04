@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WidePictBoard.Application.Content.Contracts;
 
-namespace WidePictBoard.Application.Content.Interface
+namespace WidePictBoard.Application.Content.Interfaces
 {
     public interface IContentService
     {

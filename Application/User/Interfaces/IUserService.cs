@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WidePictBoard.Application.User.Contracts;
 
-namespace WidePictBoard.Application.User.Interface
+namespace WidePictBoard.Application.User.Interfaces
 {
     public interface IUserService
     {

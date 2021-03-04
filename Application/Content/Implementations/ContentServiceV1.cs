@@ -4,8 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Content.Contracts;
 using WidePictBoard.Application.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Content.Interface;
-using WidePictBoard.Application.User.Interface;
+using WidePictBoard.Application.Content.Interfaces;
+using WidePictBoard.Application.User.Interfaces;
 
 
 namespace WidePictBoard.Application.Content.Implementations

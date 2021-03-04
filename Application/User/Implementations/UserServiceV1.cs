@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.User.Contracts;
 using WidePictBoard.Application.User.Contracts.Exceptions;
-using WidePictBoard.Application.User.Interface;
+using WidePictBoard.Application.User.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
