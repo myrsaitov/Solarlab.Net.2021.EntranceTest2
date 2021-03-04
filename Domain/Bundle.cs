@@ -3,7 +3,7 @@ using WidePictBoard.Domain.General;
 
 namespace WidePictBoard.Domain
 {
-    public class Bundle: EntityPriced<string>
+    public class Bundle: EntityMutable<string>
     {
         public IEnumerable<Content> Items { get; set; }
     }
