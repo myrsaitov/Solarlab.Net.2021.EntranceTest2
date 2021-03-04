@@ -5,7 +5,7 @@ using WidePictBoard.Application.Content.Contracts;
 using WidePictBoard.Application.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Content.Interface;
 using WidePictBoard.Application.User.Interface;
-using WidePictBoard.Domain;
+
 
 namespace WidePictBoard.Application.Content.Implementations
 {
@@ -29,7 +29,7 @@ namespace WidePictBoard.Application.Content.Implementations
                 throw new NoUserForContentCreationException($"Попытка создания объявления [{request.Name}] без пользователя.");
             }
 
-            var content = new Domain.Content()
+            var content = new Domain.Content
             {
                 Name = request.Name,
                 Price = request.Price,
@@ -48,7 +48,7 @@ namespace WidePictBoard.Application.Content.Implementations
             };
         }
 
-        public async Task<GetById.Response> Get(GetById.Request request, CancellationToken cancellationToken)
+        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             throw new System.NotImplementedException();
         }

@@ -2,8 +2,8 @@
 
 namespace WidePictBoard.Domain.General
 {
-    public class EntityMutable<TId> : EntityTimed<TId>
+    public class EntityMutable<TId> : Entity<TId>
     {
-        public DateTime UpdateOn { get; set; }
+        public DateTime? UpdateOn { get; set; }
     }
 }

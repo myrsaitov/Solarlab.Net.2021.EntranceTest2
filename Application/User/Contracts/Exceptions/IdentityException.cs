@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WidePictBoard.Application.User.Contracts
+namespace WidePictBoard.Application.User.Contracts.Exceptions
 {
     public class IdentityException : Exception
     {

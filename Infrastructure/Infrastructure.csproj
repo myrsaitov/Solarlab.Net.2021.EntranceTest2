@@ -6,6 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Repos\**" />
+      <EmbeddedResource Remove="Repos\**" />
+      <None Remove="Repos\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <None Remove="Class1.cs~" />
     </ItemGroup>
 
@@ -14,11 +20,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Repos" />
+      <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Mapster" Version="7.1.3" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
     </ItemGroup>
 
 </Project>

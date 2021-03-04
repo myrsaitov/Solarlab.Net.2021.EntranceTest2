@@ -20,7 +20,7 @@ namespace WidePictBoard.API.Controllers.Content
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        //public UserController.User OwnerUser { get; set; }
+        public UserController.User OwnerUser { get; set; }
     }
 
     public sealed class ContentDto

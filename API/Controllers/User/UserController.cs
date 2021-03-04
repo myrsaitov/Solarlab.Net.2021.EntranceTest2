@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using System.Collections.Generic;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,28 +9,27 @@ using WidePictBoard.API.Controllers;
 
 namespace WidePictBoard.API.Controllers.User
 {
-    [Authorize]
+    [Route("api/v1/users")]
     [ApiController]
-    [Route("api/[controller]")]
-    [ApiVersion("1.0")]
-    public partial class UserController : BaseController
+    [AllowAnonymous]
+    public partial class UserController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-        private readonly IUserService _userService;
-        public UserController(IConfiguration configuration, IUserService userService) : base(
-            e =>
-            {
-                return e switch
-                {
-                    _ => new ObjectResult("#errorServer")
-                    {
-                       StatusCode = StatusCodes.Status500InternalServerError
-                    }
-                };
-            })
+        public static readonly List<User> Users = new();
+
+        public sealed class User
         {
-            _configuration = configuration;
-            _userService = userService;
+            public int Id { get; set; }
+
+            public string Name { get; set; }
+
+            public string Password { get; set; }
+        }
+
+        public sealed class UserDto
+        {
+            public int Id { get; set; }
+
+            public string Name { get; set; }
         }
     }
 }
