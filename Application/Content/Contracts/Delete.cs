@@ -4,7 +4,7 @@
     {
         public sealed class Request
         {
-            int Id { get; set; }
+            public int Id { get; set; }
         }
         
         public sealed class Response
