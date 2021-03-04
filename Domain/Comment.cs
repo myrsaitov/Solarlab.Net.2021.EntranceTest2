@@ -1,7 +1,7 @@
 ﻿using WidePictBoard.Domain;
 using WidePictBoard.Domain.General;
 
-namespace Advertisement.Domain
+namespace WidePictBoard.Domain
 {
     public sealed class Comment : EntityMutable<int>
     {
