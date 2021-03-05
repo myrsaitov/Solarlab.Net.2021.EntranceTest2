@@ -4,8 +4,8 @@ using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Application.Services.User.Implementations;
 using WidePictBoard.Application.Services.User.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.Application.Content.Implementations;
-using WidePictBoard.Application.Content.Interfaces;
+using WidePictBoard.Application.Services.Content.Implementations;
+using WidePictBoard.Application.Services.Content.Interfaces;
 
 namespace Advertisement.Infrastructure
 {

@@ -1,5 +1,13 @@
 ﻿namespace WidePictBoard.Application.Services.Content.Contracts
 {
+
+    public static class Pay
+    {
+        public sealed class Request
+        {
+            public int Id { get; set; }
+        }
+    }
     public static class GetById
     {
         public sealed class Request

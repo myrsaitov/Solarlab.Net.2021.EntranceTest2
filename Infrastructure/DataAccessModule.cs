@@ -44,8 +44,8 @@ namespace WidePictBoard.Infrastructure
             {
                 options.UseSqlServer(connectionString, builder =>
                     builder.MigrationsAssembly(
-                        // typeof( DataAccessModule).Assembly.FullName)
-                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                         typeof( DataAccessModule).Assembly.FullName)
+                        //typeof(DatabaseContextModelSnapshot).Assembly.FullName)
                 );
             });
 
@@ -59,8 +59,8 @@ namespace WidePictBoard.Infrastructure
             {
                 options.UseNpgsql(connectionString, builder =>
                     builder.MigrationsAssembly(
-                        //typeof( DataAccessModule).Assembly.FullName)
-                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                        typeof( DataAccessModule).Assembly.FullName)
+                        //typeof(DatabaseContextModelSnapshot).Assembly.FullName)
                 );
             });
 
