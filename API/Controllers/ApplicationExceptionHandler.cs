@@ -7,13 +7,14 @@ using Microsoft.Extensions.Options;
 using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Domain.General.Exceptions;
 
-namespace Advertisement.PublicApi.Controllers
+
+namespace WidePictBoard.API.Controllers
 {
     public class ApplicationExceptionHandler
     {
         private readonly RequestDelegate _next;
-        private readonly ApplicationExceptionOptions _options;
         private readonly ILogger<ApplicationExceptionHandler> _logger;
+        private readonly ApplicationExceptionOptions _options;
 
         public ApplicationExceptionHandler(RequestDelegate next,
             IOptions<ApplicationExceptionOptions> options, ILogger<ApplicationExceptionHandler> logger)
@@ -29,24 +30,26 @@ namespace Advertisement.PublicApi.Controllers
             {
                 await _next(context);
             }
-            catch (DomainException e)
+            catch (DomainException domainException)
             {
-                _logger.LogError(e, "Ошибка!");
-                context.Response.StatusCode = (int)ObtainStatusCode(e);
+                _logger.LogError(domainException, "Прозошло доменное исключение.");
+
+                context.Response.StatusCode = (int)ObtainStatusCode(domainException);
                 await context.Response.WriteAsJsonAsync(new
                 {
                     TraceId = context.TraceIdentifier,
-                    Message = e.Message
+                    Error = domainException.Message,
                 }, context.RequestAborted);
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Ошибка!");
+                _logger.LogError(e, "Произошло общее исключение.");
+
                 context.Response.StatusCode = _options.DefaultErrorStatusCode;
                 await context.Response.WriteAsJsonAsync(new
                 {
                     TraceId = context.TraceIdentifier,
-                    Message = "Произошла ошибка"
+                    Error = "Произошла ошибка"
                 }, context.RequestAborted);
             }
         }
@@ -56,9 +59,8 @@ namespace Advertisement.PublicApi.Controllers
             return domainException switch
             {
                 NotFoundException => HttpStatusCode.NotFound,
-                NoRightsException => HttpStatusCode.Forbidden,
                 ConflictException => HttpStatusCode.Conflict,
-                EntityNotInValidStateException => HttpStatusCode.UnprocessableEntity,
+                NoRightsException => HttpStatusCode.Forbidden,
                 _ => throw new ArgumentOutOfRangeException(nameof(domainException), domainException, null)
             };
         }
