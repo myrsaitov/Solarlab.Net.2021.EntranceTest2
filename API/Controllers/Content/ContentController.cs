@@ -8,26 +8,13 @@ using WidePictBoard.API.Controllers;
 
 namespace WidePictBoard.API.Controllers.Content
 {
-    [Route("api/v1/content")]
+    [Route("api/v1/contents")]
     [ApiController]
     [Authorize]
-    public partial class AdvertisementController : ControllerBase
+    public partial class ContentController : ControllerBase
     {
-        public static readonly List<Content> Contents = new();
-    }
-    public sealed class Content
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public UserController.User OwnerUser { get; set; }
-    }
+        private readonly IContentService _contentService;
 
-    public sealed class ContentDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int UserId { get; set; }
+        public ContentController(IContentService contentService) => _contentService = contentService;
     }
 }
