@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WidePictBoard.Domain.General.Exceptions;
 
 namespace Advertisement.PublicApi.Controllers
 {
@@ -9,30 +12,59 @@ namespace Advertisement.PublicApi.Controllers
     {
         private readonly RequestDelegate _next;
         private readonly ApplicationExceptionOptions _options;
-        
+        private readonly ILogger<ApplicationExceptionHandler> _logger;
+
         public ApplicationExceptionHandler(RequestDelegate next,
-            IOptions<ApplicationExceptionOptions> options)
+            IOptions<ApplicationExceptionOptions> options, ILogger<ApplicationExceptionHandler> logger)
         {
             _next = next;
+            _logger = logger;
             _options = options.Value;
         }
-        
+
         public async Task Invoke(HttpContext context)
         {
             try
             {
                 await _next(context);
             }
+            catch (DomainException e)
+            {
+                _logger.LogError(e, "Ошибка!");
+                context.Response.StatusCode = (int)ObtainStatusCode(e);
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    TraceId = context.TraceIdentifier,
+                    Message = e.Message
+                }, context.RequestAborted);
+            }
             catch (Exception e)
             {
-                context.Response.StatusCode = _options.DefaultStatusCode;
-                await context.Response.WriteAsync("Во время выполнения приложения произошла ошибка");
+                _logger.LogError(e, "Ошибка!");
+                context.Response.StatusCode = _options.DefaultErrorStatusCode;
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    TraceId = context.TraceIdentifier,
+                    Message = "Произошла ошибка"
+                }, context.RequestAborted);
             }
+        }
+
+        private static HttpStatusCode ObtainStatusCode(DomainException domainException)
+        {
+            return domainException switch
+            {
+                NotFoundException => HttpStatusCode.NotFound,
+                NoRightsException => HttpStatusCode.Forbidden,
+                ConflictException => HttpStatusCode.Conflict,
+                EntityNotInValidStateException => HttpStatusCode.UnprocessableEntity,
+                _ => throw new ArgumentOutOfRangeException(nameof(domainException), domainException, null)
+            };
         }
     }
 
     public class ApplicationExceptionOptions
     {
-        public int DefaultStatusCode { get; set; } = StatusCodes.Status500InternalServerError;
+        public int DefaultErrorStatusCode { get; set; } = StatusCodes.Status500InternalServerError;
     }
 }
