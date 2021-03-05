@@ -7,6 +7,6 @@ namespace WidePictBoard.Application
 {
     public interface IClaimsAccessor
     {
-        Task<IEnumerable<Claim>> GetCurrentClaims(CancellationToken cancellationToken);
+        Task<IEnumerable<Claim>> GetClaims(CancellationToken cancellationToken);
     }
 }

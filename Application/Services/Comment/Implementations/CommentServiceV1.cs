@@ -8,7 +8,7 @@ using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Interfaces;
-using WidePictBoard.Domain.Shared.Exceptions;
+using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {

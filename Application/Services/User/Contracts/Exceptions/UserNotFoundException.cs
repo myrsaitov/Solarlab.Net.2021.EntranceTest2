@@ -1,6 +1,6 @@
 ﻿using WidePictBoard.Domain.General.Exceptions;
 
-namespace Advertisement.Application.Services.User.Contracts.Exceptions
+namespace WidePictBoard.Application.Services.User.Contracts.Exceptions
 {
     public sealed class UserNotFoundException : NotFoundException
     {

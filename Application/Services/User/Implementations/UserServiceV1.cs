@@ -6,90 +6,109 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.User.Contracts;
 using WidePictBoard.Application.Services.User.Contracts.Exceptions;
+using WidePictBoard.Application.Repositories;
+using WidePictBoard.Application.Services.User.Contracts;
 using WidePictBoard.Application.Services.User.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Domain.Shared.Exceptions;
-using WidePictBoard.Domain.Specifications;
+using WidePictBoard.Application;
+using WidePictBoard.Domain.General.Exceptions;
+using WidePictBoard;
 
 namespace WidePictBoard.Application.Services.User.Implementations
 {
     public sealed class UserServiceV1 : IUserService
     {
-        private readonly ITokenGenerator _tokenGenerator;
-        private readonly IClaimsAccessor _claimsAccessor;
         private readonly IRepository<Domain.User, int> _repository;
+        private readonly IClaimsAccessor _claimsAccessor;
+        private readonly IConfiguration _configuration;
 
-        public UserServiceV1(IRepository<Domain.User, int> repository, IClaimsAccessor claimsAccessor, ITokenGenerator tokenGenerator)
+        public UserServiceV1(IRepository<Domain.User, int> repository,  IConfiguration configuration, IClaimsAccessor claimsAccessor)
         {
             _repository = repository;
+            _configuration = configuration;
             _claimsAccessor = claimsAccessor;
-            _tokenGenerator = tokenGenerator;
         }
 
         public async Task<Domain.User> GetCurrent(CancellationToken cancellationToken)
         {
-            var claim = (await _claimsAccessor.GetCurrentClaims(cancellationToken))
-                .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
-                ?.Value;
+            var claims = await _claimsAccessor.GetClaims(cancellationToken);
+            var id = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            if (string.IsNullOrWhiteSpace(claim))
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return null;
             }
 
-            var intId = int.Parse(claim);
-
+            var intId = int.Parse(id);
             var user = await _repository.FindById(intId, cancellationToken);
+
             if (user == null)
             {
-                throw new NoRightsException("Нет прав");
+                throw new UserNotFoundException(intId);
             }
 
             return user;
         }
 
-        public async Task<Login.Response> Login(Login.Request request, CancellationToken cancellationToken)
-        {
-            var body = ByUserName.With(request.Name).Body;
-
-            var user = await _repository.FindWhere(ByUserName.With(request.Name), cancellationToken);
-            if (user == null || !user.Password.Equals(request.Password))
-            {
-                throw new NoRightsException("Нет прав");
-            }
-
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.Name, request.Name),
-                new(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-
-
-            return new Login.Response
-            {
-                Token = await _tokenGenerator.ObtainTokenFromClaims(claims, cancellationToken)
-            };
-        }
-
-        public async Task<Register.Response> Register(Register.Request request, CancellationToken cancellationToken)
+        public async Task<Register.Response> Register(Register.Request registerRequest, CancellationToken cancellationToken)
         {
             var user = new Domain.User
             {
-                Name = request.Name,
-                Password = request.Password,
-                CreatedAt = DateTime.UtcNow
+                Name = registerRequest.Name,
+                Password = registerRequest.Password,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
 
+            var userInRepo = await _repository.FindWhere(u => u.Name == registerRequest.Name, cancellationToken);
+            if (userInRepo != null)
+            {
+                throw new ConflictException("Пользователь с таким именем уже зарегестрирован!");
+            }
+            
             await _repository.Save(user, cancellationToken);
 
             return new Register.Response
             {
                 UserId = user.Id
+            };
+        }
+
+        public async Task<Login.Response> Login(Login.Request loginRequest, CancellationToken cancellationToken)
+        {
+            var user = await _repository.FindWhere(u => u.Name == loginRequest.Name, cancellationToken);
+            if (user == null)
+            {
+                throw new UserNotFoundException(loginRequest.Name);
+            }
+
+            if (!user.Password.Equals(loginRequest.Password))
+            {
+                throw new NoRightsException("Нет прав");
+            }            
+            
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.Name, loginRequest.Name),
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()) 
+            };
+            
+            var token = new JwtSecurityToken
+            (
+                claims: claims,
+                expires: DateTime.UtcNow.AddDays(60),
+                notBefore: DateTime.UtcNow,
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:Key"])),
+                    SecurityAlgorithms.HmacSha256
+                )
+            );
+
+            return new Login.Response
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
         }
     }

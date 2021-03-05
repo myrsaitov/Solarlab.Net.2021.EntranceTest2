@@ -8,7 +8,7 @@ using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
-using WidePictBoard.Domain.Shared.Exceptions;
+
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {

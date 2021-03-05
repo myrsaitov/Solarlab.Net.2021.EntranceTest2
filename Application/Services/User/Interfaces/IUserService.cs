@@ -8,7 +8,7 @@ namespace WidePictBoard.Application.Services.User.Interfaces
     {
         Task<Domain.User> GetCurrent(CancellationToken cancellationToken);
 
-        Task<Login.Response> Login(Login.Request request, CancellationToken cancellationToken);
-        Task<Register.Response> Register(Register.Request request, CancellationToken cancellationToken);
+        Task<Register.Response> Register(Register.Request registerRequest, CancellationToken cancellationToken);
+        Task<Login.Response> Login(Login.Request loginRequest, CancellationToken cancellationToken);
     }
 }

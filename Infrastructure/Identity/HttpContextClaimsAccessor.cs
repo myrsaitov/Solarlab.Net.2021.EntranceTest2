@@ -12,6 +12,6 @@ namespace WidePictBoard.Infrastructure.Identity
     {
         private readonly IHttpContextAccessor _contextAccessor;
         public HttpContextClaimsAccessor(IHttpContextAccessor contextAccessor) => _contextAccessor = contextAccessor;
-        public async Task<IEnumerable<Claim>> GetCurrentClaims(CancellationToken cancellationToken) => _contextAccessor.HttpContext.User.Claims;
+        public async Task<IEnumerable<Claim>> GetClaims(CancellationToken cancellationToken) => _contextAccessor.HttpContext.User.Claims;
     }
 }

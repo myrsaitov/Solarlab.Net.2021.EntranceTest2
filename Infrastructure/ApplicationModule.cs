@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WidePictBoard.Application.Services.Content.Implementations;
 using WidePictBoard.Application.Services.Content.Interfaces;
 
-namespace Advertisement.Infrastructure
+namespace WidePictBoard.Infrastructure
 {
     public static class ApplicationModule
     {
