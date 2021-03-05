@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Comment.Contracts;
-using WidePictBoard.Application.Comment.Interfaces;
+using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Comment.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

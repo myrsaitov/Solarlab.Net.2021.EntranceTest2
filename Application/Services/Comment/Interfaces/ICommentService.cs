@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Comment.Contracts;
+using WidePictBoard.Application.Services.Comment.Contracts;
 
-namespace WidePictBoard.Application.Comment.Interfaces
+namespace WidePictBoard.Application.Services.Comment.Interfaces
 {
     public interface ICommentService
     {

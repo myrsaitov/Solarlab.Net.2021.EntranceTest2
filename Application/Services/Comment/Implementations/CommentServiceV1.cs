@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application;
-using WidePictBoard.Application.Comment.Contracts;
-using WidePictBoard.Application.Comment.Interfaces;
+using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Interfaces;
 
-namespace WidePictBoard.Application.Comment.Implementations
+namespace WidePictBoard.Application.Services.Comment.Implementations
 {
     public sealed class CommentServiceV1 : ICommentService
     {

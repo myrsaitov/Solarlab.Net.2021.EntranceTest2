@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace WidePictBoard.Application.Comment.Contracts
+namespace WidePictBoard.Application.Services.Comment.Contracts
 {
     public static class GetPagedComments
     {
