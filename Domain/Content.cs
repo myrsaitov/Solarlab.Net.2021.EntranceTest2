@@ -11,17 +11,12 @@ namespace WidePictBoard.Domain
             Payed,
             Closed
         }
+
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public Statuses Status { get; set; }
         public int OwnerId { get; set; }
         public User Owner { get; set; }
-        /*public string Title { get; set; }
-        public string Description { get; set; }
-        public string Formats { get; set; } // "svg;png;jpg"
-        public int ResH { get; set; }
-        public int ResV { get; set; }
-        public IEnumerable<string> Tags { get; set; }*/
+        public Statuses Status { get; set; }
     }
 }
