@@ -1,4 +1,5 @@
-﻿using WidePictBoard.Application.Services.User.Interfaces;
+﻿using System;
+using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Infrastructure.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using WidePictBoard.Application;
@@ -9,14 +10,27 @@ namespace WidePictBoard.Infrastructure
 {
     public static class InfrastructureModule
     {
-        public static IServiceCollection AddInfrastructureModule(this IServiceCollection services)
+        public sealed class ModuleConfiguration
         {
-            services
-                .AddHttpContextAccessor()
-                .AddScoped<ITokenGenerator, JwtTokenGenerator>()
-                .AddScoped<IClaimsAccessor, HttpContextClaimsAccessor>();
-            
+            public IServiceCollection Services { get; init; }
+        }
+
+        public static IServiceCollection AddInfrastructureModule(
+            this IServiceCollection services,
+            Action<ModuleConfiguration> action
+        )
+        {
+            var moduleConfiguration = new ModuleConfiguration
+            {
+                Services = services
+            };
+            action(moduleConfiguration);
             return services;
+        }
+
+        public static void IdentityFromHttpContext(this ModuleConfiguration moduleConfiguration)
+        {
+            moduleConfiguration.Services.AddScoped<IClaimsAccessor, HttpContextClaimsAccessor>();
         }
     }
 }
