@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Content.Contracts;
 using WidePictBoard.Application.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Content.Interfaces;
-using WidePictBoard.Application.User.Interfaces;
+using WidePictBoard.Application.Repositories;
+using WidePictBoard.Application.Services.User.Interfaces;
 
 
 namespace WidePictBoard.Application.Content.Implementations

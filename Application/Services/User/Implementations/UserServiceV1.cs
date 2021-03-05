@@ -6,15 +6,16 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.User.Contracts;
-using WidePictBoard.Application.User.Contracts.Exceptions;
-using WidePictBoard.Application.User.Interfaces;
+using WidePictBoard.Application.Services.User.Contracts;
+using WidePictBoard.Application.Services.User.Contracts.Exceptions;
+using WidePictBoard.Application.Services.User.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using WidePictBoard.Application.Repositories;
 using WidePictBoard.Domain.Specifications;
 
-namespace WidePictBoard.Application.User.Implementations
+namespace WidePictBoard.Application.Services.User.Implementations
 {
     public sealed class UserServiceV1 : IUserService
     {

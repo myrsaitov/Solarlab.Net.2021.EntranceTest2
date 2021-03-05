@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.User.Contracts
+﻿namespace WidePictBoard.Application.Services.User.Contracts
 {
     public static class Register
     {

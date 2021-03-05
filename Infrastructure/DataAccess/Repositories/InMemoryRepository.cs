@@ -5,21 +5,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Domain;
-using WidePictBoard.Application;
+using WidePictBoard.Application.Repositories;
 using WidePictBoard.Domain;
 
-namespace WidePictBoard.Infrastructure.DataAccess
+namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 {
-    public sealed class InMemoryRepository 
-        : 
-            IRepository<Domain.Content, int>,
-            IRepository<Domain.Comment, int>,
-            IRepository<Domain.User, int>
+    public sealed class InMemoryRepository : 
+        IRepository<Content, int>,
+        IRepository<User, int>
     {
         private readonly ConcurrentDictionary<int, User> _users = new();
         private readonly ConcurrentDictionary<int, Content> _ads = new();
-        private readonly ConcurrentDictionary<int, Comment> _comments = new();
 
         async Task<Content> IRepository<Content, int>.FindById(int id, CancellationToken cancellationToken)
         {
@@ -31,36 +27,6 @@ namespace WidePictBoard.Infrastructure.DataAccess
             }
 
             return null;
-        }
-
-        public async Task Save(Comment entity, CancellationToken cancellationToken)
-        {
-            if (entity.Id == 0)
-            {
-                entity.Id = Guid.NewGuid().GetHashCode();
-            }
-
-            _comments.AddOrUpdate(entity.Id, (e) => entity, (i, user) => entity);
-        }
-
-        public async Task<Comment> FindWhere(Expression<Func<Comment, bool>> predicate, CancellationToken cancellationToken)
-        {
-            var compiled = predicate.Compile();
-            return _comments.Select(pair => pair.Value).Where(compiled).FirstOrDefault();
-        }
-
-        public async Task<int> Count(CancellationToken cancellationToken)
-        {
-            return _comments.Count;
-        }
-
-        public async Task<IEnumerable<Comment>> GetPaged(int offset, int limit, CancellationToken cancellationToken)
-        {
-            return _comments
-                .Select(pair => pair.Value)
-                .OrderBy(u => u.Id)
-                .Skip(offset)
-                .Take(limit);
         }
 
         public async Task Save(User entity, CancellationToken cancellationToken)
@@ -77,20 +43,6 @@ namespace WidePictBoard.Infrastructure.DataAccess
         {
             var compiled = predicate.Compile();
             return _users.Select(pair => pair.Value).Where(compiled).FirstOrDefault();
-        }
-
-        public async Task<Comment> FindById(int id, CancellationToken cancellationToken)
-        {
-            if (_comments.TryGetValue(id, out var comment))
-            {
-                if (_users.TryGetValue(comment.AuthorId, out var user))
-                {
-                    comment.Author = user;
-                }
-                return comment;
-            }
-
-            return null;
         }
 
         async Task<int> IRepository<User, int>.Count(CancellationToken cancellationToken)

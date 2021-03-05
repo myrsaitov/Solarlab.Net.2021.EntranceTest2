@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.User.Contracts;
+using WidePictBoard.Application.Services.User.Contracts;
 
-namespace WidePictBoard.Application.User.Interfaces
+namespace WidePictBoard.Application.Services.User.Interfaces
 {
     public interface IUserService
     {

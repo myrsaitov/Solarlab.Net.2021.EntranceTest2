@@ -1,46 +1,71 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using WidePictBoard.Application;
 using WidePictBoard.Domain;
 using WidePictBoard.Infrastructure.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
+using WidePictBoard.Application.Repositories;
+using WidePictBoard.Infrastructure.DataAccess.Repositories;
 
-namespace Advertisement.Infrastructure
+
+namespace WidePictBoard.Infrastructure
 {
     public static class DataAccessModule
     {
-        public sealed class Configurator
+        public sealed class ModuleConfiguration
         {
-            internal IServiceCollection Services { get; set; }
+            public IServiceCollection Services { get; init; }
         }
-        
+
         public static IServiceCollection AddDataAccessModule(
             this IServiceCollection services,
-            Action<Configurator> configure)
+            Action<ModuleConfiguration> action
+        )
         {
-            var configurator = new Configurator
+            var moduleConfiguration = new ModuleConfiguration
             {
                 Services = services
             };
-            configure(configurator);
-            
+            action(moduleConfiguration);
             return services;
         }
 
-        public static Configurator InMemory(this Configurator configurator)
+        public static void InMemory(this ModuleConfiguration moduleConfiguration)
         {
-            configurator.Services
-                .AddSingleton<InMemoryRepository>()
-                .AddSingleton<IRepository<Domain.Comment, int>>(sp => sp.GetService<InMemoryRepository>())
-                .AddSingleton<IRepository<Domain.Content, int>>(sp => sp.GetService<InMemoryRepository>())
-                .AddSingleton<IRepository<Domain.User, int>>(sp => sp.GetService<InMemoryRepository>());
-
-            return configurator;
+            moduleConfiguration.Services.AddSingleton(new InMemoryRepository());
+            moduleConfiguration.Services.AddSingleton<IRepository<User, int>>(sp =>
+                sp.GetService<InMemoryRepository>());
+            moduleConfiguration.Services.AddSingleton<IRepository<Content, int>>(sp => sp.GetService<InMemoryRepository>());
         }
 
-        public static Configurator InSqlServer(this Configurator configurator, string connectionString)
+        public static void InSqlServer(this ModuleConfiguration moduleConfiguration, string connectionString)
         {
-            throw new NotImplementedException();
-            return configurator;
+            moduleConfiguration.Services.AddDbContextPool<DatabaseContext>(options =>
+            {
+                options.UseSqlServer(connectionString, builder =>
+                    builder.MigrationsAssembly(
+                        // typeof( DataAccessModule).Assembly.FullName)
+                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                );
+            });
+
+            moduleConfiguration.Services.AddScoped<IRepository<Content, int>, EfRepository<Content, int>>();
+            moduleConfiguration.Services.AddScoped<IRepository<User, int>, EfRepository<User, int>>();
+        }
+
+        public static void InPostgress(this ModuleConfiguration moduleConfiguration, string connectionString)
+        {
+            moduleConfiguration.Services.AddDbContextPool<DatabaseContext>(options =>
+            {
+                options.UseNpgsql(connectionString, builder =>
+                    builder.MigrationsAssembly(
+                        //typeof( DataAccessModule).Assembly.FullName)
+                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                );
+            });
+
+            moduleConfiguration.Services.AddScoped<IRepository<Content, int>, EfRepository<Content, int>>();
+            moduleConfiguration.Services.AddScoped<IRepository<User, int>, EfRepository<User, int>>();
         }
     }
 }

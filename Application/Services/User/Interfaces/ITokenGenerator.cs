@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WidePictBoard.Application.User.Interfaces
+namespace WidePictBoard.Application.Services.User.Interfaces
 {
     public interface ITokenGenerator
     {

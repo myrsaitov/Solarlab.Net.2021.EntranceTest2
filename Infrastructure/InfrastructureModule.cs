@@ -1,6 +1,8 @@
-﻿using WidePictBoard.Application.User.Interfaces;
+﻿using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Infrastructure.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using WidePictBoard.Application;
+
 
 
 namespace WidePictBoard.Infrastructure

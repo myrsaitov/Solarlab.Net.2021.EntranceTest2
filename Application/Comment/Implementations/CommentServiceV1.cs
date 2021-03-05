@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using WidePictBoard.Application;
 using WidePictBoard.Application.Comment.Contracts;
 using WidePictBoard.Application.Comment.Interfaces;
-using WidePictBoard.Application.User.Contracts.Exceptions;
-using WidePictBoard.Application.User.Interfaces;
+using WidePictBoard.Application.Repositories;
+using WidePictBoard.Application.Services.User.Contracts.Exceptions;
+using WidePictBoard.Application.Services.User.Interfaces;
 
 namespace WidePictBoard.Application.Comment.Implementations
 {

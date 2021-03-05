@@ -1,8 +1,8 @@
 ﻿
 using WidePictBoard.Application.Comment.Implementations;
 using WidePictBoard.Application.Comment.Interfaces;
-using WidePictBoard.Application.User.Implementations;
-using WidePictBoard.Application.User.Interfaces;
+using WidePictBoard.Application.Services.User.Implementations;
+using WidePictBoard.Application.Services.User.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using WidePictBoard.Application.Content.Implementations;
 using WidePictBoard.Application.Content.Interfaces;
