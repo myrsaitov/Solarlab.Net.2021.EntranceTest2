@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WidePictBoard.Domain.General.Exceptions;
+using WidePictBoard.Domain.Shared.Exceptions;
 
 namespace Advertisement.PublicApi.Controllers
 {

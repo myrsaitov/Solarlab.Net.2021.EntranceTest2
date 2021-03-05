@@ -1,8 +1,10 @@
-﻿namespace WidePictBoard.Domain.General.Exceptions
+﻿using WidePictBoard.Domain.General.Exceptions;
+
+namespace WidePictBoard.Domain.Shared.Exceptions
 {
-    public abstract class NoRightsException : DomainException
+    public class NoRightsException : DomainException
     {
-        protected NoRightsException(string message) : base(message)
+        public NoRightsException(string message) : base(message)
         {
         }
     }

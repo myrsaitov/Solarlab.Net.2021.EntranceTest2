@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using WidePictBoard.Application.Repositories;
+using WidePictBoard.Domain.Shared.Exceptions;
 using WidePictBoard.Domain.Specifications;
 
 namespace WidePictBoard.Application.Services.User.Implementations
