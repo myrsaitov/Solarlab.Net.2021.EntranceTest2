@@ -12,21 +12,21 @@ using WidePictBoard.Application.User.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using WidePictBoard.Domain.Specifications;
 
 namespace WidePictBoard.Application.User.Implementations
 {
     public sealed class UserServiceV1 : IUserService
     {
-        private readonly IConfiguration _configuration;
-
+        private readonly ITokenGenerator _tokenGenerator;
         private readonly IClaimsAccessor _claimsAccessor;
         private readonly IRepository<Domain.User, int> _repository;
 
-        public UserServiceV1(IRepository<Domain.User, int> repository, IConfiguration configuration, IClaimsAccessor claimsAccessor)
+        public UserServiceV1(IRepository<Domain.User, int> repository, IClaimsAccessor claimsAccessor, ITokenGenerator tokenGenerator)
         {
             _repository = repository;
-            _configuration = configuration;
             _claimsAccessor = claimsAccessor;
+            _tokenGenerator = tokenGenerator;
         }
 
         public async Task<Domain.User> GetCurrent(CancellationToken cancellationToken)
@@ -53,7 +53,9 @@ namespace WidePictBoard.Application.User.Implementations
 
         public async Task<Login.Response> Login(Login.Request request, CancellationToken cancellationToken)
         {
-            var user = await _repository.FindWhere(u => u.Name == request.Name, cancellationToken);
+            var body = ByUserName.With(request.Name).Body;
+
+            var user = await _repository.FindWhere(ByUserName.With(request.Name), cancellationToken);
             if (user == null || !user.Password.Equals(request.Password))
             {
                 throw new NoRightsException("Нет прав");
@@ -66,18 +68,9 @@ namespace WidePictBoard.Application.User.Implementations
             };
 
 
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.UtcNow.AddDays(60),
-                notBefore: DateTime.UtcNow,
-                signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:Key"])),
-                    SecurityAlgorithms.HmacSha256)
-            );
-
             return new Login.Response
             {
-                Token = new JwtSecurityTokenHandler().WriteToken(token)
+                Token = await _tokenGenerator.ObtainTokenFromClaims(claims, cancellationToken)
             };
         }
 
