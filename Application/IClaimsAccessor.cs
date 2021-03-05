@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WidePictBoard.Application.User.Interfaces
+namespace WidePictBoard.Application
 {
     public interface IClaimsAccessor
     {
