@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Content.Contracts;
-using WidePictBoard.Application.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Content.Interfaces;
+using WidePictBoard.Application.Services.Content.Contracts;
+using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.User.Interfaces;
 
 
-namespace WidePictBoard.Application.Content.Implementations
+namespace WidePictBoard.Application.Services.Content.Implementations
 {
     public sealed class ContentServiceV1 : IContentService
     {

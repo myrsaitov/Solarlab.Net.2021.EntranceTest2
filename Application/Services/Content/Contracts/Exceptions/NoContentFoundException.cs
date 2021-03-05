@@ -1,6 +1,6 @@
 ﻿using WidePictBoard.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Content.Contracts.Exceptions
+namespace WidePictBoard.Application.Services.Content.Contracts.Exceptions
 {
     public sealed class NoContentFoundException : NotFoundException
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Content.Contracts;
+using WidePictBoard.Application.Services.Content.Contracts;
 
-namespace WidePictBoard.Application.Content.Interfaces
+namespace WidePictBoard.Application.Services.Content.Interfaces
 {
     public interface IContentService
     {

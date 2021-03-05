@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Content.Contracts
+﻿namespace WidePictBoard.Application.Services.Content.Contracts
 {
     public static class GetById
     {
