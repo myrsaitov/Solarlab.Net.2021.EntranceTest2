@@ -5,27 +5,19 @@ namespace WidePictBoard.Application.Services.Content.Contracts
 {
     public static class GetPaged
     {
-        public sealed class Request
+        public sealed class Request : Paged.Request
         {
-            public int Offset { get; set; } = 0;
-            public int Limit { get; set; } = 10;
         }
 
-        public sealed class Response
+        public sealed class Response : Paged.Response<Response.AdResponse>
         {
-            public sealed class Item
+            public sealed class AdResponse
             {
                 public int Id { get; set; }
                 public string Name { get; set; }
-                public decimal Price { get; set; }
                 public string Status { get; set; }
+                public decimal Price { get; set; }
             }
-
-            public int Total { get; set; }
-            public int Offset { get; set; }
-            public int Limit { get; set; }
-
-            public IEnumerable<Item> Items { get; set; } = Enumerable.Empty<Item>();
         }
     }
 }
