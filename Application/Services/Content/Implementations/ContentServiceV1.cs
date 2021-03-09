@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WidePictBoard.Application.Common;
+using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Application.Services.User.Interfaces;
-using WidePictBoard.Domain;
-using WidePictBoard.Domain.General;
 using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
@@ -16,92 +16,85 @@ namespace WidePictBoard.Application.Services.Content.Implementations
     public sealed class ContentServiceV1 : IContentService
     {
         private readonly IContentRepository _repository;
-        private readonly IUserService _userService;
+        private readonly IIdentityService _identityService;
 
-        public ContentServiceV1(IUserService userService, IContentRepository repository)
+        public ContentServiceV1(IContentRepository repository, IIdentityService identityService)
         {
-            _userService = userService;
             _repository = repository;
+            _identityService = identityService;
         }
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
-            var user = await _userService.GetCurrent(cancellationToken);
-            var ad = new Domain.Content
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var content = new Domain.Content
             {
-                FirstName = request.Name,
-                LastName = request.Name,
                 Price = request.Price,
                 Status = Domain.Content.Statuses.Created,
-                OwnerId = user.Id,
+                OwnerId = userId,
                 CreatedAt = DateTime.UtcNow
             };
-            await _repository.Save(ad, cancellationToken);
+            await _repository.Save(content, cancellationToken);
 
             return new Create.Response
             {
-                Id = ad.Id
+                Id = content.Id
             };
         }
 
         public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
         {
-            var ad = await _repository.FindById(request.Id, cancellationToken);
+            var content = await _repository.FindById(request.Id, cancellationToken);
 
-            if (ad == null)
+            if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
-            ad.Status = Domain.Content.Statuses.Payed;
-            ad.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(ad, cancellationToken);
+            content.Status = Domain.Content.Statuses.Payed;
+            content.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(content, cancellationToken);
         }
 
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
-            var ad = await _repository.FindById(request.Id, cancellationToken);
-            if (ad == null)
+            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
-            var user = await _userService.GetCurrent(cancellationToken);
-            if (ad.Owner.Id != user.Id)
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin && content.OwnerId != userId)
             {
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            ad.Status = Domain.Content.Statuses.Closed;
-            ad.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(ad, cancellationToken);
+            content.Status = Domain.Content.Statuses.Closed;
+            content.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(content, cancellationToken);
         }
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var c = CategoryType.Auto;
-            var ad = await _repository.FindByIdAndCategory(request.Id, CategoryType.Auto, cancellationToken);
-            if (ad == null)
+            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
-            var result = new GetById.Response
+            return new GetById.Response
             {
-                Name = $"{ad.FirstName } {ad.LastName }",
                 Owner = new GetById.Response.OwnerResponse
                 {
-                    Id = ad.Owner.Id,
-                    Name = ad.Owner.Name
+                    Id = content.Owner.Id,
+                    Name = $"{content.Owner.FirstName} {content.Owner.LastName} {content.Owner.MiddleName}".Trim()
                 },
-
-                Price = ad.Price,
-                Status = ad.Status.ToString(),
-
-                Category = ad.Category
+                Price = content.Price,
+                Status = content.Status.ToString()
             };
-
-            return result;
         }
 
         public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
@@ -131,7 +124,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Items = ads.Select(ad => new GetPaged.Response.AdResponse
                 {
                     Id = ad.Id,
-                    Name = $"{ad.FirstName} {ad.LastName}",
+                    Name = $"TEST",
                     Price = ad.Price,
                     Status = ad.Status.ToString()
                 }),
