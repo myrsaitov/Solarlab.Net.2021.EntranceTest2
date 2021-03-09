@@ -1,7 +1,7 @@
 using System.Text;
 using WidePictBoard.Infrastructure;
 using WidePictBoard.Infrastructure.DataAccess;
-using WidePictBoard.API.Controllers;
+using WidePictBoard.PublicApi.Controllers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using WidePictBoard.PublicApi.Controllers;
 
 
 namespace WidePictBoard.API

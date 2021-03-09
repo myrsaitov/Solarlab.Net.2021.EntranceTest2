@@ -10,8 +10,12 @@ namespace WidePictBoard.Infrastructure
     {
         public static IServiceCollection AddApplicationModule(this IServiceCollection services)
         {
-            //services.AddScoped<IContentService, ContentServiceV1>();
+
+            
+            services.AddScoped<IContentService, ContentServiceV1>();
             services.AddScoped<IUserService, UserServiceV1>();
+           // services.AddScoped<IContentService, ContentServiceV1>();
+           // services.AddScoped<IUserService, UserServiceV1>();
 
             return services;
         }

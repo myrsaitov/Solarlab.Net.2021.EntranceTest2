@@ -5,6 +5,7 @@ using WidePictBoard.Infrastructure.DataAccess;
 using WidePictBoard.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WidePictBoard.Infrastructure.Migrations;
 using InMemoryRepository = WidePictBoard.Infrastructure.DataAccess.Repositories.InMemoryRepository;
 
 
@@ -44,8 +45,8 @@ namespace WidePictBoard.Infrastructure
             {
                 options.UseSqlServer(connectionString, builder =>
                     builder.MigrationsAssembly(
-                         typeof( DataAccessModule).Assembly.FullName)
-                        //typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                        // typeof( DataAccessModule).Assembly.FullName)
+                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
                 );
             });
 
@@ -59,8 +60,8 @@ namespace WidePictBoard.Infrastructure
             {
                 options.UseNpgsql(connectionString, builder =>
                     builder.MigrationsAssembly(
-                        typeof( DataAccessModule).Assembly.FullName)
-                        //typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                        //typeof( DataAccessModule).Assembly.FullName)
+                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
                 );
             });
 
