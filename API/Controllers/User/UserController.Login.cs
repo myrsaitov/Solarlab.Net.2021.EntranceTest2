@@ -21,7 +21,7 @@ namespace WidePictBoard.API.Controllers.User
         {
             _userService = userService;
         }
-        
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginRequest request, CancellationToken cancellationToken)
         {
@@ -38,7 +38,7 @@ namespace WidePictBoard.API.Controllers.User
         {
             [Required]
             public string UserName { get; set; }
-            
+
             [Required]
             public string Password { get; set; }
         }

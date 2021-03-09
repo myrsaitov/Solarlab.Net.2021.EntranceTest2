@@ -14,7 +14,7 @@ namespace WidePictBoard.API.Controllers.User
             [Required]
             [MaxLength(30, ErrorMessage = "Максимальная длина имени не должна превышать 30 символов")]
             public string Name { get; set; }
-            
+
             [Required]
             public string Password { get; set; }
         }
@@ -28,8 +28,8 @@ namespace WidePictBoard.API.Controllers.User
                 Name = request.Name,
                 Password = request.Password
             }, cancellationToken);
-            
-            return Created($"api/v1/users/{user.UserId}", new {});
+
+            return Created($"api/v1/users/{user.UserId}", new { });
         }
     }
 }

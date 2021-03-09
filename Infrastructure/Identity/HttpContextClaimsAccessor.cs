@@ -2,9 +2,8 @@
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.User.Interfaces;
-using Microsoft.AspNetCore.Http;
 using WidePictBoard.Application;
+using Microsoft.AspNetCore.Http;
 
 namespace WidePictBoard.Infrastructure.Identity
 {

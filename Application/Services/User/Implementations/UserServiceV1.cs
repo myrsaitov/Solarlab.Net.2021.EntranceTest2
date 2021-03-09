@@ -6,25 +6,23 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.User.Contracts.Exceptions;
-using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.User.Contracts;
+using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Interfaces;
+using WidePictBoard.Domain.General.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using WidePictBoard.Application;
-using WidePictBoard.Domain.General.Exceptions;
-using WidePictBoard;
 
 namespace WidePictBoard.Application.Services.User.Implementations
 {
     public sealed class UserServiceV1 : IUserService
     {
-        private readonly IRepository<Domain.User, int> _repository;
+        private readonly WidePictBoard.Application.Repositories.IRepository<Domain.User, int> _repository;
         private readonly IClaimsAccessor _claimsAccessor;
         private readonly IConfiguration _configuration;
 
-        public UserServiceV1(IRepository<Domain.User, int> repository,  IConfiguration configuration, IClaimsAccessor claimsAccessor)
+        public UserServiceV1(WidePictBoard.Application.Repositories.IRepository<Domain.User, int> repository, IConfiguration configuration, IClaimsAccessor claimsAccessor)
         {
             _repository = repository;
             _configuration = configuration;
@@ -67,7 +65,7 @@ namespace WidePictBoard.Application.Services.User.Implementations
             {
                 throw new ConflictException("Пользователь с таким именем уже зарегестрирован!");
             }
-            
+
             await _repository.Save(user, cancellationToken);
 
             return new Register.Response
@@ -87,14 +85,14 @@ namespace WidePictBoard.Application.Services.User.Implementations
             if (!user.Password.Equals(loginRequest.Password))
             {
                 throw new NoRightsException("Нет прав");
-            }            
-            
+            }
+
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Name, loginRequest.Name),
-                new(ClaimTypes.NameIdentifier, user.Id.ToString()) 
+                new(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
-            
+
             var token = new JwtSecurityToken
             (
                 claims: claims,

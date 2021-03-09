@@ -9,11 +9,11 @@ namespace WidePictBoard.Infrastructure.DataAccess
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-
+            
         }
 
-        public DbSet<Content> Contents { get; set; }
-
+        public DbSet<Content> Ads { get; set; }
+        
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,10 +21,10 @@ namespace WidePictBoard.Infrastructure.DataAccess
             modelBuilder.Entity<Content>(builder =>
             {
                 builder.HasKey(x => x.Id);
-
+                
                 builder.Property(x => x.CreatedAt).IsRequired();
                 builder.Property(x => x.UpdatedAt).IsRequired(false);
-
+                
                 builder.Property(x => x.Name).HasMaxLength(100).IsUnicode();
                 builder.Property(x => x.Price).HasColumnType("money");
 
@@ -36,11 +36,11 @@ namespace WidePictBoard.Infrastructure.DataAccess
                     .HasForeignKey(s => s.OwnerId)
                     .HasPrincipalKey(u => u.Id);
             });
-
+            
             modelBuilder.Entity<User>(builder =>
             {
                 builder.HasKey(x => x.Id);
-
+                
                 builder.Property(x => x.CreatedAt).IsRequired();
                 builder.Property(x => x.UpdatedAt).IsRequired(false);
 
@@ -51,7 +51,7 @@ namespace WidePictBoard.Infrastructure.DataAccess
                 builder.Property(x => x.Password)
                     .IsRequired();
             });
-
+            
             base.OnModelCreating(modelBuilder);
         }
     }

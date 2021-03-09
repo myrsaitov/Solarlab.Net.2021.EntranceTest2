@@ -1,11 +1,11 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
-using WidePictBoard.Application;
+using WidePictBoard.Application.Repositories;
 using WidePictBoard.Domain;
 using WidePictBoard.Infrastructure.DataAccess;
-using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.Application.Repositories;
 using WidePictBoard.Infrastructure.DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using InMemoryRepository = WidePictBoard.Infrastructure.DataAccess.Repositories.InMemoryRepository;
 
 
 namespace WidePictBoard.Infrastructure

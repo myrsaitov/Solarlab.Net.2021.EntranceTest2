@@ -9,7 +9,6 @@ using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 
-
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
     public sealed class ContentServiceV1 : IContentService
@@ -26,7 +25,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             var user = await _userService.GetCurrent(cancellationToken);
-            var content = new Domain.Content
+            var ad = new Domain.Content
             {
                 Name = request.Name,
                 Price = request.Price,
@@ -34,45 +33,45 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 OwnerId = user.Id,
                 CreatedAt = DateTime.UtcNow
             };
-            await _repository.Save(content, cancellationToken);
+            await _repository.Save(ad, cancellationToken);
 
             return new Create.Response
             {
-                Id = content.Id
+                Id = ad.Id
             };
         }
 
         public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindById(request.Id, cancellationToken);
+            var ad = await _repository.FindById(request.Id, cancellationToken);
 
-            if (content == null)
+            if (ad == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
-            content.Status = Domain.Content.Statuses.Payed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
+            ad.Status = Domain.Content.Statuses.Payed;
+            ad.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(ad, cancellationToken);
         }
 
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindById(request.Id, cancellationToken);
-            if (content == null)
+            var ad = await _repository.FindById(request.Id, cancellationToken);
+            if (ad == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
             var user = await _userService.GetCurrent(cancellationToken);
-            if (content.Owner.Id != user.Id)
+            if (ad.Owner.Id != user.Id)
             {
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            content.Status = Domain.Content.Statuses.Closed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
+            ad.Status = Domain.Content.Statuses.Closed;
+            ad.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(ad, cancellationToken);
         }
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
@@ -113,19 +112,19 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 };
             }
 
-            var contents = await _repository.GetPaged(
+            var ads = await _repository.GetPaged(
                 request.Offset, request.Limit, cancellationToken
             );
 
 
             return new GetPaged.Response
             {
-                Items = contents.Select(content => new GetPaged.Response.AdResponse
+                Items = ads.Select(ad => new GetPaged.Response.AdResponse
                 {
-                    Id = content.Id,
-                    Name = content.Name,
-                    Price = content.Price,
-                    Status = content.Status.ToString()
+                    Id = ad.Id,
+                    Name = ad.Name,
+                    Price = ad.Price,
+                    Status = ad.Status.ToString()
                 }),
                 Total = total,
                 Offset = request.Offset,

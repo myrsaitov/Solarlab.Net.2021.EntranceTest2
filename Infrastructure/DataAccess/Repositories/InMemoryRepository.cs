@@ -15,11 +15,11 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         IRepository<User, int>
     {
         private readonly ConcurrentDictionary<int, User> _users = new();
-        private readonly ConcurrentDictionary<int, Content> _contents = new();
+        private readonly ConcurrentDictionary<int, Content> _ads = new();
 
         async Task<Content> IRepository<Content, int>.FindById(int id, CancellationToken cancellationToken)
         {
-            if (_contents.TryGetValue(id, out var ad))
+            if (_ads.TryGetValue(id, out var ad))
             {
                 _users.TryGetValue(ad.OwnerId, out var user);
                 ad.Owner = user;
@@ -83,13 +83,13 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 entity.Id = Guid.NewGuid().GetHashCode();
             }
 
-            _contents.AddOrUpdate(entity.Id, (e) => entity, (i, user) => entity);
+            _ads.AddOrUpdate(entity.Id, (e) => entity, (i, user) => entity);
         }
 
         public async Task<Content> FindWhere(Expression<Func<Content, bool>> predicate, CancellationToken cancellationToken)
         {
             var compiled = predicate.Compile();
-            return _contents.Select(pair => pair.Value).Where(compiled).FirstOrDefault();
+            return _ads.Select(pair => pair.Value).Where(compiled).FirstOrDefault();
         }
 
         async Task<User> IRepository<User, int>.FindById(int id, CancellationToken cancellationToken)
@@ -104,18 +104,18 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 
         async Task<int> IRepository<Content, int>.Count(CancellationToken cancellationToken)
         {
-            return _contents.Count;
+            return _ads.Count;
         }
 
         public async Task<int> Count(Expression<Func<Content, bool>> predicate, CancellationToken cancellationToken)
         {
             var compiled = predicate.Compile();
-            return _contents.Select(pair => pair.Value).Where(compiled).Count();
+            return _ads.Select(pair => pair.Value).Where(compiled).Count();
         }
 
         async Task<IEnumerable<Content>> IRepository<Content, int>.GetPaged(int offset, int limit, CancellationToken cancellationToken)
         {
-            return _contents
+            return _ads
                 .Select(pair => pair.Value)
                 .OrderBy(u => u.Id)
                 .Skip(offset)
@@ -125,7 +125,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         public async Task<IEnumerable<Content>> GetPaged(Expression<Func<Content, bool>> predicate, int offset, int limit, CancellationToken cancellationToken)
         {
             var compiled = predicate.Compile();
-            return _contents
+            return _ads
                 .Select(pair => pair.Value)
                 .OrderBy(u => u.Id)
                 .Where(compiled)

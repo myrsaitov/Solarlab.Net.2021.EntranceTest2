@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using WidePictBoard.Application.Services.User.Interfaces;
-using WidePictBoard.API.Controllers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WidePictBoard.API.Controllers.User
 {
