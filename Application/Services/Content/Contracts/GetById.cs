@@ -1,4 +1,6 @@
-﻿namespace WidePictBoard.Application.Services.Content.Contracts
+﻿using WidePictBoard.Domain;
+
+namespace WidePictBoard.Application.Services.Content.Contracts
 {
 
     public static class Pay

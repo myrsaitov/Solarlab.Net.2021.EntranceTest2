@@ -7,16 +7,18 @@ using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Application.Services.User.Interfaces;
+using WidePictBoard.Domain;
+using WidePictBoard.Domain.General;
 using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
     public sealed class ContentServiceV1 : IContentService
     {
-        private readonly IRepository<Domain.Content, int> _repository;
+        private readonly IContentRepository _repository;
         private readonly IUserService _userService;
 
-        public ContentServiceV1(IUserService userService, IRepository<Domain.Content, int> repository)
+        public ContentServiceV1(IUserService userService, IContentRepository repository)
         {
             _userService = userService;
             _repository = repository;
@@ -27,7 +29,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             var user = await _userService.GetCurrent(cancellationToken);
             var ad = new Domain.Content
             {
-                Name = request.Name,
+                FirstName = request.Name,
+                LastName = request.Name,
                 Price = request.Price,
                 Status = Domain.Content.Statuses.Created,
                 OwnerId = user.Id,
@@ -47,10 +50,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             if (ad == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new AdNotFoundException(request.Id);
             }
 
-            ad.Status = Domain.Content.Statuses.Payed;
+            ad.Status = Domain.Ad.Statuses.Payed;
             ad.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(ad, cancellationToken);
         }
@@ -60,7 +63,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             var ad = await _repository.FindById(request.Id, cancellationToken);
             if (ad == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new AdNotFoundException(request.Id);
             }
 
             var user = await _userService.GetCurrent(cancellationToken);
@@ -69,30 +72,36 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            ad.Status = Domain.Content.Statuses.Closed;
+            ad.Status = Domain.Ad.Statuses.Closed;
             ad.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(ad, cancellationToken);
         }
 
-        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
+        public async Task<Get.Response> Get(Get.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindById(request.Id, cancellationToken);
-            if (content == null)
+            var c = CategoryType.Auto;
+            var ad = await _repository.FindByIdAndCategory(request.Id, CategoryType.Auto, cancellationToken);
+            if (ad == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new AdNotFoundException(request.Id);
             }
 
-            return new GetById.Response
+            var result = new Get.Response
             {
-                Name = content.Name,
-                Owner = new GetById.Response.OwnerResponse
+                Name = $"{ad.FirstName } {ad.LastName }",
+                Owner = new Get.Response.OwnerResponse
                 {
-                    Id = content.Owner.Id,
-                    Name = content.Owner.Name
+                    Id = ad.Owner.Id,
+                    Name = ad.Owner.Name
                 },
-                Price = content.Price,
-                Status = content.Status.ToString()
+
+                Price = ad.Price,
+                Status = ad.Status.ToString(),
+
+                Category = ad.Category
             };
+
+            return result;
         }
 
         public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
@@ -122,7 +131,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Items = ads.Select(ad => new GetPaged.Response.AdResponse
                 {
                     Id = ad.Id,
-                    Name = ad.Name,
+                    Name = $"{ad.FirstName} {ad.LastName}",
                     Price = ad.Price,
                     Status = ad.Status.ToString()
                 }),
