@@ -3,11 +3,10 @@ using WidePictBoard.Application.Repositories;
 using WidePictBoard.Domain;
 using WidePictBoard.Infrastructure.DataAccess;
 using WidePictBoard.Infrastructure.DataAccess.Repositories;
+using WidePictBoard.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.Infrastructure.Migrations;
 using InMemoryRepository = WidePictBoard.Infrastructure.DataAccess.Repositories.InMemoryRepository;
-
 
 namespace WidePictBoard.Infrastructure
 {
@@ -41,32 +40,35 @@ namespace WidePictBoard.Infrastructure
 
         public static void InSqlServer(this ModuleConfiguration moduleConfiguration, string connectionString)
         {
-            moduleConfiguration.Services.AddDbContextPool<DatabaseContext>(options =>
-            {
-                options.UseSqlServer(connectionString, builder =>
-                    builder.MigrationsAssembly(
-                        // typeof( DataAccessModule).Assembly.FullName)
-                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
-                );
-            });
+            moduleConfiguration.Services
+                .AddDbContextPool<DatabaseContext>(options =>
+                {
+                    options.
+                        UseSqlServer(connectionString, builder =>
+                        builder.MigrationsAssembly(
+                            //typeof( DataAccessModule).Assembly.FullName)
+                            typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+                    );
+                });
 
-            moduleConfiguration.Services.AddScoped<IRepository<Content, int>, EfRepository<Content, int>>();
-            moduleConfiguration.Services.AddScoped<IRepository<User, int>, EfRepository<User, int>>();
+            moduleConfiguration.Services.AddScoped<IContentRepository, ContentRepository>();
+
+            moduleConfiguration.Services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
         }
 
-        public static void InPostgress(this ModuleConfiguration moduleConfiguration, string connectionString)
-        {
-            moduleConfiguration.Services.AddDbContextPool<DatabaseContext>(options =>
-            {
-                options.UseNpgsql(connectionString, builder =>
-                    builder.MigrationsAssembly(
-                        //typeof( DataAccessModule).Assembly.FullName)
-                        typeof(DatabaseContextModelSnapshot).Assembly.FullName)
-                );
-            });
-
-            moduleConfiguration.Services.AddScoped<IRepository<Content, int>, EfRepository<Content, int>>();
-            moduleConfiguration.Services.AddScoped<IRepository<User, int>, EfRepository<User, int>>();
-        }
+        // public static void InPostgress(this ModuleConfiguration moduleConfiguration, string connectionString)
+        // {
+        // moduleConfiguration.Services.AddDbContextPool<DatabaseContext>(options =>
+        // {
+        //     options.UseNpgsql(connectionString, builder =>
+        //         builder.MigrationsAssembly(
+        //             //typeof( DataAccessModule).Assembly.FullName)
+        //             //typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+        //     );
+        // });
+        //
+        // moduleConfiguration.Services.AddScoped<IRepository<Ad, int>, EfRepository<Ad, int>>();
+        // moduleConfiguration.Services.AddScoped<IRepository<User, int>, EfRepository<User, int>>();
+        // }
     }
 }
