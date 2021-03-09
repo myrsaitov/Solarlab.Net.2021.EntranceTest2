@@ -9,9 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using WidePictBoard.API;
 
-namespace WidePictBoard.PublicApi
+namespace WidePictBoard.API
 {
     public class Startup
     {
@@ -32,35 +31,16 @@ namespace WidePictBoard.PublicApi
             services
                 .AddApplicationModule()
                 .AddHttpContextAccessor()
-                .AddInfrastructureModule(configuration => configuration.IdentityFromHttpContext())
-
-
                 .AddDataAccessModule(configuration =>
 
                     //configuration.InMemory()
                     configuration.InSqlServer(Configuration.GetConnectionString("SqlServerDb"))
                 //configuration.InPostgress(Configuration.GetConnectionString("PostgresDb"))
-                );
+                )
+                .AddIdentity(Configuration);
 
-
-            services.AddHttpContextAccessor();
 
             services.AddSwaggerModule();
-
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, jwtBearerOptions =>
-                {
-                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateActor = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateIssuer = false,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Token:Key"]))
-                    };
-                });
 
             services.AddApplicationException(config => { config.DefaultErrorStatusCode = 500; });
         }
