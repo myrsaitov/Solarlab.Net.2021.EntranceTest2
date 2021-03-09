@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using WidePictBoard.Application.Services.Content.Interfaces;
 using System.Collections.Generic;
-using WidePictBoard.API.Controllers.User;
 using WidePictBoard.API.Controllers;
 
 

@@ -2,7 +2,7 @@
 
 namespace WidePictBoard.Domain
 {
-    public sealed class User : EntityMutable<int>
+    public sealed class User : EntityMutable<string>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.API.Controllers.User;
 using Microsoft.AspNetCore.Mvc;
 
 

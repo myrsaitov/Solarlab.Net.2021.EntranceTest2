@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
 {
-    public class AdConfiguration : IEntityTypeConfiguration<Content>
+    public class ContentConfiguration : IEntityTypeConfiguration<Content>
     {
         public void Configure(EntityTypeBuilder<Content> builder)
         {
