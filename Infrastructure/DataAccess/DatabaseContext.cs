@@ -18,7 +18,7 @@ namespace WidePictBoard.Infrastructure.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AdConfiguration());
+            modelBuilder.ApplyConfiguration(new ContentConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 

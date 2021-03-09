@@ -10,9 +10,15 @@ namespace WidePictBoard.API.Controllers.Content
 {
     public partial class ContentController
     {
+        /// <summary>
+        /// Получение всех закупок
+        /// </summary>
+        /// <param name="request">Dto объявления</param>
+        /// <param name="cancellationToken">cancellationToken</param>
+        /// <returns>Коллекция закупок</returns>
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll([FromQuery]GetAllRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
             var result = await _contentService.GetPaged(new GetPaged.Request
             {
@@ -42,7 +48,7 @@ namespace WidePictBoard.API.Controllers.Content
             /// Количество возвращаемых объявлений
             /// </summary>
             public int Limit { get; set; } = 20;
-            
+
             /// <summary>
             /// Смещение начиная с котрого возвращаются объявления
             /// </summary>

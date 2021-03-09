@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Advertisement.Infrastructure.DataAccess
+namespace WidePictBoard.Infrastructure.DataAccess
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
