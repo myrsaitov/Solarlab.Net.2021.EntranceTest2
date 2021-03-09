@@ -3,103 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WidePictBoard.Infrastructure.Migrations
 {
-    public partial class AddIdentity : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Ads_Users_OwnerId",
-                table: "Ads");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Users",
-                table: "Users");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Ads",
-                table: "Ads");
-
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Password",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "Ads");
-
-            migrationBuilder.RenameTable(
-                name: "Users",
-                newName: "DomainUsers");
-
-            migrationBuilder.RenameTable(
-                name: "Ads",
-                newName: "Contents");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Ads_OwnerId",
-                table: "Contents",
-                newName: "IX_Contents_OwnerId");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Id",
-                table: "DomainUsers",
-                type: "nvarchar(450)",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<string>(
-                name: "FirstName",
-                table: "DomainUsers",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "LastName",
-                table: "DomainUsers",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "MiddleName",
-                table: "DomainUsers",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "OwnerId",
-                table: "Contents",
-                type: "nvarchar(450)",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
-
-            migrationBuilder.AddColumn<int>(
-                name: "CategoryId",
-                table: "Contents",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_DomainUsers",
-                table: "DomainUsers",
-                column: "Id");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Contents",
-                table: "Contents",
-                column: "Id");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -159,6 +66,22 @@ namespace WidePictBoard.Infrastructure.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DomainUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DomainUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -267,19 +190,49 @@ namespace WidePictBoard.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Contents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Price = table.Column<decimal>(type: "money", nullable: false),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contents_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contents_DomainUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "d3300ca5-846f-4e6b-ac5f-1d3933115e67", "af60dcc1-ddf2-4d56-bf32-c34c3e5dbd1d", "Admin", "ADMIN" },
-                    { "185230d2-58d8-4e29-aefd-a257fb82a150", "56393bab-066f-439a-b3b6-513dcdb2a2a8", "User", "USER" }
+                    { "d3300ca5-846f-4e6b-ac5f-1d3933115e67", "cb0d50bb-1a0d-4b97-99b8-8945ed7bbd35", "Admin", "ADMIN" },
+                    { "185230d2-58d8-4e29-aefd-a257fb82a150", "c8d75b22-df9a-4834-845d-72258d0e4736", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "98b651ae-c9aa-4731-9996-57352d525f7e", 0, "868a4f37-2244-4552-aef2-47e9bbf15031", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEMdRg0VK/DJgjoTaCwp0LpEv6kYiurFMQV+VgXfo/+g+kgtljPejql7dRHBPY+zEUA==", null, false, "91831f4c-dde8-4806-a829-809c3e76eadd", false, "admin" });
+                values: new object[] { "98b651ae-c9aa-4731-9996-57352d525f7e", 0, "151ad33f-3173-4722-ae55-e74cf2090c25", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEP44bLoL7WEtCl2TBnFfwyEUALlUilYsu/f+syHOfxfs6sdWjb5eFNDiA9ciRe8BLw==", null, false, "a18560a5-1313-45a0-ac47-5763ad940183", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -290,11 +243,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { "d3300ca5-846f-4e6b-ac5f-1d3933115e67", "98b651ae-c9aa-4731-9996-57352d525f7e" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contents_CategoryId",
-                table: "Contents",
-                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -340,33 +288,19 @@ namespace WidePictBoard.Infrastructure.Migrations
                 table: "Categories",
                 column: "ParentCategoryId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Contents_Categories_CategoryId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Contents_CategoryId",
                 table: "Contents",
-                column: "CategoryId",
-                principalTable: "Categories",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                column: "CategoryId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Contents_DomainUsers_OwnerId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Contents_OwnerId",
                 table: "Contents",
-                column: "OwnerId",
-                principalTable: "DomainUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Contents_Categories_CategoryId",
-                table: "Contents");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Contents_DomainUsers_OwnerId",
-                table: "Contents");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -383,7 +317,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Contents");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -391,105 +325,11 @@ namespace WidePictBoard.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_DomainUsers",
-                table: "DomainUsers");
+            migrationBuilder.DropTable(
+                name: "Categories");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Contents",
-                table: "Contents");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Contents_CategoryId",
-                table: "Contents");
-
-            migrationBuilder.DropColumn(
-                name: "FirstName",
-                table: "DomainUsers");
-
-            migrationBuilder.DropColumn(
-                name: "LastName",
-                table: "DomainUsers");
-
-            migrationBuilder.DropColumn(
-                name: "MiddleName",
-                table: "DomainUsers");
-
-            migrationBuilder.DropColumn(
-                name: "CategoryId",
-                table: "Contents");
-
-            migrationBuilder.RenameTable(
-                name: "DomainUsers",
-                newName: "Users");
-
-            migrationBuilder.RenameTable(
-                name: "Contents",
-                newName: "Ads");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_Contents_OwnerId",
-                table: "Ads",
-                newName: "IX_Ads_OwnerId");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "Id",
-                table: "Users",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)")
-                .Annotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "Users",
-                type: "nvarchar(30)",
-                maxLength: 30,
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Password",
-                table: "Users",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "OwnerId",
-                table: "Ads",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)",
-                oldNullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "Ads",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: true);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Users",
-                table: "Users",
-                column: "Id");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Ads",
-                table: "Ads",
-                column: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Ads_Users_OwnerId",
-                table: "Ads",
-                column: "OwnerId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            migrationBuilder.DropTable(
+                name: "DomainUsers");
         }
     }
 }

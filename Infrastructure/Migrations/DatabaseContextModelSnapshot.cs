@@ -49,14 +49,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "81957380-475c-4b8d-bb89-f113ebbe654d",
+                            ConcurrencyStamp = "cb0d50bb-1a0d-4b97-99b8-8945ed7bbd35",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "4203ca41-693c-49fb-b576-a8c798408ef2",
+                            ConcurrencyStamp = "c8d75b22-df9a-4834-845d-72258d0e4736",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -344,13 +344,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f8773b9-6d03-4f59-86b4-ebfe03484365",
+                            ConcurrencyStamp = "151ad33f-3173-4722-ae55-e74cf2090c25",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHLuIVyqLz8imBr7BQeLvtfIFozA7XeWKzu/Yh2oZ1leuuws2pakc5HH772q1TYZqg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP44bLoL7WEtCl2TBnFfwyEUALlUilYsu/f+syHOfxfs6sdWjb5eFNDiA9ciRe8BLw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a98876e-c893-4495-92fc-46f44aab7548",
+                            SecurityStamp = "a18560a5-1313-45a0-ac47-5763ad940183",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
