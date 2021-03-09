@@ -12,7 +12,7 @@ namespace WidePictBoard.Infrastructure.DataAccess
             
         }
 
-        public DbSet<Content> Ads { get; set; }
+        public DbSet<Content> Contents { get; set; }
         
         public DbSet<User> Users { get; set; }
 
