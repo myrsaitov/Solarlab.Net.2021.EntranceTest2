@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Mapster" Version="7.1.3" />
+      <PackageReference Include="Mapster" Version="7.1.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">
         <PrivateAssets>all</PrivateAssets>
@@ -33,7 +33,6 @@
       </PackageReference>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
-      <PackageReference Include="Tulkas.Core.DependencyResolvers" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

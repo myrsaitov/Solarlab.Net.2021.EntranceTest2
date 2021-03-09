@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using WidePictBoard.API.Controllers;
 
 namespace Advertisement.PublicApi.Controllers
 {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,22 +13,6 @@ namespace WidePictBoard.API.Controllers.User
     [AllowAnonymous]
     public partial class UserController : ControllerBase
     {
-        public static readonly List<User> Users = new();
-
-        public sealed class User
-        {
-            public int Id { get; set; }
-
-            public string Name { get; set; }
-
-            public string Password { get; set; }
-        }
-
-        public sealed class UserDto
-        {
-            public int Id { get; set; }
-
-            public string Name { get; set; }
-        }
+        private readonly IUserService _userService;
     }
 }

@@ -15,7 +15,7 @@ namespace WidePictBoard.Infrastructure
         {
             services.AddScoped<IUserService, UserServiceV1>();
             services.AddScoped<IContentService, ContentServiceV1>();
-            services.AddScoped<ICommentService, CommentServiceV1>();
+           // services.AddScoped<ICommentService, CommentServiceV1>();
 
             return services;
         }
