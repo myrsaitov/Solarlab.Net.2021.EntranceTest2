@@ -50,10 +50,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             if (ad == null)
             {
-                throw new AdNotFoundException(request.Id);
+                throw new ContentNotFoundException(request.Id);
             }
 
-            ad.Status = Domain.Ad.Statuses.Payed;
+            ad.Status = Domain.Content.Statuses.Payed;
             ad.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(ad, cancellationToken);
         }
@@ -63,7 +63,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             var ad = await _repository.FindById(request.Id, cancellationToken);
             if (ad == null)
             {
-                throw new AdNotFoundException(request.Id);
+                throw new ContentNotFoundException(request.Id);
             }
 
             var user = await _userService.GetCurrent(cancellationToken);
@@ -72,24 +72,24 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            ad.Status = Domain.Ad.Statuses.Closed;
+            ad.Status = Domain.Content.Statuses.Closed;
             ad.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(ad, cancellationToken);
         }
 
-        public async Task<Get.Response> Get(Get.Request request, CancellationToken cancellationToken)
+        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var c = CategoryType.Auto;
             var ad = await _repository.FindByIdAndCategory(request.Id, CategoryType.Auto, cancellationToken);
             if (ad == null)
             {
-                throw new AdNotFoundException(request.Id);
+                throw new ContentNotFoundException(request.Id);
             }
 
-            var result = new Get.Response
+            var result = new GetById.Response
             {
                 Name = $"{ad.FirstName } {ad.LastName }",
-                Owner = new Get.Response.OwnerResponse
+                Owner = new GetById.Response.OwnerResponse
                 {
                     Id = ad.Owner.Id,
                     Name = ad.Owner.Name
