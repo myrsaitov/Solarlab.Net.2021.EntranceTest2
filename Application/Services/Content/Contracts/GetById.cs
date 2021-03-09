@@ -29,6 +29,8 @@
             public decimal Price { get; set; }
 
             public OwnerResponse Owner { get; set; }
+
+            public Category Category { get; set; }
         }
     }
 }
