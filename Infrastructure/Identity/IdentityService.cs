@@ -6,9 +6,11 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using WidePictBoard.Application.Identity.Contracts;
 using WidePictBoard.Application.Identity.Contracts.Exceptions;
 using WidePictBoard.Application.Identity.Interfaces;
+using WidePictBoard.Application.Services.Mail.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -22,12 +24,14 @@ namespace WidePictBoard.Infrastructure.Identity
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IMailService _mailService;
 
-        public IdentityService(IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public IdentityService(IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager, IConfiguration configuration, IMailService mailService)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
             _configuration = configuration;
+            _mailService = mailService;
         }
 
         public Task<string> GetCurrentUserId(CancellationToken cancellationToken = default)
@@ -55,12 +59,23 @@ namespace WidePictBoard.Infrastructure.Identity
                 throw new ConflictException("Пользователь с таким именем уже существует");
             }
 
-            var identityUser = new IdentityUser {UserName = request.Username};
+            var identityUser = new IdentityUser
+            {
+                UserName = request.Username,
+                Email = request.Email
+            };
+
             var identityResult = await _userManager.CreateAsync(identityUser, request.Password);
 
             if (identityResult.Succeeded)
             {
                 await _userManager.AddToRoleAsync(identityUser, request.Role);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(identityUser);
+                var encodedToken = HttpUtility.UrlEncode(token);
+                var message = $"<a href=\"{_configuration["ApiUri"]}api/v1/users/confirm?userId={identityUser.Id}&token={encodedToken}\">Нажми меня</a>";
+
+                await _mailService.Send(request.Email, "Подтверди почту!", message, cancellationToken);
+
                 return new CreateUser.Response
                 {
                     UserId = identityUser.Id,
@@ -89,6 +104,12 @@ namespace WidePictBoard.Infrastructure.Identity
                 throw new NoRightsException("Неправильный логин или пароль");
             }
 
+            //var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(identityUser);
+            //if (!isEmailConfirmed)
+            //{
+            //    throw new NoRightsException("Почта не подтверждена");
+            //}
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, request.Username),
@@ -113,6 +134,19 @@ namespace WidePictBoard.Infrastructure.Identity
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token)
             };
+        }
+
+        public async Task<bool> ConfirmEmail(string userId, string token, CancellationToken cancellationToken = default)
+        {
+            var identityUser = await _userManager.FindByIdAsync(userId);
+            if (identityUser == null)
+            {
+                throw new IdentityUserNotFoundException("Пользователь не найден");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(identityUser, token);
+
+            return result.Succeeded;
         }
     }
 }

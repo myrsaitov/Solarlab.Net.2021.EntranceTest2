@@ -53,6 +53,19 @@ namespace WidePictBoard.Infrastructure
             moduleConfiguration.Services.AddScoped<IContentRepository, ContentRepository>();
         }
 
-
+        // public static void InPostgress(this ModuleConfiguration moduleConfiguration, string connectionString)
+        // {
+        // moduleConfiguration.Services.AddDbContextPool<DatabaseContext>(options =>
+        // {
+        //     options.UseNpgsql(connectionString, builder =>
+        //         builder.MigrationsAssembly(
+        //             //typeof( DataAccessModule).Assembly.FullName)
+        //             //typeof(DatabaseContextModelSnapshot).Assembly.FullName)
+        //     );
+        // });
+        //
+        // moduleConfiguration.Services.AddScoped<IRepository<Ad, int>, EfRepository<Ad, int>>();
+        // moduleConfiguration.Services.AddScoped<IRepository<User, int>, EfRepository<User, int>>();
+        // }
     }
 }
