@@ -7,7 +7,7 @@ using WidePictBoard.Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Advertisement.Infrastructure
+namespace WidePictBoard.Infrastructure
 {
     public static class ApplicationModule
     {
