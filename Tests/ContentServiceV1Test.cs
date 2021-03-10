@@ -1,7 +1,7 @@
 ﻿using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Ad.Contracts;
-using WidePictBoard.Application.Services.Ad.Implementations;
+using WidePictBoard.Application.Services.Content.Contracts;
+using WidePictBoard.Application.Services.Content.Implementations;
 using AutoFixture.Xunit2;
 using Moq;
 using System;
@@ -16,8 +16,8 @@ namespace WidePictBoard.Tests
         private Mock<IContentRepository> _adRepositoryMock;
         private Mock<IIdentityService> _identityServiceMock;
 
-        private AdServiceV1 _adServiceV1;
-        public AdServiceV1Test()
+        private ContentServiceV1 _adServiceV1;
+        public ContentServiceV1Test()
         {
             _adRepositoryMock = new Mock<IContentRepository>();
             _identityServiceMock = new Mock<IIdentityService>();

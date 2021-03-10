@@ -1,0 +1,8 @@
+{
+  "username": "myrsaitov",
+  "email": "myrsaitov@gmail.com",
+  "firstName": "Konstantin",
+  "lastName": "Myrsaitov",
+  "middleName": "Michailovich",
+  "password": "Zxs123!@#$%^&*()"
+}

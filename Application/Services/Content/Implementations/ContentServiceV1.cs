@@ -26,7 +26,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
-            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            string userId = await _identityService.GetCurrentUserId(cancellationToken);
             var content = new Domain.Content
             {
                 Price = request.Price,
