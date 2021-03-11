@@ -21,14 +21,14 @@ namespace WidePictBoard.PublicApi.Controllers.User
             public string Email { get; set; }
 
             [Required]
-            [MaxLength(100, ErrorMessage = "Максимальная длина имени не должна превышать 30 символов")]
+            [MaxLength(30, ErrorMessage = "Максимальная длина имени не должна превышать 30 символов")]
             public string FirstName { get; set; }
 
             [Required]
-            [MaxLength(100, ErrorMessage = "Максимальная длина фамилии не должна превышать 30 символов")]
+            [MaxLength(30, ErrorMessage = "Максимальная длина фамилии не должна превышать 30 символов")]
             public string LastName { get; set; }
 
-            [MaxLength(100, ErrorMessage = "Максимальная длина отчества не должна превышать 30 символов")]
+            [MaxLength(30, ErrorMessage = "Максимальная длина отчества не должна превышать 30 символов")]
             public string MiddleName { get; set; }
 
             [Required]
