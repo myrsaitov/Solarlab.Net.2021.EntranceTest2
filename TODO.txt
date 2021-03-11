@@ -1,2 +1,4 @@
 Mapster вместо Automaper
++Newtonsoft.Json на System.Text.Json
+
 Добавить комментарии
