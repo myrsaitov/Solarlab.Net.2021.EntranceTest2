@@ -7,10 +7,11 @@ using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Implementations;
 using AutoFixture;
 using AutoFixture.Xunit2;
-using AutoMapper;
+//using AutoMapper;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
+using MapsterMapper;
 using Xunit;
 
 namespace WidePictBoard.Application.Tests
@@ -27,8 +28,8 @@ namespace WidePictBoard.Application.Tests
         {
             _repositoryMock = new Mock<IRepository<Domain.User, string>>();
             _identityServiceMock = new Mock<IIdentityService>();
-            _mapper = new MapperConfiguration(_ => _.AddProfile(new UserMapProfile())).CreateMapper();
-
+            //_mapper = new MapperConfiguration(_ => _.AddProfile(new UserMapProfile())).CreateMapper();
+            _mapper = (IMapper)UserMapProfile.GetConfiguredMappingConfig();
             _userServiceV1 = new UserServiceV1(_repositoryMock.Object, _identityServiceMock.Object, _mapper);
         }
 

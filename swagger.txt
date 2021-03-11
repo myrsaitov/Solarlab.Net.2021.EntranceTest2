@@ -6,3 +6,12 @@
   "middleName": "Michailovich",
   "password": "Zxs123!@#$%^&*()"
 }
+
+{
+  "username": "myrsaitov2",
+  "email": "myrsaitov2@gmail.com",
+  "firstName": "Konstantin2",
+  "lastName": "Myrsaitov2",
+  "middleName": "Michailovich2",
+  "password": "Zxs1233!@#$%^&*()"
+}

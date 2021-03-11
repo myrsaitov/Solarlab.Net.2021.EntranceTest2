@@ -1,23 +1,28 @@
-﻿using WidePictBoard.Application.Common;
+﻿using Mapster;
+using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Contracts;
 using WidePictBoard.Application.Services.User.Contracts;
-using AutoMapper;
+using MapsterMapper;
+
 
 namespace WidePictBoard.Application.MapProfiles
 {
-    public class UserMapProfile : Profile
+    public static class UserMapProfile
     {
-        public UserMapProfile()
+        public static TypeAdapterConfig GetConfiguredMappingConfig()
         {
-            CreateMap<CreateUser.Response, Register.Response>()
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
+            var config = new TypeAdapterConfig();
 
-            CreateMap<Register.Request, CreateUser.Request>()
-                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Username))
-                //.ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-                //.ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
-                .ForMember(dest => dest.Role, opt => opt. MapFrom(src => RoleConstants.UserRole))
-                ;
+
+
+            config.NewConfig<CreateUser.Response, Register.Response>()
+                .Map(dest => dest.UserId, src => src.UserId);
+
+            config.NewConfig<Register.Request, CreateUser.Request>()
+                .Map(dest => dest.Username, src => src.Username)
+                .Map(dest => dest.Role, src => RoleConstants.UserRole);
+
+            return config;
         }
     }
 }

@@ -11,7 +11,8 @@ using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Application.Services.User.Validators;
 using WidePictBoard.Domain.General.Exceptions;
-using AutoMapper;
+//using AutoMapper;
+using MapsterMapper;
 
 namespace WidePictBoard.Application.Services.User.Implementations
 {

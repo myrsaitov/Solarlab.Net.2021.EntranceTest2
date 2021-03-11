@@ -1,4 +1,6 @@
 
+using Mapster;
+using MapsterMapper;
 using WidePictBoard.Infrastructure;
 using WidePictBoard.Infrastructure.DataAccess;
 using WidePictBoard.PublicApi.Controllers;
@@ -7,8 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.API;
-using WidePictBoard.PublicApi;
+using WidePictBoard.Application.MapProfiles;
+
 
 namespace WidePictBoard.API
 {
@@ -41,7 +43,14 @@ namespace WidePictBoard.API
 
             services.AddSwaggerModule();
 
-            services.AddAutomapperModule();
+            //services.AddAutomapperModule();
+
+
+            //Mapster
+            services.AddSingleton(UserMapProfile.GetConfiguredMappingConfig());
+            services.AddScoped<IMapper, ServiceMapper>();
+
+
 
             services.AddApplicationException(config => { config.DefaultErrorStatusCode = 500; });
         }
