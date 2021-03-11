@@ -6,10 +6,5 @@
         {
             public int Id { get; set; }
         }
-        
-        public sealed class Response
-        {
-            
-        }
     }
 }
