@@ -42,20 +42,6 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             };
         }
 
-        public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
-        {
-            var category = await _repository.FindById(request.Id, cancellationToken);
-
-            if (category == null)
-            {
-                throw new CategoryNotFoundException(request.Id);
-            }
-
-            category.Status = Domain.Category.Statuses.Payed;
-            category.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(category, cancellationToken);
-        }
-
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);

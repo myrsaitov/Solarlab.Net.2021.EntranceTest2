@@ -8,8 +8,6 @@ namespace WidePictBoard.Application.Services.Category.Interfaces
     {
         Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken);
 
-        Task Pay(Pay.Request request, CancellationToken cancellationToken);
-
         Task Delete(Delete.Request request, CancellationToken cancellationToken);
 
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
