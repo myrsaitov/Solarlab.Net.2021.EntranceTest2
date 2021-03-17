@@ -8,7 +8,7 @@ using WidePictBoard.Application.Services.Content.Contracts;
 
 namespace WidePictBoard.API.Controllers.Content
 {
-    public partial class CommentController
+    public partial class ContentController
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]

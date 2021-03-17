@@ -13,12 +13,12 @@ using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
-    public sealed class CommentServiceV1 : ICommentService
+    public sealed class ContentServiceV1 : IContentService
     {
         private readonly IContentRepository _repository;
         private readonly IIdentityService _identityService;
 
-        public CommentServiceV1(IContentRepository repository, IIdentityService identityService)
+        public ContentServiceV1(IContentRepository repository, IIdentityService identityService)
         {
             _repository = repository;
             _identityService = identityService;

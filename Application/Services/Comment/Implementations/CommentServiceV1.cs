@@ -27,7 +27,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var  = new Domain.Comment
+            var comment = new Domain.Comment
             {
                 Price = request.Price,
                 Status = Domain.Comment.Statuses.Created,

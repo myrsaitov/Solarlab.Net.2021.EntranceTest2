@@ -16,7 +16,7 @@ namespace WidePictBoard.Tests
         private Mock<IContentRepository> _adRepositoryMock;
         private Mock<IIdentityService> _identityServiceMock;
 
-        private CommentServiceV1 _adServiceV1;
+        private ContentServiceV1 _adServiceV1;
         public ContentServiceV1Test()
         {
             _adRepositoryMock = new Mock<IContentRepository>();

@@ -4,7 +4,7 @@ using WidePictBoard.Application.Services.Content.Contracts;
 
 namespace WidePictBoard.Application.Services.Content.Interfaces
 {
-    public interface ICommentService
+    public interface IContentService
     {
         Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken);
 

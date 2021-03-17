@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WidePictBoard.API.Controllers.Content
 {
-    public partial class CommentController
+    public partial class ContentController
     {
         /// <summary>
         /// Получение всех закупок

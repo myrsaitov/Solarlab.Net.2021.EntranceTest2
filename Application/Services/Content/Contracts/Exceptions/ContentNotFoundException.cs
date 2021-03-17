@@ -2,11 +2,11 @@
 
 namespace WidePictBoard.Application.Services.Content.Contracts.Exceptions
 {
-    public sealed class CommentNotFoundException : NotFoundException
+    public sealed class ContentNotFoundException : NotFoundException
     {
         private const string MessageTemplate = "Объявление с таким ID[{0}] не было найдено.";
         
-        public CommentNotFoundException(int adId) : base(string.Format(MessageTemplate, adId))
+        public ContentNotFoundException(int adId) : base(string.Format(MessageTemplate, adId))
         {
         }
     }
