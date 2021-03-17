@@ -4,26 +4,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Content.Contracts;
+using WidePictBoard.Application.Services.Comment.Contracts;
 
-namespace WidePictBoard.API.Controllers.Content
+namespace WidePictBoard.API.Controllers.Comment
 {
     public partial class CommentController
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(ContentCreateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(CommentCreateRequest request, CancellationToken cancellationToken)
         {
-            var response = await _contentService.Create(new Create.Request
+            var response = await _commentService.Create(new Create.Request
             {
                 Name = request.Name,
                 Price = request.Price
             }, cancellationToken);
 
-            return Created($"api/v1/contents/{response.Id}", new { });
+            return Created($"api/v1/comments/{response.Id}", new { });
         }
 
-        public sealed class ContentCreateRequest
+        public sealed class CommentCreateRequest
         {
             [Required]
             [MaxLength(100)]

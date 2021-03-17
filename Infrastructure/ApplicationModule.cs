@@ -13,7 +13,7 @@ namespace WidePictBoard.Infrastructure
     {
         public static IServiceCollection AddApplicationModule(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IContentService, ContentServiceV1>();
+            services.AddScoped<ICommentService, CommentServiceV1>();
             services.AddScoped<IUserService, UserServiceV1>();
 
             services.Configure<MailSettings>(configuration.GetSection("MailSettings"));

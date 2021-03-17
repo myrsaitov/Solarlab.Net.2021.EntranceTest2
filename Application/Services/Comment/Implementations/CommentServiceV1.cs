@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Content.Interfaces;
+using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
+using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Content.Implementations
+namespace WidePictBoard.Application.Services.Comment.Implementations
 {
     public sealed class CommentServiceV1 : ICommentService
     {
-        private readonly IContentRepository _repository;
+        private readonly ICommentRepository _repository;
         private readonly IIdentityService _identityService;
 
-        public CommentServiceV1(IContentRepository repository, IIdentityService identityService)
+        public CommentServiceV1(ICommentRepository repository, IIdentityService identityService)
         {
             _repository = repository;
             _identityService = identityService;
@@ -27,73 +27,73 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var content = new Domain.Content
+            var  = new Domain.Comment
             {
                 Price = request.Price,
-                Status = Domain.Content.Statuses.Created,
+                Status = Domain.Comment.Statuses.Created,
                 OwnerId = userId,
                 CreatedAt = DateTime.UtcNow
             };
-            await _repository.Save(content, cancellationToken);
+            await _repository.Save(comment, cancellationToken);
 
             return new Create.Response
             {
-                Id = content.Id
+                Id = comment.Id
             };
         }
 
         public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindById(request.Id, cancellationToken);
+            var comment = await _repository.FindById(request.Id, cancellationToken);
 
-            if (content == null)
+            if (comment == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new CommentNotFoundException(request.Id);
             }
 
-            content.Status = Domain.Content.Statuses.Payed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
+            comment.Status = Domain.Comment.Statuses.Payed;
+            comment.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(comment, cancellationToken);
         }
 
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (content == null)
+            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (comment == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new CommentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
             var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
 
-            if (!isAdmin && content.OwnerId != userId)
+            if (!isAdmin && comment.OwnerId != userId)
             {
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            content.Status = Domain.Content.Statuses.Closed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
+            comment.Status = Domain.Comment.Statuses.Closed;
+            comment.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(comment, cancellationToken);
         }
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (content == null)
+            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (comment == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new CommentNotFoundException(request.Id);
             }
 
             return new GetById.Response
             {
                 Owner = new GetById.Response.OwnerResponse
                 {
-                    Id = content.Owner.Id,
-                    Name = $"{content.Owner.FirstName} {content.Owner.LastName} {content.Owner.MiddleName}".Trim()
+                    Id = comment.Owner.Id,
+                    Name = $"{comment.Owner.FirstName} {comment.Owner.LastName} {comment.Owner.MiddleName}".Trim()
                 },
-                Price = content.Price,
-                Status = content.Status.ToString()
+                Price = comment.Price,
+                Status = comment.Status.ToString()
             };
         }
 
