@@ -6,8 +6,8 @@ using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.Application.Services.Comment.Implementations;
-using WidePictBoard.Application.Services.Comment.Interfaces;
+using WidePictBoard.Application.Services.Category.Implementations;
+using WidePictBoard.Application.Services.Category.Interfaces;
 
 namespace WidePictBoard.Infrastructure
 {
@@ -15,7 +15,7 @@ namespace WidePictBoard.Infrastructure
     {
         public static IServiceCollection AddApplicationModule(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ICommentService, CommentServiceV1>();
+            services.AddScoped<ICategoryService, CategoryServiceV1>();
             services.AddScoped<IContentService, ContentServiceV1>();
             services.AddScoped<IUserService, UserServiceV1>();
 

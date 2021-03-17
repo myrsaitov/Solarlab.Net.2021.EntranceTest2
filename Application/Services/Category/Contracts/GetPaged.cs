@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace WidePictBoard.Application.Services.Comment.Contracts
+namespace WidePictBoard.Application.Services.Category.Contracts
 {
     public static class GetPaged
     {

@@ -31,7 +31,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
 
             public OwnerResponse Owner { get; set; }
 
-            public Category Category { get; set; }
+            public Domain.Category Category { get; set; }
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Category.Contracts;
 
-namespace WidePictBoard.Application.Services.Comment.Interfaces
+namespace WidePictBoard.Application.Services.Category.Interfaces
 {
-    public interface ICommentService
+    public interface ICategoryService
     {
         Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken);
 

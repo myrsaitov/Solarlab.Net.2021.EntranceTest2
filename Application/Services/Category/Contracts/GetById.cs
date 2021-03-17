@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WidePictBoard.Domain;
 
-namespace WidePictBoard.Application.Services.Comment.Contracts
+namespace WidePictBoard.Application.Services.Category.Contracts
 {
     public static class Pay
     {
@@ -31,7 +31,7 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
 
             public OwnerResponse Owner { get; set; }
 
-            public Category Category { get; set; }
+            //public Category Category { get; set; }
         }
     }
 }

@@ -1,18 +1,18 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Category.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace WidePictBoard.API.Controllers.Comment
+namespace WidePictBoard.API.Controllers.Category
 {
-    public partial class CommentController
+    public partial class CategoryController
     {
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            await _commentService.Delete(new Delete.Request
+            await _categoryService.Delete(new Delete.Request
             {
                 Id = id
             }, cancellationToken);

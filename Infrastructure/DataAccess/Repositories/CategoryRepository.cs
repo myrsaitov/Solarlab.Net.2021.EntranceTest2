@@ -10,28 +10,25 @@ using WidePictBoard.Infrastructure.DataAccess.Repositories;
 
 namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 {
-    public sealed class CommentRepository : EfRepository<Comment, int>, ICommentRepository
+    public sealed class CategoryRepository : EfRepository<Category, int>, ICategoryRepository
     {
-        public CommentRepository(DatabaseContext dbСontext) : base(dbСontext)
+        public CategoryRepository(DatabaseContext dbСontext) : base(dbСontext)
         {
         }
 
-        public async Task<Comment> FindByIdWithUserInclude(int id, CancellationToken cancellationToken)
+        public async Task<Category> FindByIdWithUserInclude(int id, CancellationToken cancellationToken)
         {
             return await DbСontext
-                .Set<Comment>()
-                .Include(a => a.Owner)
+                .Set<Category>()
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
 
-        public async Task<Comment> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken)
+        public async Task<Category> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken)
         {
             return await DbСontext
-                .Set<Comment>()
-                .Include(a => a.Owner)
-                .Include(a => a.Category)
-                .Include(a => a.Category.ChildCategories)
-                .Include(a => a.Category.ParentCategory)
+                .Set<Category>()
+              //  .Include(a => a.Body)
+              //  .Include(a => a.CategoryDate)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }

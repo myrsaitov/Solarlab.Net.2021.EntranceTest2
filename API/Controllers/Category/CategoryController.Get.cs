@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Category.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Comment
+namespace WidePictBoard.API.Controllers.Category
 {
-    public partial class CommentController
+    public partial class CategoryController
     {
         /// <summary>
         /// Получение всех закупок
@@ -20,7 +20,7 @@ namespace WidePictBoard.API.Controllers.Comment
         [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
-            var result = await _commentService.GetPaged(new GetPaged.Request
+            var result = await _categoryService.GetPaged(new GetPaged.Request
             {
                 Limit = request.Limit,
                 Offset = request.Offset
@@ -34,7 +34,7 @@ namespace WidePictBoard.API.Controllers.Comment
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
 
-            var found = await _commentService.GetById(new GetById.Request
+            var found = await _categoryService.GetById(new GetById.Request
             {
                 Id = id
             }, cancellationToken);

@@ -5,10 +5,10 @@ using WidePictBoard.Domain.General;
 
 namespace WidePictBoard.Application.Repositories
 {
-    public interface ICommentRepository : IRepository<Domain.Comment, int>
+    public interface ICategoryRepository : IRepository<Domain.Category, int>
     {
-        Task<Domain.Comment> FindByIdWithUserInclude(int id, CancellationToken cancellationToken);
+        Task<Domain.Category> FindByIdWithUserInclude(int id, CancellationToken cancellationToken);
 
-        Task<Domain.Comment> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken);
+        Task<Domain.Category> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken);
     }
 }

@@ -4,26 +4,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Category.Contracts;
 
-namespace WidePictBoard.API.Controllers.Comment
+namespace WidePictBoard.API.Controllers.Category
 {
-    public partial class CommentController
+    public partial class CategoryController
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(CommentCreateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(CategoryCreateRequest request, CancellationToken cancellationToken)
         {
-            var response = await _commentService.Create(new Create.Request
+            var response = await _categoryService.Create(new Create.Request
             {
                 Name = request.Name,
                 Price = request.Price
             }, cancellationToken);
 
-            return Created($"api/v1/comments/{response.Id}", new { });
+            return Created($"api/v1/categories/{response.Id}", new { });
         }
 
-        public sealed class CommentCreateRequest
+        public sealed class CategoryCreateRequest
         {
             [Required]
             [MaxLength(100)]

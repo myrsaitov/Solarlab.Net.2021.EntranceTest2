@@ -1,4 +1,5 @@
-﻿using WidePictBoard.Domain.General;
+﻿using System.Collections.Generic;
+using WidePictBoard.Domain.General;
 
 namespace WidePictBoard.Domain
 {
@@ -21,5 +22,9 @@ namespace WidePictBoard.Domain
         public Statuses Status { get; set; }
 
         public Category Category { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Tag> Tags { get; set; }
     }
 }

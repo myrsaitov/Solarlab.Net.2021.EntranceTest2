@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Services.Comment.Contracts
+﻿namespace WidePictBoard.Application.Services.Category.Contracts
 {
     public static class Create
     {
