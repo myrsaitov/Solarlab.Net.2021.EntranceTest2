@@ -51,6 +51,7 @@ namespace WidePictBoard.Infrastructure
 
             moduleConfiguration.Services.AddScoped(typeof(IRepository<,>), typeof(EfRepository<,>));
             moduleConfiguration.Services.AddScoped<IContentRepository, ContentRepository>();
+            moduleConfiguration.Services.AddScoped<ICommentRepository, CommentRepository>();
         }
 
         // public static void InPostgress(this ModuleConfiguration moduleConfiguration, string connectionString)
