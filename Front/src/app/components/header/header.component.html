@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark mb-4 d-flex">
+  <a class="navbar-brand"
+     routerLink="/">Доска объявлений</a>
+
+     <div [innerHTML]="div_tag_div_str"></div>
+  <ul class="nav nav-pills ml-auto">
+    <ng-container *ngIf="!(isAuth$ | async); else noAuthenticated">
+      <li class="nav-item">
+        <a class="nav-link"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           routerLink="/login">Вход</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           routerLink="/signup">Регистрация</a>
+      </li>
+      
+    </ng-container>
+    <ng-template #noAuthenticated>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary"
+                (click)="logout()">Выход
+        </button>
+        <h4>Вы вошли под именем: 
+          <span class="badge badge-secondary">{{userName()}}</span></h4>
+      </li>
+    </ng-template>
+  </ul>
+</nav>
