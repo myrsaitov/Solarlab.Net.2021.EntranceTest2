@@ -1,31 +1,31 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AdvertisementService} from '../../services/advertisement.service';
+import {MyEventService} from '../../services/content.service';
 import {pluck, switchMap, take, takeUntil} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastService} from '../../services/toast.service';
 import {CategoryService} from '../../services/category.service';
 import {Observable, Subject} from 'rxjs';
 import {ICategory} from '../../models/category/category-model';
-import {EditAdvertisement, IEditAdvertisement} from '../../models/advertisement/advertisement-edit-model';
+import {EditMyEvent, IEditMyEvent} from '../../models/content/content-edit-model';
 import { TagModel } from 'src/app/models/tag/tag-model';
 
 @Component({
-  selector: 'app-edit-advertisement',
-  templateUrl: './edit-advertisement.component.html',
-  styleUrls: ['./edit-advertisement.component.scss']
+  selector: 'app-edit-content',
+  templateUrl: './edit-content.component.html',
+  styleUrls: ['./edit-content.component.scss']
 })
-export class EditAdvertisementComponent implements OnInit, OnDestroy {
+export class EditMyEventComponent implements OnInit, OnDestroy {
   form: FormGroup;
   categories$: Observable<ICategory[]>;
-  advertisementId$ = this.route.params.pipe(pluck('id'));
+  myeventId$ = this.route.params.pipe(pluck('id'));
   destroy$ = new Subject();
   tagstr: string;
   _tags: TagModel[];
 
 
   constructor(private fb: FormBuilder,
-              private advertisementService: AdvertisementService,
+              private myeventService: MyEventService,
               private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
@@ -41,18 +41,19 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
       title: ['', Validators.required],
       body: ['', Validators.required],
       tags: ['',Validators.required],
-      categoryId: ['', Validators.required]
+      categoryId: ['', Validators.required],
+      myDateTime: ['', Validators.required]
     });
-    this.advertisementId$.pipe(switchMap(advertisementId => {
-      return this.advertisementService.getAdvertisementById(advertisementId);
-    }), takeUntil(this.destroy$)).subscribe(advertisement => {
+    this.myeventId$.pipe(switchMap(myeventId => {
+      return this.myeventService.getMyEventById(myeventId);
+    }), takeUntil(this.destroy$)).subscribe(content => {
       //Вписать значения в форму
-      this.title.patchValue(advertisement.title);
-      this.body.patchValue(advertisement.body);
-      this.categoryId.patchValue(advertisement.categoryId);
-
+      this.title.patchValue(content.title);
+      this.body.patchValue(content.body);
+      this.categoryId.patchValue(content.categoryId);
+      this.myDateTime.patchValue(content.myDateTime);
       this.tagstr = "";
-      advertisement.tags.forEach(function (value) 
+      content.tags.forEach(function (value) 
       {
         
         this.tagstr +=' ' + value.tagText;
@@ -80,6 +81,10 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
 
   get categoryId() {
     return this.form.get('categoryId');
+  }
+
+  get myDateTime() {
+    return this.form.get('myDateTime');
   }
 
   get tags() {
@@ -151,19 +156,20 @@ if(TagStr != null)
 
 
 
-    this.advertisementId$.pipe(switchMap(id => {
-      const model: Partial<IEditAdvertisement> = {
+    this.myeventId$.pipe(switchMap(id => {
+      const model: Partial<IEditMyEvent> = {
         id: +id,
         title: this.title.value,
         body: this.body.value,
         tags: this._tags,
         email: sessionStorage.getItem('currentUser'),
+        myDateTime: this.myDateTime.value,
         categoryId: +this.categoryId.value
       };
 
-      return this.advertisementService.edit(new EditAdvertisement(model));
+      return this.myeventService.edit(new EditMyEvent(model));
     }), take(1)).subscribe(() => {
-      this.toastService.show('Объявление успешено обновлено', {classname: 'bg-success text-light'});
+      this.toastService.show('Событие успешено обновлено', {classname: 'bg-success text-light'});
       this.router.navigate(['/']);
     });
   }

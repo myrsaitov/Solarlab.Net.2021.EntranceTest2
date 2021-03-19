@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AdvertisementService} from '../../services/advertisement.service';
-import {CreateAdvertisement, ICreateAdvertisement} from '../../models/advertisement/advertisement-create-model';
+import {MyEventService} from '../../services/content.service';
+import {CreateMyEvent, ICreateMyEvent} from '../../models/content/content-create-model';
 import {take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {ToastService} from '../../services/toast.service';
@@ -11,17 +11,19 @@ import {ICategory} from '../../models/category/category-model';
 import { TagModel } from 'src/app/models/tag/tag-model';
 
 @Component({
-  selector: 'app-create-advertisement',
-  templateUrl: './create-advertisement.component.html',
-  styleUrls: ['./create-advertisement.component.scss']
+  selector: 'app-create-content',
+  templateUrl: './create-content.component.html',
+  styleUrls: ['./create-content.component.scss']
 })
-export class CreateAdvertisementComponent implements OnInit {
+export class CreateMyEventComponent implements OnInit {
   form: FormGroup;
   categories$: Observable<ICategory[]>;
   _tags: TagModel[]; ///MKM
+  _myDateTime: string; ///MKM
+
 
   constructor(private fb: FormBuilder,
-              private advertisementService: AdvertisementService,
+              private myeventService: MyEventService,
               private categoryService: CategoryService,
               private router: Router,
               private toastService: ToastService) {
@@ -32,6 +34,7 @@ export class CreateAdvertisementComponent implements OnInit {
       title: ['', Validators.required],
       body: ['', Validators.required],
       tags: [null],
+      myDateTime: ['', Validators.required],
       categoryId: [null, Validators.required]
     });
     this.categories$ = this.categoryService.getCategoryList({
@@ -49,6 +52,10 @@ export class CreateAdvertisementComponent implements OnInit {
     return this.form.get('body');
   }
 
+  get myDateTime() {
+    return this.form.get('myDateTime');
+  }
+
   get categoryId() {
     return this.form.get('categoryId');
   }
@@ -62,6 +69,7 @@ export class CreateAdvertisementComponent implements OnInit {
       return;
     }
 
+    this._myDateTime = "testtesttest";
 
 // Взяли строку с тагами с формы
 var TagStr = this.tags.value;
@@ -111,16 +119,17 @@ if(TagStr != null)
   //https://stackoverflow.com/questions/15013016/variable-is-not-accessible-in-angular-foreach
 }
 
-    const model: Partial<ICreateAdvertisement> = {
+    const model: Partial<ICreateMyEvent> = {
       title: this.title.value,
       body: this.body.value,
       tags: this._tags,
+      myDateTime: this.myDateTime.value,
       email: sessionStorage.getItem('currentUser'),
       categoryId: +this.categoryId.value
     };
 
-    this.advertisementService.create(new CreateAdvertisement(model)).pipe(take(1)).subscribe(() => {
-      this.toastService.show('Объявление успешено добавлено', {classname: 'bg-success text-light'});
+    this.myeventService.create(new CreateMyEvent(model)).pipe(take(1)).subscribe(() => {
+      this.toastService.show('Событие успешено добавлено', {classname: 'bg-success text-light'});
       this.router.navigate(['/']);
     });
   }

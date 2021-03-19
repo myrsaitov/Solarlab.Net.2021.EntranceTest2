@@ -1,9 +1,13 @@
 <div class="card card-">
   <div class="card-header">
-    <h4 class="card-title font-weight-bold">{{advertisement.title}}</h4>
-    <div class="badge badge-secondary" *ngIf="advertisement.categoryId">{{advertisement.category.name}}</div>
+    <h4 class="card-title font-weight-bold">{{content.title}}</h4>
+    <div class="badge badge-secondary" *ngIf="content.categoryId">{{content.category.name}}</div>
     <h6>  Добавлено пользователем:
-      <div class="badge badge-secondary" *ngIf="advertisement?.email">{{advertisement.email}}</div></h6>
+      <div class="badge badge-secondary" *ngIf="content?.email">{{content.email}}</div></h6>
+      <h6>  Запланировано на:
+          <input type="datetime-local" readonly value={{content.myDateTime}}>
+      </h6>
+
       <div class="badge badge-secondary" *ngIf=tagstr_0>{{tagstr_0}}</div>&nbsp;&nbsp;
       <div class="badge badge-secondary" *ngIf=tagstr_1>{{tagstr_1}}</div>&nbsp;&nbsp;
       <div class="badge badge-secondary" *ngIf=tagstr_2>{{tagstr_2}}</div>&nbsp;&nbsp;
@@ -16,6 +20,6 @@
       <div class="badge badge-secondary" *ngIf=tagstr_9>{{tagstr_9}}</div>&nbsp;&nbsp;
   </div>
   <div class="card-body">
-    <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
+    <a routerLink="{{content.id}}" class="btn btn-primary">Подробнее</a>
   </div>
 </div>
