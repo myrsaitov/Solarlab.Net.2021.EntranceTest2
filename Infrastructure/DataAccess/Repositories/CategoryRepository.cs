@@ -23,14 +23,5 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
 
-        public async Task<Category> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken)
-        {
-            return await DbСontext
-                .Set<Category>()
-              //  .Include(a => a.Body)
-              //  .Include(a => a.CategoryDate)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
-        }
     }
 }

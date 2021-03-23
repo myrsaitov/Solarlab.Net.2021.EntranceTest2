@@ -9,6 +9,6 @@ namespace WidePictBoard.Application.Repositories
     {
         Task<Domain.Category> FindByIdWithUserInclude(int id, CancellationToken cancellationToken);
 
-        Task<Domain.Category> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken);
+
     }
 }

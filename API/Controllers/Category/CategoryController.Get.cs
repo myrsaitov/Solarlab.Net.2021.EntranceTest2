@@ -10,7 +10,7 @@ namespace WidePictBoard.API.Controllers.Category
 {
     public partial class CategoryController
     {
-/*        /// <summary>
+        /// <summary>
         /// Получение всех закупок
         /// </summary>
         /// <param name="request">Dto объявления</param>
@@ -29,7 +29,7 @@ namespace WidePictBoard.API.Controllers.Category
             }, cancellationToken);
 
             return Ok(found);
-        }*/
+        }
 
         public class GetAllRequest
         {

@@ -30,9 +30,10 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             var category = new Domain.Category
             {
                 Name = request.Name,
+                Status = Domain.Category.Statuses.Created,
 
                 //Если раскомментировать, то ошибка FOREIGN KEY SAME TABLE
-                ParentCategoryId = request.ParentCategoryId,
+                //ParentCategoryId = request.ParentCategoryId,
                 
                 
                 
@@ -62,8 +63,8 @@ namespace WidePictBoard.Application.Services.Category.Implementations
            //     throw new NoRightsException("Нет прав для выполнения операции.");
           //  }
 
-           // category.Status = Domain.Category.Statuses.Closed;
-           // category.UpdatedAt = DateTime.UtcNow;
+            category.Status = Domain.Category.Statuses.Closed;
+            category.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(category, cancellationToken);
         }
 
