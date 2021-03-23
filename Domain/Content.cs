@@ -24,6 +24,8 @@ namespace WidePictBoard.Domain
 
         public Category Category { get; set; }
 
+        public int? CategoryId { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<Tag> Tags { get; set; }

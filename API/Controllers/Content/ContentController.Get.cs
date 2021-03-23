@@ -18,7 +18,7 @@ namespace WidePictBoard.API.Controllers.Content
         /// <returns>Коллекция закупок</returns>
         [HttpGet("paged")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
             var result = await _contentService.GetPaged(new GetPaged.Request
             {

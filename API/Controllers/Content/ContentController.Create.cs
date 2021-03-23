@@ -18,7 +18,8 @@ namespace WidePictBoard.API.Controllers.Content
             {
                 Title = request.Title,
                 Body = request.Body,
-                Price = request.Price
+                Price = request.Price,
+                CategoryId = request.CategoryId
             }, cancellationToken);
 
             return Created($"api/v1/contents/{response.Id}", new { });
@@ -37,6 +38,10 @@ namespace WidePictBoard.API.Controllers.Content
             [Required]
             [Range(0, 100_000_000_000)]
             public decimal Price { get; set; }
+
+            [Required]
+            [Range(1, 100_000_000_000)]
+            public int? CategoryId { get; set; }
         }
     }
 }

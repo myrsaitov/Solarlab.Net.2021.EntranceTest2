@@ -32,6 +32,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Title = request.Title,
                 Body = request.Body,
                 Price = request.Price,
+                CategoryId = request.CategoryId,
                 Status = Domain.Content.Statuses.Created,
                 OwnerId = userId,
                 CreatedAt = DateTime.UtcNow
@@ -94,8 +95,14 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                     Id = content.Owner.Id,
                     Name = $"{content.Owner.FirstName} {content.Owner.LastName} {content.Owner.MiddleName}".Trim()
                 },
+
+                Id = content.Id,
+
+                Title = content.Title,
+                Body = content.Body,
                 Price = content.Price,
-                Status = content.Status.ToString()
+                Status = content.Status.ToString(),
+                CategoyId = content.CategoryId
             };
         }
 
@@ -130,7 +137,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                     Title = content.Title,
                     Body = content.Body,
                     Price = content.Price,
-                    Status = content.Status.ToString()
+                    Status = content.Status.ToString(),
+                    CategoyId = content.CategoryId
                 }),
                 Total = total,
                 Offset = request.Offset,
