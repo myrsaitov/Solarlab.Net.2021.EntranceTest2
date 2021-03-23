@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WidePictBoard.Infrastructure.DataAccess;
 
 namespace WidePictBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210323213434_Category_3")]
+    partial class Category_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "2c944110-a080-4bee-abca-857a72b6210a",
+                            ConcurrencyStamp = "a393283d-2fa5-433d-b19a-a5b338aa8d18",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "f6eb8fe2-f16a-4ad5-9262-7539b478ea4d",
+                            ConcurrencyStamp = "fc08dfda-b4c9-4106-864b-64d9daa648e4",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -209,21 +211,21 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 3, 23, 22, 1, 11, 27, DateTimeKind.Utc).AddTicks(1655),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Автомобили",
                             Status = 0
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 3, 23, 22, 1, 11, 27, DateTimeKind.Utc).AddTicks(2778),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Велосипеды",
                             Status = 0
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 3, 23, 22, 1, 11, 27, DateTimeKind.Utc).AddTicks(2790),
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Самокаты",
                             Status = 0
                         });
@@ -427,13 +429,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1838d16f-ac14-4918-8183-e1043e4d9f27",
+                            ConcurrencyStamp = "6069f89a-1bed-43b4-9933-44437277e127",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPVmS683TT6LXK5WuTOrv6EdXFeRNXRTEEWclanHm2e7V4ZWBAOg52wj99LRDNwBRw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGJOfVSqJfVuCf1jwiqRMh8/4PQ4P0j05znX1jpBH03enhjxlhyBhOugv6UM0GKbwQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "49298b7b-dd33-46ab-9674-e8a055557d22",
+                            SecurityStamp = "b03f5f32-fba0-4ca8-a96f-95698338e3e3",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

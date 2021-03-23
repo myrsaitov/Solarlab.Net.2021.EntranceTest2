@@ -109,7 +109,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 return new GetPaged.Response
                 {
-                    Items = Array.Empty<GetPaged.Response.AdResponse>(),
+                    Items = Array.Empty<GetPaged.Response.ContentResponse>(),
                     Total = total,
                     Offset = request.Offset,
                     Limit = request.Limit
@@ -123,7 +123,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             return new GetPaged.Response
             {
-                Items = contents.Select(content => new GetPaged.Response.AdResponse
+                Items = contents.Select(content => new GetPaged.Response.ContentResponse
                 {
                     Id = content.Id,
                     

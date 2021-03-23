@@ -9,9 +9,9 @@ namespace WidePictBoard.Application.Services.Content.Contracts
         {
         }
 
-        public sealed class Response : Paged.Response<Response.AdResponse>
+        public sealed class Response : Paged.Response<Response.ContentResponse>
         {
-            public sealed class AdResponse
+            public sealed class ContentResponse
             {
                 public int Id { get; set; }
                 public string Title { get; set; }

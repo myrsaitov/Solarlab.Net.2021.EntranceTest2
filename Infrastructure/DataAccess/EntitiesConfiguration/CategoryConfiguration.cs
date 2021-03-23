@@ -13,18 +13,22 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             new Category
             {
                 Id = 1,
-                Name = "Автомобили"
+                Name = "Автомобили",
+                CreatedAt = DateTime.UtcNow
             },
             new Category
             {
                 Id = 2,
-                Name = "Велосипеды"
+                Name = "Велосипеды",
+                CreatedAt = DateTime.UtcNow
+
             }
             ,
             new Category
             {
                 Id = 3,
-                Name = "Самокаты"
+                Name = "Самокаты",
+                CreatedAt = DateTime.UtcNow
             }
         };
 
@@ -35,7 +39,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
 
             builder.Property(x => x.Name).IsRequired();
 
-            builder.Property(x => x.ParentCategoryId).IsRequired(false);
+            builder.Property(x => x.ParentCategoryId_).IsRequired(false);
 
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);

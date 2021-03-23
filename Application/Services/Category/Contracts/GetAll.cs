@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace WidePictBoard.Application.Services.Category.Contracts
 {
-    public static class GetPaged
+    public static class GetAll
     {
         public sealed class Request : Paged.Request
         {
         }
 
-        public sealed class Response : Paged.Response<Response.AdResponse>
+        public sealed class Response : Paged.Response<Response.CategoryResponse>
         {
-            public sealed class AdResponse
+            public sealed class CategoryResponse
             {
                 public int Id { get; set; }
                 public string Name { get; set; }
                 public string Status { get; set; }
-                public decimal Price { get; set; }
+                public int? ParentId { get; set; }
             }
         }
     }

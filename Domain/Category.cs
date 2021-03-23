@@ -15,7 +15,7 @@ namespace WidePictBoard.Domain
         public string Name { get; set; }
 
         public Category ParentCategory { get; set; }
-        public int? ParentCategoryId { get; set; }
+        public int? ParentCategoryId_ { get; set; }
         public ICollection<Category> ChildCategories { get; set; }
         public Statuses Status { get; set; }
     }

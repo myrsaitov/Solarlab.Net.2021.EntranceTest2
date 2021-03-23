@@ -11,6 +11,7 @@ namespace WidePictBoard.Application.Services.Category.Interfaces
         Task Delete(Delete.Request request, CancellationToken cancellationToken);
 
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
-
+        Task<GetAll.Response> GetAll(GetAll.Request request, CancellationToken cancellationToken);
     }
+
 }

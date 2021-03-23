@@ -33,7 +33,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 Status = Domain.Category.Statuses.Created,
 
                 //Если раскомментировать, то ошибка FOREIGN KEY SAME TABLE
-                //ParentCategoryId = request.ParentCategoryId,
+                ParentCategoryId_ = request.ParentCategoryId,
                 
                 
                 
@@ -80,10 +80,45 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId
+                ParentCategoryId = category.ParentCategoryId_
             };
         }
 
-        
+        public async Task<GetAll.Response> GetAll(GetAll.Request request, CancellationToken cancellationToken)
+        {
+            var total = await _repository.Count(
+                cancellationToken
+            );
+
+            if (total == 0)
+            {
+                return new GetAll.Response
+                {
+                    Items = Array.Empty<GetAll.Response.CategoryResponse>(),
+                    Total = total,
+                    Offset = request.Offset,
+                    Limit = request.Limit
+                };
+            }
+
+            var categories = await _repository.GetPaged(
+                request.Offset, request.Limit, cancellationToken
+            );
+
+
+            return new GetAll.Response
+            {
+                Items = categories.Select(category => new GetAll.Response.CategoryResponse
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    ParentId = category.ParentCategoryId_,
+                    Status = category.Status.ToString()
+                }),
+                Total = total,
+                Offset = request.Offset,
+                Limit = request.Limit
+            };
+        }
     }
 }
