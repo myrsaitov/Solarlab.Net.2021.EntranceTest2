@@ -1,0 +1,17 @@
+{
+  "username": "myrsaitov",
+  "password": "Zxs123!@#$%^&*()"
+}
+
+{
+  "username": "myrsaitov",
+  "email": "myrsaitov@gmail.com",
+  "firstName": "Konstantin",
+  "lastName": "Myrsaitov",
+  "middleName": "Michailovich",
+  "password": "Zxs123!@#$%^&*()"
+}
+
+97942752-ec16-4c85-a21d-1fdc02b9de24
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibXlyc2FpdG92IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI5Nzk0Mjc1Mi1lYzE2LTRjODUtYTIxZC0xZmRjMDJiOWRlMjQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwibmJmIjoxNjE1NDYwMDE5LCJleHAiOjE2MjA2NDQwMTl9.2gvAkgarJSkPniTIXReWwtt0lT-kEb9N7wQdnAedBLw"

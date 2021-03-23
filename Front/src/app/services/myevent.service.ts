@@ -11,7 +11,7 @@ import {IEditMyEvent} from '../models/myevent/myevent-edit-model';
   providedIn: 'root'
 })
 export class MyEventService {
-  private ROOT_URL = `api/v1/MyEvent`;
+  private ROOT_URL = `api/v1/contents`;
 
   constructor(private http: HttpClient) {
   }
@@ -26,7 +26,7 @@ export class MyEventService {
       .set('page', `${page}`)
       .set('pageSize', `${pageSize}`);
 
-    return this.http.get<IMyEvent[]>(`${this.ROOT_URL}/list`, {params})
+    return this.http.get<IMyEvent[]>(`${this.ROOT_URL}/paged`, {params})
       .pipe(catchError((err) => {
         console.error(err);
         return EMPTY;

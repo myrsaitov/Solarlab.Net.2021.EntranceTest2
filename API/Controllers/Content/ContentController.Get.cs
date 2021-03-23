@@ -22,8 +22,8 @@ namespace WidePictBoard.API.Controllers.Content
         {
             var result = await _contentService.GetPaged(new GetPaged.Request
             {
-                Limit = request.Limit,
-                Offset = request.Offset
+                Limit = request.PageSize,
+                Offset = request.Page
             }, cancellationToken);
 
             return Ok(result);
@@ -47,12 +47,12 @@ namespace WidePictBoard.API.Controllers.Content
             /// <summary>
             /// Количество возвращаемых объявлений
             /// </summary>
-            public int Limit { get; set; } = 20;
+            public int PageSize { get; set; } = 20;
 
             /// <summary>
             /// Смещение начиная с котрого возвращаются объявления
             /// </summary>
-            public int Offset { get; set; } = 0;
+            public int Page { get; set; } = 0;
         }
     }
 }

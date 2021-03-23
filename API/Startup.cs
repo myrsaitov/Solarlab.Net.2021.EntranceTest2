@@ -31,6 +31,7 @@ namespace WidePictBoard.API
             );
 
             services
+                .AddCors()
                 .AddApplicationModule(Configuration)
                 .AddHttpContextAccessor()
                 .AddDataAccessModule(configuration =>
@@ -62,6 +63,11 @@ namespace WidePictBoard.API
             using var scope = app.ApplicationServices.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
             db.Database.Migrate();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PublicApi v1"));
