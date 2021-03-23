@@ -6,7 +6,7 @@
         public sealed class Request
         {
             public string Name { get; set; }
-            public decimal Price { get; set; }
+            public int? ParentCategoryId { get; set; }
         }
 
         public sealed class Response

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WidePictBoard.Infrastructure.DataAccess;
 
 namespace WidePictBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210323130401_CategoriesWereChanged")]
+    partial class CategoriesWereChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "36e6b379-5b79-4296-8fc3-e62e26654e6b",
+                            ConcurrencyStamp = "951d1668-3a61-432d-8816-207f1bb02596",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "2b7247fb-16b3-414a-aa14-55275e8cc23c",
+                            ConcurrencyStamp = "56707318-ce17-49eb-965e-be1c99d18258",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -184,7 +186,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentCategoryId")
@@ -205,18 +206,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                             Id = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Автомобили"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Велосипеды"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Самокаты"
                         });
                 });
 
@@ -418,13 +407,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2516d8b-05c8-4a3a-a09b-944cf06a9b85",
+                            ConcurrencyStamp = "44421d69-4e77-4441-ac67-98d54b665cd6",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP4ednvG56TfQHbMwVSM4/oy1DBlc6keEaZ2Lw099Dz9Qu63poWxvfaZ8FkzhW0o5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKyXaHSZy6wrPk/dPNZ7OKAtIWNuSxm0AScq0NIBlseOUWRs9IX3zpFQOOq7Ieajlg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "17e00348-63c8-47a5-a748-b25d5669b70b",
+                            SecurityStamp = "01bb62b6-6208-465c-8f72-bbe91f57c568",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

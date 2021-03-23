@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WidePictBoard.Infrastructure.DataAccess;
 
 namespace WidePictBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210323121133_TittleBodyWereAddedToContent")]
+    partial class TittleBodyWereAddedToContent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "36e6b379-5b79-4296-8fc3-e62e26654e6b",
+                            ConcurrencyStamp = "fdd9aaf1-5e75-459c-976a-722d298524ea",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "2b7247fb-16b3-414a-aa14-55275e8cc23c",
+                            ConcurrencyStamp = "e234e6f7-34c1-4f34-9ad4-54031ecc15e8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -184,16 +186,26 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("ParentCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.HasIndex("ParentCategoryId");
 
@@ -204,19 +216,9 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Автомобили"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Велосипеды"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Самокаты"
+                            Name = "Автомобили",
+                            Price = 0m,
+                            Status = 0
                         });
                 });
 
@@ -233,6 +235,9 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Property<DateTime>("CategoryDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ContentId")
                         .HasColumnType("int");
 
@@ -243,6 +248,8 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ContentId");
 
@@ -297,6 +304,9 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("ContentId")
                         .HasColumnType("int");
 
@@ -310,6 +320,8 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ContentId");
 
@@ -418,13 +430,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2516d8b-05c8-4a3a-a09b-944cf06a9b85",
+                            ConcurrencyStamp = "84a1fc41-6a73-4373-8cc6-2984f87687c1",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP4ednvG56TfQHbMwVSM4/oy1DBlc6keEaZ2Lw099Dz9Qu63poWxvfaZ8FkzhW0o5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJSN2mnv9lqJiYw5GUf4t0IGu92QK0qvEys5NjjXFFL3lAWj9xIgjVlA/37MHIrs4A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "17e00348-63c8-47a5-a748-b25d5669b70b",
+                            SecurityStamp = "573fbf37-6b02-484a-a8e5-508b17efe0d2",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -483,15 +495,25 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
                 {
+                    b.HasOne("WidePictBoard.Domain.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
+
                     b.HasOne("WidePictBoard.Domain.Category", "ParentCategory")
                         .WithMany("ChildCategories")
                         .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("Owner");
 
                     b.Navigation("ParentCategory");
                 });
 
             modelBuilder.Entity("WidePictBoard.Domain.Comment", b =>
                 {
+                    b.HasOne("WidePictBoard.Domain.Category", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("WidePictBoard.Domain.Content", null)
                         .WithMany("Comments")
                         .HasForeignKey("ContentId");
@@ -514,6 +536,10 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("WidePictBoard.Domain.Tag", b =>
                 {
+                    b.HasOne("WidePictBoard.Domain.Category", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("WidePictBoard.Domain.Content", null)
                         .WithMany("Tags")
                         .HasForeignKey("ContentId");
@@ -522,6 +548,10 @@ namespace WidePictBoard.Infrastructure.Migrations
             modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
                 {
                     b.Navigation("ChildCategories");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("WidePictBoard.Domain.Content", b =>

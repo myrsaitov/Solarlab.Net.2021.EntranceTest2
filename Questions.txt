@@ -1,0 +1,28 @@
+
+
+Вопрос №1
+
+        public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
+        {
+            //string userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var category = new Domain.Category
+            {
+                Name = request.Name,
+
+                //Если раскомментировать, то ошибка FOREIGN KEY SAME TABLE
+                //ParentCategoryId = request.ParentCategoryId,
+                
+                
+                
+                CreatedAt = DateTime.UtcNow
+            };
+            await _repository.Save(category, cancellationToken);
+
+            return new Create.Response
+            {
+                Id = category.Id
+            };
+        }
+
+Конфликт инструкции INSERT с ограничением FOREIGN KEY SAME TABLE "FK_Categories_Categories_ParentCategoryId". Конфликт произошел в базе данных "WidePictDb", таблица "dbo.Categories", column 'Id'.
+Выполнение данной инструкции было прервано.

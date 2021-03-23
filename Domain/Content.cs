@@ -12,9 +12,10 @@ namespace WidePictBoard.Domain
             Closed
         }
 
-        /// <summary>
-        /// Цена
-        /// </summary>
+        public string Title { get; set; }
+        public string Body { get; set; }
+
+
         public decimal Price { get; set; }
 
         public string OwnerId { get; set; }

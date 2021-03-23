@@ -29,6 +29,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
             var content = new Domain.Content
             {
+                Title = request.Title,
+                Body = request.Body,
                 Price = request.Price,
                 Status = Domain.Content.Statuses.Created,
                 OwnerId = userId,
@@ -114,19 +116,21 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 };
             }
 
-            var ads = await _repository.GetPaged(
+            var contents = await _repository.GetPaged(
                 request.Offset, request.Limit, cancellationToken
             );
 
 
             return new GetPaged.Response
             {
-                Items = ads.Select(ad => new GetPaged.Response.AdResponse
+                Items = contents.Select(content => new GetPaged.Response.AdResponse
                 {
-                    Id = ad.Id,
-                    Name = $"TEST",
-                    Price = ad.Price,
-                    Status = ad.Status.ToString()
+                    Id = content.Id,
+                    
+                    Title = content.Title,
+                    Body = content.Body,
+                    Price = content.Price,
+                    Status = content.Status.ToString()
                 }),
                 Total = total,
                 Offset = request.Offset,

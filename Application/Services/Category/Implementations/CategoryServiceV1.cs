@@ -26,12 +26,16 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
-            string userId = await _identityService.GetCurrentUserId(cancellationToken);
+            //string userId = await _identityService.GetCurrentUserId(cancellationToken);
             var category = new Domain.Category
             {
-                Price = request.Price,
-                Status = Domain.Category.Statuses.Created,
-                OwnerId = userId,
+                Name = request.Name,
+
+                //Если раскомментировать, то ошибка FOREIGN KEY SAME TABLE
+                ParentCategoryId = request.ParentCategoryId,
+                
+                
+                
                 CreatedAt = DateTime.UtcNow
             };
             await _repository.Save(category, cancellationToken);
@@ -53,13 +57,13 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
             var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
 
-            if (!isAdmin && category.OwnerId != userId)
-            {
-                throw new NoRightsException("Нет прав для выполнения операции.");
-            }
+           // if (!isAdmin && category.OwnerId != userId)
+          //  {
+           //     throw new NoRightsException("Нет прав для выполнения операции.");
+          //  }
 
-            category.Status = Domain.Category.Statuses.Closed;
-            category.UpdatedAt = DateTime.UtcNow;
+           // category.Status = Domain.Category.Statuses.Closed;
+           // category.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(category, cancellationToken);
         }
 
@@ -73,51 +77,12 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
             return new GetById.Response
             {
-                Owner = new GetById.Response.OwnerResponse
-                {
-                    Id = category.Owner.Id,
-                    Name = $"{category.Owner.FirstName} {category.Owner.LastName} {category.Owner.MiddleName}".Trim()
-                },
-                Price = category.Price,
-                Status = category.Status.ToString()
+                Id = category.Id,
+                Name = category.Name,
+                ParentCategoryId = category.ParentCategoryId
             };
         }
 
-        public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
-        {
-            var total = await _repository.Count(
-                cancellationToken
-            );
-
-            if (total == 0)
-            {
-                return new GetPaged.Response
-                {
-                    Items = Array.Empty<GetPaged.Response.AdResponse>(),
-                    Total = total,
-                    Offset = request.Offset,
-                    Limit = request.Limit
-                };
-            }
-
-            var ads = await _repository.GetPaged(
-                request.Offset, request.Limit, cancellationToken
-            );
-
-
-            return new GetPaged.Response
-            {
-                Items = ads.Select(ad => new GetPaged.Response.AdResponse
-                {
-                    Id = ad.Id,
-                    Name = $"TEST",
-                    Price = ad.Price,
-                    Status = ad.Status.ToString()
-                }),
-                Total = total,
-                Offset = request.Offset,
-                Limit = request.Limit
-            };
-        }
+        
     }
 }

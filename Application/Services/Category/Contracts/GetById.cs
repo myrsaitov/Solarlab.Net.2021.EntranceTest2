@@ -20,17 +20,10 @@ namespace WidePictBoard.Application.Services.Category.Contracts
 
         public sealed class Response
         {
-            public sealed class OwnerResponse
-            {
-                public string Id { get; set; }
-                public string Name { get; set; }
-            }
 
-            public string Status { get; set; }
-            public decimal Price { get; set; }
-
-            public OwnerResponse Owner { get; set; }
-
+            public int? Id { get; set; }
+            public string Name { get; set; }
+            public int? ParentCategoryId { get; set; }
             //public Category Category { get; set; }
         }
     }

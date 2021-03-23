@@ -16,7 +16,8 @@ namespace WidePictBoard.API.Controllers.Content
         {
             var response = await _contentService.Create(new Create.Request
             {
-                Name = request.Name,
+                Title = request.Title,
+                Body = request.Body,
                 Price = request.Price
             }, cancellationToken);
 
@@ -27,7 +28,11 @@ namespace WidePictBoard.API.Controllers.Content
         {
             [Required]
             [MaxLength(100)]
-            public string Name { get; set; }
+            public string Title { get; set; }
+
+            [Required]
+            [MaxLength(1000)]
+            public string Body { get; set; }
 
             [Required]
             [Range(0, 100_000_000_000)]

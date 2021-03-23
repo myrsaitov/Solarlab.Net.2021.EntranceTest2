@@ -10,24 +10,13 @@ namespace WidePictBoard.API.Controllers.Category
 {
     public partial class CategoryController
     {
-        /// <summary>
+/*        /// <summary>
         /// Получение всех закупок
         /// </summary>
         /// <param name="request">Dto объявления</param>
         /// <param name="cancellationToken">cancellationToken</param>
         /// <returns>Коллекция закупок</returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
-        {
-            var result = await _categoryService.GetPaged(new GetPaged.Request
-            {
-                Limit = request.Limit,
-                Offset = request.Offset
-            }, cancellationToken);
 
-            return Ok(result);
-        }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
@@ -40,7 +29,7 @@ namespace WidePictBoard.API.Controllers.Category
             }, cancellationToken);
 
             return Ok(found);
-        }
+        }*/
 
         public class GetAllRequest
         {

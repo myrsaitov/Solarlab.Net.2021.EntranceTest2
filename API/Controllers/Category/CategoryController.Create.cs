@@ -17,7 +17,7 @@ namespace WidePictBoard.API.Controllers.Category
             var response = await _categoryService.Create(new Create.Request
             {
                 Name = request.Name,
-                Price = request.Price
+                ParentCategoryId = request.ParentCategoryId
             }, cancellationToken);
 
             return Created($"api/v1/categories/{response.Id}", new { });
@@ -29,9 +29,9 @@ namespace WidePictBoard.API.Controllers.Category
             [MaxLength(100)]
             public string Name { get; set; }
 
-            [Required]
+            //[Required]
             [Range(0, 100_000_000_000)]
-            public decimal Price { get; set; }
+            public int? ParentCategoryId { get; set; }
         }
     }
 }

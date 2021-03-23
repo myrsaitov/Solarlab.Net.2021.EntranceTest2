@@ -14,6 +14,17 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             {
                 Id = 1,
                 Name = "Автомобили"
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "Велосипеды"
+            }
+            ,
+            new Category
+            {
+                Id = 3,
+                Name = "Самокаты"
             }
         };
 
@@ -22,7 +33,12 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Name).IsRequired();
+
+            builder.Property(x => x.ParentCategoryId).IsRequired(false);
+
             builder.Property(x => x.CreatedAt).IsRequired();
+            builder.Property(x => x.UpdatedAt).IsRequired(false);
 
             builder.HasData(categories);
         }
