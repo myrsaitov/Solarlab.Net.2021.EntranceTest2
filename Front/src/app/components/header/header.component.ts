@@ -4,8 +4,8 @@ import {BaseService} from 'src/app/services/base.service';
 import {ApiUrls} from 'src/app/shared/apiURLs';
 import {Router} from '@angular/router';
 import { TagModel } from 'src/app/models/tag/tag-model';
-import {MyEventService} from '../../services/content.service';
-import {IMyEvent} from '../../models/content/i-content';
+import {MyEventService} from '../../services/myevent.service';
+import {IMyEvent} from '../../models/myevent/i-myevent';
 import {isNullOrUndefined} from 'util';
 
 @Component({
@@ -17,7 +17,7 @@ import {isNullOrUndefined} from 'util';
 export class HeaderComponent {
   isAuth$ = this.authService.isAuth$;
   div_tag_div_str: string;
-  content: IMyEvent;
+  myevent: IMyEvent;
 
   constructor(
     private authService: AuthService,
@@ -32,9 +32,9 @@ export class HeaderComponent {
 
 
 
-    this.myeventService.getMyEventGetAllTags().subscribe(content => {
+    this.myeventService.getMyEventGetAllTags().subscribe(myevent => {
       //debugger;
-      if (isNullOrUndefined(content)) {
+      if (isNullOrUndefined(myevent)) {
         //debugger;
         this.router.navigate(['/']);
         return;
@@ -42,7 +42,7 @@ export class HeaderComponent {
 
     this.div_tag_div_str = '';
 
-      content.tags.forEach(function (value) 
+      myevent.tags.forEach(function (value) 
       {
         
         this.div_tag_div_str += "<div class=\"badge badge-secondary\">" ;

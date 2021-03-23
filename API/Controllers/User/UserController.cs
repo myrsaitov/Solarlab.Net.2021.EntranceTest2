@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WidePictBoard.PublicApi.Controllers.User
 {
-    [Route("api/v1/users")]
+    [Route("api/v1/account")]
     [ApiController]
     [AllowAnonymous]
     public partial class UserController : ControllerBase

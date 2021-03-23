@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {EMPTY, Observable} from 'rxjs';
-import {GetPagedMyEventModel} from '../models/content/get-paged-content-model';
-import {IMyEvent} from '../models/content/i-content';
-import {ICreateMyEvent} from '../models/content/content-create-model';
-import {IEditMyEvent} from '../models/content/content-edit-model';
+import {GetPagedMyEventModel} from '../models/myevent/get-paged-myevent-model';
+import {IMyEvent} from '../models/myevent/i-myevent';
+import {ICreateMyEvent} from '../models/myevent/myevent-create-model';
+import {IEditMyEvent} from '../models/myevent/myevent-edit-model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
 import {AuthService} from '../../services/auth.service';
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {MyEventService} from '../../services/content.service';
+import {MyEventService} from '../../services/myevent.service';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {IMyEvent} from '../../models/content/i-content';
+import {IMyEvent} from '../../models/myevent/i-myevent';
 import {CategoryService} from '../../services/category.service';
 import {ICategory} from '../../models/category/category-model';
 import {switchMap} from 'rxjs/operators';

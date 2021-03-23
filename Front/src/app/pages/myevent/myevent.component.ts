@@ -2,8 +2,8 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {pluck, take} from 'rxjs/operators';
 import {isNullOrUndefined} from 'util';
-import {MyEventService} from '../../services/content.service';
-import {IMyEvent} from '../../models/content/i-content';
+import {MyEventService} from '../../services/myevent.service';
+import {IMyEvent} from '../../models/myevent/i-myevent';
 import {AuthService} from '../../services/auth.service';
 import {ToastService} from '../../services/toast.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -13,12 +13,12 @@ import {ICategory} from '../../models/category/category-model';//
 import { TagModel } from 'src/app/models/tag/tag-model';
 
 @Component({
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss'],
+  templateUrl: './myevent.component.html',
+  styleUrls: ['./myevent.component.scss'],
 })
 
 export class MyEventComponent implements OnInit {
-  content: IMyEvent;
+  myevent: IMyEvent;
   tagstr_0: string;
   tagstr_1: string;
   tagstr_2: string;
@@ -52,9 +52,9 @@ export class MyEventComponent implements OnInit {
 
     this.route.params.pipe(pluck('id')).subscribe(myeventId => {
 
-      this.myeventService.getMyEventById(myeventId).subscribe(content => {
+      this.myeventService.getMyEventById(myeventId).subscribe(myevent => {
         //debugger;
-        if (isNullOrUndefined(content)) {
+        if (isNullOrUndefined(myevent)) {
           //debugger;
           this.router.navigate(['/']);
           return;
@@ -62,7 +62,7 @@ export class MyEventComponent implements OnInit {
 
       this.div_tag_div_str = '';
 
-        content.tags.forEach(function (value) 
+        myevent.tags.forEach(function (value) 
         {
           
           this.div_tag_div_str += "<div class=\"badge badge-secondary\">" ;
@@ -74,15 +74,15 @@ export class MyEventComponent implements OnInit {
 
 
 
-        this.content = content;
+        this.myevent = myevent;
         console.log("Get title from API");
-        console.log(this.content.title);
+        console.log(this.myevent.title);
 
         console.log("Get email from API");
-        console.log(this.content.email);
+        console.log(this.myevent.email);
 
         // Запрет редактировать чужое событие
-        if(this.content.email == sessionStorage.getItem('currentUser'))
+        if(this.myevent.email == sessionStorage.getItem('currentUser'))
         {this.isEditable = true;}
           else
           {this.isEditable = false;}
@@ -90,13 +90,13 @@ export class MyEventComponent implements OnInit {
           console.log(this.isEditable);
 
 
-          this.categoryService.getCategoryById(this.content.categoryId).subscribe(category => {
+          this.categoryService.getCategoryById(this.myevent.categoryId).subscribe(category => {
           if (isNullOrUndefined(category)) {
             this.router.navigate(['/']);
             return;
           }
 
-          this.content.category = category;
+          this.myevent.category = category;
 
           });
 

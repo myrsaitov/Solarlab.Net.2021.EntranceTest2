@@ -14,16 +14,16 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <h2>Pictures</h2>
+      <h2>События</h2>
     </div>
   </div>
   <div class="row mb-2">
     <ng-container *ngIf="myevents$ | async as myevents; else loadingBlock">
-      <app-content-card
+      <app-myevent-card
         class="col-sm-4 mb-4"
-        *ngFor="let content of myevents"
-        [content]="content">
-      </app-content-card>
+        *ngFor="let myevent of myevents"
+        [myevent]="myevent">
+      </app-myevent-card>
     </ng-container>
   </div>
   <div class="row">

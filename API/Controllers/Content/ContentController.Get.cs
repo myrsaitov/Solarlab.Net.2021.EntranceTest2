@@ -16,7 +16,7 @@ namespace WidePictBoard.API.Controllers.Content
         /// <param name="request">Dto объявления</param>
         /// <param name="cancellationToken">cancellationToken</param>
         /// <returns>Коллекция закупок</returns>
-        [HttpGet]
+        [HttpGet("paged")]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {

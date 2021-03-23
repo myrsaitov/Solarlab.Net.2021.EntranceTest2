@@ -1,74 +1,47 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MyEventService} from '../../services/content.service';
-import {pluck, switchMap, take, takeUntil} from 'rxjs/operators';
-import {ActivatedRoute, Router} from '@angular/router';
+import {MyEventService} from '../../services/myevent.service';
+import {CreateMyEvent, ICreateMyEvent} from '../../models/myevent/myevent-create-model';
+import {take} from 'rxjs/operators';
+import {Router} from '@angular/router';
 import {ToastService} from '../../services/toast.service';
 import {CategoryService} from '../../services/category.service';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ICategory} from '../../models/category/category-model';
-import {EditMyEvent, IEditMyEvent} from '../../models/content/content-edit-model';
 import { TagModel } from 'src/app/models/tag/tag-model';
 
 @Component({
-  selector: 'app-edit-content',
-  templateUrl: './edit-content.component.html',
-  styleUrls: ['./edit-content.component.scss']
+  selector: 'app-create-myevent',
+  templateUrl: './create-myevent.component.html',
+  styleUrls: ['./create-myevent.component.scss']
 })
-export class EditMyEventComponent implements OnInit, OnDestroy {
+export class CreateMyEventComponent implements OnInit {
   form: FormGroup;
   categories$: Observable<ICategory[]>;
-  myeventId$ = this.route.params.pipe(pluck('id'));
-  destroy$ = new Subject();
-  tagstr: string;
-  _tags: TagModel[];
+  _tags: TagModel[]; ///MKM
+  _myDateTime: string; ///MKM
 
 
   constructor(private fb: FormBuilder,
               private myeventService: MyEventService,
               private categoryService: CategoryService,
-              private route: ActivatedRoute,
               private router: Router,
               private toastService: ToastService) {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+      body: ['', Validators.required],
+      tags: [null],
+      myDateTime: ['', Validators.required],
+      categoryId: [null, Validators.required]
+    });
     this.categories$ = this.categoryService.getCategoryList({
       pageSize: 1000,
       page: 1,
     });
-    this.form = this.fb.group({
-      title: ['', Validators.required],
-      body: ['', Validators.required],
-      tags: ['',Validators.required],
-      categoryId: ['', Validators.required],
-      myDateTime: ['', Validators.required]
-    });
-    this.myeventId$.pipe(switchMap(myeventId => {
-      return this.myeventService.getMyEventById(myeventId);
-    }), takeUntil(this.destroy$)).subscribe(content => {
-      //Вписать значения в форму
-      this.title.patchValue(content.title);
-      this.body.patchValue(content.body);
-      this.categoryId.patchValue(content.categoryId);
-      this.myDateTime.patchValue(content.myDateTime);
-      this.tagstr = "";
-      content.tags.forEach(function (value) 
-      {
-        
-        this.tagstr +=' ' + value.tagText;
-
-      },this);
-
-      this.tags.patchValue(this.tagstr);
-
-
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.unsubscribe();
+    //debugger;
   }
 
   get title() {
@@ -79,12 +52,12 @@ export class EditMyEventComponent implements OnInit, OnDestroy {
     return this.form.get('body');
   }
 
-  get categoryId() {
-    return this.form.get('categoryId');
-  }
-
   get myDateTime() {
     return this.form.get('myDateTime');
+  }
+
+  get categoryId() {
+    return this.form.get('categoryId');
   }
 
   get tags() {
@@ -96,6 +69,7 @@ export class EditMyEventComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this._myDateTime = "testtesttest";
 
 // Взяли строку с тагами с формы
 var TagStr = this.tags.value;
@@ -145,32 +119,45 @@ if(TagStr != null)
   //https://stackoverflow.com/questions/15013016/variable-is-not-accessible-in-angular-foreach
 }
 
+    const model: Partial<ICreateMyEvent> = {
+      title: this.title.value,
+      body: this.body.value,
+      tags: this._tags,
+      myDateTime: this.myDateTime.value,
+      email: sessionStorage.getItem('currentUser'),
+      categoryId: +this.categoryId.value
+    };
 
-
-
-
-
-
-
-
-
-
-
-    this.myeventId$.pipe(switchMap(id => {
-      const model: Partial<IEditMyEvent> = {
-        id: +id,
-        title: this.title.value,
-        body: this.body.value,
-        tags: this._tags,
-        email: sessionStorage.getItem('currentUser'),
-        myDateTime: this.myDateTime.value,
-        categoryId: +this.categoryId.value
-      };
-
-      return this.myeventService.edit(new EditMyEvent(model));
-    }), take(1)).subscribe(() => {
-      this.toastService.show('Событие успешено обновлено', {classname: 'bg-success text-light'});
+    this.myeventService.create(new CreateMyEvent(model)).pipe(take(1)).subscribe(() => {
+      this.toastService.show('Событие успешено добавлено', {classname: 'bg-success text-light'});
       this.router.navigate(['/']);
     });
   }
 }
+
+// Как сейчас выглядит отправка в UI
+/*
+ {
+  body: "jh56rj65e",
+  categoryId: 2,
+  tags: Array(0),
+  title: "y56yh56t",
+  email: "user@test.ru"
+}
+*/
+
+// Как выглядит в сваггере
+/*
+{
+  body:"Продам квадрацикл",
+  categoryId:1,
+  tags:[{id:0,tagText:"квадроцикл"}]
+  title:"Продам",
+  email:"user@test.ru",
+  deleted:true,
+}
+*/
+
+/*
+{\"title\":\"string\",\"body\":\"string\",\"email\":\"string\",\"deleted\":true,\"categoryId\":1,\"tags\":[{\"id\":0,\"tagText\":\"string\"}]}"
+*/

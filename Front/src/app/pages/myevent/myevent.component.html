@@ -1,25 +1,25 @@
-<div class="container" *ngIf="content; else loadingBlock">
+<div class="container" *ngIf="myevent; else loadingBlock">
   <article class="card">
     <div class="card-header d-flex">
       <div>
-        <h1 class="h3">{{content.title}}</h1>
-        <div class="badge badge-secondary" *ngIf="content.category?.name">{{content.category?.name}}</div>
+        <h1 class="h3">{{myevent.title}}</h1>
+        <div class="badge badge-secondary" *ngIf="myevent.category?.name">{{myevent.category?.name}}</div>
         <h4>  Добавлено пользователем:
-        <div class="badge badge-secondary" *ngIf="content?.email">{{content.email}}</div></h4>
+        <div class="badge badge-secondary" *ngIf="myevent?.email">{{myevent.email}}</div></h4>
         <h4>  Запланировано на:
-          <input type="datetime-local" readonly value={{content.myDateTime}}></h4>
+          <input type="datetime-local" readonly value={{myevent.myDateTime}}></h4>
         <div [innerHTML]="div_tag_div_str"></div>
         
       </div>
       <div class="align-self-center ml-auto" *ngIf="isAuth">
-        <a class="btn btn-outline-secondary mr-2" [routerLink]="['/edit', content.id]" *ngIf="isEditable">Редактировать</a>
+        <a class="btn btn-outline-secondary mr-2" [routerLink]="['/edit', myevent.id]" *ngIf="isEditable">Редактировать</a>
         <button *ngIf="isEditable" class="btn btn-outline-danger" (click)="openDeleteModal(content)">Удалить</button>
       </div>
 
     </div>
     <div class="card-body">
       <p>
-        {{content.body}}
+        {{myevent.body}}
       </p>
     </div>
   </article>
@@ -39,6 +39,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-link" (click)="c('Close Click')">Отмена</button>
-    <button type="button" class="btn btn-danger" (click)="delete(content.id); c('Delete click')">Удалить</button>
+    <button type="button" class="btn btn-danger" (click)="delete(myevent.id); c('Delete click')">Удалить</button>
   </div>
 </ng-template>
