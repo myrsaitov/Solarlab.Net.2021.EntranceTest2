@@ -8,6 +8,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using MapsterMapper;
 
 namespace WidePictBoard.Tests
 {
@@ -15,6 +16,7 @@ namespace WidePictBoard.Tests
     {
         private Mock<IContentRepository> _adRepositoryMock;
         private Mock<IIdentityService> _identityServiceMock;
+        private IMapper _mapper;
 
         private ContentServiceV1 _adServiceV1;
         public ContentServiceV1Test()
@@ -22,7 +24,7 @@ namespace WidePictBoard.Tests
             _adRepositoryMock = new Mock<IContentRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
 
-            _adServiceV1 = new ContentServiceV1(_adRepositoryMock.Object, _identityServiceMock.Object);
+            _adServiceV1 = new ContentServiceV1(_adRepositoryMock.Object, _identityServiceMock.Object, _mapper);
         }
 
         [Theory]

@@ -86,39 +86,39 @@ namespace WidePictBoard.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "86ae59f7-1f99-4ac2-b002-20439a902713");
+                value: "0e0f377b-6b1f-42fd-b0ed-2f3857212611");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "1ee9a460-e106-4a35-9351-4092644d5210");
+                value: "ee2faf9b-1afd-4538-83c5-8510f441b6e1");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "c144375f-a9b3-4d02-b208-f0740ef56398", "AQAAAAEAACcQAAAAEOoZXein8eposoStfujAS+ZX/d6ZXZLiPVmszwVqkNwYM2dgGMzDHQxRT3owp0fadw==", "4b148026-7f06-4d4b-ab40-70922f94b583" });
+                values: new object[] { "5a15e0c5-857f-4636-861f-005b2be6d02a", "AQAAAAEAACcQAAAAEIypJaEaXXg/WclI3lc52o+Is1guWk26WYU7bFRoWvl0bb9Hj26Y/YBfxpFpXh0LMw==", "f8a2ed25-1260-4b60-9927-0ad1b3a5f45a" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedAt", "Name" },
-                values: new object[] { new DateTime(2021, 3, 24, 13, 15, 10, 180, DateTimeKind.Utc).AddTicks(8722), "Транспорт" });
+                values: new object[] { new DateTime(2021, 3, 24, 22, 0, 9, 426, DateTimeKind.Utc).AddTicks(5597), "Транспорт" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedAt", "Name", "ParentCategoryId", "Status", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2021, 3, 24, 13, 15, 10, 180, DateTimeKind.Utc).AddTicks(9150), "Недвижимость", null, "InUse", null },
-                    { 3, new DateTime(2021, 3, 24, 13, 15, 10, 180, DateTimeKind.Utc).AddTicks(9153), "Мебель", null, "InUse", null },
-                    { 4, new DateTime(2021, 3, 24, 13, 15, 10, 180, DateTimeKind.Utc).AddTicks(9155), "Одежда", null, "InUse", null },
-                    { 5, new DateTime(2021, 3, 24, 13, 15, 10, 180, DateTimeKind.Utc).AddTicks(9156), "Бытовая техника", null, "InUse", null },
-                    { 6, new DateTime(2021, 3, 24, 13, 15, 10, 180, DateTimeKind.Utc).AddTicks(9157), "Книги", null, "InUse", null }
+                    { 2, new DateTime(2021, 3, 24, 22, 0, 9, 426, DateTimeKind.Utc).AddTicks(7156), "Недвижимость", null, "InUse", null },
+                    { 3, new DateTime(2021, 3, 24, 22, 0, 9, 426, DateTimeKind.Utc).AddTicks(7167), "Мебель", null, "InUse", null },
+                    { 4, new DateTime(2021, 3, 24, 22, 0, 9, 426, DateTimeKind.Utc).AddTicks(7168), "Одежда", null, "InUse", null },
+                    { 5, new DateTime(2021, 3, 24, 22, 0, 9, 426, DateTimeKind.Utc).AddTicks(7169), "Бытовая техника", null, "InUse", null },
+                    { 6, new DateTime(2021, 3, 24, 22, 0, 9, 426, DateTimeKind.Utc).AddTicks(7171), "Книги", null, "InUse", null }
                 });
 
             migrationBuilder.CreateIndex(

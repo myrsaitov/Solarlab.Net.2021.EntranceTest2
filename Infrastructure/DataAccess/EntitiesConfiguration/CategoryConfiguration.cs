@@ -14,38 +14,44 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             {
                 Id = 1,
                 Name = "Транспорт",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.General.CategoryStatus.InUse
             },
             new Category
             {
                 Id = 2,
                 Name = "Недвижимость",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.General.CategoryStatus.InUse
 
             },
             new Category
             {
                 Id = 3,
                 Name = "Мебель",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.General.CategoryStatus.InUse
             },
             new Category
             {
                 Id = 4,
                 Name = "Одежда",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.General.CategoryStatus.InUse
             },
             new Category
             {
                 Id = 5,
                 Name = "Бытовая техника",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.General.CategoryStatus.InUse
             },
             new Category
             {
                 Id = 6,
                 Name = "Книги",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.General.CategoryStatus.InUse
             }
         };
 
@@ -61,10 +67,9 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
 
+            builder.Property(x => x.Status)
+                .HasConversion<string>(s => s.ToString(), s => Enum.Parse<Domain.General.CategoryStatus>(s));
 
-            // Вызывает ошибку
-            //builder.Property(x => x.Status)
-               // .HasConversion<string>(s => s.ToString(), s => Enum.Parse<WidePictBoard.Domain.General.CategoryStatus>(s));
 
             builder.HasData(categories);
         }

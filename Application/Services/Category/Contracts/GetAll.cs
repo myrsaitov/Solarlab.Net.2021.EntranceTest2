@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WidePictBoard.Application.Services.Category.Contracts
@@ -12,7 +13,8 @@ namespace WidePictBoard.Application.Services.Category.Contracts
                 public int Id { get; set; }
                 public string Name { get; set; }
                 public string Status { get; set; }
-                public int? ParentId { get; set; }
+                public int? ParentCategoryId { get; set; }
+                public DateTime CreatedAt { get; set; }
             }
         }
     }

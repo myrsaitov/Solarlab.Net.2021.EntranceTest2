@@ -1,4 +1,7 @@
-﻿namespace WidePictBoard.Application.Services.Content.Contracts
+﻿using System;
+using WidePictBoard.Domain.General;
+
+namespace WidePictBoard.Application.Services.Content.Contracts
 {
     public static class Create
     {
@@ -9,6 +12,9 @@
             public string Name { get; set; }
             public decimal Price { get; set; }
             public int? CategoryId { get; set; }
+            public ContentStatus Status { get; set; }
+            public DateTime CreatedAt { get; set; }
+            public string OwnerId { get; set; }
         }
         public sealed class Response
         {

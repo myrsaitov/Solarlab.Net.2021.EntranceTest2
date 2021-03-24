@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MapsterMapper;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,17 +18,28 @@ namespace WidePictBoard.Application.Services.Content.Implementations
     {
         private readonly IContentRepository _repository;
         private readonly IIdentityService _identityService;
+        private readonly IMapper _mapper;
 
-        public ContentServiceV1(IContentRepository repository, IIdentityService identityService)
+        public ContentServiceV1(IContentRepository repository, IIdentityService identityService, IMapper mapper)
         {
             _repository = repository;
             _identityService = identityService;
+            _mapper = mapper;
         }
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
-            //TODO Mapster
+
+
+            //With Mapster
+            var _request = request;
+            _request.Status = Domain.General.ContentStatus.Created;
+            _request.OwnerId = userId;
+            _request.CreatedAt = DateTime.UtcNow;
+            var content = _mapper.Map<Domain.Content>(_request);
+
+            /* Before mapster
             var content = new Domain.Content
             {
                 Title = request.Title,
@@ -38,6 +50,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 OwnerId = userId,
                 CreatedAt = DateTime.UtcNow
             };
+            */
+
             await _repository.Save(content, cancellationToken);
 
             return new Create.Response
@@ -90,7 +104,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             }
 
 
-            //TODO Mapster
+            //Mapster
+            return _mapper.Map<GetById.Response>(content);
+
+
+            /*
             return new GetById.Response
             {
                 Owner = new GetById.Response.OwnerResponse
@@ -106,7 +124,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Price = content.Price,
                 Status = content.Status.ToString(),
                 CategoyId = content.CategoryId
-            };
+            };*/
         }
 
         public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
@@ -130,7 +148,15 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 request.Page, request.PageSize, cancellationToken
             );
 
-            //TODO Mapster
+            // Mapster
+            return new GetPaged.Response
+            {
+                Items = contents.Select(content =>_mapper.Map<GetPaged.Response.ContentResponse>(content)),
+                Total = total,
+                Offset = request.Page,
+                Limit = request.PageSize
+            };
+            /*
             return new GetPaged.Response
             {
                 Items = contents.Select(content => new GetPaged.Response.ContentResponse
@@ -146,7 +172,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
-            };
+            };*/
         }
     }
 }
