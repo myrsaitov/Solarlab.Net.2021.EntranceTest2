@@ -18,6 +18,7 @@ namespace WidePictBoard.Application.Repositories
         Task<int> Count(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
 
         Task<IEnumerable<TEntity>> GetPaged(int offset, int limit, CancellationToken cancellationToken);
+        Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken);
         Task<IEnumerable<TEntity>> GetPaged(Expression<Func<TEntity, bool>> predicate, int offset, int limit,
             CancellationToken cancellationToken);
     }

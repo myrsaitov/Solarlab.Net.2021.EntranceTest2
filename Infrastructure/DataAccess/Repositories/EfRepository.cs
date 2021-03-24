@@ -68,6 +68,13 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
             return await data.OrderBy(e => e.Id).Take(limit).Skip(offset).ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken)
+        {
+            var data = DbСontext.Set<TEntity>().AsNoTracking(); ;
+
+            return await data.OrderBy(e => e.Id).ToListAsync(cancellationToken);
+        }
+
         public async Task<IEnumerable<TEntity>> GetPaged(Expression<Func<TEntity, bool>> predicate, int offset,
             int limit, CancellationToken cancellationToken)
         {

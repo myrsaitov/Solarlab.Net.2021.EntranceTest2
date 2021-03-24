@@ -18,12 +18,12 @@ namespace WidePictBoard.API.Controllers.Category
         /// <returns>Коллекция закупок</returns>
         [HttpGet("all")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll(/*[FromQuery] GetAllRequest request, */CancellationToken cancellationToken)
         {
             var result = await _categoryService.GetAll(new GetAll.Request
             {
-                Limit = request.PageSize,
-                Offset = request.Page
+                //Limit = request.PageSize,
+                //Offset = request.Page
             }, cancellationToken);
 
             return Ok(result);

@@ -26,21 +26,14 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
-            //string userId = await _identityService.GetCurrentUserId(cancellationToken);
             var category = new Domain.Category
             {
                 Name = request.Name,
                 Status = Domain.Category.Statuses.Created,
-
-                //Если раскомментировать, то ошибка FOREIGN KEY SAME TABLE
                 ParentCategoryId = request.ParentCategoryId,
-                
-                
-                
                 CreatedAt = DateTime.UtcNow
             };
             await _repository.Save(category, cancellationToken);
-
             return new Create.Response
             {
                 Id = category.Id
@@ -58,10 +51,10 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
             var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
 
-           // if (!isAdmin && category.OwnerId != userId)
-          //  {
-           //     throw new NoRightsException("Нет прав для выполнения операции.");
-          //  }
+            if (!isAdmin)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
 
             category.Status = Domain.Category.Statuses.Closed;
             category.UpdatedAt = DateTime.UtcNow;
@@ -96,14 +89,12 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 {
                     Items = Array.Empty<GetAll.Response.CategoryResponse>(),
                     Total = total,
-                    Offset = request.Offset,
-                    Limit = request.Limit
+                   // Offset = request.Offset,
+                   // Limit = request.Limit
                 };
             }
 
-            var categories = await _repository.GetPaged(
-                request.Offset, request.Limit, cancellationToken
-            );
+            var categories = await _repository.GetAll(cancellationToken);
 
 
             return new GetAll.Response

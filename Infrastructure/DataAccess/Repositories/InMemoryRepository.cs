@@ -10,7 +10,7 @@ using WidePictBoard.Domain;
 
 namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 {
-    public sealed class InMemoryRepository :
+ /*   public sealed class InMemoryRepository :
         IRepository<Content, int>,
         IRepository<User, string>
     {
@@ -64,7 +64,12 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Skip(offset)
                 .Take(limit);
         }
-
+        async Task<IEnumerable<User>> IRepository<User, string>.GetAll(CancellationToken cancellationToken)
+        {
+            return _users
+                .Select(pair => pair.Value)
+                .OrderBy(u => u.Id);
+        }
         public async Task<IEnumerable<User>> GetPaged(Expression<Func<User, bool>> predicate, int offset, int limit, CancellationToken cancellationToken)
         {
             var compiled = predicate.Compile();
@@ -132,5 +137,5 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Skip(offset)
                 .Take(limit);
         }
-    }
+    }*/
 }

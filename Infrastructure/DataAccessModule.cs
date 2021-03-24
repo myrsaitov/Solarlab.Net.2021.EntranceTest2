@@ -6,7 +6,7 @@ using WidePictBoard.Infrastructure.DataAccess.Repositories;
 //using Advertisement.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using InMemoryRepository = WidePictBoard.Infrastructure.DataAccess.Repositories.InMemoryRepository;
+//using InMemoryRepository = WidePictBoard.Infrastructure.DataAccess.Repositories.InMemoryRepository;
 
 namespace WidePictBoard.Infrastructure
 {
@@ -30,13 +30,13 @@ namespace WidePictBoard.Infrastructure
             return services;
         }
 
-        public static void InMemory(this ModuleConfiguration moduleConfiguration)
+       /* public static void InMemory(this ModuleConfiguration moduleConfiguration)
         {
             moduleConfiguration.Services.AddSingleton(new InMemoryRepository());
             moduleConfiguration.Services.AddSingleton<IRepository<User, string>>(sp =>
                 sp.GetService<InMemoryRepository>());
             moduleConfiguration.Services.AddSingleton<IRepository<Content, int>>(sp => sp.GetService<InMemoryRepository>());
-        }
+        }*/
 
         public static void InSqlServer(this ModuleConfiguration moduleConfiguration, string connectionString)
         {
