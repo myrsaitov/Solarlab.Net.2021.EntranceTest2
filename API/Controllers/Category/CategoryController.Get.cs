@@ -36,18 +36,5 @@ namespace WidePictBoard.API.Controllers.Category
 
             return Ok(found);
         }
-
-        public class GetAllRequest
-        {
-            /// <summary>
-            /// Количество возвращаемых объявлений
-            /// </summary>
-            public int PageSize { get; set; } = 20;
-
-            /// <summary>
-            /// Смещение начиная с котрого возвращаются объявления
-            /// </summary>
-            public int Page { get; set; } = 0;
-        }
     }
 }

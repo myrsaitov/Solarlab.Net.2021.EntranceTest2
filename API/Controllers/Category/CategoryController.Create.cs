@@ -30,7 +30,7 @@ namespace WidePictBoard.API.Controllers.Category
             public string Name { get; set; }
 
             //[Required]
-            [Range(0, 100_000_000_000)]
+            [Range(1, 100_000_000_000)]
             public int? ParentCategoryId { get; set; }
         }
     }

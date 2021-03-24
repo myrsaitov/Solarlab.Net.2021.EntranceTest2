@@ -10,6 +10,9 @@ namespace WidePictBoard.Application.Services.Category.Interfaces
 
         Task Delete(Delete.Request request, CancellationToken cancellationToken);
 
+        Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken);
+
+
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
         Task<GetAll.Response> GetAll(CancellationToken cancellationToken);
     }

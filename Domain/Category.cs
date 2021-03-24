@@ -9,8 +9,8 @@ namespace WidePictBoard.Domain
 
         public enum Statuses
         {
-            Created,
-            Closed
+            InUse,
+            Suspended
         }
         public string Name { get; set; }
 
