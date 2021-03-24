@@ -1,5 +1,0 @@
-+Mapster вместо Automaper
-+Newtonsoft.Json на System.Text.Json
-Не работает Confirm Mail
-Добавить Комментарии
-Добавить Таги

@@ -5,12 +5,7 @@ namespace WidePictBoard.Domain
 {
     public class Content : EntityMutable<int>
     {
-        public enum Statuses
-        {
-            Created,
-            Payed,
-            Closed
-        }
+
 
         public string Title { get; set; }
         public string Body { get; set; }
@@ -20,7 +15,7 @@ namespace WidePictBoard.Domain
 
         public string OwnerId { get; set; }
         public User Owner { get; set; }
-        public Statuses Status { get; set; }
+        public ContentStatus Status { get; set; }
 
         public Category Category { get; set; }
 

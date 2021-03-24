@@ -29,7 +29,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             var category = new Domain.Category
             {
                 Name = request.Name,
-                Status = Domain.Category.Statuses.InUse,
+                Status = Domain.General.CategoryStatus.InUse,
                 ParentCategoryId = request.ParentCategoryId,
                 CreatedAt = DateTime.UtcNow
             };
@@ -40,7 +40,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             };
         }
 
-        public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
+       /* public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
             if (category == null)
@@ -56,10 +56,10 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            category.Status = Domain.Category.Statuses.Suspended;
+            category.Status = Domain.General.CategoryStatus.Suspended;
             category.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(category, cancellationToken);
-        }
+        }*/
 
        
         public async Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken)
@@ -75,28 +75,33 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
              if (!isAdmin)
              {
-                 //throw new NoRightsException("Нет прав для выполнения операции.");
+                 throw new NoRightsException("Нет прав для выполнения операции.");
              }
 
-             category.Status = Domain.Category.Statuses.InUse;
+             category.Status = Domain.General.CategoryStatus.InUse;
              category.UpdatedAt = DateTime.UtcNow;
              await _repository.Save(category, cancellationToken);
-
-
-            /* category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-             if (category == null)
-             {
-                 throw new CategoryNotFoundException(request.Id);
-             }
-             return new SetInUse.Response
-             {
-                 Id = category.Id,
-                 Name = category.Name,
-                 ParentCategoryId = category.ParentCategoryId
-             };*/
-
          }
+        public async Task SetSuspended(SetSuspended.Request request, CancellationToken cancellationToken)
+        {
+            var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (category == null)
+            {
+                throw new CategoryNotFoundException(request.Id);
+            }
 
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
+            category.Status = Domain.General.CategoryStatus.Suspended;
+            category.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(category, cancellationToken);
+        }
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);

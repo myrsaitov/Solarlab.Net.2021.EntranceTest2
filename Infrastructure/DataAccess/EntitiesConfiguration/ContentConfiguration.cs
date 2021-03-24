@@ -17,7 +17,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.Price).HasColumnType("money");
 
             builder.Property(x => x.Status)
-                .HasConversion<string>(s => s.ToString(), s => Enum.Parse<Content.Statuses>(s));
+                .HasConversion<string>(s => s.ToString(), s => Enum.Parse<WidePictBoard.Domain.General.ContentStatus>(s));
 
             builder.HasOne(x => x.Owner)
                 .WithMany()

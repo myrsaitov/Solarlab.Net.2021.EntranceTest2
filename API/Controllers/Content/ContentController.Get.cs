@@ -16,14 +16,14 @@ namespace WidePictBoard.API.Controllers.Content
         /// <param name="request">Dto объявления</param>
         /// <param name="cancellationToken">cancellationToken</param>
         /// <returns>Коллекция закупок</returns>
-        [HttpGet("paged")]
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetPaged([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
             var result = await _contentService.GetPaged(new GetPaged.Request
             {
-                Limit = request.PageSize,
-                Offset = request.Page
+                PageSize = request.PageSize,
+                Page = request.Page
             }, cancellationToken);
 
             return Ok(result);

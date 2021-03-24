@@ -9,7 +9,7 @@ namespace WidePictBoard.API.Controllers.Category
 {
     public partial class CategoryController
     {
-        [HttpDelete("{id:int}")]
+      /*  [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
             await _categoryService.Delete(new Delete.Request
@@ -18,6 +18,6 @@ namespace WidePictBoard.API.Controllers.Category
             }, cancellationToken);
             
             return NoContent();
-        }
+        }*/
     }
 }

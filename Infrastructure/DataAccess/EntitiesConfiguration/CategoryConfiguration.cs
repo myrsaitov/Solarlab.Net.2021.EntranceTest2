@@ -61,6 +61,11 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
 
+
+            // Вызывает ошибку
+            //builder.Property(x => x.Status)
+               // .HasConversion<string>(s => s.ToString(), s => Enum.Parse<WidePictBoard.Domain.General.CategoryStatus>(s));
+
             builder.HasData(categories);
         }
     }

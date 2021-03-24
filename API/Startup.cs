@@ -3,7 +3,7 @@ using Mapster;
 using MapsterMapper;
 using WidePictBoard.Infrastructure;
 using WidePictBoard.Infrastructure.DataAccess;
-using WidePictBoard.PublicApi.Controllers;
+using WidePictBoard.API.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

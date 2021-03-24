@@ -1,5 +1,0 @@
-Request body
-{
-  "name": "string",
-  "price": 0
-}

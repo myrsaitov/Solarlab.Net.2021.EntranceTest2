@@ -33,7 +33,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Body = request.Body,
                 Price = request.Price,
                 CategoryId = request.CategoryId,
-                Status = Domain.Content.Statuses.Created,
+                Status = Domain.General.ContentStatus.Created,
                 OwnerId = userId,
                 CreatedAt = DateTime.UtcNow
             };
@@ -54,7 +54,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentNotFoundException(request.Id);
             }
 
-            content.Status = Domain.Content.Statuses.Payed;
+            content.Status = Domain.General.ContentStatus.Payed;
             content.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(content, cancellationToken);
         }
@@ -75,7 +75,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            content.Status = Domain.Content.Statuses.Closed;
+            content.Status = Domain.General.ContentStatus.Closed;
             content.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(content, cancellationToken);
         }
@@ -118,13 +118,13 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 {
                     Items = Array.Empty<GetPaged.Response.ContentResponse>(),
                     Total = total,
-                    Offset = request.Offset,
-                    Limit = request.Limit
+                    Offset = request.Page,
+                    Limit = request.PageSize
                 };
             }
 
             var contents = await _repository.GetPaged(
-                request.Offset, request.Limit, cancellationToken
+                request.Page, request.PageSize, cancellationToken
             );
 
 
@@ -141,8 +141,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                     CategoyId = content.CategoryId
                 }),
                 Total = total,
-                Offset = request.Offset,
-                Limit = request.Limit
+                Offset = request.Page,
+                Limit = request.PageSize
             };
         }
     }
