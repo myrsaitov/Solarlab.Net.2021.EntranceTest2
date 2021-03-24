@@ -33,7 +33,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 Status = Domain.Category.Statuses.Created,
 
                 //Если раскомментировать, то ошибка FOREIGN KEY SAME TABLE
-                ParentCategoryId_ = request.ParentCategoryId,
+                ParentCategoryId = request.ParentCategoryId,
                 
                 
                 
@@ -80,7 +80,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId_
+                ParentCategoryId = category.ParentCategoryId
             };
         }
 
@@ -112,7 +112,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    ParentId = category.ParentCategoryId_,
+                    ParentId = category.ParentCategoryId,
                     Status = category.Status.ToString()
                 }),
                 Total = total,
