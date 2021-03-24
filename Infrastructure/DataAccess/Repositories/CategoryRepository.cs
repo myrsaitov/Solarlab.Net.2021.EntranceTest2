@@ -16,7 +16,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         {
         }
 
-        public async Task<Category> FindByIdWithUserInclude(int id, CancellationToken cancellationToken)
+        public async Task<Category> FindByIdNew(int id, CancellationToken cancellationToken)
         {
             return await DbСontext
                 .Set<Category>()

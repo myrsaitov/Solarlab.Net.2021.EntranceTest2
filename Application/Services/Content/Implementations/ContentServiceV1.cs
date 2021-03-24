@@ -27,6 +27,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
+            //TODO Mapster
             var content = new Domain.Content
             {
                 Title = request.Title,
@@ -88,6 +89,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentNotFoundException(request.Id);
             }
 
+
+            //TODO Mapster
             return new GetById.Response
             {
                 Owner = new GetById.Response.OwnerResponse
@@ -127,7 +130,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 request.Page, request.PageSize, cancellationToken
             );
 
-
+            //TODO Mapster
             return new GetPaged.Response
             {
                 Items = contents.Select(content => new GetPaged.Response.ContentResponse

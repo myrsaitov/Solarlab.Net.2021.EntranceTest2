@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MapsterMapper;
 using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
@@ -17,15 +18,20 @@ namespace WidePictBoard.Application.Services.Category.Implementations
     {
         private readonly ICategoryRepository _repository;
         private readonly IIdentityService _identityService;
+        private readonly IMapper _mapper;
 
-        public CategoryServiceV1(ICategoryRepository repository, IIdentityService identityService)
+        public CategoryServiceV1(ICategoryRepository repository, IIdentityService identityService, IMapper mapper)
         {
             _repository = repository;
             _identityService = identityService;
+            _mapper = mapper;
         }
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
+            //TODO Mapster
+
+
             var category = new Domain.Category
             {
                 Name = request.Name,
@@ -33,6 +39,17 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 ParentCategoryId = request.ParentCategoryId,
                 CreatedAt = DateTime.UtcNow
             };
+            /*var category = new Domain.Category
+            {
+                Name = request.Name,
+                Status = Domain.General.CategoryStatus.InUse,
+                ParentCategoryId = request.ParentCategoryId,
+                CreatedAt = DateTime.UtcNow
+            };*/
+
+
+
+
             await _repository.Save(category, cancellationToken);
             return new Create.Response
             {
@@ -64,7 +81,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
        
         public async Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken)
          {
-             var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+             var category = await _repository.FindById(request.Id, cancellationToken);
              if (category == null)
              {
                  throw new CategoryNotFoundException(request.Id);
@@ -84,7 +101,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
          }
         public async Task SetSuspended(SetSuspended.Request request, CancellationToken cancellationToken)
         {
-            var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            var category = await _repository.FindByIdNew(request.Id, cancellationToken);
             if (category == null)
             {
                 throw new CategoryNotFoundException(request.Id);
@@ -104,7 +121,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         }
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            var category = await _repository.FindByIdNew(request.Id, cancellationToken);
             if (category == null)
             {
                 throw new CategoryNotFoundException(request.Id);
@@ -135,7 +152,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
             var categories = await _repository.GetAll(cancellationToken);
 
-
+            // TODO Mapster
             return new GetAll.Response
             {
                 Items = categories.Select(category => new GetAll.Response.CategoryResponse
