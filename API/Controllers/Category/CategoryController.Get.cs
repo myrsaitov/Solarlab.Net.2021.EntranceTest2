@@ -11,20 +11,15 @@ namespace WidePictBoard.API.Controllers.Category
     public partial class CategoryController
     {
         /// <summary>
-        /// Получение всех закупок
+        /// Получение всех категорий
         /// </summary>
-        /// <param name="request">Dto объявления</param>
         /// <param name="cancellationToken">cancellationToken</param>
-        /// <returns>Коллекция закупок</returns>
+        /// <returns>Коллекция категорий</returns>
         [HttpGet("all")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll(/*[FromQuery] GetAllRequest request, */CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _categoryService.GetAll(new GetAll.Request
-            {
-                //Limit = request.PageSize,
-                //Offset = request.Page
-            }, cancellationToken);
+            var result = await _categoryService.GetAll(cancellationToken);
 
             return Ok(result);
         }

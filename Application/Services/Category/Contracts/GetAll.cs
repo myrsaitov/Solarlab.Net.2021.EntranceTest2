@@ -5,10 +5,6 @@ namespace WidePictBoard.Application.Services.Category.Contracts
 {
     public static class GetAll
     {
-        public sealed class Request : Paged.Request
-        {
-        }
-
         public sealed class Response : Paged.Response<Response.CategoryResponse>
         {
             public sealed class CategoryResponse

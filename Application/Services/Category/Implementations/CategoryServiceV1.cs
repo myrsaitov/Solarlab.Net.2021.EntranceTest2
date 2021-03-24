@@ -77,7 +77,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             };
         }
 
-        public async Task<GetAll.Response> GetAll(GetAll.Request request, CancellationToken cancellationToken)
+        public async Task<GetAll.Response> GetAll(CancellationToken cancellationToken)
         {
             var total = await _repository.Count(
                 cancellationToken
@@ -89,8 +89,6 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 {
                     Items = Array.Empty<GetAll.Response.CategoryResponse>(),
                     Total = total,
-                   // Offset = request.Offset,
-                   // Limit = request.Limit
                 };
             }
 
@@ -106,9 +104,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                     ParentId = category.ParentCategoryId,
                     Status = category.Status.ToString()
                 }),
-                Total = total,
-                Offset = request.Offset,
-                Limit = request.Limit
+                Total = total
             };
         }
     }
