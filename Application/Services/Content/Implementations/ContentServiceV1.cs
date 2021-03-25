@@ -31,11 +31,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
-            var _request = request;
-            _request.Status = Domain.General.ContentStatus.Created;
-            _request.OwnerId = userId;
-            _request.CreatedAt = DateTime.UtcNow;
-            var content = _mapper.Map<Domain.Content>(_request);
+            var content = _mapper.Map<Domain.Content>(request);
+            content.Status = Domain.General.ContentStatus.Created;
+            content.OwnerId = userId;
+            content.CreatedAt = DateTime.UtcNow;
 
             await _repository.Save(content, cancellationToken);
 

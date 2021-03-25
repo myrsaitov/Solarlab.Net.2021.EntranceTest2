@@ -17,12 +17,6 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         {
         }
 
-        public async Task<Category> FindByIdNew(int id, CancellationToken cancellationToken)
-        {
-            return await DbСontext
-                .Set<Category>()
-                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
-        }
         public async Task<IEnumerable<Category>> GetAll(CancellationToken cancellationToken)
         {
             var data = DbСontext.Set<Category>().AsNoTracking(); ;
