@@ -36,20 +36,19 @@ namespace WidePictBoard.API
                 .AddHttpContextAccessor()
                 .AddDataAccessModule(configuration =>
 
-                    //configuration.InMemory()
+                  
                     configuration.InSqlServer(Configuration.GetConnectionString("SqlServerDb"))
-                //configuration.InPostgress(Configuration.GetConnectionString("PostgresDb"))
+               
                 )
                 .AddIdentity(Configuration);
 
             services.AddSwaggerModule();
 
-            //services.AddAutomapperModule();
+           
 
 
             //Mapster
             services.AddSingleton(CategoryMapProfile.GetConfiguredMappingConfig());
-            services.AddSingleton(CommentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(ContentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(UserMapProfile.GetConfiguredMappingConfig());
             

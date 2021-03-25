@@ -29,11 +29,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
-            var _request = request;
-            _request.Status = Domain.General.CategoryStatus.InUse;
-            _request.CreatedAt = DateTime.UtcNow;
-            var category = _mapper.Map<Domain.Category>(_request);
-
+            var category = _mapper.Map<Domain.Category>(request);
+            category.Status = Domain.General.CategoryStatus.InUse;
+            category.CreatedAt = DateTime.UtcNow;
 
             await _repository.Save(category, cancellationToken);
             return new Create.Response
