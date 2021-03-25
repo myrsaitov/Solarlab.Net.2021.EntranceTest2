@@ -10,10 +10,10 @@ namespace WidePictBoard.API.Controllers.Content
     [Route("api/v1/contents")]
     [ApiController]
     [Authorize]
-    public partial class ContentController : ControllerBase
+    public partial class CommentController : ControllerBase
     {
         private readonly IContentService _contentService;
 
-        public ContentController(IContentService contentService) => _contentService = contentService;
+        public CommentController(IContentService contentService) => _contentService = contentService;
     }
 }

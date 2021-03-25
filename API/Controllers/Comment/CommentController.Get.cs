@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Content.Contracts;
+using WidePictBoard.Application.Services.Comment.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Content
+namespace WidePictBoard.API.Controllers.Comment
 {
     public partial class CommentController
     {
@@ -20,7 +20,7 @@ namespace WidePictBoard.API.Controllers.Content
         [AllowAnonymous]
         public async Task<IActionResult> GetPaged([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
-            var result = await _contentService.GetPaged(new GetPaged.Request
+            var result = await _commentService.GetPaged(new GetPaged.Request
             {
                 PageSize = request.PageSize,
                 Page = request.Page
@@ -34,7 +34,7 @@ namespace WidePictBoard.API.Controllers.Content
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
 
-            var found = await _contentService.GetById(new GetById.Request
+            var found = await _commentService.GetById(new GetById.Request
             {
                 Id = id
             }, cancellationToken);

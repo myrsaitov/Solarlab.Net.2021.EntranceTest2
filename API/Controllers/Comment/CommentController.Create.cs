@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WidePictBoard.Application.Services.Content.Contracts;
 
-namespace WidePictBoard.API.Controllers.Content
+namespace WidePictBoard.API.Controllers.Comment
 {
     public partial class CommentController
     {
@@ -15,7 +15,7 @@ namespace WidePictBoard.API.Controllers.Content
         public async Task<IActionResult> Create(ContentCreateRequest request, CancellationToken cancellationToken)
         {
             //TODO Mapster
-            var response = await _contentService.Create(new Create.Request
+            var response = await _commentService.Create(new Create.Request
             {
                 Title = request.Title,
                 Body = request.Body,

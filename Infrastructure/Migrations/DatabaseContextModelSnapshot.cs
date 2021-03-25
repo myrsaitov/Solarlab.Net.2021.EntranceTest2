@@ -49,14 +49,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "7df67fd7-1914-429c-8c90-9b3b4a785e4b",
+                            ConcurrencyStamp = "c6d756ac-ae8c-45f5-bb06-6e9c3abf1a5d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "f5019d67-f3cf-46c9-aa49-aad5d6d989ad",
+                            ConcurrencyStamp = "377e4fab-3c86-449d-9226-c7aff9ee8ee9",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -207,42 +207,42 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 3, 25, 9, 41, 14, 456, DateTimeKind.Utc).AddTicks(2723),
+                            CreatedAt = new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(5824),
                             Name = "Транспорт",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 3, 25, 9, 41, 14, 456, DateTimeKind.Utc).AddTicks(3505),
+                            CreatedAt = new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6631),
                             Name = "Недвижимость",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 3, 25, 9, 41, 14, 456, DateTimeKind.Utc).AddTicks(3545),
+                            CreatedAt = new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6635),
                             Name = "Мебель",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 3, 25, 9, 41, 14, 456, DateTimeKind.Utc).AddTicks(3547),
+                            CreatedAt = new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6636),
                             Name = "Одежда",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 3, 25, 9, 41, 14, 456, DateTimeKind.Utc).AddTicks(3548),
+                            CreatedAt = new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6637),
                             Name = "Бытовая техника",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 3, 25, 9, 41, 14, 456, DateTimeKind.Utc).AddTicks(3549),
+                            CreatedAt = new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6638),
                             Name = "Книги",
                             Status = "InUse"
                         });
@@ -256,9 +256,10 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
-                    b.Property<DateTime>("CategoryDate")
+                    b.Property<DateTime>("CommentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ContentId")
@@ -446,13 +447,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d504488-ba47-427d-9baa-e20d2f7a11f4",
+                            ConcurrencyStamp = "54c3181b-e33f-4f7b-a830-f14484491240",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH89OxzwGgnqrSlltFCc3HZyoJP/X0gQhMfHW9WvXR0SdxoYbAhJVJibn1ENCFxXZA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIBvqFFGuDbB4q0rM2BxGvG/obcg3h1k0e5J+qpLaczxy1lppFli4jJ44H8ZsV0IvA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "864e04e7-e7f8-4a33-b670-9193c52fb5ce",
+                            SecurityStamp = "03e9c671-00ce-462f-ac2a-ec0b94bac207",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Services.Category.Contracts
+﻿namespace WidePictBoard.Application.Services.Comment.Contracts
 {
     public static class Delete
     {
