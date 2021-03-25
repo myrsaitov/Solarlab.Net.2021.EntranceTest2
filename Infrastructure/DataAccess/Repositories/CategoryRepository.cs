@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Repositories;
@@ -22,6 +23,11 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Set<Category>()
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
+        public async Task<IEnumerable<Category>> GetAll(CancellationToken cancellationToken)
+        {
+            var data = DbСontext.Set<Category>().AsNoTracking(); ;
 
+            return await data.OrderBy(e => e.Id).ToListAsync(cancellationToken);
+        }
     }
 }

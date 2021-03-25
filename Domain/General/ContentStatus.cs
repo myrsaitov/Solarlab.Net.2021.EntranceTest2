@@ -6,8 +6,8 @@ namespace WidePictBoard.Domain.General
 {
     public enum ContentStatus
     {
-        Created,
-        Payed,
-        Closed
+        Created = 0,
+        Payed = 1,
+        Closed = 2
     }
 }
