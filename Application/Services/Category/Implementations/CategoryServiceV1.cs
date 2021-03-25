@@ -29,22 +29,10 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
-            //With Mapster
             var _request = request;
             _request.Status = Domain.General.CategoryStatus.InUse;
             _request.CreatedAt = DateTime.UtcNow;
             var category = _mapper.Map<Domain.Category>(_request);
-            
-            //Before Mapster
-            /*var category = new Domain.Category
-            {
-                Name = request.Name,
-                Status = Domain.General.CategoryStatus.InUse,
-                ParentCategoryId = request.ParentCategoryId,
-                CreatedAt = DateTime.UtcNow
-            };*/
-
-
 
 
             await _repository.Save(category, cancellationToken);
@@ -54,28 +42,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             };
         }
 
-       /* public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
-        {
-            var category = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (category == null)
-            {
-                throw new CategoryNotFoundException(request.Id);
-            }
-
-            var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
-
-            if (!isAdmin)
-            {
-                throw new NoRightsException("Нет прав для выполнения операции.");
-            }
-
-            category.Status = Domain.General.CategoryStatus.Suspended;
-            category.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(category, cancellationToken);
-        }*/
-
-       
+      
         public async Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken)
          {
              var category = await _repository.FindById(request.Id, cancellationToken);
@@ -149,23 +116,11 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
             var categories = await _repository.GetAll(cancellationToken);
 
-            //Mapster
             return new GetAll.Response
             {
                 Items = categories.Select(category => _mapper.Map<GetAll.Response.CategoryResponse>(category)),
                 Total = total
             };
-            /*return new GetAll.Response
-            {
-                Items = categories.Select(category => new GetAll.Response.CategoryResponse
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                    ParentId = category.ParentCategoryId,
-                    Status = category.Status.ToString()
-                }),
-                Total = total
-            };*/
         }
     }
 }

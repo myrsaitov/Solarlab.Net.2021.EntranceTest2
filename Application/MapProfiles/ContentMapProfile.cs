@@ -1,9 +1,4 @@
 ﻿using Mapster;
-using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Identity.Contracts;
-using WidePictBoard.Application.Services.User.Contracts;
-using MapsterMapper;
-
 
 namespace WidePictBoard.Application.MapProfiles
 {
@@ -39,16 +34,6 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Status, src => src.Status)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt);
-
-            /* config.NewConfig<CreateUser.Response, Register.Response>()
-                 .Map(dest => dest.UserId, src => src.UserId);
-
-             config.NewConfig<Register.Request, CreateUser.Request>()
-                 .Map(dest => dest.Username, src => src.Username)
-                 .Map(dest => dest.Role, src => RoleConstants.UserRole);
-            */
-
-
 
             return config;
         }

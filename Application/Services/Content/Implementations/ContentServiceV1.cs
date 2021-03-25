@@ -31,26 +31,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
-
-            //With Mapster
             var _request = request;
             _request.Status = Domain.General.ContentStatus.Created;
             _request.OwnerId = userId;
             _request.CreatedAt = DateTime.UtcNow;
             var content = _mapper.Map<Domain.Content>(_request);
-
-            /* Before mapster
-            var content = new Domain.Content
-            {
-                Title = request.Title,
-                Body = request.Body,
-                Price = request.Price,
-                CategoryId = request.CategoryId,
-                Status = Domain.General.ContentStatus.Created,
-                OwnerId = userId,
-                CreatedAt = DateTime.UtcNow
-            };
-            */
 
             await _repository.Save(content, cancellationToken);
 
@@ -103,28 +88,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentNotFoundException(request.Id);
             }
 
-
-            //Mapster
             return _mapper.Map<GetById.Response>(content);
-
-
-            /*
-            return new GetById.Response
-            {
-                Owner = new GetById.Response.OwnerResponse
-                {
-                    Id = content.Owner.Id,
-                    Name = $"{content.Owner.FirstName} {content.Owner.LastName} {content.Owner.MiddleName}".Trim()
-                },
-
-                Id = content.Id,
-
-                Title = content.Title,
-                Body = content.Body,
-                Price = content.Price,
-                Status = content.Status.ToString(),
-                CategoyId = content.CategoryId
-            };*/
         }
 
         public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
@@ -148,7 +112,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 request.Page, request.PageSize, cancellationToken
             );
 
-            // Mapster
             return new GetPaged.Response
             {
                 Items = contents.Select(content =>_mapper.Map<GetPaged.Response.ContentResponse>(content)),
@@ -156,23 +119,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Offset = request.Page,
                 Limit = request.PageSize
             };
-            /*
-            return new GetPaged.Response
-            {
-                Items = contents.Select(content => new GetPaged.Response.ContentResponse
-                {
-                    Id = content.Id,
-                    
-                    Title = content.Title,
-                    Body = content.Body,
-                    Price = content.Price,
-                    Status = content.Status.ToString(),
-                    CategoyId = content.CategoryId
-                }),
-                Total = total,
-                Offset = request.Page,
-                Limit = request.PageSize
-            };*/
         }
     }
 }
