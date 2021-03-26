@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WidePictBoard.API.Controllers.Content
 {
-    public partial class CommentController
+    public partial class ContentController
     {
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)

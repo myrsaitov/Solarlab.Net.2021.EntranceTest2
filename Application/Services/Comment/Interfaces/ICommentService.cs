@@ -10,7 +10,7 @@ namespace WidePictBoard.Application.Services.Comment.Interfaces
 
 
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
-        Task<GetAll.Response> GetPaged(CancellationToken cancellationToken);
+        Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken);
     }
 
 }

@@ -4,8 +4,11 @@ using System.Linq;
 
 namespace WidePictBoard.Application.Services.Comment.Contracts
 {
-    public static class GetAll
+    public static class GetPaged
     {
+        public sealed class Request : Paged.Request
+        {
+        }
         public sealed class Response : Paged.Response<Response.CategoryResponse>
         {
             public sealed class CategoryResponse

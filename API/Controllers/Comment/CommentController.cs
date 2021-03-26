@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using WidePictBoard.API.Controllers;
 using WidePictBoard.Application.Services.Comment.Interfaces;
 
 
@@ -14,6 +12,6 @@ namespace WidePictBoard.API.Controllers.Comment
     {
         private readonly ICommentService _commentService;
 
-        public CommentController(IContentService commentService) => _commentService = commentService;
+        public CommentController(ICommentService commentService) => _commentService = commentService;
     }
 }

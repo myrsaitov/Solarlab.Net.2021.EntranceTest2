@@ -63,7 +63,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
          }
         public async Task SetSuspended(SetSuspended.Request request, CancellationToken cancellationToken)
         {
-            var category = await _repository.FindByIdNew(request.Id, cancellationToken);
+            var category = await _repository.FindById(request.Id, cancellationToken);
             if (category == null)
             {
                 throw new CategoryNotFoundException(request.Id);
@@ -83,7 +83,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         }
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var category = await _repository.FindByIdNew(request.Id, cancellationToken);
+            var category = await _repository.FindById(request.Id, cancellationToken);
             if (category == null)
             {
                 throw new CategoryNotFoundException(request.Id);
