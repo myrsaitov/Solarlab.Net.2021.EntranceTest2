@@ -9,7 +9,6 @@ namespace WidePictBoard.Application.Services.Category.Contracts
         {
             public string Name { get; set; }
             public int? ParentCategoryId { get; set; }
-            public CategoryStatus Status { get; set; }
             public DateTime CreatedAt { get; set; }
         }
 

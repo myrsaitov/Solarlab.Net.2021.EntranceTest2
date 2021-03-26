@@ -28,7 +28,6 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public int Id { get; set; }
             public string Title { get; set; }
             public string Body { get; set; }
-            public string Status { get; set; }
             public decimal Price { get; set; }
             public string OwnerId { get; set; }
             public OwnerResponse Owner { get; set; }
