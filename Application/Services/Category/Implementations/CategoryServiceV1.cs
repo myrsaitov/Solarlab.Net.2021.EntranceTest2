@@ -29,7 +29,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             var category = _mapper.Map<Domain.Category>(request);
-            category.Status = Domain.General.CategoryStatus.InUse;
+            category.IsDeleted = false;
             category.CreatedAt = DateTime.UtcNow;
 
             await _repository.Save(category, cancellationToken);
@@ -55,7 +55,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                  throw new NoRightsException("Нет прав для выполнения операции.");
              }
 
-             category.Status = Domain.General.CategoryStatus.InUse;
+             category.IsDeleted = false;
              category.UpdatedAt = DateTime.UtcNow;
              await _repository.Save(category, cancellationToken);
          }
@@ -75,7 +75,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            category.Status = Domain.General.CategoryStatus.Suspended;
+            category.IsDeleted = true;
             category.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(category, cancellationToken);
         }

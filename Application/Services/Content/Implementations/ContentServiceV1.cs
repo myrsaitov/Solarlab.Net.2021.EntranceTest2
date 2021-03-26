@@ -31,7 +31,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
             var content = _mapper.Map<Domain.Content>(request);
-            content.Status = Domain.General.ContentStatus.Created;
+            content.IsDeleted = false;
             content.OwnerId = userId;
             content.CreatedAt = DateTime.UtcNow;
 
@@ -41,20 +41,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 Id = content.Id
             };
-        }
-
-        public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
-        {
-            var content = await _repository.FindById(request.Id, cancellationToken);
-
-            if (content == null)
-            {
-                throw new ContentNotFoundException(request.Id);
-            }
-
-            content.Status = Domain.General.ContentStatus.Payed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
         }
 
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
@@ -73,7 +59,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            content.Status = Domain.General.ContentStatus.Closed;
+            content.IsDeleted = true;
             content.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(content, cancellationToken);
         }

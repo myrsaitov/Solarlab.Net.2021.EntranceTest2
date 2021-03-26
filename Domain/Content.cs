@@ -10,7 +10,7 @@ namespace WidePictBoard.Domain
         public decimal Price { get; set; }
         public string OwnerId { get; set; }
         public User Owner { get; set; }
-        public ContentStatus Status { get; set; }
+        public bool IsDeleted { get; set; }
         public Category Category { get; set; }
         public int? CategoryId { get; set; }
         public ICollection<Comment> Comments { get; set; }

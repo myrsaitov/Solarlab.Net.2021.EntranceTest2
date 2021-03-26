@@ -29,7 +29,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
             var comment = _mapper.Map<Domain.Comment>(request); 
-            comment.Status = Domain.General.CommentStatus.Active;
+            comment.IsDeleted = false;
             comment.OwnerId = userId;
             comment.CreatedAt = DateTime.UtcNow;
 

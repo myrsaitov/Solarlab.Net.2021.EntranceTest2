@@ -9,6 +9,6 @@ namespace WidePictBoard.Domain
         public Category ParentCategory { get; set; }
         public int? ParentCategoryId { get; set; }
         public ICollection<Category> ChildCategories { get; set; }
-        public CategoryStatus Status { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

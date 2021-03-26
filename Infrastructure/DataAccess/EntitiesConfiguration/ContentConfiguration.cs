@@ -13,8 +13,6 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
             builder.Property(x => x.Price).HasColumnType("money");
-            builder.Property(x => x.Status)
-                .HasConversion<string>(s => s.ToString(), s => Enum.Parse<WidePictBoard.Domain.General.ContentStatus>(s));
             builder.HasOne(x => x.Owner)
                 .WithMany()
                 .HasForeignKey(s => s.OwnerId)
