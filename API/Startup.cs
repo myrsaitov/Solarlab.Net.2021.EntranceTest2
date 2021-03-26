@@ -49,6 +49,7 @@ namespace WidePictBoard.API
 
             //Mapster
             services.AddSingleton(CategoryMapProfile.GetConfiguredMappingConfig());
+            services.AddSingleton(CommentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(ContentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(UserMapProfile.GetConfiguredMappingConfig());
             

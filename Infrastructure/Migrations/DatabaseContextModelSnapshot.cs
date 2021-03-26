@@ -49,14 +49,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "28301b7e-4e8a-402c-b744-6ea8c234c121",
+                            ConcurrencyStamp = "74e9625c-0e16-4cd3-a103-409bb0087f7a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "0028aa66-b44c-4b0d-9148-2df1207f824a",
+                            ConcurrencyStamp = "b4ba1553-846d-43e1-b3ea-75d9edc90aa3",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -207,42 +207,42 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(5542),
+                            CreatedAt = new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(7880),
                             Name = "Транспорт",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6516),
+                            CreatedAt = new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8611),
                             Name = "Недвижимость",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6520),
+                            CreatedAt = new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8615),
                             Name = "Мебель",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6522),
+                            CreatedAt = new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8616),
                             Name = "Одежда",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6523),
+                            CreatedAt = new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8617),
                             Name = "Бытовая техника",
                             Status = "InUse"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6524),
+                            CreatedAt = new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8618),
                             Name = "Книги",
                             Status = "InUse"
                         });
@@ -268,8 +268,12 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -278,7 +282,9 @@ namespace WidePictBoard.Infrastructure.Migrations
 
                     b.HasIndex("ContentId");
 
-                    b.ToTable("Comment");
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
@@ -424,13 +430,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8ad3755-fffd-4218-b280-7ac63ac932c7",
+                            ConcurrencyStamp = "6d6db20c-6199-4660-8d75-0ceef1d88e74",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOUN5UeRglTquiO/EhQ5YuVjq4y74iHzXN5uKkzLiFqy72VR2ZSquEl2UN8CN1v9WA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECViEF3a2TRt9TJiB2ncXBQQ0ivb0GGyAbPKznY9CSwA7v+X7JR4sMS0RAn/IxzTHw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4f503a9a-fd7f-4d09-b42b-e11c4cc0327c",
+                            SecurityStamp = "d014397f-b60e-44c2-ab51-b399d8d3a59b",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -501,6 +507,12 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.HasOne("WidePictBoard.Domain.Content", null)
                         .WithMany("Comments")
                         .HasForeignKey("ContentId");
+
+                    b.HasOne("WidePictBoard.Domain.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("WidePictBoard.Domain.Content", b =>

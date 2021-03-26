@@ -8,7 +8,7 @@ namespace WidePictBoard.Application.MapProfiles
         {
             var config = new TypeAdapterConfig();
  
-            config.NewConfig<Services.Category.Contracts.Create.Request, WidePictBoard.Domain.Category>()
+            config.NewConfig<Services.Category.Contracts.Create.Request, Domain.Category>()
                 .Map(dest => dest.Name, src => src.Name)
                 .Map(dest => dest.Status, src => src.Status)
                 .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId)

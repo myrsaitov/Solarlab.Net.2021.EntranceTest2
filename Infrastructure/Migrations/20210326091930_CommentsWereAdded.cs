@@ -7,85 +7,168 @@ namespace WidePictBoard.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Comment_Contents_ContentId",
+                table: "Comment");
+
             migrationBuilder.DropTable(
                 name: "Tag");
 
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Comment",
+                table: "Comment");
+
+            migrationBuilder.RenameTable(
+                name: "Comment",
+                newName: "Comments");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Comment_ContentId",
+                table: "Comments",
+                newName: "IX_Comments_ContentId");
+
+            migrationBuilder.AddColumn<string>(
+                name: "OwnerId",
+                table: "Comments",
+                type: "nvarchar(450)",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
                 name: "Status",
-                table: "Comment",
-                type: "int",
+                table: "Comments",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: "");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Comments",
+                table: "Comments",
+                column: "Id");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "0028aa66-b44c-4b0d-9148-2df1207f824a");
+                value: "b4ba1553-846d-43e1-b3ea-75d9edc90aa3");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "28301b7e-4e8a-402c-b744-6ea8c234c121");
+                value: "74e9625c-0e16-4cd3-a103-409bb0087f7a");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "c8ad3755-fffd-4218-b280-7ac63ac932c7", "AQAAAAEAACcQAAAAEOUN5UeRglTquiO/EhQ5YuVjq4y74iHzXN5uKkzLiFqy72VR2ZSquEl2UN8CN1v9WA==", "4f503a9a-fd7f-4d09-b42b-e11c4cc0327c" });
+                values: new object[] { "6d6db20c-6199-4660-8d75-0ceef1d88e74", "AQAAAAEAACcQAAAAECViEF3a2TRt9TJiB2ncXBQQ0ivb0GGyAbPKznY9CSwA7v+X7JR4sMS0RAn/IxzTHw==", "d014397f-b60e-44c2-ab51-b399d8d3a59b" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(5542));
+                value: new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(7880));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6516));
+                value: new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8611));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6520));
+                value: new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8615));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6522));
+                value: new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8616));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6523));
+                value: new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8617));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 25, 20, 56, 57, 946, DateTimeKind.Utc).AddTicks(6524));
+                value: new DateTime(2021, 3, 26, 9, 19, 30, 16, DateTimeKind.Utc).AddTicks(8618));
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_OwnerId",
+                table: "Comments",
+                column: "OwnerId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Comments_Contents_ContentId",
+                table: "Comments",
+                column: "ContentId",
+                principalTable: "Contents",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Comments_DomainUsers_OwnerId",
+                table: "Comments",
+                column: "OwnerId",
+                principalTable: "DomainUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Comments_Contents_ContentId",
+                table: "Comments");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Comments_DomainUsers_OwnerId",
+                table: "Comments");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Comments",
+                table: "Comments");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Comments_OwnerId",
+                table: "Comments");
+
+            migrationBuilder.DropColumn(
+                name: "OwnerId",
+                table: "Comments");
+
             migrationBuilder.DropColumn(
                 name: "Status",
-                table: "Comment");
+                table: "Comments");
+
+            migrationBuilder.RenameTable(
+                name: "Comments",
+                newName: "Comment");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Comments_ContentId",
+                table: "Comment",
+                newName: "IX_Comment_ContentId");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Comment",
+                table: "Comment",
+                column: "Id");
 
             migrationBuilder.CreateTable(
                 name: "Tag",
@@ -176,6 +259,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                 name: "IX_Tag_ContentId",
                 table: "Tag",
                 column: "ContentId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Comment_Contents_ContentId",
+                table: "Comment",
+                column: "ContentId",
+                principalTable: "Contents",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

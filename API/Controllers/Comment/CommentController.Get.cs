@@ -10,23 +10,17 @@ namespace WidePictBoard.API.Controllers.Comment
 {
     public partial class CommentController
     {
-        /// <summary>
-        /// Получение всех закупок
-        /// </summary>
-        /// <param name="request">Dto объявления</param>
-        /// <param name="cancellationToken">cancellationToken</param>
-        /// <returns>Коллекция закупок</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetPaged([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
-            var result = await _commentService.GetPaged(new GetPaged.Request
-            {
-                PageSize = request.PageSize,
-                Page = request.Page
-            }, cancellationToken);
+               var result = await _commentService.GetPaged(new GetPaged.Request
+               {
+                   PageSize = request.PageSize,
+                   Page = request.Page
+               }, cancellationToken);
 
-            return Ok(result);
+               return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -35,11 +29,12 @@ namespace WidePictBoard.API.Controllers.Comment
         {
 
             var found = await _commentService.GetById(new GetById.Request
-            {
-                Id = id
-            }, cancellationToken);
+             {
+                 Id = id
+             }, cancellationToken);
 
-            return Ok(found);
+             return Ok(found);
+            
         }
 
         public class GetAllRequest
@@ -47,5 +42,6 @@ namespace WidePictBoard.API.Controllers.Comment
             public int PageSize { get; set; } = 20;
             public int Page { get; set; } = 0;
         }
+
     }
 }

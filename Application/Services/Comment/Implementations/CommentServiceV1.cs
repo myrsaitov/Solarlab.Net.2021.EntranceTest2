@@ -3,13 +3,11 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Comment.Contracts;
 using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Comment.Interfaces;
-using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {
@@ -30,7 +28,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
-            var comment = _mapper.Map<Domain.Comment>(request);
+            var comment = _mapper.Map<Domain.Comment>(request); 
             comment.Status = Domain.General.CommentStatus.Active;
             comment.OwnerId = userId;
             comment.CreatedAt = DateTime.UtcNow;
@@ -43,28 +41,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             };
         }
 
-
-
-        public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
-        {
-            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (comment == null)
-            {
-                throw new CommentNotFoundException(request.Id);
-            }
-
-            var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
-
-            if (!isAdmin && comment.OwnerId != userId)
-            {
-                throw new NoRightsException("Нет прав для выполнения операции.");
-            }
-
-            comment.Status = Domain.General.CommentStatus.Deleted;
-            comment.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(comment, cancellationToken);
-        }
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {

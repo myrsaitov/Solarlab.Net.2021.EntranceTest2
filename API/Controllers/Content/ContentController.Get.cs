@@ -10,12 +10,6 @@ namespace WidePictBoard.API.Controllers.Content
 {
     public partial class ContentController
     {
-        /// <summary>
-        /// Получение всех закупок
-        /// </summary>
-        /// <param name="request">Dto объявления</param>
-        /// <param name="cancellationToken">cancellationToken</param>
-        /// <returns>Коллекция закупок</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetPaged([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
@@ -44,14 +38,7 @@ namespace WidePictBoard.API.Controllers.Content
 
         public class GetAllRequest
         {
-            /// <summary>
-            /// Количество возвращаемых объявлений
-            /// </summary>
             public int PageSize { get; set; } = 20;
-
-            /// <summary>
-            /// Смещение начиная с котрого возвращаются объявления
-            /// </summary>
             public int Page { get; set; } = 0;
         }
     }
