@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WidePictBoard.Application
+namespace WidePictBoard.Application.Services.PagedBase.Contracts
 {
     public static class Paged
     {

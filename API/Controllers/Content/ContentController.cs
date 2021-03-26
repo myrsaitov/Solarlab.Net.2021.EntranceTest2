@@ -9,7 +9,7 @@ namespace WidePictBoard.API.Controllers.Content
     [Authorize]
     public partial class ContentController : ControllerBase
     {
-        private readonly IContentService _contentService;
-        public ContentController(IContentService contentService) => _contentService = contentService;
+        private readonly IPagedBase _contentService;
+        public ContentController(IPagedBase contentService) => _contentService = contentService;
     }
 }

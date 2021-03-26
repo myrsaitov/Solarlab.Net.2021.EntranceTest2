@@ -1,4 +1,5 @@
 ﻿using System;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.Application.Services.Category.Contracts
 {
