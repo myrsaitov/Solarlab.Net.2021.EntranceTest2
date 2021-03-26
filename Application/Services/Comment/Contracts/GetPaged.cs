@@ -9,9 +9,9 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
         public sealed class Request : Paged.Request
         {
         }
-        public sealed class Response : Paged.Response<Response.CategoryResponse>
+        public sealed class Response : Paged.Response<Response.CommentResponse>
         {
-            public sealed class CategoryResponse
+            public sealed class CommentResponse
             {
                 public int Id { get; set; }
                 public string Body { get; set; }

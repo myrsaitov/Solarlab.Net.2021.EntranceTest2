@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Content.Interfaces;
-using WidePictBoard.Application.Services.User.Interfaces;
+using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
+using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Content.Implementations
+namespace WidePictBoard.Application.Services.Comment.Implementations
 {
-    public sealed class CommentServiceV1 : IContentService
+    public sealed class CommentServiceV1 : ICommentService
     {
-        private readonly IContentRepository _repository;
+        private readonly ICommentRepository _repository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
 
-        public CommentServiceV1(IContentRepository repository, IIdentityService identityService, IMapper mapper)
+        public CommentServiceV1(ICommentRepository repository, IIdentityService identityService, IMapper mapper)
         {
             _repository = repository;
             _identityService = identityService;
@@ -31,63 +30,51 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
-            var content = _mapper.Map<Domain.Content>(request);
-            content.Status = Domain.General.ContentStatus.Created;
-            content.OwnerId = userId;
-            content.CreatedAt = DateTime.UtcNow;
+            var comment = _mapper.Map<Domain.Comment>(request);
+            comment.Status = Domain.General.CommentStatus.Active;
+            comment.OwnerId = userId;
+            comment.CreatedAt = DateTime.UtcNow;
 
-            await _repository.Save(content, cancellationToken);
+            await _repository.Save(comment, cancellationToken);
 
             return new Create.Response
             {
-                Id = content.Id
+                Id = comment.Id
             };
         }
 
-        public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
-        {
-            var content = await _repository.FindById(request.Id, cancellationToken);
 
-            if (content == null)
-            {
-                throw new ContentNotFoundException(request.Id);
-            }
-
-            content.Status = Domain.General.ContentStatus.Payed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
-        }
 
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (content == null)
+            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (comment == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new CommentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
             var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
 
-            if (!isAdmin && content.OwnerId != userId)
+            if (!isAdmin && comment.OwnerId != userId)
             {
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            content.Status = Domain.General.ContentStatus.Closed;
-            content.UpdatedAt = DateTime.UtcNow;
-            await _repository.Save(content, cancellationToken);
+            comment.Status = Domain.General.CommentStatus.Deleted;
+            comment.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(comment, cancellationToken);
         }
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (content == null)
+            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (comment == null)
             {
-                throw new ContentNotFoundException(request.Id);
+                throw new CommentNotFoundException(request.Id);
             }
 
-            return _mapper.Map<GetById.Response>(content);
+            return _mapper.Map<GetById.Response>(comment);
         }
 
         public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
@@ -100,20 +87,20 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 return new GetPaged.Response
                 {
-                    Items = Array.Empty<GetPaged.Response.ContentResponse>(),
+                    Items = Array.Empty<GetPaged.Response.CommentResponse>(),
                     Total = total,
                     Offset = request.Page,
                     Limit = request.PageSize
                 };
             }
 
-            var contents = await _repository.GetPaged(
+            var comments = await _repository.GetPaged(
                 request.Page, request.PageSize, cancellationToken
             );
 
             return new GetPaged.Response
             {
-                Items = contents.Select(content =>_mapper.Map<GetPaged.Response.ContentResponse>(content)),
+                Items = comments.Select(comment =>_mapper.Map<GetPaged.Response.CommentResponse>(comment)),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
