@@ -13,6 +13,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public int? CategoryId { get; set; }
             public DateTime CreatedAt { get; set; }
             public string OwnerId { get; set; }
+            public bool IsDeleted { get; set; }
         }
         public sealed class Response
         {

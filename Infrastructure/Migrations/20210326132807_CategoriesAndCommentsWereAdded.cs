@@ -3,15 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WidePictBoard.Infrastructure.Migrations
 {
-    public partial class CategoriesWereAdded : Migration
+    public partial class CategoriesAndCommentsWereAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Status",
+                table: "Contents");
+
             migrationBuilder.AddColumn<string>(
                 name: "Body",
                 table: "Contents",
                 type: "nvarchar(max)",
                 nullable: true);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsDeleted",
+                table: "Contents",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
                 name: "Title",
@@ -29,54 +40,40 @@ namespace WidePictBoard.Infrastructure.Migrations
                 oldType: "nvarchar(max)",
                 oldNullable: true);
 
-            migrationBuilder.AddColumn<string>(
-                name: "Status",
+            migrationBuilder.AddColumn<bool>(
+                name: "IsDeleted",
                 table: "Categories",
-                type: "nvarchar(max)",
+                type: "bit",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: false);
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Body = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     CommentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ContentId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Contents_ContentId",
+                        name: "FK_Comments_Contents_ContentId",
                         column: x => x.ContentId,
                         principalTable: "Contents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tag",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TagText = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContentId = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tag_Contents_ContentId",
-                        column: x => x.ContentId,
-                        principalTable: "Contents",
+                        name: "FK_Comments_DomainUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "DomainUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -86,59 +83,56 @@ namespace WidePictBoard.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "377e4fab-3c86-449d-9226-c7aff9ee8ee9");
+                value: "558c54f1-1909-41c2-b308-8e668bdaec48");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "c6d756ac-ae8c-45f5-bb06-6e9c3abf1a5d");
+                value: "1a3cf55a-36d1-414c-93f6-7894fb87b713");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "54c3181b-e33f-4f7b-a830-f14484491240", "AQAAAAEAACcQAAAAEIBvqFFGuDbB4q0rM2BxGvG/obcg3h1k0e5J+qpLaczxy1lppFli4jJ44H8ZsV0IvA==", "03e9c671-00ce-462f-ac2a-ec0b94bac207" });
+                values: new object[] { "b301818f-5ad5-4915-abb2-43220701e7a2", "AQAAAAEAACcQAAAAEHPTzkKlpPfrId63Z1rJXWgKbx9Z1IFmkbb8+jbfDw4LGUOsufSRattqf/xN80Wf2w==", "546f30bc-b4e9-4bd5-b420-c51423b022cf" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedAt", "Name" },
-                values: new object[] { new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(5824), "Транспорт" });
+                values: new object[] { new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(8231), "Транспорт" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CreatedAt", "Name", "ParentCategoryId", "Status", "UpdatedAt" },
+                columns: new[] { "Id", "CreatedAt", "IsDeleted", "Name", "ParentCategoryId", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6631), "Недвижимость", null, "InUse", null },
-                    { 3, new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6635), "Мебель", null, "InUse", null },
-                    { 4, new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6636), "Одежда", null, "InUse", null },
-                    { 5, new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6637), "Бытовая техника", null, "InUse", null },
-                    { 6, new DateTime(2021, 3, 25, 14, 5, 47, 356, DateTimeKind.Utc).AddTicks(6638), "Книги", null, "InUse", null }
+                    { 2, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9003), false, "Недвижимость", null, null },
+                    { 3, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9006), false, "Мебель", null, null },
+                    { 4, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9008), false, "Одежда", null, null },
+                    { 5, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9009), false, "Бытовая техника", null, null },
+                    { 6, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9010), false, "Книги", null, null }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_ContentId",
-                table: "Comment",
+                name: "IX_Comments_ContentId",
+                table: "Comments",
                 column: "ContentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tag_ContentId",
-                table: "Tag",
-                column: "ContentId");
+                name: "IX_Comments_OwnerId",
+                table: "Comments",
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
-
-            migrationBuilder.DropTable(
-                name: "Tag");
+                name: "Comments");
 
             migrationBuilder.DeleteData(
                 table: "Categories",
@@ -170,12 +164,23 @@ namespace WidePictBoard.Infrastructure.Migrations
                 table: "Contents");
 
             migrationBuilder.DropColumn(
+                name: "IsDeleted",
+                table: "Contents");
+
+            migrationBuilder.DropColumn(
                 name: "Title",
                 table: "Contents");
 
             migrationBuilder.DropColumn(
-                name: "Status",
+                name: "IsDeleted",
                 table: "Categories");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Status",
+                table: "Contents",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",

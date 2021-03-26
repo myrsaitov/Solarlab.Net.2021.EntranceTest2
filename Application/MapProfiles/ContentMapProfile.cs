@@ -22,7 +22,9 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Price, src => src.Price)
                 .Map(dest => dest.CategoryId, src => src.CategoryId)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
-                .Map(dest => dest.CreatedAt, src => src.CreatedAt);
+                .Map(dest => dest.Owner, src => src.Owner)
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+                .Map(dest => dest.IsDeleted, src => src.IsDeleted);
 
             config.NewConfig<Services.Content.Contracts.GetPaged.Response.ContentResponse, Domain.Content>()
                 .Map(dest => dest.Title, src => src.Title)
@@ -30,7 +32,9 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Price, src => src.Price)
                 .Map(dest => dest.CategoryId, src => src.CategoryId)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
-                .Map(dest => dest.CreatedAt, src => src.CreatedAt);
+                .Map(dest => dest.Owner, src => src.Owner)
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
+                .Map(dest => dest.IsDeleted, src => src.IsDeleted); ;
 
             return config;
         }

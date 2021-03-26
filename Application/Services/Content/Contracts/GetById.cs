@@ -2,14 +2,6 @@
 
 namespace WidePictBoard.Application.Services.Content.Contracts
 {
-    public static class Pay
-    {
-        public sealed class Request
-        {
-            public int Id { get; set; }
-        }
-    }
-
     public static class GetById
     {
         public sealed class Request
@@ -34,6 +26,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public Domain.Category Category { get; set; }
             public DateTime CreatedAt { get; set; }
             public int? CategoryId { get; set; }
+            public bool IsDeleted { get; set; }
         }
     }
 }

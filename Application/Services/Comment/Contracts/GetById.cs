@@ -17,6 +17,7 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
             public string OwnerId { get; set; }
             public Domain.User Owner { get; set; }
             public DateTime CreatedAt { get; set; }
+            public bool IsDeleted { get; set; }
         }
     }
 }
