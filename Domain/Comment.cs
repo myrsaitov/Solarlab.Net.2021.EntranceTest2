@@ -11,5 +11,8 @@ namespace WidePictBoard.Domain
 
         public DateTime CommentDate { get; set; }
         public CommentStatus Status { get; set; }
+
+        public string OwnerId { get; set; }
+        public User Owner { get; set; }
     }
 }

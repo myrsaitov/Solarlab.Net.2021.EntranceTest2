@@ -19,10 +19,10 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.Status)
                 .HasConversion<string>(s => s.ToString(), s => Enum.Parse<WidePictBoard.Domain.General.CommentStatus>(s));
 
-           /*builder.HasOne(x => x.Owner)
+           builder.HasOne(x => x.Owner)
                 .WithMany()
                 .HasForeignKey(s => s.OwnerId)
-                .HasPrincipalKey(u => u.Id);*/
+                .HasPrincipalKey(u => u.Id);
         }
     }
 }
