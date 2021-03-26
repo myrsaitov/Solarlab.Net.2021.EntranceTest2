@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Contracts;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
@@ -11,7 +10,6 @@ using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Application.Services.User.Validators;
 using WidePictBoard.Domain.General.Exceptions;
-//using AutoMapper;
 using MapsterMapper;
 
 namespace WidePictBoard.Application.Services.User.Implementations

@@ -15,7 +15,8 @@ namespace WidePictBoard.Infrastructure
 {
     public static class ApplicationModule
     {
-        public static IServiceCollection AddApplicationModule(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationModule(this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddScoped<ICategoryService, CategoryServiceV1>();
             services.AddScoped<ICommentService, CommentServiceV1>();
@@ -27,6 +28,5 @@ namespace WidePictBoard.Infrastructure
 
             return services;
         }
-
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using WidePictBoard.Application.Repositories;
-using WidePictBoard.Domain;
 using WidePictBoard.Infrastructure.DataAccess;
 using WidePictBoard.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;

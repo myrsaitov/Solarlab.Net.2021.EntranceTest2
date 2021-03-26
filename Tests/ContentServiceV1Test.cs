@@ -4,7 +4,6 @@ using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Implementations;
 using AutoFixture.Xunit2;
 using Moq;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;

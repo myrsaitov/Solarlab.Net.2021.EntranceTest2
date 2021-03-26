@@ -11,8 +11,7 @@ namespace WidePictBoard.Application.MapProfiles
             config.NewConfig<Services.Comment.Contracts.Create.Request, Domain.Comment>()
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.Status, src => src.Status);
-
-
+            
             config.NewConfig<Services.Comment.Contracts.GetById.Response, Domain.Comment>()
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.Status, src => src.Status)

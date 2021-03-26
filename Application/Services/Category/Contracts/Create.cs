@@ -5,7 +5,6 @@ namespace WidePictBoard.Application.Services.Category.Contracts
 {
     public static class Create
     {
-
         public sealed class Request
         {
             public string Name { get; set; }

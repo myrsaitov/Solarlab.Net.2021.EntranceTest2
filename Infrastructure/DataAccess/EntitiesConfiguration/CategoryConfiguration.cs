@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using WidePictBoard.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -55,22 +54,15 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             }
         };
 
-        ///<inheritdoc />>
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(x => x.Id);
-
             builder.Property(x => x.Name).IsRequired();
-
             builder.Property(x => x.ParentCategoryId).IsRequired(false);
-
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
-
             builder.Property(x => x.Status)
                 .HasConversion<string>(s => s.ToString(), s => Enum.Parse<Domain.General.CategoryStatus>(s));
-
-
             builder.HasData(categories);
         }
     }

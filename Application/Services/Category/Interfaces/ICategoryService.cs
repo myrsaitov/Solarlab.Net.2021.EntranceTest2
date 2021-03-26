@@ -7,13 +7,9 @@ namespace WidePictBoard.Application.Services.Category.Interfaces
     public interface ICategoryService
     {
         Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken);
-
         Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken);
         Task SetSuspended(SetSuspended.Request request, CancellationToken cancellationToken);
-
-
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
         Task<GetAll.Response> GetAll(CancellationToken cancellationToken);
     }
-
 }

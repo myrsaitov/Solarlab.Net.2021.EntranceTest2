@@ -27,7 +27,6 @@ namespace WidePictBoard.Application.Services.Content.Contracts
                 public decimal Price { get; set; }
                 public string OwnerId { get; set; }
                 public OwnerResponse Owner { get; set; }
-
                 public Domain.Category Category { get; set; }
                 public DateTime CreatedAt { get; set; }
                 public int? CategoryId { get; set; }

@@ -5,11 +5,9 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
 {
     public static class Create
     {
-
         public sealed class Request
         {
             public string Body { get; set; }
-
             public DateTime CommentDate { get; set; }
             public CommentStatus Status { get; set; }
         }

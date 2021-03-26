@@ -6,7 +6,6 @@ namespace WidePictBoard.Domain.General.Exceptions
     {
         public DomainException(string message) : base(message)
         {
-            
         }
     }
 }

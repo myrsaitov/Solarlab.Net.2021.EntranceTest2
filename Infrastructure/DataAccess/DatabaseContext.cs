@@ -12,13 +12,11 @@ namespace WidePictBoard.Infrastructure.DataAccess
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-
         }
 
         public DbSet<Content> Contents { get; set; }
         public DbSet<User> DomainUsers { get; set; }
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,6 +79,5 @@ namespace WidePictBoard.Infrastructure.DataAccess
                 });
             });
         }
-
     }
 }

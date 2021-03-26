@@ -9,7 +9,6 @@ using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Category.Contracts;
 using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Category.Interfaces;
-using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Category.Implementations
@@ -39,8 +38,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 Id = category.Id
             };
         }
-
-      
+        
         public async Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken)
          {
              var category = await _repository.FindById(request.Id, cancellationToken);
