@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +25,6 @@ namespace WidePictBoard.API.Controllers.Content
         [AllowAnonymous]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
-
             var found = await _contentService.GetById(new GetById.Request
             {
                 Id = id

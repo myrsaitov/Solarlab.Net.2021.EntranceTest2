@@ -10,11 +10,6 @@ namespace WidePictBoard.API.Controllers.Category
 {
     public partial class CategoryController
     {
-        /// <summary>
-        /// Получение всех категорий
-        /// </summary>
-        /// <param name="cancellationToken">cancellationToken</param>
-        /// <returns>Коллекция категорий</returns>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)

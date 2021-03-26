@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Comment.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -27,14 +25,12 @@ namespace WidePictBoard.API.Controllers.Comment
         [AllowAnonymous]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
-
             var found = await _commentService.GetById(new GetById.Request
              {
                  Id = id
              }, cancellationToken);
 
              return Ok(found);
-            
         }
 
         public class GetAllRequest
@@ -42,6 +38,5 @@ namespace WidePictBoard.API.Controllers.Comment
             public int PageSize { get; set; } = 20;
             public int Page { get; set; } = 0;
         }
-
     }
 }

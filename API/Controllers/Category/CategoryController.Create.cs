@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -22,14 +21,12 @@ namespace WidePictBoard.API.Controllers.Category
 
             return Created($"api/v1/categories/{response.Id}", new { });
         }
-
         public sealed class CategoryCreateRequest
         {
             [Required]
             [MaxLength(100)]
             public string Name { get; set; }
 
-            //[Required]
             [Range(1, 100_000_000_000)]
             public int? ParentCategoryId { get; set; }
         }

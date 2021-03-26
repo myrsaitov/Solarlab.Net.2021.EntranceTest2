@@ -1,5 +1,3 @@
-
-using Mapster;
 using MapsterMapper;
 using WidePictBoard.Infrastructure;
 using WidePictBoard.Infrastructure.DataAccess;
@@ -44,19 +42,14 @@ namespace WidePictBoard.API
 
             services.AddSwaggerModule();
 
-           
-
-
-            //Mapster
+           //Mapster
             services.AddSingleton(CategoryMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(CommentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(ContentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(UserMapProfile.GetConfiguredMappingConfig());
             
             services.AddScoped<IMapper, ServiceMapper>();
-
-
-
+            
             services.AddApplicationException(config => { config.DefaultErrorStatusCode = 500; });
         }
 

@@ -21,7 +21,7 @@ namespace WidePictBoard.API.Controllers
             }
             catch (Exception e)
             {
-                // Need logger here
+                //TODO Need logger here
                 
                 return _exceptionHandler.Invoke(e);
             }
