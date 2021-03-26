@@ -16,6 +16,7 @@ namespace WidePictBoard.Infrastructure
         public static IServiceCollection AddApplicationModule(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ICategoryService, CategoryServiceV1>();
+            services.AddScoped<IContentService, CommentServiceV1>();
             services.AddScoped<IContentService, ContentServiceV1>();
             services.AddScoped<IUserService, UserServiceV1>();
 
