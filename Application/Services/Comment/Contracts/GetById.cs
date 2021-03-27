@@ -18,6 +18,8 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
             public Domain.User Owner { get; set; }
             public DateTime CreatedAt { get; set; }
             public bool IsDeleted { get; set; }
+            public int ContentId { get; set; }
+            public int? ParentCommentId { get; set; }
         }
     }
 }

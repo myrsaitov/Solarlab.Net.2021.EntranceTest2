@@ -10,7 +10,7 @@ using WidePictBoard.Infrastructure.DataAccess;
 namespace WidePictBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210326132807_CategoriesAndCommentsWereAdded")]
+    [Migration("20210327193712_CategoriesAndCommentsWereAdded")]
     partial class CategoriesAndCommentsWereAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,14 +51,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "1a3cf55a-36d1-414c-93f6-7894fb87b713",
+                            ConcurrencyStamp = "73c6cbfd-6fb3-4d7b-8e01-3f0307120fe8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "558c54f1-1909-41c2-b308-8e668bdaec48",
+                            ConcurrencyStamp = "fc88c024-d676-46fd-8f99-944357bee525",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -208,42 +208,42 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(8231),
+                            CreatedAt = new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(8782),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9003),
+                            CreatedAt = new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9982),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9006),
+                            CreatedAt = new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9986),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9008),
+                            CreatedAt = new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9987),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9009),
+                            CreatedAt = new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9988),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9010),
+                            CreatedAt = new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9990),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -263,7 +263,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Property<DateTime>("CommentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ContentId")
+                    b.Property<int>("ContentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -274,6 +274,9 @@ namespace WidePictBoard.Infrastructure.Migrations
 
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("ParentCommentId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -429,13 +432,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b301818f-5ad5-4915-abb2-43220701e7a2",
+                            ConcurrencyStamp = "6980ad5b-ab80-4a74-8363-0721fdc3982c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHPTzkKlpPfrId63Z1rJXWgKbx9Z1IFmkbb8+jbfDw4LGUOsufSRattqf/xN80Wf2w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPDV3p8MSpIEuP4pWfhRMe/hfOlNyHx9ymDedlsGHVTB5GOpiAfEliIcbBwsaDoZ9g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "546f30bc-b4e9-4bd5-b420-c51423b022cf",
+                            SecurityStamp = "0640cd5b-6ce7-4d45-8313-82c24624fcbe",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -505,7 +508,9 @@ namespace WidePictBoard.Infrastructure.Migrations
                 {
                     b.HasOne("WidePictBoard.Domain.Content", null)
                         .WithMany("Comments")
-                        .HasForeignKey("ContentId");
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WidePictBoard.Domain.User", "Owner")
                         .WithMany()

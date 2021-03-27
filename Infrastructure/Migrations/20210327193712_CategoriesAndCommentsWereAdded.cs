@@ -57,7 +57,8 @@ namespace WidePictBoard.Infrastructure.Migrations
                     CommentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ContentId = table.Column<int>(type: "int", nullable: true),
+                    ContentId = table.Column<int>(type: "int", nullable: false),
+                    ParentCommentId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -69,7 +70,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                         column: x => x.ContentId,
                         principalTable: "Contents",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_DomainUsers_OwnerId",
                         column: x => x.OwnerId,
@@ -83,39 +84,39 @@ namespace WidePictBoard.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "558c54f1-1909-41c2-b308-8e668bdaec48");
+                value: "fc88c024-d676-46fd-8f99-944357bee525");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "1a3cf55a-36d1-414c-93f6-7894fb87b713");
+                value: "73c6cbfd-6fb3-4d7b-8e01-3f0307120fe8");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "b301818f-5ad5-4915-abb2-43220701e7a2", "AQAAAAEAACcQAAAAEHPTzkKlpPfrId63Z1rJXWgKbx9Z1IFmkbb8+jbfDw4LGUOsufSRattqf/xN80Wf2w==", "546f30bc-b4e9-4bd5-b420-c51423b022cf" });
+                values: new object[] { "6980ad5b-ab80-4a74-8363-0721fdc3982c", "AQAAAAEAACcQAAAAEPDV3p8MSpIEuP4pWfhRMe/hfOlNyHx9ymDedlsGHVTB5GOpiAfEliIcbBwsaDoZ9g==", "0640cd5b-6ce7-4d45-8313-82c24624fcbe" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedAt", "Name" },
-                values: new object[] { new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(8231), "Транспорт" });
+                values: new object[] { new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(8782), "Транспорт" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedAt", "IsDeleted", "Name", "ParentCategoryId", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9003), false, "Недвижимость", null, null },
-                    { 3, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9006), false, "Мебель", null, null },
-                    { 4, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9008), false, "Одежда", null, null },
-                    { 5, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9009), false, "Бытовая техника", null, null },
-                    { 6, new DateTime(2021, 3, 26, 13, 28, 6, 456, DateTimeKind.Utc).AddTicks(9010), false, "Книги", null, null }
+                    { 2, new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9982), false, "Недвижимость", null, null },
+                    { 3, new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9986), false, "Мебель", null, null },
+                    { 4, new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9987), false, "Одежда", null, null },
+                    { 5, new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9988), false, "Бытовая техника", null, null },
+                    { 6, new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9990), false, "Книги", null, null }
                 });
 
             migrationBuilder.CreateIndex(

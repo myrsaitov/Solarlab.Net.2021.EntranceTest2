@@ -13,7 +13,6 @@ namespace WidePictBoard.API.Controllers.Content
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(ContentCreateRequest request, CancellationToken cancellationToken)
         {
-            //TODO Mapster
             var response = await _contentService.Create(new Create.Request
             {
                 Title = request.Title,

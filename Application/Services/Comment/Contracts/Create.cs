@@ -9,6 +9,8 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
         {
             public string Body { get; set; }
             public DateTime CommentDate { get; set; }
+            public int ContentId { get; set; }
+            public int? ParentCommentId { get; set; }
         }
 
         public sealed class Response

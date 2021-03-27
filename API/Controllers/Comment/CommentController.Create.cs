@@ -14,11 +14,12 @@ namespace WidePictBoard.API.Controllers.Comment
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(CommentCreateRequest request, CancellationToken cancellationToken)
         {
-            //TODO Mapster
             var response = await _commentService.Create(new Create.Request
             {
                 Body = request.Body,
-                CommentDate = request.CommentDate
+                CommentDate = request.CommentDate,
+                ContentId = request.ContentId,
+                ParentCommentId = request.ParentCommentId
             }, cancellationToken);
 
             return Created($"api/v1/comments/{response.Id}", new { });
@@ -32,6 +33,11 @@ namespace WidePictBoard.API.Controllers.Comment
             public string Body { get; set; }
             [Required]
             public DateTime CommentDate { get; set; }
+            [Required]
+            [Range(1, 100_000_000_000)]
+            public int ContentId { get; set; }
+            [Range(1, 100_000_000_000)]
+            public int? ParentCommentId { get; set; }
         }
     }
 }
