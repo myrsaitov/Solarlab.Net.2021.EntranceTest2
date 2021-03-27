@@ -21,7 +21,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly IContentRepository _repository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<Paged.Response<ContentResponse>, ContentResponse, Paged.Request, Domain.Content> _paged;
+        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content> _paged;
 
         public ContentServiceV1(IContentRepository repository, IIdentityService identityService, IMapper mapper)
         {
@@ -80,41 +80,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         }
 
 
-        public async Task<Paged.Response<ContentResponse>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<Paged.Response<ContentResponse>, ContentResponse, Paged.Request, Domain.Content>();
+            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content>();
             return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
-
-
-        /* public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
-         {
-             var total = await _repository.Count(
-                 cancellationToken
-             );
-
-             if (total == 0)
-             {
-                 return new GetPaged.Response
-                 {
-                     Items = Array.Empty<GetPaged.Response.ContentResponse>(),
-                     Total = total,
-                     Offset = request.Page,
-                     Limit = request.PageSize
-                 };
-             }
-
-             var contents = await _repository.GetPaged(
-                 request.Page, request.PageSize, cancellationToken
-             );
-
-             return new GetPaged.Response
-             {
-                 Items = contents.Select(content =>_mapper.Map<GetPaged.Response.ContentResponse>(content)),
-                 Total = total,
-                 Offset = request.Page,
-                 Limit = request.PageSize
-             };
-         }*/
     }
 }
