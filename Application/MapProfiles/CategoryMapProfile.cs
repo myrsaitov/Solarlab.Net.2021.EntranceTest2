@@ -13,12 +13,6 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt);
 
-            config.NewConfig<Services.Category.Contracts.GetAll.Response.CategoryResponse, Domain.Category>()
-                .Map(dest => dest.Name, src => src.Name)
-                .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId)
-                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
-                .Map(dest=>dest.IsDeleted, src=>src.IsDeleted);
-
             return config;
         }
     }

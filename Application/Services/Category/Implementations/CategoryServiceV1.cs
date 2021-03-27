@@ -10,6 +10,8 @@ using WidePictBoard.Application.Services.Category.Contracts;
 using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Category.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
+using WidePictBoard.Application.Services.PagedBase.Implementations;
 
 namespace WidePictBoard.Application.Services.Category.Implementations
 {
@@ -18,6 +20,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         private readonly ICategoryRepository _repository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
+        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Category> _paged;
 
         public CategoryServiceV1(ICategoryRepository repository, IIdentityService identityService, IMapper mapper)
         {
@@ -95,28 +98,10 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             };
         }
 
-        public async Task<GetAll.Response> GetAll(CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            var total = await _repository.Count(
-                cancellationToken
-            );
-
-            if (total == 0)
-            {
-                return new GetAll.Response
-                {
-                    Items = Array.Empty<GetAll.Response.CategoryResponse>(),
-                    Total = total,
-                };
-            }
-
-            var categories = await _repository.GetAll(cancellationToken);
-
-            return new GetAll.Response
-            {
-                Items = categories.Select(category => _mapper.Map<GetAll.Response.CategoryResponse>(category)),
-                Total = total
-            };
+            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Category>();
+            return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
     }
 }

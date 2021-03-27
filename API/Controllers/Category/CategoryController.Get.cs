@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Category.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.API.Controllers.Category
 {
@@ -12,9 +13,13 @@ namespace WidePictBoard.API.Controllers.Category
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged([FromQuery] GetPagedRequest request, CancellationToken cancellationToken)
         {
-            var result = await _categoryService.GetAll(cancellationToken);
+            var result = await _categoryService.GetPaged(new Paged.Request
+            {
+                PageSize = request.PageSize,
+                Page = request.Page
+            }, cancellationToken);
 
             return Ok(result);
         }
@@ -30,6 +35,12 @@ namespace WidePictBoard.API.Controllers.Category
             }, cancellationToken);
 
             return Ok(found);
+        }
+
+        public class GetPagedRequest
+        {
+            public int PageSize { get; set; } = 20;
+            public int Page { get; set; } = 0;
         }
     }
 }
