@@ -65,6 +65,26 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(content, cancellationToken);
         }
+        public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
+        {
+            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (content == null)
+            {
+                throw new ContentNotFoundException(request.Id);
+            }
+
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin && content.OwnerId != userId)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
+            content.IsDeleted = false;
+            content.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(content, cancellationToken);
+        }
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {

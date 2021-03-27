@@ -63,6 +63,27 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             await _repository.Save(category, cancellationToken);
         }
 
+        public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
+        {
+            var category = await _repository.FindById(request.Id, cancellationToken);
+            if (category == null)
+            {
+                throw new CategoryNotFoundException(request.Id);
+            }
+
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
+            category.IsDeleted = false;
+            category.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(category, cancellationToken);
+        }
+
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var category = await _repository.FindById(request.Id, cancellationToken);
