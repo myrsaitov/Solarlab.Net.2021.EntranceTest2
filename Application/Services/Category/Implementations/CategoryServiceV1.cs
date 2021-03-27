@@ -41,28 +41,8 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 Id = category.Id
             };
         }
-        
-        public async Task SetInUse(SetInUse.Request request, CancellationToken cancellationToken)
-         {
-             var category = await _repository.FindById(request.Id, cancellationToken);
-             if (category == null)
-             {
-                 throw new CategoryNotFoundException(request.Id);
-             }
 
-             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-             var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
-
-             if (!isAdmin)
-             {
-                 throw new NoRightsException("Нет прав для выполнения операции.");
-             }
-
-             category.IsDeleted = false;
-             category.UpdatedAt = DateTime.UtcNow;
-             await _repository.Save(category, cancellationToken);
-         }
-        public async Task SetSuspended(SetSuspended.Request request, CancellationToken cancellationToken)
+        public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var category = await _repository.FindById(request.Id, cancellationToken);
             if (category == null)
@@ -82,6 +62,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             category.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(category, cancellationToken);
         }
+
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var category = await _repository.FindById(request.Id, cancellationToken);
@@ -90,12 +71,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 throw new CategoryNotFoundException(request.Id);
             }
 
-            return new GetById.Response
-            {
-                Id = category.Id,
-                Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId
-            };
+            return _mapper.Map<GetById.Response>(category);
         }
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
