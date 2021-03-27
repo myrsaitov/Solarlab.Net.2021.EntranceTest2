@@ -44,6 +44,34 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 Id = comment.Id
             };
         }
+        
+        public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
+        {
+            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (comment == null)
+            {
+                throw new CommentNotFoundException(request.Id);
+            }
+
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin && comment.OwnerId != userId)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
+            comment.Body = request.Body;
+            comment.IsDeleted = false;
+            comment.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(comment, cancellationToken);
+
+            return new Update.Response
+            {
+                Id = comment.Id
+            };
+        }
+
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);

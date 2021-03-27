@@ -27,7 +27,6 @@ namespace WidePictBoard.API.Controllers.Comment
 
         public sealed class CommentCreateRequest
         {
-
             [Required]
             [MaxLength(2048)]
             public string Body { get; set; }

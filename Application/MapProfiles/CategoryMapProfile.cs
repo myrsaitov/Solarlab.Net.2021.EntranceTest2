@@ -7,11 +7,15 @@ namespace WidePictBoard.Application.MapProfiles
         public static TypeAdapterConfig GetConfiguredMappingConfig()
         {
             var config = new TypeAdapterConfig();
- 
+
             config.NewConfig<Services.Category.Contracts.Create.Request, Domain.Category>()
                 .Map(dest => dest.Name, src => src.Name)
-                .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId)
-                .Map(dest => dest.CreatedAt, src => src.CreatedAt);
+                .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId);
+
+            config.NewConfig<Services.Category.Contracts.Update.Request, Domain.Category>()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Name, src => src.Name)
+                .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId);
 
             config.NewConfig<Domain.Category, Services.Category.Contracts.GetById.Response>()
                 .Map(dest => dest.Name, src => src.Name)

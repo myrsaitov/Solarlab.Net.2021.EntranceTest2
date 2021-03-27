@@ -12,7 +12,11 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.ContentId, src => src.ContentId)
                 .Map(dest => dest.ParentCommentId, src => src.ParentCommentId);
-            
+
+            config.NewConfig<Services.Comment.Contracts.Update.Request, Domain.Comment>()
+                .Map(dest => dest.Id, src => src.Id)
+                .Map(dest => dest.Body, src => src.Body);
+
             config.NewConfig<Domain.Comment, Services.Comment.Contracts.GetById.Response>()
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
