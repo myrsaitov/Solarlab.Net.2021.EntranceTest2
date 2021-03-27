@@ -1,6 +1,5 @@
 ﻿using MapsterMapper;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
@@ -10,7 +9,6 @@ using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
-using WidePictBoard.Application.Services.PagedBase.Interfaces;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
 
@@ -78,7 +76,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             return _mapper.Map<GetById.Response>(content);
         }
-
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {

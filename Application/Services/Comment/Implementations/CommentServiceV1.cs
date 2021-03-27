@@ -1,6 +1,5 @@
 ﻿using MapsterMapper;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Identity.Interfaces;
@@ -8,6 +7,8 @@ using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Comment.Contracts;
 using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Comment.Interfaces;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
+using WidePictBoard.Application.Services.PagedBase.Implementations;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {
@@ -16,6 +17,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         private readonly ICommentRepository _repository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
+        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Comment> _paged;
 
         public CommentServiceV1(ICommentRepository repository, IIdentityService identityService, IMapper mapper)
         {
@@ -41,7 +43,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             };
         }
 
-
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -53,34 +54,10 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             return _mapper.Map<GetById.Response>(comment);
         }
 
-        public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            var total = await _repository.Count(
-                cancellationToken
-            );
-
-            if (total == 0)
-            {
-                return new GetPaged.Response
-                {
-                    Items = Array.Empty<GetPaged.Response.CommentResponse>(),
-                    Total = total,
-                    Offset = request.Page,
-                    Limit = request.PageSize
-                };
-            }
-
-            var comments = await _repository.GetPaged(
-                request.Page, request.PageSize, cancellationToken
-            );
-
-            return new GetPaged.Response
-            {
-                Items = comments.Select(comment =>_mapper.Map<GetPaged.Response.CommentResponse>(comment)),
-                Total = total,
-                Offset = request.Page,
-                Limit = request.PageSize
-            };
+            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Comment>();
+            return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
     }
 }
