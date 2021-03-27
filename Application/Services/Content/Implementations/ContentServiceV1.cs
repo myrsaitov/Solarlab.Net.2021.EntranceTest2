@@ -21,7 +21,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly IContentRepository _repository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<Paged.Response<ContentResponse>, ContentResponse, GetPaged.Request, Domain.Content> _paged;
+        private PagedBase<Paged.Response<ContentResponse>, ContentResponse, Paged.Request, Domain.Content> _paged;
 
         public ContentServiceV1(IContentRepository repository, IIdentityService identityService, IMapper mapper)
         {
@@ -80,9 +80,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         }
 
 
-        public async Task<Paged.Response<ContentResponse>> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<ContentResponse>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<Paged.Response<ContentResponse>, ContentResponse, GetPaged.Request, Domain.Content>();
+            _paged = new PagedBase<Paged.Response<ContentResponse>, ContentResponse, Paged.Request, Domain.Content>();
             return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
 

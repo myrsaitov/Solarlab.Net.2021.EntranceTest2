@@ -4,7 +4,7 @@ namespace WidePictBoard.Application.Services.PagedBase.Contracts
 {
     public static class Paged
     {
-        public abstract class Request
+        public /*abstract*/ class Request
         {
             public int Page { get; set; } = 0;
             public int PageSize { get; set; } = 10;

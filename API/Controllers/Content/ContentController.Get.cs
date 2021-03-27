@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.API.Controllers.Content
 {
@@ -12,7 +13,7 @@ namespace WidePictBoard.API.Controllers.Content
         [AllowAnonymous]
         public async Task<IActionResult> GetPaged([FromQuery] GetAllRequest request, CancellationToken cancellationToken)
         {
-            var result = await _contentService.GetPaged(new GetPaged.Request
+            var result = await _contentService.GetPaged(new Paged.Request
             {
                 PageSize = request.PageSize,
                 Page = request.Page
