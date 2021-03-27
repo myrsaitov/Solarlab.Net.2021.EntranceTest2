@@ -17,14 +17,11 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
 {
     public class PagedBase<TPagedResponse, TSingleResponce, TPagedRequest, TEntity> : IPagedBase<TPagedResponse, TSingleResponce, TPagedRequest, TEntity>
         where TPagedResponse : Paged.Response<TSingleResponce>
-       // where TSingleResponce : GetById.Response
         where TPagedRequest : Paged.Request
         where TEntity : Entity<int>
     {
-
         public PagedBase()
         { 
-        
         }
 
         public async Task<Paged.Response<TSingleResponce>> GetPaged(TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
