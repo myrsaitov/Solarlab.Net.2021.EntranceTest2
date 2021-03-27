@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
+using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Interfaces;
 using WidePictBoard.Domain.General;
@@ -14,43 +15,42 @@ using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.PagedBase.Implementations
 {
-    public class PagedBase<TEntity>
-        : IPagedBase<TEntity>
-        where TEntity : EntityMutable<int>
+    public class PagedBase<TPagedResponse, TSingleResponce, TPagedRequest, TEntity> : IPagedBase<TPagedResponse, TSingleResponce, TPagedRequest, TEntity>
+        where TPagedResponse : Paged.Response<TSingleResponce>
+       // where TSingleResponce : GetById.Response
+        where TPagedRequest : Paged.Request
+        where TEntity : Entity<int>
     {
-        private readonly IRepository<TEntity, int> _repository;
-        private readonly IIdentityService _identityService;
-        private readonly IMapper _mapper;
-        public PagedBase(IRepository<TEntity, int> repository, IIdentityService identityService, IMapper mapper)
-        {
-            _repository = repository;
-            _identityService = identityService;
-            _mapper = mapper;
+
+        public PagedBase()
+        { 
+        
         }
-        public async Task<Paged.Response<TEntity>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+
+        public async Task<Paged.Response<TSingleResponce>> GetPaged(TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
         {
-            var total = await _repository.Count(
+            var total = await repository.Count(
                 cancellationToken
             );
 
             if (total == 0)
             {
-                return new GetPaged.Response
+                return new Paged.Response<TSingleResponce>
                 {
-                    Items = Array.Empty<GetPaged.Response.ContentResponse>(),
+                    Items = Array.Empty<TSingleResponce>(),
                     Total = total,
                     Offset = request.Page,
                     Limit = request.PageSize
                 };
             }
-
-            var contents = await _repository.GetPaged(
+ 
+            var entities = await repository.GetPaged(
                 request.Page, request.PageSize, cancellationToken
             );
 
-            return new GetPaged.Response
+            return new Paged.Response<TSingleResponce>
             {
-                Items = contents.Select(content => _mapper.Map<GetPaged.Response.ContentResponse>(content)),
+                Items = entities.Select(entity => mapper.Map<TSingleResponce>(entity)),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize

@@ -1,6 +1,9 @@
-﻿using System.Threading;
+﻿using MapsterMapper;
+using System.Threading;
 using System.Threading.Tasks;
+using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Content.Contracts;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.Application.Services.Content.Interfaces
 {
@@ -9,6 +12,7 @@ namespace WidePictBoard.Application.Services.Content.Interfaces
         Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken);
         Task Delete(Delete.Request request, CancellationToken cancellationToken);
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
-        Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken);
+        Task<Paged.Response<ContentResponse>> GetPaged(GetPaged.Request request, CancellationToken cancellationToken);
+        //Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken);
     }
 }

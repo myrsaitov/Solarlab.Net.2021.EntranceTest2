@@ -10,7 +10,7 @@ namespace WidePictBoard.Application.Services.PagedBase.Contracts
             public int PageSize { get; set; } = 10;
         }
 
-        public abstract class Response<T>
+        public /*abstract*/ class Response<T>
         {
             public int Total { get; set; }
             public int Limit { get; set; }
