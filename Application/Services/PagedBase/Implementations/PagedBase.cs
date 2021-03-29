@@ -1,6 +1,7 @@
 ﻿using MapsterMapper;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Repositories;
@@ -46,35 +47,73 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
                 Limit = request.PageSize
             };
         }
-        public async Task<Comment.Contracts.GetPaged.Response> GetPaged(Comment.Contracts.GetPaged.Request request, IRepository<Domain.Comment, int> repository, IMapper mapper, CancellationToken cancellationToken)
+
+        public async Task<Paged.Response<TSingleResponce>> GetPaged(Expression<Func<TEntity, bool>> predicate, TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
         {
-            var total = await repository
-                .Count(e => e.ContentId == request.ContentId, cancellationToken);
+            var total = await repository.Count(predicate,cancellationToken);
 
             if (total == 0)
             {
-                return new Comment.Contracts.GetPaged.Response
+                return new Paged.Response<TSingleResponce>
                 {
-                    Items = Array.Empty<Comment.Contracts.GetPaged.Response.SingleResponse>(),
+                    Items = Array.Empty<TSingleResponce>(),
                     Total = total,
                     Offset = request.Page,
                     Limit = request.PageSize
                 };
             }
+
             var entities = await repository.GetPaged(
-                e => e.ContentId == request.ContentId,
+                predicate,
                 request.Page,
                 request.PageSize,
                 cancellationToken
             );
 
-            return new Comment.Contracts.GetPaged.Response
+            return new Paged.Response<TSingleResponce>
             {
-                Items = entities.Select(entity => mapper.Map<Comment.Contracts.GetPaged.Response.SingleResponse>(entity)),
+                Items = entities.Select(entity => mapper.Map<TSingleResponce>(entity)),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
             };
         }
+
+
+
+
+
+
+
+        /* public async Task<Comment.Contracts.GetPaged.Response> GetPaged(Comment.Contracts.GetPaged.Request request, IRepository<Domain.Comment, int> repository, IMapper mapper, CancellationToken cancellationToken)
+         {
+             var total = await repository
+                 .Count(e => e.ContentId == request.ContentId, cancellationToken);
+
+             if (total == 0)
+             {
+                 return new Comment.Contracts.GetPaged.Response
+                 {
+                     Items = Array.Empty<Comment.Contracts.GetPaged.Response.SingleResponse>(),
+                     Total = total,
+                     Offset = request.Page,
+                     Limit = request.PageSize
+                 };
+             }
+             var entities = await repository.GetPaged(
+                 e => e.ContentId == request.ContentId,
+                 request.Page,
+                 request.PageSize,
+                 cancellationToken
+             );
+
+             return new Comment.Contracts.GetPaged.Response
+             {
+                 Items = entities.Select(entity => mapper.Map<Comment.Contracts.GetPaged.Response.SingleResponse>(entity)),
+                 Total = total,
+                 Offset = request.Page,
+                 Limit = request.PageSize
+             };
+         }*/
     }
 }

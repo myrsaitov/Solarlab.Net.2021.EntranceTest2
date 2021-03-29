@@ -1,4 +1,6 @@
-﻿using MapsterMapper;
+﻿using System;
+using System.Linq.Expressions;
+using MapsterMapper;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Repositories;
@@ -12,5 +14,6 @@ namespace WidePictBoard.Application.Services.PagedBase.Interfaces
         where TEntity : Entity<int>
     {
         Task<Paged.Response<TSingleResponce>> GetPaged(TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken);
+        Task<Paged.Response<TSingleResponce>> GetPaged(Expression<Func<TEntity, bool>> predicate, TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken);
     }
 }

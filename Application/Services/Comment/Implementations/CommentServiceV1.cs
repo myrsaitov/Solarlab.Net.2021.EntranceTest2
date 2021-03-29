@@ -114,10 +114,15 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             await _repository.Save(comment, cancellationToken);
         }
 
-        public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetPaged.Response.SingleResponse>> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
         {
             _paged = new PagedBase<GetPaged.Response, GetPaged.Response.SingleResponse, GetPaged.Request, Domain.Comment>();
-            return (GetPaged.Response)await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
+            return await _paged.GetPaged(
+                a=>a.ContentId==request.ContentId,
+                request,
+                _repository,
+                _mapper,
+                cancellationToken);
         }
     }
 }
