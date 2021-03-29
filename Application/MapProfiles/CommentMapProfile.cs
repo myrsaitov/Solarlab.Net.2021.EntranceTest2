@@ -17,7 +17,7 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Id, src => src.Id)
                 .Map(dest => dest.Body, src => src.Body);
 
-            config.NewConfig<Domain.Comment, Services.Comment.Contracts.GetById.Response>()
+            config.NewConfig<Domain.Comment, Services.Comment.Contracts.GetPaged.Response.SingleResponse>()
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt)

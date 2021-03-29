@@ -19,7 +19,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         private readonly ICommentRepository _repository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Comment> _paged;
+        private PagedBase<GetPaged.Response, GetPaged.Response.SingleResponse, GetPaged.Request, Domain.Comment> _paged;
 
         public CommentServiceV1(ICommentRepository repository, IIdentityService identityService, IMapper mapper)
         {
@@ -113,21 +113,11 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             comment.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(comment, cancellationToken);
         }
-        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
-        {
-            var comment = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
-            if (comment == null)
-            {
-                throw new CommentNotFoundException(request.Id);
-            }
 
-            return _mapper.Map<GetById.Response>(comment);
-        }
-
-        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+        public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Comment>();
-            return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
+            _paged = new PagedBase<GetPaged.Response, GetPaged.Response.SingleResponse, GetPaged.Request, Domain.Comment>();
+            return (GetPaged.Response)await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
     }
 }
