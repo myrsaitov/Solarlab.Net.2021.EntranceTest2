@@ -78,42 +78,5 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
                 Limit = request.PageSize
             };
         }
-
-
-
-
-
-
-
-        /* public async Task<Comment.Contracts.GetPaged.Response> GetPaged(Comment.Contracts.GetPaged.Request request, IRepository<Domain.Comment, int> repository, IMapper mapper, CancellationToken cancellationToken)
-         {
-             var total = await repository
-                 .Count(e => e.ContentId == request.ContentId, cancellationToken);
-
-             if (total == 0)
-             {
-                 return new Comment.Contracts.GetPaged.Response
-                 {
-                     Items = Array.Empty<Comment.Contracts.GetPaged.Response.SingleResponse>(),
-                     Total = total,
-                     Offset = request.Page,
-                     Limit = request.PageSize
-                 };
-             }
-             var entities = await repository.GetPaged(
-                 e => e.ContentId == request.ContentId,
-                 request.Page,
-                 request.PageSize,
-                 cancellationToken
-             );
-
-             return new Comment.Contracts.GetPaged.Response
-             {
-                 Items = entities.Select(entity => mapper.Map<Comment.Contracts.GetPaged.Response.SingleResponse>(entity)),
-                 Total = total,
-                 Offset = request.Page,
-                 Limit = request.PageSize
-             };
-         }*/
     }
 }
