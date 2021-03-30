@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WidePictBoard.Application.Services.Content.Interfaces;
-using System.Collections.Generic;
-using WidePictBoard.API.Controllers;
-
 
 namespace WidePictBoard.API.Controllers.Content
 {
@@ -13,7 +10,6 @@ namespace WidePictBoard.API.Controllers.Content
     public partial class ContentController : ControllerBase
     {
         private readonly IContentService _contentService;
-
         public ContentController(IContentService contentService) => _contentService = contentService;
     }
 }

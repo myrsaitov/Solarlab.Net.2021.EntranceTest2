@@ -1,6 +1,4 @@
-﻿using WidePictBoard.Domain.General.Exceptions;
-
-namespace WidePictBoard.Domain.General.Exceptions
+﻿namespace WidePictBoard.Domain.General.Exceptions
 {
     public class NoRightsException : DomainException
     {

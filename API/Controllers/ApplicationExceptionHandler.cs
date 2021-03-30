@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WidePictBoard.Domain.General.Exceptions;
 
-namespace Advertisement.PublicApi.Controllers
+namespace WidePictBoard.API.Controllers
 {
     public class ApplicationExceptionHandler
     {

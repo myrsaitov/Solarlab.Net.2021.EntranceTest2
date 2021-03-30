@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.PublicApi.Controllers.User
+namespace WidePictBoard.API.Controllers.Account
 {
-    public partial class UserController
+    public partial class AccountController
     {
         [HttpGet("confirm")]
         public async Task<IActionResult> Confirm(string userId, string token)

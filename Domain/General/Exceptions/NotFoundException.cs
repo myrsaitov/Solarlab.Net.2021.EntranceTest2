@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WidePictBoard.Domain.General.Exceptions
+﻿namespace WidePictBoard.Domain.General.Exceptions
 {
     public abstract class NotFoundException : DomainException
     {

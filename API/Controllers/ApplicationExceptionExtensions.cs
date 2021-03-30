@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Specialized;
-using Advertisement.PublicApi.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.API.Controllers;
 
-namespace WidePictBoard.PublicApi.Controllers
+namespace WidePictBoard.API.Controllers
 {
     public static class ApplicationExceptionExtensions
     {

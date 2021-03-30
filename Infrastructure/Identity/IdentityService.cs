@@ -104,12 +104,6 @@ namespace WidePictBoard.Infrastructure.Identity
                 throw new NoRightsException("Неправильный логин или пароль");
             }
 
-            //var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(identityUser);
-            //if (!isEmailConfirmed)
-            //{
-            //    throw new NoRightsException("Почта не подтверждена");
-            //}
-
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, request.Username),

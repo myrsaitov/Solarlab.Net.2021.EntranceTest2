@@ -2,8 +2,6 @@
 using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Identity.Contracts;
 using WidePictBoard.Application.Services.User.Contracts;
-using MapsterMapper;
-
 
 namespace WidePictBoard.Application.MapProfiles
 {
@@ -12,8 +10,6 @@ namespace WidePictBoard.Application.MapProfiles
         public static TypeAdapterConfig GetConfiguredMappingConfig()
         {
             var config = new TypeAdapterConfig();
-
-
 
             config.NewConfig<CreateUser.Response, Register.Response>()
                 .Map(dest => dest.UserId, src => src.UserId);

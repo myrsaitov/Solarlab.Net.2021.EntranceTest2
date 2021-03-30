@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using MapsterMapper;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
@@ -8,8 +8,9 @@ using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
-using WidePictBoard.Application.Services.User.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
+using WidePictBoard.Application.Services.PagedBase.Contracts;
+using WidePictBoard.Application.Services.PagedBase.Implementations;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
@@ -17,23 +18,25 @@ namespace WidePictBoard.Application.Services.Content.Implementations
     {
         private readonly IContentRepository _repository;
         private readonly IIdentityService _identityService;
+        private readonly IMapper _mapper;
+        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content> _paged;
 
-        public ContentServiceV1(IContentRepository repository, IIdentityService identityService)
+        public ContentServiceV1(IContentRepository repository, IIdentityService identityService, IMapper mapper)
         {
             _repository = repository;
             _identityService = identityService;
+            _mapper = mapper;
         }
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var content = new Domain.Content
-            {
-                Price = request.Price,
-                Status = Domain.Content.Statuses.Created,
-                OwnerId = userId,
-                CreatedAt = DateTime.UtcNow
-            };
+
+            var content = _mapper.Map<Domain.Content>(request);
+            content.IsDeleted = false;
+            content.OwnerId = userId;
+            content.CreatedAt = DateTime.UtcNow;
+
             await _repository.Save(content, cancellationToken);
 
             return new Create.Response
@@ -42,20 +45,36 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             };
         }
 
-        public async Task Pay(Pay.Request request, CancellationToken cancellationToken)
+        public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
         {
-            var content = await _repository.FindById(request.Id, cancellationToken);
-
+            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
-            content.Status = Domain.Content.Statuses.Payed;
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin && content.OwnerId != userId)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
+            content.Title = request.Title;
+            content.Body = request.Body;
+            content.Price = request.Price;
+            content.CategoryId = request.CategoryId;
+
+            content.IsDeleted = false;
             content.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(content, cancellationToken);
-        }
 
+            return new Update.Response
+            {
+                Id = content.Id
+            };
+        }
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -72,7 +91,27 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            content.Status = Domain.Content.Statuses.Closed;
+            content.IsDeleted = true;
+            content.UpdatedAt = DateTime.UtcNow;
+            await _repository.Save(content, cancellationToken);
+        }
+        public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
+        {
+            var content = await _repository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (content == null)
+            {
+                throw new ContentNotFoundException(request.Id);
+            }
+
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            if (!isAdmin && content.OwnerId != userId)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
+            content.IsDeleted = false;
             content.UpdatedAt = DateTime.UtcNow;
             await _repository.Save(content, cancellationToken);
         }
@@ -85,53 +124,13 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentNotFoundException(request.Id);
             }
 
-            return new GetById.Response
-            {
-                Owner = new GetById.Response.OwnerResponse
-                {
-                    Id = content.Owner.Id,
-                    Name = $"{content.Owner.FirstName} {content.Owner.LastName} {content.Owner.MiddleName}".Trim()
-                },
-                Price = content.Price,
-                Status = content.Status.ToString()
-            };
+            return _mapper.Map<GetById.Response>(content);
         }
 
-        public async Task<GetPaged.Response> GetPaged(GetPaged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            var total = await _repository.Count(
-                cancellationToken
-            );
-
-            if (total == 0)
-            {
-                return new GetPaged.Response
-                {
-                    Items = Array.Empty<GetPaged.Response.AdResponse>(),
-                    Total = total,
-                    Offset = request.Offset,
-                    Limit = request.Limit
-                };
-            }
-
-            var ads = await _repository.GetPaged(
-                request.Offset, request.Limit, cancellationToken
-            );
-
-
-            return new GetPaged.Response
-            {
-                Items = ads.Select(ad => new GetPaged.Response.AdResponse
-                {
-                    Id = ad.Id,
-                    Name = $"TEST",
-                    Price = ad.Price,
-                    Status = ad.Status.ToString()
-                }),
-                Total = total,
-                Offset = request.Offset,
-                Limit = request.Limit
-            };
+            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content>();
+            return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
     }
 }

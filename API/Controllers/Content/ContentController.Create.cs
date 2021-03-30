@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -16,8 +15,10 @@ namespace WidePictBoard.API.Controllers.Content
         {
             var response = await _contentService.Create(new Create.Request
             {
-                Name = request.Name,
-                Price = request.Price
+                Title = request.Title,
+                Body = request.Body,
+                Price = request.Price,
+                CategoryId = request.CategoryId
             }, cancellationToken);
 
             return Created($"api/v1/contents/{response.Id}", new { });
@@ -27,11 +28,19 @@ namespace WidePictBoard.API.Controllers.Content
         {
             [Required]
             [MaxLength(100)]
-            public string Name { get; set; }
+            public string Title { get; set; }
+
+            [Required]
+            [MaxLength(1000)]
+            public string Body { get; set; }
 
             [Required]
             [Range(0, 100_000_000_000)]
             public decimal Price { get; set; }
+
+            [Required]
+            [Range(1, 100_000_000_000)]
+            public int? CategoryId { get; set; }
         }
     }
 }

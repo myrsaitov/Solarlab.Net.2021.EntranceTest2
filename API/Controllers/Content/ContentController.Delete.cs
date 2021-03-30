@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace WidePictBoard.API.Controllers.Content
 {

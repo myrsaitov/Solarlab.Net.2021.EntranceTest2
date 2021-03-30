@@ -7,14 +7,13 @@ using WidePictBoard.Application.Services.User.Contracts.Exceptions;
 using WidePictBoard.Application.Services.User.Implementations;
 using AutoFixture;
 using AutoFixture.Xunit2;
-//using AutoMapper;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
 using Xunit;
 
-namespace WidePictBoard.Application.Tests
+namespace WidePictBoard.Tests
 {
     public class UserServiceV1Tests
     {

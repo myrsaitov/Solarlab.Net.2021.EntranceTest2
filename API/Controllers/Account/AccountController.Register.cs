@@ -6,9 +6,9 @@ using WidePictBoard.Application.Services.User.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.PublicApi.Controllers.User
+namespace WidePictBoard.API.Controllers.Account
 {
-    public partial class UserController
+    public partial class AccountController
     {
         public sealed class UserRegisterRequest
         {
@@ -39,10 +39,6 @@ namespace WidePictBoard.PublicApi.Controllers.User
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Register(UserRegisterRequest request, CancellationToken cancellationToken)
         {
-
-
-
-
             var registrationResult = await _userService.Register(new Register.Request
             {
                 Username = request.Username,
@@ -53,7 +49,7 @@ namespace WidePictBoard.PublicApi.Controllers.User
                 MiddleName = request.MiddleName
             }, cancellationToken);
 
-            return Created($"api/v1/users/{registrationResult.UserId}", new { });
+            return Created($"api/v1/account/{registrationResult.UserId}", new { });
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Identity.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.PublicApi.Controllers.User
+namespace WidePictBoard.API.Controllers.Account
 {
-    public partial class UserController
+    public partial class AccountController
     {
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginRequest request, CancellationToken cancellationToken)
