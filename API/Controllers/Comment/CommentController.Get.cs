@@ -22,11 +22,5 @@ namespace WidePictBoard.API.Controllers.Comment
 
                return Ok(result);
         }
-
-        public class GetPagedRequest
-        {
-            public int PageSize { get; set; } = 20;
-            public int Page { get; set; } = 0;
-        }
     }
 }

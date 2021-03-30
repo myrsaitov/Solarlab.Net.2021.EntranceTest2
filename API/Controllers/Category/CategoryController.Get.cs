@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Category.Contracts;
 using Microsoft.AspNetCore.Authorization;
@@ -35,12 +33,6 @@ namespace WidePictBoard.API.Controllers.Category
             }, cancellationToken);
 
             return Ok(found);
-        }
-
-        public class GetPagedRequest
-        {
-            public int PageSize { get; set; } = 20;
-            public int Page { get; set; } = 0;
         }
     }
 }
