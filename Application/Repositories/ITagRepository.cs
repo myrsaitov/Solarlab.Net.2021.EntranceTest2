@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace WidePictBoard.Application.Repositories
 {
-    public interface ICategoryRepository : IRepository<Domain.Category, int>
+    public interface ITagRepository : IRepository<Domain.Tag, int>
     {
     }
 }
