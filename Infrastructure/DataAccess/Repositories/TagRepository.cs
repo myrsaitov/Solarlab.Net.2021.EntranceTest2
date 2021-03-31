@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 {
-    public sealed class TagRepository : EfRepository<Category, int>, ITagRepository
+    public sealed class TagRepository : EfRepository<Tag, int>, ITagRepository
     {
         public TagRepository(DatabaseContext dbСontext) : base(dbСontext)
         {

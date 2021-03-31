@@ -8,6 +8,7 @@ namespace WidePictBoard.Domain
     {
         [MaxLength(32)]
         public string Body { get; set; }
+        public int ContentId { get; set; }
         public ICollection<Content> Contents { get; set; }
     }
 }
