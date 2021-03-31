@@ -12,6 +12,8 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
+            builder.HasOne(x => x.Content)
+                .WithMany(y => y.Comments);
             builder.HasOne(x => x.Owner)
                 .WithMany()
                 .HasForeignKey(s => s.OwnerId)
