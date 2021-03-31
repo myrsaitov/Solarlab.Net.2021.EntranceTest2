@@ -7,7 +7,7 @@ namespace WidePictBoard.Domain
     public class Tag : EntityMutable<int>
     {
         [MaxLength(32)]
-        public string TagText { get; set; }
+        public string Body { get; set; }
         public ICollection<Content> Contents { get; set; }
     }
 }
