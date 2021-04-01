@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
 using WidePictBoard.Application.Identity.Interfaces;
@@ -10,7 +8,6 @@ using WidePictBoard.Application.Services.PagedBase.Implementations;
 using WidePictBoard.Application.Services.Tag.Interfaces;
 using WidePictBoard.Application.Services.Tag.Contracts;
 using WidePictBoard.Application.Services.Content.Interfaces;
-using System.Collections.Generic;
 
 namespace WidePictBoard.Application.Services.Tag.Implementations
 {

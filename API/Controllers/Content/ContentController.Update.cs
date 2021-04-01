@@ -41,7 +41,7 @@ namespace WidePictBoard.API.Controllers.Content
 
             [Required]
             [Range(1, 100_000_000_000)]
-            public int? CategoryId { get; set; }
+            public int CategoryId { get; set; }
         }
     }
 }

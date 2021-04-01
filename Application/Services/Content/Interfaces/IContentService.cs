@@ -1,7 +1,5 @@
-﻿using MapsterMapper;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 
