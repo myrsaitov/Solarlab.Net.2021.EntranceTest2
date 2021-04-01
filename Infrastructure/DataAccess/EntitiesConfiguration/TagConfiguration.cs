@@ -9,10 +9,10 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Body).IsRequired();
-            builder.Property(x => x.CreatedAt).IsRequired();
-            builder.Property(x => x.UpdatedAt).IsRequired(false);
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Body).IsRequired();
+            builder.Property(t => t.CreatedAt).IsRequired();
+            builder.Property(t => t.UpdatedAt).IsRequired(false);
         }
     }
 }

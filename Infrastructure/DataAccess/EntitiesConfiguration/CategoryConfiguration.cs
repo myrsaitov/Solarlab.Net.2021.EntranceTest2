@@ -56,11 +56,11 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
 
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(p => p.Id);
-            builder.Property(p => p.Name).IsRequired();
-            builder.Property(p => p.ParentCategoryId).IsRequired(false);
-            builder.Property(p => p.CreatedAt).IsRequired();
-            builder.Property(p => p.UpdatedAt).IsRequired(false);
+            builder.HasKey(cat => cat.Id);
+            builder.Property(cat => cat.Name).IsRequired();
+            builder.Property(cat => cat.ParentCategoryId).IsRequired(false);
+            builder.Property(cat => cat.CreatedAt).IsRequired();
+            builder.Property(cat => cat.UpdatedAt).IsRequired(false);
             builder.HasData(categories);
         }
     }

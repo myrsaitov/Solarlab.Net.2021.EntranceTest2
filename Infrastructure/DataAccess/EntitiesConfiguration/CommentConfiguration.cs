@@ -9,16 +9,16 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.HasKey(p => p.Id);
-            builder.Property(p => p.CreatedAt).IsRequired();
-            builder.Property(p => p.UpdatedAt).IsRequired(false);
-            builder.HasOne(p => p.Content)
+            builder.HasKey(com => com.Id);
+            builder.Property(com => com.CreatedAt).IsRequired();
+            builder.Property(com => com.UpdatedAt).IsRequired(false);
+            builder.HasOne(com => com.Content)
                 .WithMany()
-                .HasForeignKey(s => s.ContentId)
-                .HasPrincipalKey(u => u.Id);
-            builder.HasOne(p => p.Owner)
+                .HasForeignKey(com => com.ContentId)
+                .HasPrincipalKey(con => con.Id);
+            builder.HasOne(com => com.Owner)
                 .WithMany()
-                .HasForeignKey(s => s.OwnerId)
+                .HasForeignKey(com => com.OwnerId)
                 .HasPrincipalKey(u => u.Id);
         }
     }

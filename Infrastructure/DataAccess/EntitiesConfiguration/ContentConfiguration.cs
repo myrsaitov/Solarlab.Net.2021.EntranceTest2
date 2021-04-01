@@ -9,19 +9,19 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<Content> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.CreatedAt).IsRequired();
-            builder.Property(x => x.UpdatedAt).IsRequired(false);
-            builder.Property(x => x.Price).HasColumnType("money");
-            builder.HasOne(x => x.Category)
+            builder.HasKey(con => con.Id);
+            builder.Property(con => con.CreatedAt).IsRequired();
+            builder.Property(con => con.UpdatedAt).IsRequired(false);
+            builder.Property(con => con.Price).HasColumnType("money");
+            builder.HasOne(con => con.Category)
                 .WithMany()
-                .HasForeignKey(s => s.CategoryId)
-                .HasPrincipalKey(u => u.Id);
-            builder.HasMany(x => x.Tags)
-                .WithMany(y => y.Contents);                
-            builder.HasOne(x => x.Owner)
+                .HasForeignKey(con => con.CategoryId)
+                .HasPrincipalKey(cat => cat.Id);
+            builder.HasMany(con => con.Tags)
+                .WithMany(t => t.Contents);                
+            builder.HasOne(con => con.Owner)
                 .WithMany()
-                .HasForeignKey(s => s.OwnerId)
+                .HasForeignKey(con => con.OwnerId)
                 .HasPrincipalKey(u => u.Id);
         }
     }

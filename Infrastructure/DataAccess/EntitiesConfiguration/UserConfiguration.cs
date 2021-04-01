@@ -8,18 +8,18 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.CreatedAt).IsRequired();
-            builder.Property(x => x.UpdatedAt).IsRequired(false);
-            builder.Property(x => x.FirstName)
+            builder.HasKey(u => u.Id);
+            builder.Property(u => u.CreatedAt).IsRequired();
+            builder.Property(u => u.UpdatedAt).IsRequired(false);
+            builder.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode();
-            builder.Property(x => x.LastName)
+            builder.Property(u => u.LastName)
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode();
-            builder.Property(x => x.MiddleName)
+            builder.Property(u => u.MiddleName)
                 .HasMaxLength(100)
                 .IsUnicode();
         }
