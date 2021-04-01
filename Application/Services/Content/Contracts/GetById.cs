@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WidePictBoard.Application.Services.Content.Contracts
 {
@@ -24,6 +25,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public string OwnerId { get; set; }
             public OwnerResponse Owner { get; set; }
             public Domain.Category Category { get; set; }
+            public ICollection<Domain.Tag> Tags { get; set; }
             public DateTime CreatedAt { get; set; }
             public int? CategoryId { get; set; }
             public bool IsDeleted { get; set; }

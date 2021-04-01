@@ -14,9 +14,11 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.UpdatedAt).IsRequired(false);
             builder.Property(x => x.Price).HasColumnType("money");
             builder.HasOne(x => x.Category)
-                .WithMany(y => y.Contents);
+                .WithMany()
+                .HasForeignKey(s => s.CategoryId)
+                .HasPrincipalKey(u => u.Id);
             builder.HasMany(x => x.Tags)
-                .WithMany(y => y.Contents);
+                .WithMany(y => y.Contents);                
             builder.HasOne(x => x.Owner)
                 .WithMany()
                 .HasForeignKey(s => s.OwnerId)

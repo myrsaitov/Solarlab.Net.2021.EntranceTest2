@@ -16,6 +16,7 @@ namespace WidePictBoard.API.Controllers.Tag
             var response = await _tagService.Create(new Create.Request
             {
                 Body = request.Body,
+                ContentId = request.ContentId
             }, cancellationToken);
 
             return Created($"api/v1/tags/{response.Id}", new { });

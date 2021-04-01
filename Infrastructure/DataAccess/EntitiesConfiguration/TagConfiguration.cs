@@ -13,8 +13,6 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(x => x.Body).IsRequired();
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
-            builder.HasMany(x => x.Contents)
-                .WithMany(y => y.Tags);
         }
     }
 }
