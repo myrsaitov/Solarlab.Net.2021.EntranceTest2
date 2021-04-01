@@ -30,23 +30,6 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
             _contentService = contentService;
         }
 
-        public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
-        {
-            var contentrequest = new Content.Contracts.GetById.Request();
-            contentrequest.Id = request.ContentId;
-
-            var content = _mapper.Map<Domain.Content>(await _contentService.GetById(contentrequest, cancellationToken));
-
-            var tag = _mapper.Map<Domain.Tag>(request);
-            tag.CreatedAt = DateTime.UtcNow;
-
-            await _repository.Save(tag, cancellationToken);
-            return new Create.Response
-            {
-                Id = tag.Id
-            };
-        }
-
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
             _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Tag>();

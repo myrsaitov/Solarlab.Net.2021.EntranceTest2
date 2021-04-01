@@ -1,7 +1,6 @@
 ﻿using MapsterMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
@@ -13,7 +12,6 @@ using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
-using WidePictBoard.Application.Services.Tag.Interfaces;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {

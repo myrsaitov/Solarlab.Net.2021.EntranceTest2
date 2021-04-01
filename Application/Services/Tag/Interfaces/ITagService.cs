@@ -7,7 +7,6 @@ namespace WidePictBoard.Application.Services.Tag.Interfaces
 {
     public interface ITagService
     {
-        Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken);
         Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken);
     }
 }
