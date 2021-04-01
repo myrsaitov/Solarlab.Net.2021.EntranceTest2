@@ -58,6 +58,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             foreach (var tagstr in request.TagsStr)
             {
                 var tag = await _tagRepository.FindWhere(a => a.Body == tagstr, cancellationToken);
+
+                int tagId = tag.Id;
+                tag = await _tagRepository.FindById(tagId, cancellationToken);
+
                 if (tag == null)
                 {
                     var tagRequest = new Tag.Contracts.Create.Request()
@@ -67,10 +71,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                     
                     tag = _mapper.Map<Domain.Tag>(tagRequest);
                     tag.CreatedAt = DateTime.UtcNow;
+                    await _tagRepository.Save(tag, cancellationToken);
                 }
-
+                
                 content.Tags.Add(tag);
-                await _tagRepository.Save(tag, cancellationToken);
                 await _contentRepository.Save(content, cancellationToken);
             }
 
