@@ -9,8 +9,7 @@ namespace WidePictBoard.Application.MapProfiles
             var config = new TypeAdapterConfig();
 
             config.NewConfig<Services.Tag.Contracts.Create.Request, Domain.Tag>()
-                .Map(dest => dest.Body, src => src.Body)
-                .Map(dest => dest.ContentId, src => src.ContentId);
+                .Map(dest => dest.Body, src => src.Body);
 
             config.NewConfig<Domain.Tag, Services.Tag.Contracts.GetById.Response>()
                 .Map(dest => dest.Body, src => src.Body);

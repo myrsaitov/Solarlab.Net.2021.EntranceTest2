@@ -43,6 +43,7 @@ namespace WidePictBoard.Infrastructure
             moduleConfiguration.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             moduleConfiguration.Services.AddScoped<ICommentRepository, CommentRepository>();
             moduleConfiguration.Services.AddScoped<ITagRepository, TagRepository>();
+            moduleConfiguration.Services.AddScoped<ITagContentRepository, TagContentRepository>();
         }
     }
 }

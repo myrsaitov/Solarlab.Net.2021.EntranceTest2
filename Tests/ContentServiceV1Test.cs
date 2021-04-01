@@ -23,7 +23,7 @@ namespace WidePictBoard.Tests
             _adRepositoryMock = new Mock<IContentRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
 
-            _adServiceV1 = new ContentServiceV1(_adRepositoryMock.Object, _identityServiceMock.Object, _mapper);
+            //_adServiceV1 = new ContentServiceV1(_adRepositoryMock.Object, _identityServiceMock.Object, _mapper);
         }
 
         [Theory]

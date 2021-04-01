@@ -12,38 +12,37 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             new Tag
             {
                 Id = 1,
-                Body = "машины",
+                Body = "tag1",
                 CreatedAt = DateTime.UtcNow
             },
             new Tag
             {
                 Id = 2,
-                Body = "квартиры",
+                Body = "tag2",
                 CreatedAt = DateTime.UtcNow
-
             },
             new Tag
             {
                 Id = 3,
-                Body = "техника",
+                Body = "tag3",
                 CreatedAt = DateTime.UtcNow
             },
             new Tag
             {
                 Id = 4,
-                Body = "кисти",
+                Body = "tag4",
                 CreatedAt = DateTime.UtcNow
             },
             new Tag
             {
                 Id = 5,
-                Body = "краски",
+                Body = "tag5",
                 CreatedAt = DateTime.UtcNow
             },
             new Tag
             {
                 Id = 6,
-                Body = "Книги",
+                Body = "tag6",
                 CreatedAt = DateTime.UtcNow
             }
         };
@@ -53,7 +52,6 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(t => t.Body).IsRequired();
             builder.Property(t => t.CreatedAt).IsRequired();
             builder.Property(t => t.UpdatedAt).IsRequired(false);
-            builder.HasData(tags);
         }
     }
 }

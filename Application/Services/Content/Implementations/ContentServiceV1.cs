@@ -1,5 +1,7 @@
 ﻿using MapsterMapper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
@@ -11,19 +13,22 @@ using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
+using WidePictBoard.Application.Services.Tag.Interfaces;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
     public sealed class ContentServiceV1 : IContentService
     {
         private readonly IContentRepository _repository;
+        private readonly ITagRepository _tagRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
         private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content> _paged;
 
-        public ContentServiceV1(IContentRepository repository, IIdentityService identityService, IMapper mapper)
+        public ContentServiceV1(IContentRepository repository, ITagRepository tagRepository, IIdentityService identityService, IMapper mapper)
         {
             _repository = repository;
+            _tagRepository = tagRepository;
             _identityService = identityService;
             _mapper = mapper;
         }
@@ -36,8 +41,32 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.IsDeleted = false;
             content.OwnerId = userId;
             content.CreatedAt = DateTime.UtcNow;
+            content.Tags = new List<Domain.Tag>();
 
-            await _repository.Save(content, cancellationToken);
+            foreach (var tagstr in request.TagsStr)
+            {
+
+                var tagRequest = new Tag.Contracts.Create.Request()
+                {
+                    Body = tagstr
+                };
+
+                var tag = _mapper.Map<Domain.Tag>(tagRequest);
+                tag.CreatedAt = DateTime.UtcNow;
+
+                content.Tags.Add(tag);
+                await _tagRepository.Save(tag, cancellationToken);
+                await _repository.Save(content, cancellationToken);
+            }
+
+
+
+
+
+            //await _repository.Save(content, cancellationToken);
+
+            //tag.ContentId = content.Id;
+            
 
             return new Create.Response
             {

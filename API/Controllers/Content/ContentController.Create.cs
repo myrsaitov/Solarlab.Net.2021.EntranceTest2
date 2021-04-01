@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +19,8 @@ namespace WidePictBoard.API.Controllers.Content
                 Title = request.Title,
                 Body = request.Body,
                 Price = request.Price,
-                CategoryId = request.CategoryId
+                CategoryId = request.CategoryId,
+                TagsStr = request.TagsStr
             }, cancellationToken);
 
             return Created($"api/v1/contents/{response.Id}", new { });
@@ -41,6 +43,8 @@ namespace WidePictBoard.API.Controllers.Content
             [Required]
             [Range(1, 100_000_000_000)]
             public int? CategoryId { get; set; }
+
+            public ICollection<string> TagsStr { get; set; }
         }
     }
 }
