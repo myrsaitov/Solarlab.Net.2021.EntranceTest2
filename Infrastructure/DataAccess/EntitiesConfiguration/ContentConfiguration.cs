@@ -17,7 +17,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(con => con.Price).HasColumnType("money");
             builder.HasMany(con => con.Tags)
                 .WithMany(t => t.Contents)
-                .UsingEntity(j => j.ToTable("TagContent_"));
+                .UsingEntity(j => j.ToTable("TagContent"));
             builder.HasOne(con => con.Category)
                 .WithMany(cat => cat.Contents)
                 .HasForeignKey(con => con.CategoryId)

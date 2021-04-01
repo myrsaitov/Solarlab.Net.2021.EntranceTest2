@@ -45,7 +45,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             foreach (var tagstr in request.TagsStr)
             {
-
                 var tagRequest = new Tag.Contracts.Create.Request()
                 {
                     Body = tagstr
@@ -58,15 +57,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 await _tagRepository.Save(tag, cancellationToken);
                 await _repository.Save(content, cancellationToken);
             }
-
-
-
-
-
-            //await _repository.Save(content, cancellationToken);
-
-            //tag.ContentId = content.Id;
-            
 
             return new Create.Response
             {

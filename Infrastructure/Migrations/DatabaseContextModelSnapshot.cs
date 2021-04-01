@@ -31,7 +31,7 @@ namespace WidePictBoard.Infrastructure.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("TagContent_");
+                    b.ToTable("TagContent");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -64,14 +64,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "5c16b11b-7779-4dcd-a787-d8e333b187d0",
+                            ConcurrencyStamp = "9e7379d5-964c-4575-a8ce-ab11c567c225",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "9caf3a04-7fa9-40df-af34-42915fcd7abe",
+                            ConcurrencyStamp = "f3bf14aa-1a0b-46be-a07b-218c5920b183",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -221,42 +221,42 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 4, 1, 13, 51, 7, 456, DateTimeKind.Utc).AddTicks(3117),
+                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(3602),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 4, 1, 13, 51, 7, 456, DateTimeKind.Utc).AddTicks(3927),
+                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4633),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 4, 1, 13, 51, 7, 456, DateTimeKind.Utc).AddTicks(3936),
+                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4637),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 4, 1, 13, 51, 7, 456, DateTimeKind.Utc).AddTicks(3937),
+                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4638),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 4, 1, 13, 51, 7, 456, DateTimeKind.Utc).AddTicks(3938),
+                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4640),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 4, 1, 13, 51, 7, 456, DateTimeKind.Utc).AddTicks(3939),
+                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4641),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -371,34 +371,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.TagContent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ContentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("TagId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContentId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("TagContents");
-                });
-
             modelBuilder.Entity("WidePictBoard.Domain.User", b =>
                 {
                     b.Property<string>("Id")
@@ -501,13 +473,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "147fcd55-eacb-4686-9307-02909b7fd632",
+                            ConcurrencyStamp = "61d4b91b-ea72-46dc-9b18-1217d73d777b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEnzIHnrmODVMh8dcuR8GgSZFHmnBpJIbkNz9dMKKODsbgbZ5slS54MjBm3FLHqaWA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELxOcUoxXEv5Hk3qZ1k1HewUFl/Qpdp64yK57XRDwGINlW6jU1zFWK3SkXONYVeoTA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "154fb15a-a8b5-4af2-b2e6-8d464ca3db61",
+                            SecurityStamp = "d14bd44a-1fcc-47bc-8043-1d1d60520912",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -624,21 +596,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.TagContent", b =>
-                {
-                    b.HasOne("WidePictBoard.Domain.Content", "Content")
-                        .WithMany("TagContents")
-                        .HasForeignKey("ContentId");
-
-                    b.HasOne("WidePictBoard.Domain.Tag", "Tag")
-                        .WithMany("TagContents")
-                        .HasForeignKey("TagId");
-
-                    b.Navigation("Content");
-
-                    b.Navigation("Tag");
-                });
-
             modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
                 {
                     b.Navigation("ChildCategories");
@@ -649,13 +606,6 @@ namespace WidePictBoard.Infrastructure.Migrations
             modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("TagContents");
-                });
-
-            modelBuilder.Entity("WidePictBoard.Domain.Tag", b =>
-                {
-                    b.Navigation("TagContents");
                 });
 #pragma warning restore 612, 618
         }
