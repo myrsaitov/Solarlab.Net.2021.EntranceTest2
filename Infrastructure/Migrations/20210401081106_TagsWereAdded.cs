@@ -64,63 +64,63 @@ namespace WidePictBoard.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "86e82cff-3d0b-4d43-a4a2-f7de9469c8e0");
+                value: "47ac66a1-edf6-437b-b1a5-d1366b8cbc83");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "10d88778-42ca-4724-9670-29fd273e39b3");
+                value: "fb6766de-9af5-4124-832b-820bdfbcf88a");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "31cef14c-02b9-4659-869a-5237c9f1156a", "AQAAAAEAACcQAAAAEN9y6O4Zos1Ubu10Ri7RvgyI5x1pRtMMLLcwkqHPUcgpmz2D14XJ96hVpIuZljYX0w==", "280459b3-24b6-4f26-b6c4-69cb5afac1b4" });
+                values: new object[] { "1d1a5015-55ca-4ca2-b1da-fa50d1a4305b", "AQAAAAEAACcQAAAAEJA8cnRXef3ngu71MicuXShsN4E88UiIuYIy+GemS7ddFXm2Xva0MuXDWROVcmbqHw==", "1fb9ea46-f824-4a0c-8980-f8060d4712f3" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 31, 22, 19, 16, 19, DateTimeKind.Utc).AddTicks(4904));
+                value: new DateTime(2021, 4, 1, 8, 11, 5, 616, DateTimeKind.Utc).AddTicks(6383));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 31, 22, 19, 16, 19, DateTimeKind.Utc).AddTicks(5839));
+                value: new DateTime(2021, 4, 1, 8, 11, 5, 616, DateTimeKind.Utc).AddTicks(7132));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 31, 22, 19, 16, 19, DateTimeKind.Utc).AddTicks(5843));
+                value: new DateTime(2021, 4, 1, 8, 11, 5, 616, DateTimeKind.Utc).AddTicks(7135));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 31, 22, 19, 16, 19, DateTimeKind.Utc).AddTicks(5844));
+                value: new DateTime(2021, 4, 1, 8, 11, 5, 616, DateTimeKind.Utc).AddTicks(7136));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 31, 22, 19, 16, 19, DateTimeKind.Utc).AddTicks(5845));
+                value: new DateTime(2021, 4, 1, 8, 11, 5, 616, DateTimeKind.Utc).AddTicks(7138));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2021, 3, 31, 22, 19, 16, 19, DateTimeKind.Utc).AddTicks(5847));
+                value: new DateTime(2021, 4, 1, 8, 11, 5, 616, DateTimeKind.Utc).AddTicks(7139));
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contents_CategoryId1",

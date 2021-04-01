@@ -14,6 +14,6 @@ namespace WidePictBoard.Domain
         public User Owner { get; set; }
         public int ContentId { get; set; }
         public int? ParentCommentId { get; set; }
-        public Content Content { get; set; }
+        public virtual Content Content { get; set; }
     }
 }
