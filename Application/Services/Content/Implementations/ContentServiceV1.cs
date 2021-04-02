@@ -55,18 +55,14 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.Category = category;
 
             content.Tags = new List<Domain.Tag>();
-            foreach (var tagstr in request.TagsStr)
+            foreach (var body in request.Tags)
             {
-                var tag = await _tagRepository.FindWhere(a => a.Body == tagstr, cancellationToken);
-
-                int tagId = tag.Id;
-                tag = await _tagRepository.FindById(tagId, cancellationToken);
-
+                var tag = await _tagRepository.FindWhere(a => a.Body == body, cancellationToken);
                 if (tag == null)
                 {
                     var tagRequest = new Tag.Contracts.Create.Request()
                     {
-                        Body = tagstr
+                        Body = body
                     };
                     
                     tag = _mapper.Map<Domain.Tag>(tagRequest);

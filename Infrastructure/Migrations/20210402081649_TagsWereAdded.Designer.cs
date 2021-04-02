@@ -10,7 +10,7 @@ using WidePictBoard.Infrastructure.DataAccess;
 namespace WidePictBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210401140208_TagsWereAdded")]
+    [Migration("20210402081649_TagsWereAdded")]
     partial class TagsWereAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,14 +66,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "9e7379d5-964c-4575-a8ce-ab11c567c225",
+                            ConcurrencyStamp = "a67408cd-a2eb-4221-a299-e0dab5e52068",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "f3bf14aa-1a0b-46be-a07b-218c5920b183",
+                            ConcurrencyStamp = "afca4b3c-97cb-49f6-b394-fc61287b65a6",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -223,42 +223,42 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(3602),
+                            CreatedAt = new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(2417),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4633),
+                            CreatedAt = new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3168),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4637),
+                            CreatedAt = new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3171),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4638),
+                            CreatedAt = new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3172),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4640),
+                            CreatedAt = new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3174),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4641),
+                            CreatedAt = new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3175),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -320,7 +320,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -475,13 +475,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "61d4b91b-ea72-46dc-9b18-1217d73d777b",
+                            ConcurrencyStamp = "29071035-2395-4ed1-8b9a-0b3d136b317b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELxOcUoxXEv5Hk3qZ1k1HewUFl/Qpdp64yK57XRDwGINlW6jU1zFWK3SkXONYVeoTA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFfm328k5wHepARmCIWqm8+RSJkP35sAPxranx4Zy8FIMiwOXtm3TAsTVPZG3YPQWA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d14bd44a-1fcc-47bc-8043-1d1d60520912",
+                            SecurityStamp = "fcbeb1fb-0b4b-4718-8e3e-a597c3e6746d",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -587,7 +587,9 @@ namespace WidePictBoard.Infrastructure.Migrations
                 {
                     b.HasOne("WidePictBoard.Domain.Category", "Category")
                         .WithMany("Contents")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WidePictBoard.Domain.User", "Owner")
                         .WithMany()

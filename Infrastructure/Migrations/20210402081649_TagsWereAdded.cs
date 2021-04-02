@@ -7,6 +7,20 @@ namespace WidePictBoard.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Contents_Categories_CategoryId",
+                table: "Contents");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "CategoryId",
+                table: "Contents",
+                type: "int",
+                nullable: false,
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "int",
+                oldNullable: true);
+
             migrationBuilder.AddColumn<int>(
                 name: "ContentId1",
                 table: "Comments",
@@ -57,63 +71,63 @@ namespace WidePictBoard.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "f3bf14aa-1a0b-46be-a07b-218c5920b183");
+                value: "afca4b3c-97cb-49f6-b394-fc61287b65a6");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "9e7379d5-964c-4575-a8ce-ab11c567c225");
+                value: "a67408cd-a2eb-4221-a299-e0dab5e52068");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "61d4b91b-ea72-46dc-9b18-1217d73d777b", "AQAAAAEAACcQAAAAELxOcUoxXEv5Hk3qZ1k1HewUFl/Qpdp64yK57XRDwGINlW6jU1zFWK3SkXONYVeoTA==", "d14bd44a-1fcc-47bc-8043-1d1d60520912" });
+                values: new object[] { "29071035-2395-4ed1-8b9a-0b3d136b317b", "AQAAAAEAACcQAAAAEFfm328k5wHepARmCIWqm8+RSJkP35sAPxranx4Zy8FIMiwOXtm3TAsTVPZG3YPQWA==", "fcbeb1fb-0b4b-4718-8e3e-a597c3e6746d" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(3602));
+                value: new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(2417));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4633));
+                value: new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3168));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4637));
+                value: new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3171));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4638));
+                value: new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3172));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4640));
+                value: new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3174));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2021, 4, 1, 14, 2, 8, 91, DateTimeKind.Utc).AddTicks(4641));
+                value: new DateTime(2021, 4, 2, 8, 16, 49, 9, DateTimeKind.Utc).AddTicks(3175));
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ContentId1",
@@ -132,6 +146,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                 principalTable: "Contents",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Contents_Categories_CategoryId",
+                table: "Contents",
+                column: "CategoryId",
+                principalTable: "Categories",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -139,6 +161,10 @@ namespace WidePictBoard.Infrastructure.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Comments_Contents_ContentId1",
                 table: "Comments");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Contents_Categories_CategoryId",
+                table: "Contents");
 
             migrationBuilder.DropTable(
                 name: "TagContent");
@@ -153,6 +179,14 @@ namespace WidePictBoard.Infrastructure.Migrations
             migrationBuilder.DropColumn(
                 name: "ContentId1",
                 table: "Comments");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "CategoryId",
+                table: "Contents",
+                type: "int",
+                nullable: true,
+                oldClrType: typeof(int),
+                oldType: "int");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
@@ -216,6 +250,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                 keyValue: 6,
                 column: "CreatedAt",
                 value: new DateTime(2021, 3, 27, 19, 37, 11, 349, DateTimeKind.Utc).AddTicks(9990));
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Contents_Categories_CategoryId",
+                table: "Contents",
+                column: "CategoryId",
+                principalTable: "Categories",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

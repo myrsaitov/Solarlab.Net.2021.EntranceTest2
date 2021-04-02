@@ -20,7 +20,7 @@ namespace WidePictBoard.API.Controllers.Content
                 Body = request.Body,
                 Price = request.Price,
                 CategoryId = request.CategoryId,
-                TagsStr = request.TagsStr
+                Tags = request.Tags
             }, cancellationToken);
 
             return Created($"api/v1/contents/{response.Id}", new { });
@@ -44,7 +44,7 @@ namespace WidePictBoard.API.Controllers.Content
             [Range(1, 100_000_000_000)]
             public int? CategoryId { get; set; }
 
-            public ICollection<string> TagsStr { get; set; }
+            public string[] Tags { get; set; }
         }
     }
 }

@@ -62,6 +62,8 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(cat => cat.CreatedAt).IsRequired();
             builder.Property(cat => cat.UpdatedAt).IsRequired(false);
             builder.HasData(categories);
+            builder.HasOne(cat => cat.ParentCategory);
+            builder.HasMany(cat => cat.ChildCategories);
         }
     }
 }

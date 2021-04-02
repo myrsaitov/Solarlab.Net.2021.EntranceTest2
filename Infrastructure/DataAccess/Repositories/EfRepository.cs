@@ -41,8 +41,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         public async Task<TEntity> FindWhere(Expression<Func<TEntity, bool>> predicate,
             CancellationToken cancellationToken)
         {
-            var data = DbСontext.Set<TEntity>().AsNoTracking(); ;
-
+            var data = DbСontext.Set<TEntity>();
             return await data.Where(predicate).FirstOrDefaultAsync(cancellationToken);
         }
 

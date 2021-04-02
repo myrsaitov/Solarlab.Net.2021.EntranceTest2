@@ -15,7 +15,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public string OwnerId { get; set; }
             public bool IsDeleted { get; set; }
 
-            public ICollection<string> TagsStr { get; set; }
+            public string[] Tags { get; set; }
         }
         public sealed class Response
         {

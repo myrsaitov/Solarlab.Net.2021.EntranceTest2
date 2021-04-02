@@ -9,7 +9,7 @@ namespace WidePictBoard.Domain
         public bool IsDeleted { get; set; }
         public int? ParentCategoryId { get; set; }
         public Category ParentCategory { get; set; }
-        public ICollection<Category> ChildCategories { get; set; }
-        public ICollection<Content> Contents { get; set; }
+        public virtual ICollection<Category> ChildCategories { get; set; }
+        public virtual ICollection<Content> Contents { get; set; }
     }
 }
