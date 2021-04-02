@@ -1,9 +1,6 @@
-﻿using System;
-using WidePictBoard.Domain;
+﻿using WidePictBoard.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Org.BouncyCastle.Math.EC.Rfc7748;
-
 
 namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
 {

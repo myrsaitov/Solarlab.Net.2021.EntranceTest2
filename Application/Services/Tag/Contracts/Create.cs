@@ -7,8 +7,6 @@ namespace WidePictBoard.Application.Services.Tag.Contracts
         public sealed class Request
         {
             public string Body { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public int ContentId { get; set; }
         }
 
         public sealed class Response
