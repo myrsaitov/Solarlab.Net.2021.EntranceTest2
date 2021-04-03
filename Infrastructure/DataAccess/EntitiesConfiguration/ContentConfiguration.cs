@@ -12,13 +12,13 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(con => con.CreatedAt).IsRequired();
             builder.Property(con => con.UpdatedAt).IsRequired(false);
             builder.Property(con => con.Price).HasColumnType("money");
-            builder.HasMany(con => con.Tags)
+            /*builder.HasMany(con => con.Tags)
                 .WithMany(t => t.Contents)
-                .UsingEntity(j => j.ToTable("TagContent"));
-            builder.HasOne(con => con.Category)
-                .WithMany(cat => cat.Contents)
+                .UsingEntity(j => j.ToTable("TagContent"));*/
+            /*builder.HasOne(con => con.Category)
+                .WithMany()
                 .HasForeignKey(con => con.CategoryId)
-                .HasPrincipalKey(cat => cat.Id);
+                .HasPrincipalKey(cat => cat.Id);*/
             builder.HasOne(con => con.Owner)
                 .WithMany()
                 .HasForeignKey(con => con.OwnerId)

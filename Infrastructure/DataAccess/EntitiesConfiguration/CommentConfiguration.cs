@@ -12,10 +12,6 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.HasKey(com => com.Id);
             builder.Property(com => com.CreatedAt).IsRequired();
             builder.Property(com => com.UpdatedAt).IsRequired(false);
-            builder.HasOne(com => com.Content)
-                .WithMany()
-                .HasForeignKey(com => com.ContentId)
-                .HasPrincipalKey(con => con.Id);
             builder.HasOne(com => com.Owner)
                 .WithMany()
                 .HasForeignKey(com => com.OwnerId)

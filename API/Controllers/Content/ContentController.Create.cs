@@ -20,7 +20,7 @@ namespace WidePictBoard.API.Controllers.Content
                 Body = request.Body,
                 Price = request.Price,
                 CategoryId = request.CategoryId,
-                Tags = request.Tags
+                TagBodies = request.Tags
             }, cancellationToken);
 
             return Created($"api/v1/contents/{response.Id}", new { });

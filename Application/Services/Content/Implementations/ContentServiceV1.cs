@@ -43,7 +43,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.OwnerId = userId;
             content.CreatedAt = DateTime.UtcNow;
            
-            var categoryRequest = new Category.Contracts.GetById.Request()
+            /*var categoryRequest = new Category.Contracts.GetById.Request()
             {
                 Id = content.CategoryId
             };
@@ -52,10 +52,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 throw new CategoryNotFoundException(categoryRequest.Id);
             }
-            content.Category = category;
+            content.Category = category;*/
 
             content.Tags = new List<Domain.Tag>();
-            foreach (var body in request.Tags)
+            foreach (string body in request.TagBodies)
             {
                 var tag = await _tagRepository.FindWhere(a => a.Body == body, cancellationToken);
                 if (tag == null)
@@ -153,7 +153,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserAndCategory(request.Id, cancellationToken);
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);

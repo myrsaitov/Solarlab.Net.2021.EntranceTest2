@@ -34,11 +34,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             var category = _mapper.Map<Domain.Category>(request);
             category.IsDeleted = false;
             category.CreatedAt = DateTime.UtcNow;
-
-            var parentCategoryIdNulable = request.ParentCategoryId;
-
             await _categoryRepository.Save(category, cancellationToken);
 
+            var parentCategoryIdNulable = request.ParentCategoryId;
             if (parentCategoryIdNulable != null)
             {
                 int parentCategoryId = (int)parentCategoryIdNulable;
@@ -57,9 +55,10 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                         };
                     }
                     await _categoryRepository.Save(parentCategory, cancellationToken);
+                    
                     category.ParentCategory = parentCategory;
-                    await _categoryRepository.Save(category, cancellationToken);
                 }
+                await _categoryRepository.Save(category, cancellationToken);
             }
             
             return new Create.Response
@@ -139,7 +138,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.FindById(request.Id, cancellationToken);
+            var category = await _categoryRepository.FindByIdWithParentAndChilds(request.Id, cancellationToken);
             if (category == null)
             {
                 throw new CategoryNotFoundException(request.Id);

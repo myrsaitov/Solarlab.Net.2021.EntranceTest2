@@ -13,7 +13,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public int? CategoryId { get; set; }
             public string OwnerId { get; set; }
 
-            public string[] Tags { get; set; }
+            public string[] TagBodies { get; set; }
         }
         public sealed class Response
         {

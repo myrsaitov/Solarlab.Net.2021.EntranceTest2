@@ -13,5 +13,14 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         public CategoryRepository(DatabaseContext dbСontext) : base(dbСontext)
         {
         }
+        public async Task<Category> FindByIdWithParentAndChilds(int id, CancellationToken cancellationToken)
+        {
+            return await DbСontext
+                .Set<Category>()
+                .Include(a => a.ChildCategories)
+                .Include(a => a.ParentCategory)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+        }
     }
 }

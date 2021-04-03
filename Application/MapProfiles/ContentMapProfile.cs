@@ -27,6 +27,7 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.Price, src => src.Price)
                 .Map(dest => dest.CategoryId, src => src.CategoryId)
+                .Map(dest => dest.Category, src => src.Category)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
                 .Map(dest => dest.Owner, src => src.Owner)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt)
