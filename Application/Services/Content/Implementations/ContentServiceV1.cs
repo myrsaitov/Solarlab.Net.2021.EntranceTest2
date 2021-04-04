@@ -43,7 +43,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.OwnerId = userId;
             content.CreatedAt = DateTime.UtcNow;
            
-            /*var categoryRequest = new Category.Contracts.GetById.Request()
+            var categoryRequest = new Category.Contracts.GetById.Request()
             {
                 Id = content.CategoryId
             };
@@ -52,7 +52,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 throw new CategoryNotFoundException(categoryRequest.Id);
             }
-            content.Category = category;*/
+            content.Category = category;
 
             content.Tags = new List<Domain.Tag>();
             foreach (string body in request.TagBodies)

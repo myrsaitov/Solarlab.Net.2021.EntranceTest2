@@ -41,6 +41,31 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             comment.OwnerId = userId;
             comment.CreatedAt = DateTime.UtcNow;
 
+            var parentCommentIdNulable = request.ParentCommentId;
+            if (parentCommentIdNulable != null)
+            {
+                int parentCommentId = (int)parentCommentIdNulable;
+                var parentComment = await _commentRepository.FindById(parentCommentId, cancellationToken);
+                if (parentComment != null)
+                {
+                    if (parentComment.ChildComments != null)
+                    {
+                        parentComment.ChildComments.Add(comment);
+                    }
+                    else
+                    {
+                        parentComment.ChildComments = new List<Domain.Comment>()
+                        {
+                            comment
+                        };
+                    }
+                    await _commentRepository.Save(parentComment, cancellationToken);
+
+                    comment.ParentComment = parentComment;
+                }
+                await _commentRepository.Save(comment, cancellationToken);
+            }
+
             var contentRequest = new Content.Contracts.GetById.Request()
             {
                 Id = comment.ContentId
