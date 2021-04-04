@@ -45,7 +45,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             if (parentCommentIdNulable != null)
             {
                 int parentCommentId = (int)parentCommentIdNulable;
-                var parentComment = await _commentRepository.FindById(parentCommentId, cancellationToken);
+                var parentComment = await _commentRepository.FindByIdWithUserAndCommentsInclude(parentCommentId, cancellationToken);
                 if (parentComment != null)
                 {
                     if (parentComment.ChildComments != null)

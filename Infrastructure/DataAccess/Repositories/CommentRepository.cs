@@ -26,7 +26,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Owner)
                 .Include(a => a.ParentComment)
                 .Include(a => a.ChildComments)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
     }
