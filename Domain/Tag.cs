@@ -4,7 +4,7 @@ using WidePictBoard.Domain.General;
 
 namespace WidePictBoard.Domain
 {
-    public class Tag : EntityMutable<int>
+    public class Tag : Entity<int>
     {
         [MaxLength(32)]
         public string Body { get; set; }

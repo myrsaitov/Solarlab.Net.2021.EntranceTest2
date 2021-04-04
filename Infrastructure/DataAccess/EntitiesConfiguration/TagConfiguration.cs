@@ -12,7 +12,6 @@ namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
             builder.HasKey(t => t.Id);
             builder.Property(t => t.Body).IsRequired();
             builder.Property(t => t.CreatedAt).IsRequired();
-            builder.Property(t => t.UpdatedAt).IsRequired(false);
         }
     }
 }

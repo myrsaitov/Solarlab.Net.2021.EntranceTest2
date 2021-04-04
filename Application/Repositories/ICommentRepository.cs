@@ -6,5 +6,6 @@ namespace WidePictBoard.Application.Repositories
     public interface ICommentRepository : IRepository<Domain.Comment, int>
     {
         Task<Domain.Comment> FindByIdWithUserInclude(int id, CancellationToken cancellationToken);
+        Task<Domain.Comment> FindByIdWithUserAndCommentsInclude(int id, CancellationToken cancellationToken);
     }
 }

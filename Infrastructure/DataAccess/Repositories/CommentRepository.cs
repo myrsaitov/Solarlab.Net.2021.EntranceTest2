@@ -19,5 +19,15 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Owner)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
+        public async Task<Comment> FindByIdWithUserAndCommentsInclude(int id, CancellationToken cancellationToken)
+        {
+            return await DbСontext
+                .Set<Comment>()
+                .Include(a => a.Owner)
+                .Include(a => a.ParentComment)
+                .Include(a => a.ChildComments)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+        }
     }
 }

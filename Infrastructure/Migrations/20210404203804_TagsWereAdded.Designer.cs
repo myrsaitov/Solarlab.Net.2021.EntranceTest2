@@ -10,7 +10,7 @@ using WidePictBoard.Infrastructure.DataAccess;
 namespace WidePictBoard.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210403202306_TagsWereAdded")]
+    [Migration("20210404203804_TagsWereAdded")]
     partial class TagsWereAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace WidePictBoard.Infrastructure.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("ContentTag");
+                    b.ToTable("TagContent");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -66,14 +66,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "1d98e698-81b4-44ca-9066-5862f0c8209d",
+                            ConcurrencyStamp = "3d238f5e-5b36-4daa-b21d-d3142b16df6e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "594f8264-1872-4d66-8760-f7e244808680",
+                            ConcurrencyStamp = "c437fba7-eba7-452f-852a-ccda99d5da07",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -197,9 +197,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -218,8 +215,6 @@ namespace WidePictBoard.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
@@ -228,42 +223,42 @@ namespace WidePictBoard.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 4, 3, 20, 23, 5, 451, DateTimeKind.Utc).AddTicks(5845),
+                            CreatedAt = new DateTime(2021, 4, 4, 20, 38, 3, 144, DateTimeKind.Utc).AddTicks(8163),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 4, 3, 20, 23, 5, 451, DateTimeKind.Utc).AddTicks(6791),
+                            CreatedAt = new DateTime(2021, 4, 4, 20, 38, 3, 145, DateTimeKind.Utc).AddTicks(519),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 4, 3, 20, 23, 5, 451, DateTimeKind.Utc).AddTicks(6794),
+                            CreatedAt = new DateTime(2021, 4, 4, 20, 38, 3, 145, DateTimeKind.Utc).AddTicks(532),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 4, 3, 20, 23, 5, 451, DateTimeKind.Utc).AddTicks(6796),
+                            CreatedAt = new DateTime(2021, 4, 4, 20, 38, 3, 145, DateTimeKind.Utc).AddTicks(533),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 4, 3, 20, 23, 5, 451, DateTimeKind.Utc).AddTicks(6797),
+                            CreatedAt = new DateTime(2021, 4, 4, 20, 38, 3, 145, DateTimeKind.Utc).AddTicks(535),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 4, 3, 20, 23, 5, 451, DateTimeKind.Utc).AddTicks(6798),
+                            CreatedAt = new DateTime(2021, 4, 4, 20, 38, 3, 145, DateTimeKind.Utc).AddTicks(536),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -306,6 +301,8 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.HasIndex("ContentId");
 
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("ParentCommentId");
 
                     b.ToTable("Comments");
                 });
@@ -365,9 +362,6 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
@@ -386,6 +380,9 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -475,13 +472,13 @@ namespace WidePictBoard.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c074e85-7d00-4a83-8acc-9a4c321220f2",
+                            ConcurrencyStamp = "09b8fe5c-000b-4e32-9403-4fed3b08175d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGedzbWqxEP4j+IbcGkWu0lGOd0x2yy/mLbSMTYnwbs30CEu/X/7TJG/8Z6BpRLt+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA9YPrQqAcoullcZk8M68zJlxT446PUX1DkPUeC819xGpCCWiAy06LXItCDF/ngA6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fe3835cf-3aa9-4c1c-8050-8c68d8c31752",
+                            SecurityStamp = "3e587f90-235c-4d8e-813c-a38099e39974",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -555,12 +552,8 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
                 {
-                    b.HasOne("WidePictBoard.Domain.Category", null)
-                        .WithMany("ChildCategories")
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("WidePictBoard.Domain.Category", "ParentCategory")
-                        .WithMany()
+                        .WithMany("ChildCategories")
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
@@ -578,9 +571,15 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
+                    b.HasOne("WidePictBoard.Domain.Comment", "ParentComment")
+                        .WithMany("ChildComments")
+                        .HasForeignKey("ParentCommentId");
+
                     b.Navigation("Content");
 
                     b.Navigation("Owner");
+
+                    b.Navigation("ParentComment");
                 });
 
             modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
@@ -605,6 +604,11 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Navigation("ChildCategories");
 
                     b.Navigation("Contents");
+                });
+
+            modelBuilder.Entity("WidePictBoard.Domain.Comment", b =>
+                {
+                    b.Navigation("ChildComments");
                 });
 
             modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
