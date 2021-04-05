@@ -22,7 +22,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         private readonly ICommentRepository _commentRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Comment> _paged;
+        private PagedBase<GetById.Response, Domain.Comment, int> _paged;
 
         public CommentServiceV1(ICommentRepository commentRepository, IContentRepository contentRepository, IIdentityService identityService, IMapper mapper)
         {
@@ -161,9 +161,20 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             await _commentRepository.Save(comment, cancellationToken);
         }
 
+        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
+        {
+            var comment = await _commentRepository.FindByIdWithUserAndCommentsInclude(request.Id, cancellationToken);
+            if (comment == null)
+            {
+                throw new CommentNotFoundException(request.Id);
+            }
+
+            return _mapper.Map<GetById.Response>(comment);
+        }
+
         public async Task<Paged.Response<GetById.Response>> GetPaged(int ContentId, Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<GetById.Response, Domain.Comment>();
+            _paged = new PagedBase<GetById.Response, Domain.Comment, int>();
             return await _paged.GetPaged(
                 a=>a.ContentId== ContentId,
                 request,

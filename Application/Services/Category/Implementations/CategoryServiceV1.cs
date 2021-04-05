@@ -20,7 +20,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         private readonly ICategoryRepository _categoryRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Category> _paged;
+        private PagedBase<GetById.Response, Domain.Category, int> _paged;
 
         public CategoryServiceV1(ICategoryRepository categoryRepository, IIdentityService identityService, IMapper mapper)
         {
@@ -149,7 +149,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<GetById.Response, Domain.Category>();
+            _paged = new PagedBase<GetById.Response, Domain.Category, int>();
             return await _paged.GetPaged(request, _categoryRepository, _mapper, cancellationToken);
         }
     }

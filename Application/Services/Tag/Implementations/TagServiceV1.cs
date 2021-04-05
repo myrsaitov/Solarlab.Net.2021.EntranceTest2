@@ -14,22 +14,18 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
     public sealed class TagServiceV1 : ITagService
     {
         private readonly ITagRepository _repository;
-        private readonly IIdentityService _identityService;
-        private readonly IContentService _contentService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Tag> _paged;
+        private PagedBase<GetById.Response, Domain.Tag, int> _paged;
 
         public TagServiceV1(ITagRepository repository, IIdentityService identityService, IMapper mapper, IContentService contentService)
         {
             _repository = repository;
-            _identityService = identityService;
             _mapper = mapper;
-            _contentService = contentService;
         }
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<GetById.Response, Domain.Tag>();
+            _paged = new PagedBase<GetById.Response, Domain.Tag, int>();
             return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
     }
