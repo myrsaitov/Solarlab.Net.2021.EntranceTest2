@@ -71,9 +71,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 }
                 
                 content.Tags.Add(tag);
-                await _contentRepository.Save(content, cancellationToken);
             }
 
+            await _contentRepository.Save(content, cancellationToken);
             return new Create.Response
             {
                 Id = content.Id
@@ -82,7 +82,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
         public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
         {
-            var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
@@ -103,6 +103,31 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             content.IsDeleted = false;
             content.UpdatedAt = DateTime.UtcNow;
+
+            if (content.Tags == null)
+            {
+                content.Tags = new List<Domain.Tag>(); 
+            }
+            content.Tags.Clear();
+            
+            foreach (string body in request.TagBodies)
+            {
+                var tag = await _tagRepository.FindWhere(a => a.Body == body, cancellationToken);
+                if (tag == null)
+                {
+                    var tagRequest = new Tag.Contracts.Create.Request()
+                    {
+                        Body = body
+                    };
+
+                    tag = _mapper.Map<Domain.Tag>(tagRequest);
+                    tag.CreatedAt = DateTime.UtcNow;
+                    await _tagRepository.Save(tag, cancellationToken);
+                }
+
+                content.Tags.Add(tag);
+            }
+
             await _contentRepository.Save(content, cancellationToken);
 
             return new Update.Response
@@ -110,6 +135,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Id = content.Id
             };
         }
+
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -153,7 +179,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
-            var content = await _contentRepository.FindByIdWithUserAndCategory(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);

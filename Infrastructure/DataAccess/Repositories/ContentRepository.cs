@@ -20,7 +20,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
 
-        public async Task<Content> FindByIdWithUserAndCategory(int id, CancellationToken cancellationToken)
+        public async Task<Content> FindByIdWithUserAndCategoryAndTags(int id, CancellationToken cancellationToken)
         {
             return await DbСontext
                 .Set<Content>()
@@ -28,7 +28,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Category)
                 .Include(a => a.Category.ChildCategories)
                 .Include(a => a.Category.ParentCategory)
-                .AsNoTracking()
+                .Include(a => a.Tags)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
     }

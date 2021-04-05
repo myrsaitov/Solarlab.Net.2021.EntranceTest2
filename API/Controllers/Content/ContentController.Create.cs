@@ -12,7 +12,7 @@ namespace WidePictBoard.API.Controllers.Content
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(ContentCreateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(ContentCreateUpdateRequest request, CancellationToken cancellationToken)
         {
             var response = await _contentService.Create(new Create.Request
             {
@@ -26,7 +26,24 @@ namespace WidePictBoard.API.Controllers.Content
             return Created($"api/v1/contents/{response.Id}", new { });
         }
 
-        public sealed class ContentCreateRequest
+        [HttpPut("update/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Update(int id, ContentCreateUpdateRequest request, CancellationToken cancellationToken)
+        {
+            var response = await _contentService.Update(new Update.Request
+            {
+                Id = id,
+                Title = request.Title,
+                Body = request.Body,
+                Price = request.Price,
+                CategoryId = request.CategoryId,
+                TagBodies = request.Tags
+            }, cancellationToken);
+
+            return NoContent();
+        }
+
+        public sealed class ContentCreateUpdateRequest
         {
             [Required]
             [MaxLength(100)]
@@ -42,7 +59,7 @@ namespace WidePictBoard.API.Controllers.Content
 
             [Required]
             [Range(1, 100_000_000_000)]
-            public int? CategoryId { get; set; }
+            public int CategoryId { get; set; }
 
             public string[] Tags { get; set; }
         }

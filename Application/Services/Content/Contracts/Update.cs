@@ -11,6 +11,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public string Body { get; set; }
             public decimal Price { get; set; }
             public int CategoryId { get; set; }
+            public string[] TagBodies { get; set; }
         }
         public sealed class Response
         {
