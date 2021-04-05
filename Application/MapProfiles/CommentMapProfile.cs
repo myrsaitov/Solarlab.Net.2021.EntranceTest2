@@ -23,7 +23,6 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt)
                 .Map(dest => dest.IsDeleted, src => src.IsDeleted)
                 .Map(dest => dest.OwnerId, src => src.OwnerId)
-                .Map(dest => dest.Owner, src => src.Owner)
                 .Map(dest => dest.ContentId, src => src.ContentId)
                 .Map(dest => dest.ParentCommentId, src => src.ParentCommentId);
 

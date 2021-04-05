@@ -15,7 +15,9 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public sealed class OwnerResponse
             {
                 public string Id { get; set; }
-                public string Name { get; set; }
+                public string FirstName { get; set; }
+                public string LastName { get; set; }
+                public string MiddleName { get; set; }
             }
 
             public int Id { get; set; }
@@ -24,8 +26,6 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public decimal Price { get; set; }
             public string OwnerId { get; set; }
             public OwnerResponse Owner { get; set; }
-            public Domain.Category Category { get; set; }
-            public ICollection<Domain.Tag> Tags { get; set; }
             public DateTime CreatedAt { get; set; }
             public int? CategoryId { get; set; }
             public bool IsDeleted { get; set; }
