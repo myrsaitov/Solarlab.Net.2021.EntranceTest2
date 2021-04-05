@@ -17,7 +17,7 @@ namespace WidePictBoard.Tests
         private Mock<ICategoryRepository> _categoryRepositoryMock;
         private Mock<ITagRepository> _tagRepositoryMock;
         private Mock<IIdentityService> _identityServiceMock;
-        private IMapper _mapper;
+        private Mock<IMapper> _mapperMock;
         
         private ContentServiceV1 _contentServiceV1;
         public ContentServiceV1Test()
@@ -26,13 +26,14 @@ namespace WidePictBoard.Tests
             _categoryRepositoryMock = new Mock<ICategoryRepository>();
             _tagRepositoryMock = new Mock<ITagRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
+            _mapperMock = new Mock<IMapper>();
 
             _contentServiceV1 = new ContentServiceV1(
                 _contentRepositoryMock.Object,
                 _categoryRepositoryMock.Object, 
                 _tagRepositoryMock.Object, 
-                _identityServiceMock.Object, 
-                _mapper);
+                _identityServiceMock.Object,
+                _mapperMock.Object);
         }
 
         [Theory]
