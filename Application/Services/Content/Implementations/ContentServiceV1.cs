@@ -26,7 +26,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly IMapper _mapper;
         private PagedBase<GetPagedResponse, Domain.Content, int> _paged;
 
-        public ContentServiceV1(IContentRepository contentRepository, ICategoryRepository categoryRepository, ITagRepository tagRepository, IIdentityService identityService, IMapper mapper)
+        public ContentServiceV1(IContentRepository contentRepository, 
+            ICategoryRepository categoryRepository, 
+            ITagRepository tagRepository, 
+            IIdentityService identityService, 
+            IMapper mapper)
         {
             _contentRepository = contentRepository;
             _categoryRepository = categoryRepository;

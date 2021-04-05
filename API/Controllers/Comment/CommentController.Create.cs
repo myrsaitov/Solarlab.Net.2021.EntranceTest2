@@ -17,7 +17,6 @@ namespace WidePictBoard.API.Controllers.Comment
             var response = await _commentService.Create(new Create.Request
             {
                 Body = request.Body,
-                CommentDate = request.CommentDate,
                 ContentId = request.ContentId,
                 ParentCommentId = request.ParentCommentId
             }, cancellationToken);
@@ -30,8 +29,6 @@ namespace WidePictBoard.API.Controllers.Comment
             [Required]
             [MaxLength(2048)]
             public string Body { get; set; }
-            [Required]
-            public DateTime CommentDate { get; set; }
             [Required]
             [Range(1, 100_000_000_000)]
             public int ContentId { get; set; }

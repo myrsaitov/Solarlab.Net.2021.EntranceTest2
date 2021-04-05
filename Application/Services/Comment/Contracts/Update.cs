@@ -1,7 +1,4 @@
-﻿using System;
-using WidePictBoard.Domain.General;
-
-namespace WidePictBoard.Application.Services.Comment.Contracts
+﻿namespace WidePictBoard.Application.Services.Comment.Contracts
 {
     public static class Update
     {

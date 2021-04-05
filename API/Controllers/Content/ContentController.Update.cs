@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -10,12 +9,13 @@ namespace WidePictBoard.API.Controllers.Content
 {
     public partial class ContentController
     {
-        [HttpPost]
+        [HttpPut("update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(ContentCreateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Update(int id, ContentUpdateRequest request, CancellationToken cancellationToken)
         {
-            var response = await _contentService.Create(new Create.Request
+            var response = await _contentService.Update(new Update.Request
             {
+                Id = id,
                 Title = request.Title,
                 Body = request.Body,
                 Price = request.Price,
@@ -23,10 +23,10 @@ namespace WidePictBoard.API.Controllers.Content
                 TagBodies = request.Tags
             }, cancellationToken);
 
-            return Created($"api/v1/contents/{response.Id}", new { });
+            return NoContent();
         }
 
-        public sealed class ContentCreateRequest
+        public sealed class ContentUpdateRequest
         {
             [Required]
             [MaxLength(100)]
