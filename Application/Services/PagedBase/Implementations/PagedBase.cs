@@ -11,16 +11,14 @@ using WidePictBoard.Domain.General;
 
 namespace WidePictBoard.Application.Services.PagedBase.Implementations
 {
-    public class PagedBase<TPagedResponse, TSingleResponce, TPagedRequest, TEntity> : IPagedBase<TPagedResponse, TSingleResponce, TPagedRequest, TEntity>
-        where TPagedResponse : Paged.Response<TSingleResponce>
-        where TPagedRequest : Paged.Request
+    public class PagedBase<TSingleResponce, TEntity> : IPagedBase<TSingleResponce, TEntity>
         where TEntity : Entity<int>
     {
         public PagedBase()
         { 
         }
 
-        public async Task<Paged.Response<TSingleResponce>> GetPaged(TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
+        public async Task<Paged.Response<TSingleResponce>> GetPaged(Paged.Request request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
         {
             var total = await repository.Count(cancellationToken);
 
@@ -48,7 +46,7 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
             };
         }
 
-        public async Task<Paged.Response<TSingleResponce>> GetPaged(Expression<Func<TEntity, bool>> predicate, TPagedRequest request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
+        public async Task<Paged.Response<TSingleResponce>> GetPaged(Expression<Func<TEntity, bool>> predicate, Paged.Request request, IRepository<TEntity, int> repository, IMapper mapper, CancellationToken cancellationToken)
         {
             var total = await repository.Count(predicate,cancellationToken);
 

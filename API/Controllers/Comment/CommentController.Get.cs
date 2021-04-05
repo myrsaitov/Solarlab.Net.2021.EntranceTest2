@@ -9,13 +9,12 @@ namespace WidePictBoard.API.Controllers.Comment
 {
     public partial class CommentController
     {
-        [HttpGet("{id}")]
+        [HttpGet("{contentId}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPaged([FromQuery] GetPagedRequest request, int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged([FromQuery] GetPagedRequest request, int contentId, CancellationToken cancellationToken)
         {
-               var result = await _commentService.GetPaged(new GetPaged.Request
+               var result = await _commentService.GetPaged(contentId, new Paged.Request
                {
-                   ContentId = id,
                    PageSize = request.PageSize,
                    Page = request.Page
                }, cancellationToken);

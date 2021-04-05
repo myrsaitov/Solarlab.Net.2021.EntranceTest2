@@ -23,7 +23,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly ITagRepository _tagRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content> _paged;
+        private PagedBase<GetById.Response, Domain.Content> _paged;
 
         public ContentServiceV1(IContentRepository contentRepository, ICategoryRepository categoryRepository, ITagRepository tagRepository, IIdentityService identityService, IMapper mapper)
         {
@@ -164,7 +164,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Content>();
+            _paged = new PagedBase<GetById.Response, Domain.Content>();
             return await _paged.GetPaged(request, _contentRepository, _mapper, cancellationToken);
         }
     }

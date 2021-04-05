@@ -17,7 +17,7 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
         private readonly IIdentityService _identityService;
         private readonly IContentService _contentService;
         private readonly IMapper _mapper;
-        private PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Tag> _paged;
+        private PagedBase<GetById.Response, Domain.Tag> _paged;
 
         public TagServiceV1(ITagRepository repository, IIdentityService identityService, IMapper mapper, IContentService contentService)
         {
@@ -29,7 +29,7 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<Paged.Response<GetById.Response>, GetById.Response, Paged.Request, Domain.Tag>();
+            _paged = new PagedBase<GetById.Response, Domain.Tag>();
             return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
         }
     }
