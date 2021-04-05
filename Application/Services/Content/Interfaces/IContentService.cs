@@ -12,6 +12,6 @@ namespace WidePictBoard.Application.Services.Content.Interfaces
         Task Delete(Delete.Request request, CancellationToken cancellationToken);
         Task Restore(Restore.Request request, CancellationToken cancellationToken);
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
-        Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken);
+        Task<Paged.Response<GetPagedResponse>> GetPaged(Paged.Request request, CancellationToken cancellationToken);
     }
 }

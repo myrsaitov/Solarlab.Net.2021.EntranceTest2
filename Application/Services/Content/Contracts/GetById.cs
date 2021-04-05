@@ -29,6 +29,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public DateTime CreatedAt { get; set; }
             public int? CategoryId { get; set; }
             public bool IsDeleted { get; set; }
+            public string[] Tags { get; set; }
         }
     }
 }

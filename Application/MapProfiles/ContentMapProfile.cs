@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using System.Linq;
 
 namespace WidePictBoard.Application.MapProfiles
 {

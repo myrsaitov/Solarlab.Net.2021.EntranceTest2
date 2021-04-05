@@ -13,6 +13,7 @@ using WidePictBoard.Application.Services.Content.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
+using System.Linq;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
@@ -23,7 +24,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly ITagRepository _tagRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Content, int> _paged;
+        private PagedBase<GetPagedResponse, Domain.Content, int> _paged;
 
         public ContentServiceV1(IContentRepository contentRepository, ICategoryRepository categoryRepository, ITagRepository tagRepository, IIdentityService identityService, IMapper mapper)
         {
@@ -185,12 +186,14 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentNotFoundException(request.Id);
             }
 
-            return _mapper.Map<GetById.Response>(content);
+            var response = _mapper.Map<GetById.Response>(content);
+            response.Tags = content.Tags.Select(x => x.Body).ToArray();
+            return response;
         }
 
-        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetPagedResponse>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<GetById.Response, Domain.Content, int>();
+            _paged = new PagedBase<GetPagedResponse, Domain.Content, int>();
             return await _paged.GetPaged(request, _contentRepository, _mapper, cancellationToken);
         }
     }
