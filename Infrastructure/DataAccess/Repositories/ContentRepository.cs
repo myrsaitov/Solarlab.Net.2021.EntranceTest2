@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 {

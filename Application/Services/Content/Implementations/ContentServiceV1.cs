@@ -140,7 +140,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Id = content.Id
             };
         }
-
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -181,7 +180,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.UpdatedAt = DateTime.UtcNow;
             await _contentRepository.Save(content, cancellationToken);
         }
-
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
@@ -194,11 +192,14 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             response.Tags = content.Tags.Select(x => x.Body).ToArray();
             return response;
         }
-
-        public async Task<Paged.Response<GetPagedResponse>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetPagedResponse>> GetPaged(string tag, Paged.Request request, CancellationToken cancellationToken)
         {
             _paged = new PagedBase<GetPagedResponse, Domain.Content, int>();
-            return await _paged.GetPaged(request, _contentRepository, _mapper, cancellationToken);
+            
+            if(tag is null)
+                return await _paged.GetPaged(request, _contentRepository, _mapper, cancellationToken);
+            else
+                return await _paged.GetPaged(a => a.Tags.Any(t => t.Body == tag), request, _contentRepository, _mapper, cancellationToken);
         }
     }
 }

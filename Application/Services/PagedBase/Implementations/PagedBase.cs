@@ -17,7 +17,6 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
         public PagedBase()
         { 
         }
-
         public async Task<Paged.Response<TGetByIdResponce>> GetPaged(Paged.Request request, IRepository<TEntity, TId> repository, IMapper mapper, CancellationToken cancellationToken)
         {
             var total = await repository.Count(cancellationToken);
@@ -45,10 +44,9 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
                 Limit = request.PageSize
             };
         }
-
         public async Task<Paged.Response<TGetByIdResponce>> GetPaged(Expression<Func<TEntity, bool>> predicate, Paged.Request request, IRepository<TEntity, TId> repository, IMapper mapper, CancellationToken cancellationToken)
         {
-            var total = await repository.Count(predicate,cancellationToken);
+            var total = await repository.Count(predicate, cancellationToken);
 
             if (total == 0)
             {

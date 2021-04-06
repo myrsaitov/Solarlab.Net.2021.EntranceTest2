@@ -11,9 +11,9 @@ namespace WidePictBoard.API.Controllers.Content
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPaged([FromQuery] GetPagedRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged([FromQuery] GetPagedTaggedRequest request, CancellationToken cancellationToken)
         {
-            var result = await _contentService.GetPaged(new Paged.Request
+            var result = await _contentService.GetPaged(request.Tag, new Paged.Request
             {
                 PageSize = request.PageSize,
                 Page = request.Page
