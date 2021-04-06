@@ -34,7 +34,7 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Owner.MiddleName, src => src.Owner.MiddleName)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt)
                 .Map(dest => dest.IsDeleted, src => src.IsDeleted)
-                .Map(dest => dest.Tags, src => src.Tags.Select(t => t.Body).ToArray());
+                .Map(dest => dest.Tags, src => src.Tags.Select(b => b.Body).ToArray());
 
             return config;
         }

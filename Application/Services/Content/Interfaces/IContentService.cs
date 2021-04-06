@@ -23,8 +23,11 @@ namespace WidePictBoard.Application.Services.Content.Interfaces
             GetById.Request request, 
             CancellationToken cancellationToken);
         Task<Paged.Response<GetById.Response>> GetPaged(
-            string tag, 
             Paged.Request request, 
+            CancellationToken cancellationToken);
+        Task<Paged.Response<GetById.Response>> GetPaged(
+            string tag,
+            Paged.Request request,
             CancellationToken cancellationToken);
     }
 }

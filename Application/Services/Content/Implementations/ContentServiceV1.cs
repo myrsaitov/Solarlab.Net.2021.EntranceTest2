@@ -14,7 +14,8 @@ using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
 using System.Linq;
-using System.Linq.Expressions;
+using Mapster;
+using System.Collections;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
@@ -193,31 +194,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             response.Tags = content.Tags.Select(x => x.Body).ToArray();
             return response;
         }
-        public async Task<Paged.Response<GetById.Response>> GetPaged(string tag, Paged.Request request, CancellationToken cancellationToken)
-        {
-            _paged = new PagedBase<GetById.Response, Domain.Content, int>();
-            
-            if(tag is null)
-                return await _paged.GetPaged(
-                    request, 
-                    _contentRepository, 
-                    _mapper, cancellationToken);
-            else
-                return await _paged.GetPaged(
-                    a => a.Tags.Any(t => t.Body == tag), 
-                    request, 
-                    _contentRepository, 
-                    _mapper, cancellationToken);
-        }
-
-
         public async Task<Paged.Response<GetById.Response>> GetPaged(
             Paged.Request request,
-            IRepository<Domain.Content, int> repository,
-            IMapper mapper,
             CancellationToken cancellationToken)
         {
-            var total = await repository.Count(cancellationToken);
+            var total = await _contentRepository.Count(cancellationToken);
 
             if (total == 0)
             {
@@ -230,41 +211,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 };
             }
 
-            var entities = await repository.GetPaged(
+            var entities = await _contentRepository.GetPagedWithTagsInclude(
                 request.Page, request.PageSize, cancellationToken
-            );
-
-            return new Paged.Response<GetById.Response>
-            {
-                Items = entities.Select(entity => mapper.Map<GetById.Response>(entity)),
-                Total = total,
-                Offset = request.Page,
-                Limit = request.PageSize
-            };
-        }
-        public async Task<Paged.Response<GetById.Response>> GetPaged(
-            Expression<Func<Domain.Content, int, bool>> predicate,
-            Paged.Request request,
-            CancellationToken cancellationToken)
-        {
-            var total = await _contentRepository.CountWithTags(predicate, cancellationToken);
-
-            if (total == 0)
-            {
-                return new Paged.Response<GetById.Response>
-                {
-                    Items = Array.Empty<GetById.Response>(),
-                    Total = total,
-                    Offset = request.Page,
-                    Limit = request.PageSize
-                };
-            }
-
-            var entities = await _contentRepository.GetPaged(
-                predicate,
-                request.Page,
-                request.PageSize,
-                cancellationToken
             );
 
             return new Paged.Response<GetById.Response>
@@ -275,6 +223,40 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Limit = request.PageSize
             };
         }
+        public async Task<Paged.Response<GetById.Response>> GetPaged(
+            string tag,
+            Paged.Request request,
+            CancellationToken cancellationToken)
+        {
+            var total = await _contentRepository.Count(a => a.Tags.Any(t => t.Body == tag), cancellationToken);
 
+            if (total == 0)
+            {
+                return new Paged.Response<GetById.Response>
+                {
+                    Items = Array.Empty<GetById.Response>(),
+                    Total = total,
+                    Offset = request.Page,
+                    Limit = request.PageSize
+                };
+            }
+
+            var entities = await _contentRepository.GetPagedWithTagsInclude(
+                tag,
+                request.Page,
+                request.PageSize,
+                cancellationToken
+            );
+
+            var ret = new Paged.Response<GetById.Response>
+            {
+                Items = entities.Select(entity => entity.Adapt<GetById.Response>()),
+                Total = total,
+                Offset = request.Page,
+                Limit = request.PageSize
+            };
+
+            return ret;
+        }
     }
 }

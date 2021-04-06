@@ -35,25 +35,14 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Tags)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
-        public async Task<int> CountWithTags(
-            Expression<Func<Content, bool>> predicate,
+        public async Task<IEnumerable<Content>> GetPagedWithTagsInclude(
+            int offset,
+            int limit,
             CancellationToken cancellationToken)
         {
             var data = DbСontext
                 .Set<Content>()
-                .AsNoTracking(); ;
-
-            return await data
-                .Where(predicate)
-                .CountAsync(cancellationToken);
-        }
-        public async Task<IEnumerable<Content>> GetPagedWithTagsInclude(
-             int offset,
-             int limit,
-             CancellationToken cancellationToken)
-        {
-            var data = DbСontext
-                .Set<Content>()
+                .Include(a => a.Tags)
                 .AsNoTracking(); ;
 
             return await data
@@ -63,17 +52,18 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .ToListAsync(cancellationToken);
         }
         public async Task<IEnumerable<Content>> GetPagedWithTagsInclude(
-            Expression<Func<Content, bool>> predicate,
+            string tag,
             int offset,
             int limit,
             CancellationToken cancellationToken)
         {
             var data = DbСontext
                 .Set<Content>()
+                .Include(a => a.Tags)
                 .AsNoTracking();
 
             return await data
-                .Where(predicate)
+                .Where(a => a.Tags.Any(t => t.Body == tag))
                 .OrderBy(e => e.Id)
                 .Take(limit)
                 .Skip(offset)

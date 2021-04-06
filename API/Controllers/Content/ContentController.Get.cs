@@ -13,11 +13,24 @@ namespace WidePictBoard.API.Controllers.Content
         [AllowAnonymous]
         public async Task<IActionResult> GetPaged([FromQuery] GetPagedTaggedRequest request, CancellationToken cancellationToken)
         {
-            var result = await _contentService.GetPaged(request.Tag, new Paged.Request
+            Paged.Response<GetById.Response> result;
+
+            if (request.Tag is null)
             {
-                PageSize = request.PageSize,
-                Page = request.Page
-            }, cancellationToken);
+                result = await _contentService.GetPaged(new Paged.Request
+                {
+                    PageSize = request.PageSize,
+                    Page = request.Page
+                }, cancellationToken);
+            }
+            else
+            {
+                result = await _contentService.GetPaged(request.Tag, new Paged.Request
+                {
+                    PageSize = request.PageSize,
+                    Page = request.Page
+                }, cancellationToken);
+            }
 
             return Ok(result);
         }

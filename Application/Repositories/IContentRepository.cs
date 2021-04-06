@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using WidePictBoard.Domain;
 
 namespace WidePictBoard.Application.Repositories
 {
@@ -14,8 +15,14 @@ namespace WidePictBoard.Application.Repositories
         Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
             CancellationToken cancellationToken);
-        Task<int> CountWithTags(
-            Expression<Func<Domain.Content, bool>> predicate,
+        Task<IEnumerable<Content>> GetPagedWithTagsInclude(
+            int offset,
+            int limit,
+            CancellationToken cancellationToken);
+        Task<IEnumerable<Content>> GetPagedWithTagsInclude(
+            string tag,
+            int offset,
+            int limit,
             CancellationToken cancellationToken);
     }
 }
