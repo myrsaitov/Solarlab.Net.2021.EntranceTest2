@@ -72,7 +72,7 @@ namespace WidePictBoard.Tests
             _contentRepositoryMock
                 .Setup(_ => _.Save(It.IsAny<Domain.Content>(), It.IsAny<CancellationToken>()))
                 .Callback((Domain.Content content, CancellationToken ct) => content.Id = contentId);
-            _ = _categoryRepositoryMock
+            _categoryRepositoryMock
                 .Setup(_ => _.FindById(It.IsAny<int>(), It.IsAny<CancellationToken>())).Returns(async () => category)
                 .Callback((int _categoryId, CancellationToken ct) => _categoryId = categoryId);
         }
