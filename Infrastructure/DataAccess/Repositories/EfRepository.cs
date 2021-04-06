@@ -10,8 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 {
-    public class EfRepository<TEntity, TId>
-        : IRepository<TEntity, TId>
+    public class EfRepository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : Entity<TId>
     {
 
@@ -91,7 +90,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
         }
 
         public async Task<IEnumerable<TEntity>> GetPaged(
-            Expression<Func<TEntity, bool>> predicate, 
+            Expression<Func<TEntity, bool>> predicate,
             int offset,
             int limit, 
             CancellationToken cancellationToken)
