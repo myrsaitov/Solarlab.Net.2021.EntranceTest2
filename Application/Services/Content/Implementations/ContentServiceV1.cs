@@ -45,6 +45,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
+            if(request is null)
+            {
+                throw new ContentCreateRequestIsNullException();
+            }
+
             var content = _mapper.Map<Domain.Content>(request);
             content.IsDeleted = false;
             content.OwnerId = userId;
