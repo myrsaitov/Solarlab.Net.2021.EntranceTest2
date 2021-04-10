@@ -15,7 +15,7 @@ namespace WidePictBoard.Tests.Content
         public async Task Update_Returns_Response_Success(
             Update.Request request, 
             CancellationToken cancellationToken, 
-            int userId, 
+            int userId,
             int contentId, 
             int categoryId)
         {
@@ -36,20 +36,21 @@ namespace WidePictBoard.Tests.Content
             Update.Request request, 
             CancellationToken cancellationToken, 
             int userId,
-            bool IsAdmin,
             int contentId,
             int categoryId)
         {
             // Arrange
-            ConfigureMoqForUpdateMethod(userId.ToString(), bool IsAdmin, contentId, categoryId);
+            ConfigureMoqForUpdateMethod(userId.ToString(), contentId, categoryId);
 
             // Act
             await Assert.ThrowsAsync<ContentUpdateRequestIsNullException>(
                 async () => await _contentServiceV1.Update(request, cancellationToken));
 
         }
-        private void ConfigureMoqForUpdateMethod(string userId, bool IsAdmin, int contentId, int categoryId)
+        private void ConfigureMoqForUpdateMethod(string userId, int contentId, int categoryId)
         {
+            var content = new Domain.Content();
+            content.Id = contentId;
             var category = new Domain.Category();
             category.Id = categoryId;
 
@@ -59,13 +60,18 @@ namespace WidePictBoard.Tests.Content
                 .Verifiable();
             _identityServiceMock
                 .Setup(_ => _.IsInRole(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(IsAdmin)
+                .ReturnsAsync(true)
                 .Verifiable();
+            _contentRepositoryMock
+                .Setup(_ => _.FindByIdWithUserAndCategoryAndTags(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(async () => content)
+                .Callback((int _contentId, CancellationToken ct) => _contentId = contentId);
             _contentRepositoryMock
                 .Setup(_ => _.Save(It.IsAny<Domain.Content>(), It.IsAny<CancellationToken>()))
                 .Callback((Domain.Content content, CancellationToken ct) => content.Id = contentId);
             _categoryRepositoryMock
-                .Setup(_ => _.FindById(It.IsAny<int>(), It.IsAny<CancellationToken>())).Returns(async () => category)
+                .Setup(_ => _.FindById(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Returns(async () => category)
                 .Callback((int _categoryId, CancellationToken ct) => _categoryId = categoryId);
         }
     }

@@ -94,6 +94,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
         public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new ContentUpdateRequestIsNullException();
+            }
+
             var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
             if (content == null)
             {
