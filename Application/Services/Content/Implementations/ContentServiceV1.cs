@@ -121,6 +121,17 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.IsDeleted = false;
             content.UpdatedAt = DateTime.UtcNow;
 
+            var categoryRequest = new Category.Contracts.GetById.Request()
+            {
+                Id = content.CategoryId
+            };
+            var category = await _categoryRepository.FindById(categoryRequest.Id, cancellationToken);
+            if (category == null)
+            {
+                throw new CategoryNotFoundException(categoryRequest.Id);
+            }
+
+            content.Category = category;
             if (content.Tags == null)
             {
                 content.Tags = new List<Domain.Tag>(); 
