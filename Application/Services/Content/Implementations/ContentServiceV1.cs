@@ -15,7 +15,6 @@ using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
 using System.Linq;
 using Mapster;
-using System.Collections;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
@@ -40,7 +39,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             _identityService = identityService;
             _mapper = mapper;
         }
-
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
@@ -91,7 +89,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Id = content.Id
             };
         }
-
         public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
         {
             if (request is null)
@@ -165,6 +162,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         }
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new ContentDeleteRequestIsNullException();
+            }
+
             var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
             if (content == null)
             {
@@ -185,6 +187,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         }
         public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new ContentRestoreRequestIsNullException();
+            }
+
             var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
             if (content == null)
             {

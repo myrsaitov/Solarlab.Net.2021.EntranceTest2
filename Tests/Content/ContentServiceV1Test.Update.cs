@@ -31,6 +31,9 @@ namespace WidePictBoard.Tests.Content
 
             // Assert
             _identityServiceMock.Verify();
+            _contentRepositoryMock.Verify();
+            _categoryRepositoryMock.Verify();
+            _tagRepositoryMock.Verify();
             Assert.NotNull(response);
             Assert.NotEqual(default, response.Id);
         }
