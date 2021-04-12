@@ -51,7 +51,10 @@ namespace WidePictBoard.Tests.Content
                 async () => await _contentServiceV1.Create(request, cancellationToken));
 
         }
-        private void ConfigureMoqForCreateMethod(Create.Request request, string userId, int contentId)
+        private void ConfigureMoqForCreateMethod(
+            Create.Request request,
+            string userId, 
+            int contentId)
         {
             var category = new Domain.Category();
 
