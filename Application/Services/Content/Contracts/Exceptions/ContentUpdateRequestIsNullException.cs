@@ -4,7 +4,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts.Exceptions
 {
     public sealed class ContentUpdateRequestIsNullException : NotFoundException
     {
-        private const string MessageTemplate = "UpdateRequest is Null!";
+        private const string MessageTemplate = "Content UpdateRequest is Null!";
         public ContentUpdateRequestIsNullException() : base(string.Format(MessageTemplate))
         {
         }

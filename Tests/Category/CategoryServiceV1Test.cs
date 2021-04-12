@@ -1,13 +1,13 @@
 ﻿using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Content.Implementations;
+using WidePictBoard.Application.Services.Category.Implementations;
 using Moq;
 using MapsterMapper;
 using WidePictBoard.Application.MapProfiles;
 
-namespace WidePictBoard.Tests.Content
+namespace WidePictBoard.Tests.Category
 {
-    public partial class ContentServiceV1Test
+    public partial class CategoryServiceV1Test
     {
         private Mock<IContentRepository> _contentRepositoryMock;
         private Mock<ICategoryRepository> _categoryRepositoryMock;
@@ -15,12 +15,10 @@ namespace WidePictBoard.Tests.Content
         private Mock<IIdentityService> _identityServiceMock;
         private IMapper _mapper;
         
-        private ContentServiceV1 _contentServiceV1;
-        public ContentServiceV1Test()
+        private CategoryServiceV1 _categoryServiceV1;
+        public CategoryServiceV1Test()
         {
-            _contentRepositoryMock = new Mock<IContentRepository>();
             _categoryRepositoryMock = new Mock<ICategoryRepository>();
-            _tagRepositoryMock = new Mock<ITagRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
            
             _mapper = new Mapper();
@@ -30,10 +28,8 @@ namespace WidePictBoard.Tests.Content
             TagMapProfile.GetConfiguredMappingConfig().Compile();
             UserMapProfile.GetConfiguredMappingConfig().Compile();
 
-            _contentServiceV1 = new ContentServiceV1(
-                _contentRepositoryMock.Object,
-                _categoryRepositoryMock.Object, 
-                _tagRepositoryMock.Object, 
+            _categoryServiceV1 = new CategoryServiceV1(
+                _categoryRepositoryMock.Object,
                 _identityServiceMock.Object,
                 _mapper);
         }

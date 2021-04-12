@@ -47,22 +47,28 @@ namespace WidePictBoard.Tests.Content
         }
         private void ConfigureMoqForRestoreMethod(string userId, int contentId)
         {
-            var content = new Domain.Content();
-            content.Id = contentId;
-            content.OwnerId = userId;
+            var content = new Domain.Content()
+            {
+                Id = contentId,
+                OwnerId = userId
+            };
 
             _contentRepositoryMock
                 .Setup(_ => _.FindByIdWithUserInclude(It.IsAny<int>(), It.IsAny<CancellationToken>()))
-                .Returns(async () => content)
-                .Callback((int _contentId, CancellationToken ct) => _contentId = contentId);
+                .ReturnsAsync(content)
+                .Callback((int _contentId, CancellationToken ct) => _contentId = contentId)
+                .Verifiable();
+
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(userId)
                 .Verifiable();
+
             _identityServiceMock
                 .Setup(_ => _.IsInRole(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false)
                 .Verifiable();
+
             _contentRepositoryMock
                 .Setup(_ => _.Save(It.IsAny<Domain.Content>(), It.IsAny<CancellationToken>()))
                 .Callback((Domain.Content content, CancellationToken ct) => content.Id = contentId);

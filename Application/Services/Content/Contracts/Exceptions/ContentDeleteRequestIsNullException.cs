@@ -4,7 +4,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts.Exceptions
 {
     public sealed class ContentDeleteRequestIsNullException : NotFoundException
     {
-        private const string MessageTemplate = "DeleteRequest is Null!";
+        private const string MessageTemplate = "Content DeleteRequest is Null!";
         public ContentDeleteRequestIsNullException() : base(string.Format(MessageTemplate))
         {
         }

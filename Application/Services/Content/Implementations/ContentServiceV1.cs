@@ -27,7 +27,8 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly IMapper _mapper;
         private PagedBase<GetById.Response, Domain.Content, int> _paged;
 
-        public ContentServiceV1(IContentRepository contentRepository, 
+        public ContentServiceV1(
+            IContentRepository contentRepository, 
             ICategoryRepository categoryRepository, 
             ITagRepository tagRepository, 
             IIdentityService identityService, 
@@ -39,14 +40,16 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             _identityService = identityService;
             _mapper = mapper;
         }
-        public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
+        public async Task<Create.Response> Create(
+            Create.Request request, 
+            CancellationToken cancellationToken)
         {
-            string userId = await _identityService.GetCurrentUserId(cancellationToken);
-
-            if(request is null)
+            if (request is null)
             {
                 throw new ContentCreateRequestIsNullException();
             }
+
+            string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
             var content = _mapper.Map<Domain.Content>(request);
             content.IsDeleted = false;
@@ -89,7 +92,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Id = content.Id
             };
         }
-        public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
+        public async Task<Update.Response> Update(
+            Update.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -160,7 +165,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 Id = content.Id
             };
         }
-        public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
+        public async Task Delete(
+            Delete.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -185,7 +192,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.UpdatedAt = DateTime.UtcNow;
             await _contentRepository.Save(content, cancellationToken);
         }
-        public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
+        public async Task Restore(
+            Restore.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -210,8 +219,15 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.UpdatedAt = DateTime.UtcNow;
             await _contentRepository.Save(content, cancellationToken);
         }
-        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
+        public async Task<GetById.Response> GetById(
+            GetById.Request request,
+            CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new ContentGetByIdRequestIsNullException();
+            }
+
             var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
             if (content == null)
             {
@@ -226,6 +242,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             Paged.Request request,
             CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new ContentGetPagedRequestIsNullException();
+            }
+
             var total = await _contentRepository.Count(cancellationToken);
 
             if (total == 0)
@@ -256,6 +277,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             Paged.Request request,
             CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new ContentGetPagedRequestIsNullException();
+            }
+
             var total = await _contentRepository.Count(a => a.Tags.Any(t => t.Body == tag), cancellationToken);
 
             if (total == 0)

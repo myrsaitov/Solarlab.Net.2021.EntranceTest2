@@ -18,14 +18,10 @@ namespace WidePictBoard.Tests.Content
             Create.Request request, 
             CancellationToken cancellationToken, 
             int userId, 
-            string body,
-            int contentId, 
-            int categoryId,
-            int tagId)
+            int contentId)
         {
             // Arrange
-            ConfigureMoqForCreateMethod(userId.ToString(), body, contentId, categoryId, tagId);
-            request.TagBodies = new string[] { body, "222", "333"};
+            ConfigureMoqForCreateMethod(request, userId.ToString(), contentId);
 
             // Act
             var response = await _contentServiceV1.Create(request, cancellationToken);
@@ -44,42 +40,45 @@ namespace WidePictBoard.Tests.Content
             Create.Request request, 
             CancellationToken cancellationToken, 
             int userId, 
-            string body,
-            int contentId,
-            int categoryId,
-            int tagId
+            int contentId
             )
         {
             // Arrange
-            ConfigureMoqForCreateMethod(userId.ToString(), body, contentId, categoryId, tagId);
+            ConfigureMoqForCreateMethod(request, userId.ToString(), contentId);
 
             // Act
             await Assert.ThrowsAsync<ContentCreateRequestIsNullException>(
                 async () => await _contentServiceV1.Create(request, cancellationToken));
 
         }
-        private void ConfigureMoqForCreateMethod(string userId, string body, int contentId, int categoryId, int tagId)
+        private void ConfigureMoqForCreateMethod(Create.Request request, string userId, int contentId)
         {
             var category = new Domain.Category();
-            category.Id = categoryId;
 
-            var tag = new Domain.Tag();
-            tag.Body = body;
+            int tagId = 1;
 
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(userId)
                 .Verifiable();
+
             _categoryRepositoryMock
                 .Setup(_ => _.FindById(It.IsAny<int>(), It.IsAny<CancellationToken>())).Returns(async () => category)
-                .Callback((int _categoryId, CancellationToken ct) => _categoryId = categoryId);
+                .Callback((int _categoryId, CancellationToken ct) => category.Id = _categoryId)
+                .Verifiable();
+
             _tagRepositoryMock
                 .Setup(_ => _.FindWhere(It.IsAny<Expression<Func<Domain.Tag, bool>>>(), It.IsAny<CancellationToken>()))
-                .Returns(async () => tag)
-                .Callback((Expression<Func<Domain.Tag, bool>> _predicate, CancellationToken ct) => tag.Body = body);
+                .ReturnsAsync(() => new Domain.Tag()
+                {
+                    Id = tagId,
+                    Body = request.TagBodies[tagId++ - 1]
+                })
+                .Verifiable();
+
             _tagRepositoryMock
-                .Setup(_ => _.Save(It.IsAny<Domain.Tag>(), It.IsAny<CancellationToken>()))
-                .Callback((Domain.Tag tag, CancellationToken ct) => tag.Id = tagId);
+                .Setup(_ => _.Save(It.IsAny<Domain.Tag>(), It.IsAny<CancellationToken>()));
+
             _contentRepositoryMock
                 .Setup(_ => _.Save(It.IsAny<Domain.Content>(), It.IsAny<CancellationToken>()))
                 .Callback((Domain.Content content, CancellationToken ct) => content.Id = contentId);
