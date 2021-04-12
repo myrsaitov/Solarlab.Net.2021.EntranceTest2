@@ -31,6 +31,18 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CategoryCreateRequestIsNullException();
+            }
+
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+            if (!isAdmin)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
             var category = _mapper.Map<Domain.Category>(request);
             category.IsDeleted = false;
             category.CreatedAt = DateTime.UtcNow;
@@ -69,6 +81,11 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CategoryUpdateRequestIsNullException();
+            }
+
             var category = await _categoryRepository.FindById(request.Id, cancellationToken);
             if (category == null)
             {
@@ -96,6 +113,11 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         }
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CategoryDeleteRequestIsNullException();
+            }
+
             var category = await _categoryRepository.FindById(request.Id, cancellationToken);
             if (category == null)
             {
@@ -117,6 +139,11 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CategoryRestoreRequestIsNullException();
+            }
+
             var category = await _categoryRepository.FindById(request.Id, cancellationToken);
             if (category == null)
             {
@@ -138,6 +165,11 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CategoryGetByIdRequestIsNullException();
+            }
+
             var category = await _categoryRepository.FindByIdWithParentAndChilds(request.Id, cancellationToken);
             if (category == null)
             {
@@ -149,6 +181,11 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CategoryGetPagedRequestIsNullException();
+            }
+
             _paged = new PagedBase<GetById.Response, Domain.Category, int>();
             return await _paged.GetPaged(request, _categoryRepository, _mapper, cancellationToken);
         }

@@ -49,7 +49,6 @@ namespace WidePictBoard.Tests.Content
         {
             var content = new Domain.Content()
             {
-                Id = contentId,
                 OwnerId = userId
             };
 
