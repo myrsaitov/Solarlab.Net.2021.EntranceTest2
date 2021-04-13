@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
-using System.Collections.Generic;
 
 namespace WidePictBoard.Tests.Comment
 {
@@ -30,7 +29,6 @@ namespace WidePictBoard.Tests.Comment
                 cancellationToken);
 
             // Assert
-            _identityServiceMock.Verify();
             _commentRepositoryMock.Verify();
             Assert.NotNull(response);
             Assert.NotEqual(default, response.Id);

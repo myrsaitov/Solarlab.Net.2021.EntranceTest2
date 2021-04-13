@@ -32,6 +32,7 @@ namespace WidePictBoard.Tests.Comment
             // Assert
             _identityServiceMock.Verify();
             _commentRepositoryMock.Verify();
+            _contentRepositoryMock.Verify();
             Assert.NotNull(response);
             Assert.NotEqual(default, response.Id);
         }

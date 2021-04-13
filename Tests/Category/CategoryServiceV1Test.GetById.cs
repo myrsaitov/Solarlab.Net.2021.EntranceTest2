@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
-using System.Collections.Generic;
 
 namespace WidePictBoard.Tests.Category
 {
@@ -26,10 +25,7 @@ namespace WidePictBoard.Tests.Category
                 cancellationToken);
 
             // Assert
-            _identityServiceMock.Verify();
             _categoryRepositoryMock.Verify();
-            _categoryRepositoryMock.Verify();
-            _tagRepositoryMock.Verify();
             Assert.NotNull(response);
             Assert.NotEqual(default, response.Id);
         }

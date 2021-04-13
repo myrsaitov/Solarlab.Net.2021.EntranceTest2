@@ -34,8 +34,6 @@ namespace WidePictBoard.Tests.Category
             // Assert
             _identityServiceMock.Verify();
             _categoryRepositoryMock.Verify();
-            _categoryRepositoryMock.Verify();
-            _tagRepositoryMock.Verify();
             Assert.NotNull(response);
             Assert.NotEqual(default, response.Id);
         }
@@ -80,7 +78,8 @@ namespace WidePictBoard.Tests.Category
                 .Verifiable();
 
             _identityServiceMock
-                .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
+                .Setup(_ => _.GetCurrentUserId(
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(userId)
                 .Verifiable();
 
