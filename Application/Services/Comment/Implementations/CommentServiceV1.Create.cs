@@ -1,18 +1,11 @@
-﻿using MapsterMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Comment.Contracts;
 using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Comment.Interfaces;
-using WidePictBoard.Domain.General.Exceptions;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using System.Linq;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {

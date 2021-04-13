@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;

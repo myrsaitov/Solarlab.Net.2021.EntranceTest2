@@ -35,7 +35,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             }
 
             var entities = await _contentRepository.GetPagedWithTagsInclude(
-                request.Page, request.PageSize, cancellationToken
+                request.Page, 
+                request.PageSize, 
+                cancellationToken
             );
 
             return new Paged.Response<GetById.Response>

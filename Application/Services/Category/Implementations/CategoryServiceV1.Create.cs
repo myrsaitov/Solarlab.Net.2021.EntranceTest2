@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MapsterMapper;
 using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Category.Contracts;
 using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Category.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WidePictBoard.Application.Services.Category.Implementations
 {

@@ -43,7 +43,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
             content.IsDeleted = false;
             content.UpdatedAt = DateTime.UtcNow;
-            await _contentRepository.Save(content, cancellationToken);
+            await _contentRepository.Save(
+                content, 
+                cancellationToken);
         }
     }
 }

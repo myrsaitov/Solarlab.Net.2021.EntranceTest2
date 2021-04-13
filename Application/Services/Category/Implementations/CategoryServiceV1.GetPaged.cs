@@ -11,7 +11,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
 {
     public sealed partial class CategoryServiceV1 : ICategoryService
     {
-        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(
+            Paged.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -31,7 +33,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             }
 
             var entities = await _categoryRepository.GetPaged(
-                request.Page, request.PageSize, cancellationToken
+                request.Page, 
+                request.PageSize, 
+                cancellationToken
             );
 
             return new Paged.Response<GetById.Response>

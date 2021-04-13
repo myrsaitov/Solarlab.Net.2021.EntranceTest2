@@ -20,14 +20,20 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 throw new CategoryUpdateRequestIsNullException();
             }
 
-            var category = await _categoryRepository.FindById(request.Id, cancellationToken);
+            var category = await _categoryRepository.FindById(
+                request.Id, 
+                cancellationToken);
+
             if (category == null)
             {
                 throw new CategoryNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin)
             {

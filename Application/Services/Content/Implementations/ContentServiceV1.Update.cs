@@ -86,13 +86,17 @@ namespace WidePictBoard.Application.Services.Content.Implementations
 
                     tag = _mapper.Map<Domain.Tag>(tagRequest);
                     tag.CreatedAt = DateTime.UtcNow;
-                    await _tagRepository.Save(tag, cancellationToken);
+                    await _tagRepository.Save(
+                        tag, 
+                        cancellationToken);
                 }
 
                 content.Tags.Add(tag);
             }
 
-            await _contentRepository.Save(content, cancellationToken);
+            await _contentRepository.Save(
+                content, 
+                cancellationToken);
 
             return new Update.Response
             {
