@@ -6,6 +6,8 @@ using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
 using WidePictBoard.Application.Services;
+using WidePictBoard.Application.Services.Category.Contracts;
+using System.Linq;
 
 namespace WidePictBoard.Tests.Category
 {
@@ -18,37 +20,6 @@ namespace WidePictBoard.Tests.Category
             CancellationToken cancellationToken)
         {
             // Arrange
-            ConfigureMoqForGetPagedMethod(request);
-
-            // Act
-            var response = await _categoryServiceV1.GetPaged(
-                request, 
-                cancellationToken);
-
-            // Assert
-            _identityServiceMock.Verify();
-            _categoryRepositoryMock.Verify();
-            _tagRepositoryMock.Verify();
-            Assert.NotNull(response);
-        }
-        [Theory]
-        [InlineAutoData(null)]
-        public async Task GetPaged_Throws_Exception_When_Request_Is_Null(
-            Paged.Request request, 
-            CancellationToken cancellationToken)
-        {
-            // Arrange
-            ConfigureMoqForGetPagedMethod(request);
-
-            // Act
-            await Assert.ThrowsAsync<CategoryGetPagedRequestIsNullException>(
-                async () => await _categoryServiceV1.GetPaged(
-                    request, 
-                    cancellationToken));
-
-        }
-        private void ConfigureMoqForGetPagedMethod(Paged.Request request)
-        {
             int categoryCount = 3;
 
             var responce = new List<Domain.Category>();
@@ -70,11 +41,63 @@ namespace WidePictBoard.Tests.Category
 
             _categoryRepositoryMock
                 .Setup(_ => _.GetPaged(
-                    It.IsAny<int>(), 
-                    It.IsAny<int>(), 
+                    It.IsAny<int>(),
+                    It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responce)
                 .Verifiable();
+
+            // Act
+            var response = await _categoryServiceV1.GetPaged(
+                request, 
+                cancellationToken);
+
+            // Assert
+            _categoryRepositoryMock.Verify();
+            Assert.NotNull(response);
+            Assert.Equal(categoryCount, response.Total);
+            Assert.Equal(categoryCount, response.Items.Count());
+            Assert.IsType<Paged.Response<GetById.Response>>(response);
+        }
+        [Theory]
+        [AutoData]
+        public async Task GetPaged_Returns_Response_Success_Total_eq_0(
+            Paged.Request request,
+            CancellationToken cancellationToken)
+        {
+            // Arrange
+            int categoryCount = 0;
+
+            var responce = new List<Domain.Category>();
+
+            _categoryRepositoryMock
+                .Setup(_ => _.Count(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(categoryCount)
+                .Verifiable();
+
+            // Act
+            var response = await _categoryServiceV1.GetPaged(
+                request,
+                cancellationToken);
+
+            // Assert
+            _categoryRepositoryMock.Verify();
+            Assert.NotNull(response);
+            Assert.Equal(categoryCount, response.Total);
+            Assert.Equal(categoryCount, response.Items.Count());
+            Assert.IsType<Paged.Response<GetById.Response>>(response);
+        }
+        [Theory]
+        [InlineAutoData(null)]
+        public async Task GetPaged_Throws_Exception_When_Request_Is_Null(
+            Paged.Request request, 
+            CancellationToken cancellationToken)
+        {
+            // Act
+            await Assert.ThrowsAsync<CategoryGetPagedRequestIsNullException>(
+                async () => await _categoryServiceV1.GetPaged(
+                    request, 
+                    cancellationToken));
         }
     }
 }

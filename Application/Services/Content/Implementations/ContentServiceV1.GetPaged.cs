@@ -79,15 +79,13 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 cancellationToken
             );
 
-            var ret = new Paged.Response<GetById.Response>
+            return new Paged.Response<GetById.Response>
             {
                 Items = entities.Select(entity => entity.Adapt<GetById.Response>()),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
             };
-
-            return ret;
         }
     }
 }

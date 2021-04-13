@@ -59,7 +59,7 @@ namespace WidePictBoard.Tests.Tag
         }
         [Theory]
         [AutoData]
-        public async Task GetPaged_Returns_Response_Success_Tags_Count_eq_0(
+        public async Task GetPaged_Returns_Response_Success_Total_eq_0(
             Paged.Request request,
             CancellationToken cancellationToken)
         {
@@ -89,14 +89,11 @@ namespace WidePictBoard.Tests.Tag
             Paged.Request request, 
             CancellationToken cancellationToken)
         {
-            // Arrange
-
             // Act
             await Assert.ThrowsAsync<TagGetPagedRequestIsNullException>(
                 async () => await _tagServiceV1.GetPaged(
                     request, 
                     cancellationToken));
-
         }
     }
 }

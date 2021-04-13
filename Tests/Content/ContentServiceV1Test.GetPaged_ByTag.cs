@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
 using WidePictBoard.Application.Services;
+using System.Linq;
 
 namespace WidePictBoard.Tests.Content
 {
@@ -27,67 +28,6 @@ namespace WidePictBoard.Tests.Content
             string tagSearch)
         {
             // Arrange
-            ConfigureMoqForGetPagedByTagMethod(
-                request,
-                userId.ToString(),
-                contentTitle,
-                contentBody,
-                tagBodies,
-                categoryId,
-                tagSearch);
-
-            // Act
-            var response = await _contentServiceV1.GetPaged(
-                tagSearch, 
-                request, 
-                cancellationToken);
-
-            // Assert
-            _identityServiceMock.Verify();
-            _contentRepositoryMock.Verify();
-            _categoryRepositoryMock.Verify();
-            _tagRepositoryMock.Verify();
-            Assert.NotNull(response);
-        }
-        [Theory]
-        [InlineAutoData(null)]
-        public async Task GetPaged_ByTag_Throws_Exception_When_Request_Is_Null(
-            Paged.Request request,
-            CancellationToken cancellationToken,
-            int userId,
-            string contentTitle,
-            string contentBody,
-            string[] tagBodies,
-            int categoryId,
-            string tagSearch)
-        {
-            // Arrange
-            ConfigureMoqForGetPagedByTagMethod(
-                request,
-                userId.ToString(),
-                contentTitle,
-                contentBody,
-                tagBodies,
-                categoryId,
-                tagSearch);
-
-            // Act
-            await Assert.ThrowsAsync<ContentGetPagedRequestIsNullException>(
-                async () => await _contentServiceV1.GetPaged(
-                    tagSearch, 
-                    request, 
-                    cancellationToken));
-
-        }
-        private void ConfigureMoqForGetPagedByTagMethod(
-            Paged.Request request,
-            string userId,
-            string contentTitle,
-            string contentBody,
-            string[] tagBodies,
-            int categoryId,
-            string tagSearch)
-        {
             int contentCount = 3;
 
             var responce = new List<Domain.Content>();
@@ -99,7 +39,7 @@ namespace WidePictBoard.Tests.Content
                     Id = contentId,
                     Title = contentTitle,
                     Body = contentBody,
-                    OwnerId = userId,
+                    OwnerId = userId.ToString(),
                     Category = new Domain.Category()
                     {
                         Id = categoryId
@@ -136,12 +76,71 @@ namespace WidePictBoard.Tests.Content
 
             _contentRepositoryMock
                 .Setup(_ => _.GetPagedWithTagsInclude(
-                    It.IsAny<string>(), 
-                    It.IsAny<int>(), 
-                    It.IsAny<int>(), 
+                    It.IsAny<string>(),
+                    It.IsAny<int>(),
+                    It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responce)
                 .Verifiable();
+
+            // Act
+            var response = await _contentServiceV1.GetPaged(
+                tagSearch, 
+                request, 
+                cancellationToken);
+
+            // Assert
+            _contentRepositoryMock.Verify();
+            Assert.NotNull(response);
+            Assert.Equal(contentCount, response.Total);
+            Assert.Equal(contentCount, response.Items.Count());
+            Assert.IsType<Paged.Response<GetById.Response>>(response);
+        }
+        [Theory]
+        [AutoData]
+        public async Task GetPaged_ByTag_Returns_Response_Success_Total_eq_0(
+            Paged.Request request,
+            CancellationToken cancellationToken,
+            string tagSearch)
+        {
+            // Arrange
+            int contentCount = 0;
+
+            var responce = new List<Domain.Content>();
+
+            _contentRepositoryMock
+                .Setup(_ => _.Count(
+                    It.IsAny<Expression<Func<Domain.Content, bool>>>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(contentCount)
+                .Verifiable();
+
+            // Act
+            var response = await _contentServiceV1.GetPaged(
+                tagSearch,
+                request,
+                cancellationToken);
+
+            // Assert
+            _contentRepositoryMock.Verify();
+            Assert.NotNull(response);
+            Assert.Equal(contentCount, response.Total);
+            Assert.Equal(contentCount, response.Items.Count());
+            Assert.IsType<Paged.Response<GetById.Response>>(response);
+        }
+        [Theory]
+        [InlineAutoData(null)]
+        public async Task GetPaged_ByTag_Throws_Exception_When_Request_Is_Null(
+            Paged.Request request,
+            CancellationToken cancellationToken,
+            string tagSearch)
+        {
+            // Act
+            await Assert.ThrowsAsync<ContentGetPagedRequestIsNullException>(
+                async () => await _contentServiceV1.GetPaged(
+                    tagSearch, 
+                    request, 
+                    cancellationToken));
         }
     }
 }
