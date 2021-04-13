@@ -6,7 +6,6 @@ using WidePictBoard.Application.Services.Comment.Contracts;
 using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {

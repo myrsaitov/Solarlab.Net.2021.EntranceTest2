@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MapsterMapper;
 using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.Tag.Interfaces;
 using WidePictBoard.Application.Services.Tag.Contracts;
 using System;

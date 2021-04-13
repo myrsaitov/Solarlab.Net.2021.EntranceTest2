@@ -5,8 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
-using System.Linq.Expressions;
-using System;
 
 namespace WidePictBoard.Tests.Category
 {

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 using System.Linq.Expressions;
 using System;
+using WidePictBoard.Application.Services;
 
 namespace WidePictBoard.Tests.Comment
 {

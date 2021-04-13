@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 
-namespace WidePictBoard.Application.Services.PagedBase.Contracts
+namespace WidePictBoard.Application.Services
 {
     public static class Paged
     {

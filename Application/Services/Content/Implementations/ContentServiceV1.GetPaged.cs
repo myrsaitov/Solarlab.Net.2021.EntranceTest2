@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {

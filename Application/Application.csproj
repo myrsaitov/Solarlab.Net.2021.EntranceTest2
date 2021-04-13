@@ -17,10 +17,10 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
     </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectCapability Include="DynamicDependentFile" />
-    <ProjectCapability Include="DynamicFileNesting" />
-  </ItemGroup>
+
+    <ItemGroup>
+      <ProjectCapability Include="DynamicDependentFile" />
+      <ProjectCapability Include="DynamicFileNesting" />
+    </ItemGroup>
 
 </Project>

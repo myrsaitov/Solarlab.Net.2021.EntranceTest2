@@ -71,8 +71,6 @@ namespace WidePictBoard.Tests.Category
                 Id = categoryId
             };
 
-            int tagId = 1;
-
             _categoryRepositoryMock
                 .Setup(_ => _.FindById(
                     It.IsAny<int>(), 

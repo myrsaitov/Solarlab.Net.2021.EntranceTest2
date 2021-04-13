@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Category.Contracts;
 using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Category.Interfaces;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
 
 namespace WidePictBoard.Application.Services.Category.Implementations
 {

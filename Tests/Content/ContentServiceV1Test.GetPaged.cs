@@ -1,12 +1,11 @@
-﻿using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+﻿using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
-using WidePictBoard.Application.Services.PagedBase.Contracts;
+using WidePictBoard.Application.Services;
 
 namespace WidePictBoard.Tests.Content
 {
