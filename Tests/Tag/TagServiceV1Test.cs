@@ -20,19 +20,17 @@ namespace WidePictBoard.Tests.Tag
         public TagServiceV1Test()
         {
             _tagRepositoryMock = new Mock<ITagRepository>();
-            _identityServiceMock = new Mock<IIdentityService>();
             _pagedMock = new Mock<PagedBase<GetById.Response, Domain.Tag, int>>();
 
             _mapper = new Mapper();
-            ContentMapProfile.GetConfiguredMappingConfig().Compile();
-            CategoryMapProfile.GetConfiguredMappingConfig().Compile();
-            CommentMapProfile.GetConfiguredMappingConfig().Compile();
+            //ContentMapProfile.GetConfiguredMappingConfig().Compile();
+            //CategoryMapProfile.GetConfiguredMappingConfig().Compile();
+            ///CommentMapProfile.GetConfiguredMappingConfig().Compile();
             TagMapProfile.GetConfiguredMappingConfig().Compile();
-            UserMapProfile.GetConfiguredMappingConfig().Compile();
+            //UserMapProfile.GetConfiguredMappingConfig().Compile();
 
             _tagServiceV1 = new TagServiceV1(
                 _tagRepositoryMock.Object,
-                _identityServiceMock.Object,
                 _mapper);
         }
     }

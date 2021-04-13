@@ -25,7 +25,6 @@ namespace WidePictBoard.Tests.Tag
             var response = await _tagServiceV1.GetPaged(request, cancellationToken);
 
             // Assert
-            _identityServiceMock.Verify();
             _tagRepositoryMock.Verify();
             Assert.NotNull(response);
         }

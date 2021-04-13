@@ -1,13 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
-using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.Tag.Interfaces;
 using WidePictBoard.Application.Services.Tag.Contracts;
 using System;
 using System.Linq;
+using WidePictBoard.Application.Services.Tag.Contracts.Exceptions;
 
 namespace WidePictBoard.Application.Services.Tag.Implementations
 {
@@ -16,7 +16,7 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
         private readonly ITagRepository _tagRepository;
         private readonly IMapper _mapper;
 
-        public TagServiceV1(ITagRepository repository, IIdentityService identityService, IMapper mapper)
+        public TagServiceV1(ITagRepository repository, IMapper mapper)
         {
             _tagRepository = repository;
             _mapper = mapper;
@@ -24,6 +24,11 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new TagGetPagedRequestIsNullException();
+            }
+
             var total = await _tagRepository.Count(cancellationToken);
 
             if (total == 0)
