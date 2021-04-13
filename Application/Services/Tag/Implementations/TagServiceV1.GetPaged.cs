@@ -1,7 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using MapsterMapper;
-using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.Tag.Interfaces;
 using WidePictBoard.Application.Services.Tag.Contracts;
 using System;
@@ -12,7 +10,9 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
 {
     public sealed partial class TagServiceV1 : ITagService
     {
-        public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(
+            Paged.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -33,16 +33,21 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
             }
 
             var entities = await _tagRepository.GetPaged(
-                request.Page, request.PageSize, cancellationToken
-            );
+                request.Page,
+                request.PageSize,
+                cancellationToken);
 
-            return new Paged.Response<GetById.Response>
+             
+            var f = new Paged.Response<GetById.Response>
             {
                 Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
             };
+            f.Items.Count();
+
+            return f;
         }
     }
 }
