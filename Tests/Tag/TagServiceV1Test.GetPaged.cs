@@ -1,5 +1,5 @@
-﻿using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
+﻿using WidePictBoard.Application.Services.Tag.Contracts;
+using WidePictBoard.Application.Services.Tag.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,9 +8,9 @@ using AutoFixture.Xunit2;
 using System.Collections.Generic;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 
-namespace WidePictBoard.Tests.Category
+namespace WidePictBoard.Tests.Tag
 {
-    public partial class CategoryServiceV1Test
+    public partial class TagServiceV1Test
     {
         [Theory]
         [AutoData]
@@ -22,11 +22,10 @@ namespace WidePictBoard.Tests.Category
             ConfigureMoqForGetPagedMethod(request);
 
             // Act
-            var response = await _categoryServiceV1.GetPaged(request, cancellationToken);
+            var response = await _tagServiceV1.GetPaged(request, cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
-            _categoryRepositoryMock.Verify();
             _tagRepositoryMock.Verify();
             Assert.NotNull(response);
         }
@@ -40,32 +39,32 @@ namespace WidePictBoard.Tests.Category
             ConfigureMoqForGetPagedMethod(request);
 
             // Act
-            await Assert.ThrowsAsync<CategoryGetPagedRequestIsNullException>(
-                async () => await _categoryServiceV1.GetPaged(request, cancellationToken));
+            await Assert.ThrowsAsync<TagGetPagedRequestIsNullException>(
+                async () => await _tagServiceV1.GetPaged(request, cancellationToken));
 
         }
         private void ConfigureMoqForGetPagedMethod(Paged.Request request)
         {
-            int categoryCount = 3;
+            int tagCount = 3;
 
-            var responce = new List<Domain.Category>();
+            var responce = new List<Domain.Tag>();
 
-            for (int categoryId = 1; categoryId <= categoryCount; categoryId++)
+            for (int tagId = 1; tagId <= tagCount; tagId++)
             {
-                var category = new Domain.Category()
+                var tag = new Domain.Tag()
                 {
-                    Id = categoryId,
+                    Id = tagId,
                 };
 
-                responce.Add(category);
+                responce.Add(tag);
             }
 
-            _categoryRepositoryMock
+            _tagRepositoryMock
                 .Setup(_ => _.Count(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(categoryCount)
+                .ReturnsAsync(tagCount)
                 .Verifiable();
 
-            _categoryRepositoryMock
+            _tagRepositoryMock
                 .Setup(_ => _.GetPaged(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responce)
                 .Verifiable();

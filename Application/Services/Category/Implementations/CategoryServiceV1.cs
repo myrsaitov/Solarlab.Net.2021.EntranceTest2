@@ -12,6 +12,7 @@ using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WidePictBoard.Application.Services.Category.Implementations
 {
@@ -185,9 +186,30 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             {
                 throw new CategoryGetPagedRequestIsNullException();
             }
+            var total = await _categoryRepository.Count(cancellationToken);
 
-            _paged = new PagedBase<GetById.Response, Domain.Category, int>();
-            return await _paged.GetPaged(request, _categoryRepository, _mapper, cancellationToken);
+            if (total == 0)
+            {
+                return new Paged.Response<GetById.Response>
+                {
+                    Items = Array.Empty<GetById.Response>(),
+                    Total = total,
+                    Offset = request.Page,
+                    Limit = request.PageSize
+                };
+            }
+
+            var entities = await _categoryRepository.GetPaged(
+                request.Page, request.PageSize, cancellationToken
+            );
+
+            return new Paged.Response<GetById.Response>
+            {
+                Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
+                Total = total,
+                Offset = request.Page,
+                Limit = request.PageSize
+            };
         }
     }
 }
