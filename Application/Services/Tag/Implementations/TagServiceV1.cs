@@ -4,29 +4,50 @@ using MapsterMapper;
 using WidePictBoard.Application.Identity.Interfaces;
 using WidePictBoard.Application.Repositories;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
-using WidePictBoard.Application.Services.PagedBase.Implementations;
 using WidePictBoard.Application.Services.Tag.Interfaces;
 using WidePictBoard.Application.Services.Tag.Contracts;
-using WidePictBoard.Application.Services.Content.Interfaces;
+using System;
+using System.Linq;
 
 namespace WidePictBoard.Application.Services.Tag.Implementations
 {
     public sealed class TagServiceV1 : ITagService
     {
-        private readonly ITagRepository _repository;
+        private readonly ITagRepository _tagRepository;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Tag, int> _paged;
 
-        public TagServiceV1(ITagRepository repository, IIdentityService identityService, IMapper mapper, IContentService contentService)
+        public TagServiceV1(ITagRepository repository, IIdentityService identityService, IMapper mapper)
         {
-            _repository = repository;
+            _tagRepository = repository;
             _mapper = mapper;
         }
 
         public async Task<Paged.Response<GetById.Response>> GetPaged(Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<GetById.Response, Domain.Tag, int>();
-            return await _paged.GetPaged(request, _repository, _mapper, cancellationToken);
+            var total = await _tagRepository.Count(cancellationToken);
+
+            if (total == 0)
+            {
+                return new Paged.Response<GetById.Response>
+                {
+                    Items = Array.Empty<GetById.Response>(),
+                    Total = total,
+                    Offset = request.Page,
+                    Limit = request.PageSize
+                };
+            }
+
+            var entities = await _tagRepository.GetPaged(
+                request.Page, request.PageSize, cancellationToken
+            );
+
+            return new Paged.Response<GetById.Response>
+            {
+                Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
+                Total = total,
+                Offset = request.Page,
+                Limit = request.PageSize
+            };
         }
     }
 }

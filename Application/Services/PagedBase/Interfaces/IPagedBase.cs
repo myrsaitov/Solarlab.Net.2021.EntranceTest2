@@ -11,15 +11,15 @@ using System.Collections;
 
 namespace WidePictBoard.Application.Services.PagedBase.Interfaces
 {
-    public interface IPagedBase<TGetByIdResponce, TEntity, TId>
+    public interface IPagedBase<TGetByIdResponse, TEntity, TId>
         where TEntity : Entity<TId>
     {
-        Task<Paged.Response<TGetByIdResponce>> GetPaged(
+        Task<Paged.Response<TGetByIdResponse>> GetPaged(
             Paged.Request request, 
             IRepository<TEntity, TId> repository, 
             IMapper mapper, 
             CancellationToken cancellationToken);
-        Task<Paged.Response<TGetByIdResponce>> GetPaged(
+        Task<Paged.Response<TGetByIdResponse>> GetPaged(
             Expression<Func<TEntity, bool>> predicate,
             Paged.Request request, 
             IRepository<TEntity, TId> repository, 

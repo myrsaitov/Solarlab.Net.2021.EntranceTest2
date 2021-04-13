@@ -13,6 +13,7 @@ using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
 using WidePictBoard.Application.Services.PagedBase.Implementations;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+using System.Linq;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {
@@ -31,7 +32,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             _identityService = identityService;
             _mapper = mapper;
         }
-
         public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
         {
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
@@ -91,7 +91,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 Id = comment.Id
             };
         }
-        
         public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
         {
             var comment = await _commentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -118,7 +117,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 Id = comment.Id
             };
         }
-
         public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
         {
             var comment = await _commentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -139,7 +137,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             comment.UpdatedAt = DateTime.UtcNow;
             await _commentRepository.Save(comment, cancellationToken);
         }
-
         public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
         {
             var comment = await _commentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
@@ -160,7 +157,6 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             comment.UpdatedAt = DateTime.UtcNow;
             await _commentRepository.Save(comment, cancellationToken);
         }
-
         public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
         {
             var comment = await _commentRepository.FindByIdWithUserAndCommentsInclude(request.Id, cancellationToken);
@@ -171,16 +167,35 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
 
             return _mapper.Map<GetById.Response>(comment);
         }
-
         public async Task<Paged.Response<GetById.Response>> GetPaged(int ContentId, Paged.Request request, CancellationToken cancellationToken)
         {
-            _paged = new PagedBase<GetById.Response, Domain.Comment, int>();
-            return await _paged.GetPaged(
-                a=>a.ContentId== ContentId,
-                request,
-                _commentRepository,
-                _mapper,
-                cancellationToken);
+            var total = await _commentRepository.Count(a => a.ContentId == ContentId, cancellationToken);
+
+            if (total == 0)
+            {
+                return new Paged.Response<GetById.Response>
+                {
+                    Items = Array.Empty<GetById.Response>(),
+                    Total = total,
+                    Offset = request.Page,
+                    Limit = request.PageSize
+                };
+            }
+
+            var entities = await _commentRepository.GetPaged(
+                a => a.ContentId == ContentId,
+                request.Page,
+                request.PageSize,
+                cancellationToken
+            );
+
+            return new Paged.Response<GetById.Response>
+            {
+                Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
+                Total = total,
+                Offset = request.Page,
+                Limit = request.PageSize
+            };
         }
     }
 }

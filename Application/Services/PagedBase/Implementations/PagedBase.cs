@@ -12,13 +12,13 @@ using WidePictBoard.Domain.General;
 
 namespace WidePictBoard.Application.Services.PagedBase.Implementations
 {
-    public class PagedBase<TGetByIdResponce, TEntity, TId> : IPagedBase<TGetByIdResponce, TEntity, TId>
+    public class PagedBase<TGetByIdResponse, TEntity, TId> : IPagedBase<TGetByIdResponse, TEntity, TId>
         where TEntity : Entity<TId>
     {
         public PagedBase()
         { 
         }
-        public async Task<Paged.Response<TGetByIdResponce>> GetPaged(
+        public async Task<Paged.Response<TGetByIdResponse>> GetPaged(
             Paged.Request request, 
             IRepository<TEntity, TId> repository, 
             IMapper mapper, 
@@ -28,9 +28,9 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
 
             if (total == 0)
             {
-                return new Paged.Response<TGetByIdResponce>
+                return new Paged.Response<TGetByIdResponse>
                 {
-                    Items = Array.Empty<TGetByIdResponce>(),
+                    Items = Array.Empty<TGetByIdResponse>(),
                     Total = total,
                     Offset = request.Page,
                     Limit = request.PageSize
@@ -41,15 +41,15 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
                 request.Page, request.PageSize, cancellationToken
             );
 
-            return new Paged.Response<TGetByIdResponce>
+            return new Paged.Response<TGetByIdResponse>
             {
-                Items = entities.Select(entity => mapper.Map<TGetByIdResponce>(entity)),
+                Items = entities.Select(entity => mapper.Map<TGetByIdResponse>(entity)),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
             };
         }
-        public async Task<Paged.Response<TGetByIdResponce>> GetPaged(
+        public async Task<Paged.Response<TGetByIdResponse>> GetPaged(
             Expression<Func<TEntity, bool>> predicate,
             Paged.Request request, 
             IRepository<TEntity, TId> repository, 
@@ -60,9 +60,9 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
 
             if (total == 0)
             {
-                return new Paged.Response<TGetByIdResponce>
+                return new Paged.Response<TGetByIdResponse>
                 {
-                    Items = Array.Empty<TGetByIdResponce>(),
+                    Items = Array.Empty<TGetByIdResponse>(),
                     Total = total,
                     Offset = request.Page,
                     Limit = request.PageSize
@@ -76,9 +76,9 @@ namespace WidePictBoard.Application.Services.PagedBase.Implementations
                 cancellationToken
             );
 
-            return new Paged.Response<TGetByIdResponce>
+            return new Paged.Response<TGetByIdResponse>
             {
-                Items = entities.Select(entity => mapper.Map<TGetByIdResponce>(entity)),
+                Items = entities.Select(entity => mapper.Map<TGetByIdResponse>(entity)),
                 Total = total,
                 Offset = request.Page,
                 Limit = request.PageSize
