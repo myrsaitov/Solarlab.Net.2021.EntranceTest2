@@ -4,8 +4,6 @@ using WidePictBoard.Application.Services.Category.Implementations;
 using Moq;
 using MapsterMapper;
 using WidePictBoard.Application.MapProfiles;
-using WidePictBoard.Application.Services.PagedBase.Implementations;
-using WidePictBoard.Application.Services.Category.Contracts;
 
 namespace WidePictBoard.Tests.Category
 {

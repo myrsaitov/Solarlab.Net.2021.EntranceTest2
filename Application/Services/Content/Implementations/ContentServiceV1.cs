@@ -48,26 +48,26 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentCreateRequestIsNullException();
             }
 
-            string userId = await _identityService.GetCurrentUserId(cancellationToken);
-
-            var content = _mapper.Map<Domain.Content>(request);
-            content.IsDeleted = false;
-            content.OwnerId = userId;
-            content.CreatedAt = DateTime.UtcNow;
-           
             var categoryRequest = new Category.Contracts.GetById.Request()
             {
-                Id = content.CategoryId
+                Id = request.CategoryId
             };
 
             var category = await _categoryRepository.FindById(
-                categoryRequest.Id, 
+                categoryRequest.Id,
                 cancellationToken);
 
             if (category == null)
             {
                 throw new CategoryNotFoundException(categoryRequest.Id);
             }
+
+            string userId = await _identityService.GetCurrentUserId(cancellationToken);
+
+            var content = _mapper.Map<Domain.Content>(request);
+            content.IsDeleted = false;
+            content.OwnerId = userId;
+            content.CreatedAt = DateTime.UtcNow;
             content.Category = category;
 
             content.Tags = new List<Domain.Tag>();

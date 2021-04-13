@@ -17,10 +17,7 @@ namespace WidePictBoard.Tests.Comment
             GetById.Request request, 
             CancellationToken cancellationToken, 
             int userId,
-            string commentTitle,
-            string commentBody,
-            string[] tagBodies,
-            int categoryId)
+            string commentBody)
         {
             // Arrange
             ConfigureMoqForGetByIdMethod(
@@ -28,7 +25,9 @@ namespace WidePictBoard.Tests.Comment
                 commentBody);
 
             // Act
-            var response = await _commentServiceV1.GetById(request, cancellationToken);
+            var response = await _commentServiceV1.GetById(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -45,11 +44,15 @@ namespace WidePictBoard.Tests.Comment
             string commentBody)
         {
             // Arrange
-            ConfigureMoqForGetByIdMethod(userId.ToString(), commentBody);
+            ConfigureMoqForGetByIdMethod(
+                userId.ToString(), 
+                commentBody);
 
             // Act
             await Assert.ThrowsAsync<CommentGetByIdRequestIsNullException>(
-                async () => await _commentServiceV1.GetById(request, cancellationToken));
+                async () => await _commentServiceV1.GetById(
+                    request, 
+                    cancellationToken));
 
         }
         private void ConfigureMoqForGetByIdMethod(

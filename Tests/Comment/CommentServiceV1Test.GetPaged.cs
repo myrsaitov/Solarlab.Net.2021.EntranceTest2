@@ -69,12 +69,22 @@ namespace WidePictBoard.Tests.Comment
                 };
                 responce.Add(comment);
             }
-            
+
+            var content = new Domain.Content();
+
             _commentRepositoryMock
                 .Setup(_ => _.Count(
                     It.IsAny<Expression<Func<Domain.Comment, bool>>>(),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(commentCount)
+                .Verifiable();
+
+            _contentRepositoryMock
+                .Setup(_ => _.FindById(
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(content)
+                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
                 .Verifiable();
 
             _commentRepositoryMock

@@ -21,7 +21,10 @@ namespace WidePictBoard.Tests.Content
             int contentId)
         {
             // Arrange
-            ConfigureMoqForCreateMethod(request, userId.ToString(), contentId);
+            ConfigureMoqForCreateMethod(
+                request,
+                userId.ToString(), 
+                contentId);
 
             // Act
             var response = await _contentServiceV1.Create(request, cancellationToken);

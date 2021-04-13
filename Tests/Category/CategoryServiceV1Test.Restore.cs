@@ -19,10 +19,14 @@ namespace WidePictBoard.Tests.Category
             int categoryId)
         {
             // Arrange
-            ConfigureMoqForRestoreMethod(userId.ToString(), categoryId);
+            ConfigureMoqForRestoreMethod(
+                userId.ToString(), 
+                categoryId);
 
             // Act
-            await _categoryServiceV1.Restore(request, cancellationToken);
+            await _categoryServiceV1.Restore(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -38,19 +42,27 @@ namespace WidePictBoard.Tests.Category
             )
         {
             // Arrange
-            ConfigureMoqForRestoreMethod(userId.ToString(), categoryId);
+            ConfigureMoqForRestoreMethod(
+                userId.ToString(), 
+                categoryId);
 
             // Act
             await Assert.ThrowsAsync<CategoryRestoreRequestIsNullException>(
-                async () => await _categoryServiceV1.Restore(request, cancellationToken));
+                async () => await _categoryServiceV1.Restore(
+                    request, 
+                    cancellationToken));
 
         }
-        private void ConfigureMoqForRestoreMethod(string userId, int categoryId)
+        private void ConfigureMoqForRestoreMethod(
+            string userId, 
+            int categoryId)
         {
             var category = new Domain.Category();
 
             _categoryRepositoryMock
-                .Setup(_ => _.FindById(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.FindById(
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(category)
                 .Callback((int _categoryId, CancellationToken ct) => category.Id = _categoryId)
                 .Verifiable();
@@ -61,12 +73,17 @@ namespace WidePictBoard.Tests.Category
                 .Verifiable();
 
             _identityServiceMock
-                .Setup(_ => _.IsInRole(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(), 
+                    It.IsAny<string>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true)
                 .Verifiable();
 
             _categoryRepositoryMock
-                .Setup(_ => _.Save(It.IsAny<Domain.Category>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.Save(
+                    It.IsAny<Domain.Category>(), 
+                    It.IsAny<CancellationToken>()))
                 .Callback((Domain.Category category, CancellationToken ct) => category.Id = categoryId);
         }
     }

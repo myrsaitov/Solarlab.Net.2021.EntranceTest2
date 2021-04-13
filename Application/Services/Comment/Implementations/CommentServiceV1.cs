@@ -43,6 +43,20 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 throw new CommentCreateRequestIsNullException();
             }
 
+            var contentRequest = new Content.Contracts.GetById.Request()
+            {
+                Id = request.ContentId
+            };
+
+            var content = await _contentRepository.FindByIdWithUserInclude(
+                contentRequest.Id,
+                cancellationToken);
+
+            if (content == null)
+            {
+                throw new ContentNotFoundException(contentRequest.Id);
+            };
+
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
             var comment = _mapper.Map<Domain.Comment>(request); 
@@ -76,22 +90,13 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
 
                     comment.ParentComment = parentComment;
                 }
+                else 
+                {
+                    throw new ParentCommentNotFoundException(request.ParentCommentId);
+                }
+
                 await _commentRepository.Save(comment, cancellationToken);
             }
-
-            var contentRequest = new Content.Contracts.GetById.Request()
-            {
-                Id = comment.ContentId
-            };
-
-            var content = await _contentRepository.FindByIdWithUserInclude(
-                contentRequest.Id, 
-                cancellationToken);
-
-            if (content == null)
-            {
-                throw new ContentNotFoundException(contentRequest.Id);
-            };
 
             content.Comments = new List<Domain.Comment>()
             {
@@ -243,6 +248,15 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             if (request is null)
             {
                 throw new CommentGetPagedRequestIsNullException();
+            }
+
+            var content = await _contentRepository.FindById(
+                contentId,
+                cancellationToken);
+
+            if (content == null)
+            {
+                throw new ContentNotFoundException(contentId);
             }
 
             var total = await _commentRepository.Count(

@@ -19,10 +19,15 @@ namespace WidePictBoard.Tests.Comment
             int commentId)
         {
             // Arrange
-            ConfigureMoqForCreateMethod(userId.ToString(), commentId);
+            ConfigureMoqForCreateMethod(
+                request, 
+                userId.ToString(), 
+                commentId);
 
             // Act
-            var response = await _commentServiceV1.Create(request, cancellationToken);
+            var response = await _commentServiceV1.Create(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -40,18 +45,29 @@ namespace WidePictBoard.Tests.Comment
             )
         {
             // Arrange
-            ConfigureMoqForCreateMethod(userId.ToString(), commentId);
+            ConfigureMoqForCreateMethod(
+                request, 
+                userId.ToString(), 
+                commentId);
 
             // Act
             await Assert.ThrowsAsync<CommentCreateRequestIsNullException>(
-                async () => await _commentServiceV1.Create(request, cancellationToken));
+                async () => await _commentServiceV1.Create(
+                    request, 
+                    cancellationToken));
 
         }
         private void ConfigureMoqForCreateMethod(
+            Create.Request request,
             string userId, 
             int commentId)
         {
             var content = new Domain.Content();
+
+            var comment = new Domain.Comment()
+            {
+                OwnerId = userId
+            };
 
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
@@ -59,13 +75,25 @@ namespace WidePictBoard.Tests.Comment
                 .Verifiable();
 
             _contentRepositoryMock
-                .Setup(_ => _.FindByIdWithUserInclude(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.FindByIdWithUserInclude(
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(content)
                 .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
                 .Verifiable();
 
             _commentRepositoryMock
-                .Setup(_ => _.Save(It.IsAny<Domain.Comment>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.FindByIdWithUserAndCommentsInclude(
+                    It.IsAny<int>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(comment)
+                .Callback((int _commentId, CancellationToken ct) => comment.Id = (int)request.ParentCommentId)
+                .Verifiable();
+
+            _commentRepositoryMock
+                .Setup(_ => _.Save(
+                    It.IsAny<Domain.Comment>(), 
+                    It.IsAny<CancellationToken>()))
                 .Callback((Domain.Comment comment, CancellationToken ct) => comment.Id = commentId);
         }
     }

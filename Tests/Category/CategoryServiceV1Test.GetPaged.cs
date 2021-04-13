@@ -1,5 +1,4 @@
-﻿using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
+﻿using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +21,9 @@ namespace WidePictBoard.Tests.Category
             ConfigureMoqForGetPagedMethod(request);
 
             // Act
-            var response = await _categoryServiceV1.GetPaged(request, cancellationToken);
+            var response = await _categoryServiceV1.GetPaged(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -41,7 +42,9 @@ namespace WidePictBoard.Tests.Category
 
             // Act
             await Assert.ThrowsAsync<CategoryGetPagedRequestIsNullException>(
-                async () => await _categoryServiceV1.GetPaged(request, cancellationToken));
+                async () => await _categoryServiceV1.GetPaged(
+                    request, 
+                    cancellationToken));
 
         }
         private void ConfigureMoqForGetPagedMethod(Paged.Request request)
@@ -66,7 +69,10 @@ namespace WidePictBoard.Tests.Category
                 .Verifiable();
 
             _categoryRepositoryMock
-                .Setup(_ => _.GetPaged(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.GetPaged(
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responce)
                 .Verifiable();
         }
