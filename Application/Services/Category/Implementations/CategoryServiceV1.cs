@@ -21,16 +21,19 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         private readonly ICategoryRepository _categoryRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Category, int> _paged;
 
-        public CategoryServiceV1(ICategoryRepository categoryRepository, IIdentityService identityService, IMapper mapper)
+        public CategoryServiceV1(
+            ICategoryRepository categoryRepository, 
+            IIdentityService identityService, 
+            IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _identityService = identityService;
             _mapper = mapper;
         }
-
-        public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
+        public async Task<Create.Response> Create(
+            Create.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -80,7 +83,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             };
         }
 
-        public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
+        public async Task<Update.Response> Update(
+            Update.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -112,7 +117,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
                 Id = category.Id
             };
         }
-        public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
+        public async Task Delete(
+            Delete.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -138,7 +145,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             await _categoryRepository.Save(category, cancellationToken);
         }
 
-        public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
+        public async Task Restore(
+            Restore.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {
@@ -164,7 +173,9 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             await _categoryRepository.Save(category, cancellationToken);
         }
 
-        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
+        public async Task<GetById.Response> GetById(
+            GetById.Request request, 
+            CancellationToken cancellationToken)
         {
             if (request is null)
             {

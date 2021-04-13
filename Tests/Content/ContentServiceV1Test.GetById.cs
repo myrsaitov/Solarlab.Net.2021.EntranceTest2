@@ -31,7 +31,9 @@ namespace WidePictBoard.Tests.Content
                 categoryId);
 
             // Act
-            var response = await _contentServiceV1.GetById(request, cancellationToken);
+            var response = await _contentServiceV1.GetById(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -53,11 +55,18 @@ namespace WidePictBoard.Tests.Content
             int categoryId)
         {
             // Arrange
-            ConfigureMoqForGetByIdMethod(userId.ToString(), contentTitle, contentBody, tagBodies, categoryId);
+            ConfigureMoqForGetByIdMethod(
+                userId.ToString(), 
+                contentTitle, 
+                contentBody, 
+                tagBodies, 
+                categoryId);
 
             // Act
             await Assert.ThrowsAsync<ContentGetByIdRequestIsNullException>(
-                async () => await _contentServiceV1.GetById(request, cancellationToken));
+                async () => await _contentServiceV1.GetById(
+                    request, 
+                    cancellationToken));
 
         }
         private void ConfigureMoqForGetByIdMethod(
@@ -91,7 +100,9 @@ namespace WidePictBoard.Tests.Content
             }
 
             _contentRepositoryMock
-                .Setup(_ => _.FindByIdWithUserAndCategoryAndTags(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.FindByIdWithUserAndCategoryAndTags(
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(content)
                 .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
                 .Verifiable();

@@ -12,6 +12,6 @@ namespace WidePictBoard.Application.Services.Comment.Interfaces
         Task Delete(Delete.Request request, CancellationToken cancellationToken);
         Task Restore(Restore.Request request, CancellationToken cancellationToken);
         Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken);
-        Task<Paged.Response<GetById.Response>> GetPaged(int ContentId, Paged.Request request, CancellationToken cancellationToken);
+        Task<Paged.Response<GetById.Response>> GetPaged(int contentId, Paged.Request request, CancellationToken cancellationToken);
     }
 }

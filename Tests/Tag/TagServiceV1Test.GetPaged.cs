@@ -22,7 +22,9 @@ namespace WidePictBoard.Tests.Tag
             ConfigureMoqForGetPagedMethod(request);
 
             // Act
-            var response = await _tagServiceV1.GetPaged(request, cancellationToken);
+            var response = await _tagServiceV1.GetPaged(
+                request, 
+                cancellationToken);
 
             // Assert
             _tagRepositoryMock.Verify();
@@ -39,7 +41,9 @@ namespace WidePictBoard.Tests.Tag
 
             // Act
             await Assert.ThrowsAsync<TagGetPagedRequestIsNullException>(
-                async () => await _tagServiceV1.GetPaged(request, cancellationToken));
+                async () => await _tagServiceV1.GetPaged(
+                    request, 
+                    cancellationToken));
 
         }
         private void ConfigureMoqForGetPagedMethod(Paged.Request request)
@@ -64,7 +68,10 @@ namespace WidePictBoard.Tests.Tag
                 .Verifiable();
 
             _tagRepositoryMock
-                .Setup(_ => _.GetPaged(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.GetPaged(
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responce)
                 .Verifiable();
         }

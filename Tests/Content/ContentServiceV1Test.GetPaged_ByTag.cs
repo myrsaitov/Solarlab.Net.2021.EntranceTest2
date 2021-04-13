@@ -37,7 +37,10 @@ namespace WidePictBoard.Tests.Content
                 tagSearch);
 
             // Act
-            var response = await _contentServiceV1.GetPaged(tagSearch, request, cancellationToken);
+            var response = await _contentServiceV1.GetPaged(
+                tagSearch, 
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -70,7 +73,10 @@ namespace WidePictBoard.Tests.Content
 
             // Act
             await Assert.ThrowsAsync<ContentGetPagedRequestIsNullException>(
-                async () => await _contentServiceV1.GetPaged(tagSearch, request, cancellationToken));
+                async () => await _contentServiceV1.GetPaged(
+                    tagSearch, 
+                    request, 
+                    cancellationToken));
 
         }
         private void ConfigureMoqForGetPagedByTagMethod(
@@ -122,12 +128,18 @@ namespace WidePictBoard.Tests.Content
             }
 
             _contentRepositoryMock
-                .Setup(_ => _.Count(It.IsAny<Expression<Func<Domain.Content, bool>>>(),It.IsAny<CancellationToken>()))
+                .Setup(_ => _.Count(
+                    It.IsAny<Expression<Func<Domain.Content, bool>>>(),
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(contentCount)
                 .Verifiable();
 
             _contentRepositoryMock
-                .Setup(_ => _.GetPagedWithTagsInclude(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .Setup(_ => _.GetPagedWithTagsInclude(
+                    It.IsAny<string>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(responce)
                 .Verifiable();
         }

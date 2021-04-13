@@ -11,7 +11,6 @@ using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Domain.General.Exceptions;
 using WidePictBoard.Application.Services.PagedBase.Contracts;
-using WidePictBoard.Application.Services.PagedBase.Implementations;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using System.Linq;
 
@@ -23,17 +22,27 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         private readonly ICommentRepository _commentRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Comment, int> _paged;
 
-        public CommentServiceV1(ICommentRepository commentRepository, IContentRepository contentRepository, IIdentityService identityService, IMapper mapper)
+        public CommentServiceV1(
+            ICommentRepository commentRepository, 
+            IContentRepository contentRepository, 
+            IIdentityService identityService, 
+            IMapper mapper)
         {
             _contentRepository = contentRepository;
             _commentRepository = commentRepository;
             _identityService = identityService;
             _mapper = mapper;
         }
-        public async Task<Create.Response> Create(Create.Request request, CancellationToken cancellationToken)
+        public async Task<Create.Response> Create(
+            Create.Request request, 
+            CancellationToken cancellationToken)
         {
+            if (request is null)
+            {
+                throw new CommentCreateRequestIsNullException();
+            }
+
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
             var comment = _mapper.Map<Domain.Comment>(request); 
@@ -45,7 +54,11 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             if (parentCommentIdNulable != null)
             {
                 int parentCommentId = (int)parentCommentIdNulable;
-                var parentComment = await _commentRepository.FindByIdWithUserAndCommentsInclude(parentCommentId, cancellationToken);
+                
+                var parentComment = await _commentRepository.FindByIdWithUserAndCommentsInclude(
+                    parentCommentId, 
+                    cancellationToken);
+                
                 if (parentComment != null)
                 {
                     if (parentComment.ChildComments != null)
@@ -71,7 +84,10 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 Id = comment.ContentId
             };
 
-            var content = await _contentRepository.FindByIdWithUserInclude(contentRequest.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserInclude(
+                contentRequest.Id, 
+                cancellationToken);
+
             if (content == null)
             {
                 throw new ContentNotFoundException(contentRequest.Id);
@@ -91,16 +107,30 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 Id = comment.Id
             };
         }
-        public async Task<Update.Response> Update(Update.Request request, CancellationToken cancellationToken)
+        public async Task<Update.Response> Update(
+            Update.Request request, 
+            CancellationToken cancellationToken)
         {
-            var comment = await _commentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (request is null)
+            {
+                throw new CommentUpdateRequestIsNullException();
+            }
+
+            var comment = await _commentRepository.FindByIdWithUserInclude(
+                request.Id, 
+                cancellationToken);
+
             if (comment == null)
             {
                 throw new CommentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin && comment.OwnerId != userId)
             {
@@ -117,16 +147,30 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 Id = comment.Id
             };
         }
-        public async Task Delete(Delete.Request request, CancellationToken cancellationToken)
+        public async Task Delete(
+            Delete.Request request,
+            CancellationToken cancellationToken)
         {
-            var comment = await _commentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (request is null)
+            {
+                throw new CommentDeleteRequestIsNullException();
+            }
+
+            var comment = await _commentRepository.FindByIdWithUserInclude(
+                request.Id, 
+                cancellationToken);
+
             if (comment == null)
             {
                 throw new CommentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin && comment.OwnerId != userId)
             {
@@ -137,16 +181,30 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             comment.UpdatedAt = DateTime.UtcNow;
             await _commentRepository.Save(comment, cancellationToken);
         }
-        public async Task Restore(Restore.Request request, CancellationToken cancellationToken)
+        public async Task Restore(
+            Restore.Request request, 
+            CancellationToken cancellationToken)
         {
-            var comment = await _commentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            if (request is null)
+            {
+                throw new CommentRestoreRequestIsNullException();
+            }
+
+            var comment = await _commentRepository.FindByIdWithUserInclude(
+                request.Id, 
+                cancellationToken);
+
             if (comment == null)
             {
                 throw new CommentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin && comment.OwnerId != userId)
             {
@@ -157,9 +215,19 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             comment.UpdatedAt = DateTime.UtcNow;
             await _commentRepository.Save(comment, cancellationToken);
         }
-        public async Task<GetById.Response> GetById(GetById.Request request, CancellationToken cancellationToken)
+        public async Task<GetById.Response> GetById(
+            GetById.Request request, 
+            CancellationToken cancellationToken)
         {
-            var comment = await _commentRepository.FindByIdWithUserAndCommentsInclude(request.Id, cancellationToken);
+            if (request is null)
+            {
+                throw new CommentGetByIdRequestIsNullException();
+            }
+
+            var comment = await _commentRepository.FindByIdWithUserAndCommentsInclude(
+                request.Id, 
+                cancellationToken);
+
             if (comment == null)
             {
                 throw new CommentNotFoundException(request.Id);
@@ -167,9 +235,19 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
 
             return _mapper.Map<GetById.Response>(comment);
         }
-        public async Task<Paged.Response<GetById.Response>> GetPaged(int ContentId, Paged.Request request, CancellationToken cancellationToken)
+        public async Task<Paged.Response<GetById.Response>> GetPaged(
+            int contentId, 
+            Paged.Request request, 
+            CancellationToken cancellationToken)
         {
-            var total = await _commentRepository.Count(a => a.ContentId == ContentId, cancellationToken);
+            if (request is null)
+            {
+                throw new CommentGetPagedRequestIsNullException();
+            }
+
+            var total = await _commentRepository.Count(
+                a => a.ContentId == contentId, 
+                cancellationToken);
 
             if (total == 0)
             {
@@ -183,7 +261,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             }
 
             var entities = await _commentRepository.GetPaged(
-                a => a.ContentId == ContentId,
+                a => a.ContentId == contentId,
                 request.Page,
                 request.PageSize,
                 cancellationToken

@@ -1,73 +1,71 @@
-﻿using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+﻿using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 
-namespace WidePictBoard.Tests.Content
+namespace WidePictBoard.Tests.Comment
 {
-    public partial class ContentServiceV1Test
+    public partial class CommentServiceV1Test
     {
         [Theory]
         [AutoData]
-        public async Task Restore_Returns_Response_Success(
-            Restore.Request request, 
+        public async Task Delete_Returns_Response_Success(
+            Delete.Request request, 
             CancellationToken cancellationToken, 
             int userId,
-            int contentId)
+            int commentId)
         {
             // Arrange
-            ConfigureMoqForRestoreMethod(
+            ConfigureMoqForDeleteMethod(
                 userId.ToString(), 
-                contentId);
+                commentId);
 
             // Act
-            await _contentServiceV1.Restore(
+            await _commentServiceV1.Delete(
                 request, 
                 cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
-            _contentRepositoryMock.Verify();
+            _commentRepositoryMock.Verify();
         }
         [Theory]
         [InlineAutoData(null)]
-        public async Task Restore_Throws_Exception_When_Request_Is_Null(
-            Restore.Request request, 
+        public async Task Delete_Throws_Exception_When_Request_Is_Null(
+            Delete.Request request, 
             CancellationToken cancellationToken, 
             int userId, 
-            int contentId
+            int commentId
             )
         {
             // Arrange
-            ConfigureMoqForRestoreMethod(
+            ConfigureMoqForDeleteMethod(
                 userId.ToString(), 
-                contentId);
+                commentId);
 
             // Act
-            await Assert.ThrowsAsync<ContentRestoreRequestIsNullException>(
-                async () => await _contentServiceV1.Restore(
-                    request, 
-                    cancellationToken));
+            await Assert.ThrowsAsync<CommentDeleteRequestIsNullException>(
+                async () => await _commentServiceV1.Delete(request, cancellationToken));
 
         }
-        private void ConfigureMoqForRestoreMethod(
+        private void ConfigureMoqForDeleteMethod(
             string userId, 
-            int contentId)
+            int commentId)
         {
-            var content = new Domain.Content()
+            var comment = new Domain.Comment()
             {
                 OwnerId = userId
             };
 
-            _contentRepositoryMock
+            _commentRepositoryMock
                 .Setup(_ => _.FindByIdWithUserInclude(
                     It.IsAny<int>(), 
                     It.IsAny<CancellationToken>()))
-                .ReturnsAsync(content)
-                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
+                .ReturnsAsync(comment)
+                .Callback((int _commentId, CancellationToken ct) => comment.Id = _commentId)
                 .Verifiable();
 
             _identityServiceMock
@@ -83,11 +81,11 @@ namespace WidePictBoard.Tests.Content
                 .ReturnsAsync(false)
                 .Verifiable();
 
-            _contentRepositoryMock
+            _commentRepositoryMock
                 .Setup(_ => _.Save(
-                    It.IsAny<Domain.Content>(), 
+                    It.IsAny<Domain.Comment>(), 
                     It.IsAny<CancellationToken>()))
-                .Callback((Domain.Content content, CancellationToken ct) => content.Id = contentId);
+                .Callback((Domain.Comment comment, CancellationToken ct) => comment.Id = commentId);
         }
     }
 }

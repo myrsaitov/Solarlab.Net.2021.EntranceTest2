@@ -24,9 +24,7 @@ namespace WidePictBoard.Tests.Category
             _identityServiceMock = new Mock<IIdentityService>();
 
             _mapper = new Mapper();
-            //ContentMapProfile.GetConfiguredMappingConfig().Compile();
             CategoryMapProfile.GetConfiguredMappingConfig().Compile();
-            //CommentMapProfile.GetConfiguredMappingConfig().Compile();
             TagMapProfile.GetConfiguredMappingConfig().Compile();
             UserMapProfile.GetConfiguredMappingConfig().Compile();
 

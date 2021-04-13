@@ -25,7 +25,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         private readonly ITagRepository _tagRepository;
         private readonly IIdentityService _identityService;
         private readonly IMapper _mapper;
-        private PagedBase<GetById.Response, Domain.Content, int> _paged;
 
         public ContentServiceV1(
             IContentRepository contentRepository, 
@@ -60,7 +59,11 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 Id = content.CategoryId
             };
-            var category = await _categoryRepository.FindById(categoryRequest.Id, cancellationToken);
+
+            var category = await _categoryRepository.FindById(
+                categoryRequest.Id, 
+                cancellationToken);
+
             if (category == null)
             {
                 throw new CategoryNotFoundException(categoryRequest.Id);
@@ -70,7 +73,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             content.Tags = new List<Domain.Tag>();
             foreach (string body in request.TagBodies)
             {
-                var tag = await _tagRepository.FindWhere(a => a.Body == body, cancellationToken);
+                var tag = await _tagRepository.FindWhere(
+                    a => a.Body == body, 
+                    cancellationToken);
+
                 if (tag == null)
                 {
                     var tagRequest = new Tag.Contracts.Create.Request()
@@ -86,7 +92,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 content.Tags.Add(tag);
             }
 
-            await _contentRepository.Save(content, cancellationToken);
+            await _contentRepository.Save(
+                content, 
+                cancellationToken);
+
             return new Create.Response
             {
                 Id = content.Id
@@ -101,14 +110,21 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentUpdateRequestIsNullException();
             }
 
-            var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(
+                request.Id, 
+                cancellationToken);
+
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin && content.OwnerId != userId)
             {
@@ -127,7 +143,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             {
                 Id = content.CategoryId
             };
-            var category = await _categoryRepository.FindById(categoryRequest.Id, cancellationToken);
+            var category = await _categoryRepository.FindById(
+                categoryRequest.Id, 
+                cancellationToken);
+
             if (category == null)
             {
                 throw new CategoryNotFoundException(categoryRequest.Id);
@@ -142,7 +161,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             
             foreach (string body in request.TagBodies)
             {
-                var tag = await _tagRepository.FindWhere(a => a.Body == body, cancellationToken);
+                var tag = await _tagRepository.FindWhere(
+                    a => a.Body == body, 
+                    cancellationToken);
+
                 if (tag == null)
                 {
                     var tagRequest = new Tag.Contracts.Create.Request()
@@ -174,14 +196,21 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentDeleteRequestIsNullException();
             }
 
-            var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserInclude(
+                request.Id, 
+                cancellationToken);
+
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin && content.OwnerId != userId)
             {
@@ -201,14 +230,21 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentRestoreRequestIsNullException();
             }
 
-            var content = await _contentRepository.FindByIdWithUserInclude(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserInclude(
+                request.Id, 
+                cancellationToken);
+
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
-            var isAdmin = await _identityService.IsInRole(userId, RoleConstants.AdminRole, cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId, 
+                RoleConstants.AdminRole, 
+                cancellationToken);
 
             if (!isAdmin && content.OwnerId != userId)
             {
@@ -228,7 +264,10 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentGetByIdRequestIsNullException();
             }
 
-            var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(request.Id, cancellationToken);
+            var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(
+                request.Id, 
+                cancellationToken);
+
             if (content == null)
             {
                 throw new ContentNotFoundException(request.Id);
@@ -282,7 +321,9 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 throw new ContentGetPagedRequestIsNullException();
             }
 
-            var total = await _contentRepository.Count(a => a.Tags.Any(t => t.Body == tag), cancellationToken);
+            var total = await _contentRepository.Count(
+                a => a.Tags.Any(t => t.Body == tag), 
+                cancellationToken);
 
             if (total == 0)
             {
