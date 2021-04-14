@@ -6,6 +6,9 @@ using Xunit;
 using AutoFixture.Xunit2;
 using System.Linq.Expressions;
 using System;
+using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+using WidePictBoard.Domain.General.Exceptions;
+using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 
 namespace WidePictBoard.Tests.Content
 {
@@ -46,6 +49,14 @@ namespace WidePictBoard.Tests.Content
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(userId.ToString())
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false)
                 .Verifiable();
 
             _categoryRepositoryMock
@@ -106,6 +117,99 @@ namespace WidePictBoard.Tests.Content
             _tagRepositoryMock.Verify();
             Assert.NotNull(response);
             Assert.NotEqual(default, response.Id);
+        }
+        [Theory]
+        [AutoData]
+        public async Task Update_Throws_Exception_When_Category_is_Null(
+            Update.Request request,
+            CancellationToken cancellationToken,
+            int userId,
+            int contentId)
+        {
+            // Arrange
+            var content = new Domain.Content()
+            {
+                Id = contentId,
+                OwnerId = userId.ToString()
+            };
+
+            _contentRepositoryMock
+                .Setup(_ => _.FindByIdWithUserAndCategoryAndTags(
+                    It.IsAny<int>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(content)
+                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(userId.ToString())
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false)
+                .Verifiable();
+
+            // Act
+            await Assert.ThrowsAsync<CategoryNotFoundException>(
+                async () => await _contentServiceV1.Update(
+                    request,
+                    cancellationToken));
+        }
+        [Theory]
+        [AutoData]
+        public async Task Update_Throws_Exception_When_No_Rights(
+             Update.Request request,
+            CancellationToken cancellationToken,
+            int userId,
+            int contentId)
+        {
+            // Arrange
+            var content = new Domain.Content()
+            {
+                Id = contentId,
+                OwnerId = userId.ToString()
+            };
+
+            _contentRepositoryMock
+                .Setup(_ => _.FindByIdWithUserAndCategoryAndTags(
+                    It.IsAny<int>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(content)
+                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId);
+
+            _identityServiceMock
+                .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
+                .ReturnsAsync("");
+
+            _identityServiceMock
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false);
+
+            // Act
+            await Assert.ThrowsAsync<NoRightsException>(
+                async () => await _contentServiceV1.Update(
+                    request,
+                    cancellationToken));
+        }
+        [Theory]
+        [AutoData]
+        public async Task Update_Throws_Exception_When_Content_Is_Null(
+            Update.Request request,
+            CancellationToken cancellationToken)
+        {
+            // Act
+            await Assert.ThrowsAsync<ContentNotFoundException>(
+                async () => await _contentServiceV1.Update(
+                    request,
+                    cancellationToken));
         }
         [Theory]
         [InlineAutoData(null)]
