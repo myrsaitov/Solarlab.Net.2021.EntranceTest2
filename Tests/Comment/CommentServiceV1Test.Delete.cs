@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
+using System;
 
 namespace WidePictBoard.Tests.Comment
 {
@@ -47,7 +48,7 @@ namespace WidePictBoard.Tests.Comment
                 commentId);
 
             // Act
-            await Assert.ThrowsAsync<CommentDeleteRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _commentServiceV1.Delete(request, cancellationToken));
 
         }

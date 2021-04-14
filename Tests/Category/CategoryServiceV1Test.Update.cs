@@ -1,11 +1,9 @@
 ﻿using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
-using System.Linq.Expressions;
 using System;
 
 namespace WidePictBoard.Tests.Category
@@ -53,7 +51,7 @@ namespace WidePictBoard.Tests.Category
                 categoryId);
 
             // Act
-            await Assert.ThrowsAsync<CategoryUpdateRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _categoryServiceV1.Update(
                     request, 
                     cancellationToken));

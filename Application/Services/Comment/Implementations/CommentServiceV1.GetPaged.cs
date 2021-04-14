@@ -18,7 +18,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         {
             if (request is null)
             {
-                throw new CommentGetPagedRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var content = await _contentRepository.FindById(

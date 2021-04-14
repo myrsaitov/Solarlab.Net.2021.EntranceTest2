@@ -23,4 +23,8 @@
       <ProjectCapability Include="DynamicFileNesting" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Contracts\Exceptions\" />
+    </ItemGroup>
+
 </Project>

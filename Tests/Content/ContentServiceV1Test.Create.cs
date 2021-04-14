@@ -50,7 +50,7 @@ namespace WidePictBoard.Tests.Content
             ConfigureMoqForCreateMethod(request, userId.ToString(), contentId);
 
             // Act
-            await Assert.ThrowsAsync<ContentCreateRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _contentServiceV1.Create(request, cancellationToken));
 
         }

@@ -1,5 +1,4 @@
-﻿using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
-using Moq;
+﻿using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -8,6 +7,7 @@ using System.Collections.Generic;
 using WidePictBoard.Application.Services;
 using WidePictBoard.Application.Services.Category.Contracts;
 using System.Linq;
+using System;
 
 namespace WidePictBoard.Tests.Category
 {
@@ -94,7 +94,7 @@ namespace WidePictBoard.Tests.Category
             CancellationToken cancellationToken)
         {
             // Act
-            await Assert.ThrowsAsync<CategoryGetPagedRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _categoryServiceV1.GetPaged(
                     request, 
                     cancellationToken));

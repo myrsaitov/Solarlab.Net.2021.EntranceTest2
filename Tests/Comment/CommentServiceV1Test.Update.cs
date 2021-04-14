@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
+using System;
 
 namespace WidePictBoard.Tests.Comment
 {
@@ -42,7 +43,7 @@ namespace WidePictBoard.Tests.Comment
             ConfigureMoqForUpdateMethod(userId.ToString(), commentId);
 
             // Act
-            await Assert.ThrowsAsync<CommentUpdateRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _commentServiceV1.Update(request, cancellationToken));
 
         }

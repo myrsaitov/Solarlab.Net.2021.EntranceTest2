@@ -1,5 +1,4 @@
-﻿using WidePictBoard.Application.Services.Tag.Contracts.Exceptions;
-using Moq;
+﻿using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -90,7 +89,7 @@ namespace WidePictBoard.Tests.Tag
             CancellationToken cancellationToken)
         {
             // Act
-            await Assert.ThrowsAsync<TagGetPagedRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _tagServiceV1.GetPaged(
                     request, 
                     cancellationToken));

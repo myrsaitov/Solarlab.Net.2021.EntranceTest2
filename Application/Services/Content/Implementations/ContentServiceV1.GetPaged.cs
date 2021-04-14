@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
@@ -17,7 +16,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             if (request is null)
             {
-                throw new ContentGetPagedRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var total = await _contentRepository.Count(cancellationToken);
@@ -54,7 +53,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             if (request is null)
             {
-                throw new ContentGetPagedRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var total = await _contentRepository.Count(

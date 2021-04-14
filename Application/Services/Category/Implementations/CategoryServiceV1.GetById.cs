@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Category.Contracts;
 using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
@@ -14,7 +15,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         {
             if (request is null)
             {
-                throw new CategoryGetByIdRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var category = await _categoryRepository.FindByIdWithParentAndChilds(

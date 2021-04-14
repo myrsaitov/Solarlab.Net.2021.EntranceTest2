@@ -120,7 +120,7 @@ namespace WidePictBoard.Tests.Comment
             int contentId)
         {
             // Act
-            await Assert.ThrowsAsync<CommentGetPagedRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _commentServiceV1.GetPaged(
                     contentId, 
                     request, 

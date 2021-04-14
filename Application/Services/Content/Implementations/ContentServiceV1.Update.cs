@@ -19,7 +19,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             if (request is null)
             {
-                throw new ContentUpdateRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(

@@ -16,7 +16,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         {
             if (request is null)
             {
-                throw new CategoryGetPagedRequestIsNullException();
+                throw new ArgumentNullException();
             }
             var total = await _categoryRepository.Count(cancellationToken);
 

@@ -17,7 +17,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         {
             if (request is null)
             {
-                throw new CategoryDeleteRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var category = await _categoryRepository.FindById(request.Id, cancellationToken);

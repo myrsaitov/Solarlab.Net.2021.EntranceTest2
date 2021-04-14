@@ -16,7 +16,7 @@ namespace WidePictBoard.Application.Services.Tag.Implementations
         {
             if (request is null)
             {
-                throw new TagGetPagedRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var total = await _tagRepository.Count(cancellationToken);

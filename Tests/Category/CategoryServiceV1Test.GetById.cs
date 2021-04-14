@@ -1,10 +1,10 @@
 ﻿using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
+using System;
 
 namespace WidePictBoard.Tests.Category
 {
@@ -39,7 +39,7 @@ namespace WidePictBoard.Tests.Category
             ConfigureMoqForGetByIdMethod();
 
             // Act
-            await Assert.ThrowsAsync<CategoryGetByIdRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _categoryServiceV1.GetById(
                     request, 
                     cancellationToken));

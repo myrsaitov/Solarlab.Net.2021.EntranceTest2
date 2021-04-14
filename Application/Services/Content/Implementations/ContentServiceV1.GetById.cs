@@ -2,11 +2,9 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Common;
 using WidePictBoard.Application.Services.Content.Contracts;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Content.Interfaces;
-using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Application.Services.Content.Implementations
 {
@@ -18,7 +16,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             if (request is null)
             {
-                throw new ContentGetByIdRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var content = await _contentRepository.FindByIdWithUserAndCategoryAndTags(

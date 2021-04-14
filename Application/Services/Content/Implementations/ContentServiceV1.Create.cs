@@ -17,7 +17,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
         {
             if (request is null)
             {
-                throw new ContentCreateRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var categoryRequest = new Category.Contracts.GetById.Request()

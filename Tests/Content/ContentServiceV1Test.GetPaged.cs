@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using WidePictBoard.Application.Services;
 using WidePictBoard.Application.Services.Content.Contracts;
 using System.Linq;
+using System;
 
 namespace WidePictBoard.Tests.Content
 {
@@ -124,7 +125,7 @@ namespace WidePictBoard.Tests.Content
             CancellationToken cancellationToken)
         {
             // Act
-            await Assert.ThrowsAsync<ContentGetPagedRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _contentServiceV1.GetPaged(
                     request, 
                     cancellationToken));

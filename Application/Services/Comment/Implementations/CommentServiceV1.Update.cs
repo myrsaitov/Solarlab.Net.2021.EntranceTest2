@@ -19,7 +19,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         {
             if (request is null)
             {
-                throw new CommentUpdateRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var comment = await _commentRepository.FindByIdWithUserInclude(

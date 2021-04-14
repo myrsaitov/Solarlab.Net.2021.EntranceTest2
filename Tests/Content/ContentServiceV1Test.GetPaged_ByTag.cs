@@ -136,7 +136,7 @@ namespace WidePictBoard.Tests.Content
             string tagSearch)
         {
             // Act
-            await Assert.ThrowsAsync<ContentGetPagedRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _contentServiceV1.GetPaged(
                     tagSearch, 
                     request, 

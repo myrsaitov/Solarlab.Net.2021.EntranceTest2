@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Comment.Contracts;
 using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
@@ -14,7 +15,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         {
             if (request is null)
             {
-                throw new CommentGetByIdRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var comment = await _commentRepository.FindByIdWithUserAndCommentsInclude(

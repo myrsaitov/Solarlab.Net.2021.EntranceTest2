@@ -17,7 +17,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
         {
             if (request is null)
             {
-                throw new CommentCreateRequestIsNullException();
+                throw new ArgumentNullException();
             }
 
             var contentRequest = new Content.Contracts.GetById.Request()

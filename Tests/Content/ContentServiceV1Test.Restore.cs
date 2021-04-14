@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
+using System;
 
 namespace WidePictBoard.Tests.Content
 {
@@ -47,7 +48,7 @@ namespace WidePictBoard.Tests.Content
                 contentId);
 
             // Act
-            await Assert.ThrowsAsync<ContentRestoreRequestIsNullException>(
+            await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _contentServiceV1.Restore(
                     request, 
                     cancellationToken));
