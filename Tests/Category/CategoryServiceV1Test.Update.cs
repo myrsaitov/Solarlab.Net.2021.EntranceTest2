@@ -85,7 +85,7 @@ namespace WidePictBoard.Tests.Category
                 .Setup(_ => _.FindById(
                     It.IsAny<int>(), 
                     It.IsAny<CancellationToken>()))
-                .Returns(async () => category)
+                .ReturnsAsync(category)
                 .Callback((int _categoryId, CancellationToken ct) => category.Id = _categoryId)
                 .Verifiable();
 
