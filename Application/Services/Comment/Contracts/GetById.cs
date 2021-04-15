@@ -13,7 +13,6 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
         {
             public int? Id { get; set; }
             public string Body { get; set; }
-            public DateTime CommentDate { get; set; }
             public string OwnerId { get; set; }
             public DateTime CreatedAt { get; set; }
             public bool IsDeleted { get; set; }
