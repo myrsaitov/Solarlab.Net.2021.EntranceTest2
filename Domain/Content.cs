@@ -9,10 +9,10 @@ namespace WidePictBoard.Domain
         public string Body { get; set; }
         public decimal Price { get; set; }
         public string OwnerId { get; set; }
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
       
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
