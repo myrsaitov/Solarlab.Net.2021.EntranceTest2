@@ -93,21 +93,18 @@ namespace WidePictBoard.Tests.Comment
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(comment)
-                .Callback((int _commentId, CancellationToken ct) => comment.Id = commentId)
-                .Verifiable();
+                .Callback((int _commentId, CancellationToken ct) => comment.Id = commentId);
 
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
-                .ReturnsAsync("")
-                .Verifiable();
+                .ReturnsAsync("");
 
             _identityServiceMock
                 .Setup(_ => _.IsInRole(
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<CancellationToken>()))
-                .ReturnsAsync(false)
-                .Verifiable();
+                .ReturnsAsync(false);
 
             // Act
             await Assert.ThrowsAsync<NoRightsException>(

@@ -66,10 +66,10 @@ namespace WidePictBoard.Tests.Content
         [Theory]
         [AutoData]
         public async Task Delete_Throws_Exception_When_No_Rights(
-    Delete.Request request,
-    CancellationToken cancellationToken,
-    int userId,
-    int contentId)
+            Delete.Request request,
+            CancellationToken cancellationToken,
+            int userId,
+            int contentId)
         {
             // Arrange
             var content = new Domain.Content()
@@ -80,21 +80,18 @@ namespace WidePictBoard.Tests.Content
             _contentRepositoryMock
                 .Setup(_ => _.FindByIdWithUserInclude(It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(content)
-                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
-                .Verifiable();
+                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId);
 
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
-                .ReturnsAsync("")
-                .Verifiable();
+                .ReturnsAsync("");
 
             _identityServiceMock
                 .Setup(_ => _.IsInRole(
                     It.IsAny<string>(), 
                     It.IsAny<string>(), 
                     It.IsAny<CancellationToken>()))
-                .ReturnsAsync(false)
-                .Verifiable();
+                .ReturnsAsync(false);
 
             _contentRepositoryMock
                 .Setup(_ => _.Save(

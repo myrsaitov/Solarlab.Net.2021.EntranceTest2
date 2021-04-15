@@ -84,16 +84,14 @@ namespace WidePictBoard.Tests.Comment
 
             _identityServiceMock
                 .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(userId.ToString())
-                .Verifiable();
+                .ReturnsAsync(userId.ToString());
 
             _contentRepositoryMock
                 .Setup(_ => _.FindByIdWithUserInclude(
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(content)
-                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId)
-                .Verifiable();
+                .Callback((int _contentId, CancellationToken ct) => content.Id = _contentId);
 
             // Act
             await Assert.ThrowsAsync<ParentCommentNotFoundException>(

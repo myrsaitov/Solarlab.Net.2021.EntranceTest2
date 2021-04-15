@@ -72,8 +72,7 @@ namespace WidePictBoard.Application.Tests.User
 
             _identityServiceMock
                 .Setup(_ => _.CreateUser(It.IsAny<CreateUser.Request>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(createUserResponse)
-                .Verifiable();
+                .ReturnsAsync(createUserResponse);
 
             await Assert.ThrowsAsync<UserRegisteredException>(
                 async () => await _userServiceV1.Register(registerRequest, cancellationToken));
