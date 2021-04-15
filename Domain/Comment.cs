@@ -15,6 +15,5 @@ namespace WidePictBoard.Domain
         public virtual Content Content { get; set; }
         public int? ParentCommentId { get; set; }
         public virtual Comment ParentComment { get; set; }
-        public virtual ICollection<Comment> ChildComments { get; set; }
     }
 }

@@ -52,19 +52,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 
                 if (parentComment != null)
                 {
-                    if (parentComment.ChildComments != null)
-                    {
-                        parentComment.ChildComments.Add(comment);
-                    }
-                    else
-                    {
-                        parentComment.ChildComments = new List<Domain.Comment>()
-                        {
-                            comment
-                        };
-                    }
                     await _commentRepository.Save(parentComment, cancellationToken);
-
                     comment.ParentComment = parentComment;
                 }
                 else 
