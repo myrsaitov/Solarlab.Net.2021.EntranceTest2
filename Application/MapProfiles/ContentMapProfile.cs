@@ -7,7 +7,7 @@ namespace WidePictBoard.Application.MapProfiles
     {
         public static TypeAdapterConfig GetConfiguredMappingConfig()
         {
-            var config = new TypeAdapterConfig();
+            var config = TypeAdapterConfig.GlobalSettings;
 
             config.NewConfig<Services.Content.Contracts.Create.Request, Domain.Content>()
                 .Map(dest => dest.Title, src => src.Title)
@@ -28,7 +28,6 @@ namespace WidePictBoard.Application.MapProfiles
                 .Map(dest => dest.Body, src => src.Body)
                 .Map(dest => dest.Price, src => src.Price)
                 .Map(dest => dest.CategoryId, src => src.CategoryId)
-                .Map(dest => dest.OwnerId, src => src.OwnerId)
                 .Map(dest => dest.Owner.FirstName, src => src.Owner.FirstName)
                 .Map(dest => dest.Owner.LastName, src => src.Owner.LastName)
                 .Map(dest => dest.Owner.MiddleName, src => src.Owner.MiddleName)

@@ -4,6 +4,8 @@ using WidePictBoard.Application.Services.Category.Implementations;
 using Moq;
 using MapsterMapper;
 using WidePictBoard.Application.MapProfiles;
+using Mapster;
+using System.Linq.Expressions;
 
 namespace WidePictBoard.Tests.Category
 {
@@ -21,6 +23,7 @@ namespace WidePictBoard.Tests.Category
             _tagRepositoryMock = new Mock<ITagRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
 
+            TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileWithDebugInfo();
             _mapper = new Mapper();
             CategoryMapProfile.GetConfiguredMappingConfig().Compile();
             TagMapProfile.GetConfiguredMappingConfig().Compile();

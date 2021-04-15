@@ -4,6 +4,9 @@ using WidePictBoard.Application.Services.Content.Implementations;
 using Moq;
 using MapsterMapper;
 using WidePictBoard.Application.MapProfiles;
+using Mapster;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace WidePictBoard.Tests.Content
 {
@@ -22,7 +25,9 @@ namespace WidePictBoard.Tests.Content
             _categoryRepositoryMock = new Mock<ICategoryRepository>();
             _tagRepositoryMock = new Mock<ITagRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
-           
+
+
+            TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileWithDebugInfo();
             _mapper = new Mapper();
             ContentMapProfile.GetConfiguredMappingConfig().Compile();
             CategoryMapProfile.GetConfiguredMappingConfig().Compile();

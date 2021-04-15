@@ -6,7 +6,7 @@ namespace WidePictBoard.Application.MapProfiles
     {
         public static TypeAdapterConfig GetConfiguredMappingConfig()
         {
-            var config = new TypeAdapterConfig();
+            var config = TypeAdapterConfig.GlobalSettings;
 
             config.NewConfig<Services.Tag.Contracts.Create.Request, Domain.Tag>()
                 .Map(dest => dest.Body, src => src.Body);

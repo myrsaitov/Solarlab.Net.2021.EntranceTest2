@@ -64,7 +64,7 @@ namespace WidePictBoard.Tests.Content
                 .Verifiable();
 
             _contentRepositoryMock
-                .Setup(_ => _.GetPagedWithTagsInclude(
+                .Setup(_ => _.GetPagedWithTagsAndOwnerInclude(
                     It.IsAny<int>(),
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
@@ -100,7 +100,7 @@ namespace WidePictBoard.Tests.Content
                 .Verifiable();
 
             _contentRepositoryMock
-                .Setup(_ => _.GetPagedWithTagsInclude(
+                .Setup(_ => _.GetPagedWithTagsAndOwnerInclude(
                     It.IsAny<int>(),
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))

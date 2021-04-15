@@ -4,6 +4,8 @@ using WidePictBoard.Application.Services.Tag.Implementations;
 using Moq;
 using MapsterMapper;
 using WidePictBoard.Application.MapProfiles;
+using Mapster;
+using System.Linq.Expressions;
 
 namespace WidePictBoard.Tests.Tag
 {
@@ -17,6 +19,7 @@ namespace WidePictBoard.Tests.Tag
         {
             _tagRepositoryMock = new Mock<ITagRepository>();
 
+            TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileWithDebugInfo();
             _mapper = new Mapper();
             TagMapProfile.GetConfiguredMappingConfig().Compile();
 

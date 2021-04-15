@@ -15,11 +15,11 @@ namespace WidePictBoard.Application.Repositories
         Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
             CancellationToken cancellationToken);
-        Task<IEnumerable<Content>> GetPagedWithTagsInclude(
+        Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerInclude(
             int offset,
             int limit,
             CancellationToken cancellationToken);
-        Task<IEnumerable<Content>> GetPagedWithTagsInclude(
+        Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerInclude(
             string tag,
             int offset,
             int limit,

@@ -32,7 +32,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 };
             }
 
-            var entities = await _contentRepository.GetPagedWithTagsInclude(
+            var entities = await _contentRepository.GetPagedWithTagsAndOwnerInclude(
                 request.Page, 
                 request.PageSize, 
                 cancellationToken
@@ -71,7 +71,7 @@ namespace WidePictBoard.Application.Services.Content.Implementations
                 };
             }
 
-            var entities = await _contentRepository.GetPagedWithTagsInclude(
+            var entities = await _contentRepository.GetPagedWithTagsAndOwnerInclude(
                 tag,
                 request.Page,
                 request.PageSize,

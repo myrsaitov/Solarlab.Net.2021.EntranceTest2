@@ -9,7 +9,7 @@ namespace WidePictBoard.Application.MapProfiles
     {
         public static TypeAdapterConfig GetConfiguredMappingConfig()
         {
-            var config = new TypeAdapterConfig();
+            var config = TypeAdapterConfig.GlobalSettings;
 
             config.NewConfig<CreateUser.Response, Register.Response>()
                 .Map(dest => dest.UserId, src => src.UserId);

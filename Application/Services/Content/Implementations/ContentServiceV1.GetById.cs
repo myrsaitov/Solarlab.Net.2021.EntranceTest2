@@ -29,10 +29,6 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             }
 
             var response = _mapper.Map<GetById.Response>(content);
-            response.Tags = content
-                .Tags
-                .Select(x => x.Body)
-                .ToArray();
 
             return response;
         }

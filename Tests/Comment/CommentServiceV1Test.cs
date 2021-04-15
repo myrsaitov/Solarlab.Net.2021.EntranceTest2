@@ -4,6 +4,8 @@ using WidePictBoard.Application.Services.Comment.Implementations;
 using Moq;
 using MapsterMapper;
 using WidePictBoard.Application.MapProfiles;
+using Mapster;
+using System.Linq.Expressions;
 
 namespace WidePictBoard.Tests.Comment
 {
@@ -20,7 +22,8 @@ namespace WidePictBoard.Tests.Comment
             _commentRepositoryMock = new Mock<ICommentRepository>();
             _contentRepositoryMock = new Mock<IContentRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
-           
+
+            TypeAdapterConfig.GlobalSettings.Compiler = exp => exp.CompileWithDebugInfo();
             _mapper = new Mapper();
             ContentMapProfile.GetConfiguredMappingConfig().Compile();
             CommentMapProfile.GetConfiguredMappingConfig().Compile();
