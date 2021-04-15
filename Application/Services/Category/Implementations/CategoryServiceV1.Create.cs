@@ -18,7 +18,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
         {
             if (request is null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(request));
             }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
