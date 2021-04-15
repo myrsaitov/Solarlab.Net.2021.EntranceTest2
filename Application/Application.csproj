@@ -6,6 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Services\Contracts\Exceptions\**" />
+      <EmbeddedResource Remove="Services\Contracts\Exceptions\**" />
+      <None Remove="Services\Contracts\Exceptions\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
@@ -21,10 +27,6 @@
     <ItemGroup>
       <ProjectCapability Include="DynamicDependentFile" />
       <ProjectCapability Include="DynamicFileNesting" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Services\Contracts\Exceptions\" />
     </ItemGroup>
 
 </Project>
