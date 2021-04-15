@@ -1,5 +1,4 @@
 ﻿using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,7 +62,9 @@ namespace WidePictBoard.Tests.Content
                 .Callback((Domain.Content content, CancellationToken ct) => content.Id = contentId);
 
             // Act
-            var response = await _contentServiceV1.Create(request, cancellationToken);
+            var response = await _contentServiceV1.Create(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();

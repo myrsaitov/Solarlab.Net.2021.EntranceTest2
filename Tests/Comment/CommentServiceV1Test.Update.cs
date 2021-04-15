@@ -20,10 +20,51 @@ namespace WidePictBoard.Tests.Comment
             int commentId)
         {
             // Arrange
-            ConfigureMoqForUpdateMethod(userId.ToString(), commentId);
+            var comment = new Domain.Comment()
+            {
+                Id = commentId,
+                OwnerId = userId.ToString()
+            };
+
+            _commentRepositoryMock
+                .Setup(_ => _.FindByIdWithUserInclude(
+                    It.IsAny<int>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(comment)
+                .Callback((int _commentId, CancellationToken ct) => comment.Id = commentId)
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(userId.ToString())
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false)
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false)
+                .Verifiable();
+
+            _commentRepositoryMock
+                .Setup(_ => _.Save(
+                    It.IsAny<Domain.Comment>(),
+                    It.IsAny<CancellationToken>()))
+                .Callback((Domain.Comment comment, CancellationToken ct) => comment.Id = commentId);
 
             // Act
-            var response = await _commentServiceV1.Update(request, cancellationToken);
+            var response = await _commentServiceV1.Update(
+                request, 
+                cancellationToken);
 
             // Assert
             _identityServiceMock.Verify();
@@ -35,62 +76,14 @@ namespace WidePictBoard.Tests.Comment
         [InlineAutoData(null)]
         public async Task Update_Throws_Exception_When_Request_Is_Null(
             Update.Request request,
-            CancellationToken cancellationToken,
-            int userId,
-            int commentId)
+            CancellationToken cancellationToken)
         {
-            // Arrange
-            ConfigureMoqForUpdateMethod(userId.ToString(), commentId);
-
             // Act
             await Assert.ThrowsAsync<ArgumentNullException>(
-                async () => await _commentServiceV1.Update(request, cancellationToken));
+                async () => await _commentServiceV1.Update(
+                    request, 
+                    cancellationToken));
 
-        }
-        private void ConfigureMoqForUpdateMethod( 
-            string userId, 
-            int commentId)
-        {
-            var comment = new Domain.Comment()
-            {
-                Id = commentId,
-                OwnerId = userId
-            };
-
-            _commentRepositoryMock
-                .Setup(_ => _.FindByIdWithUserInclude(
-                    It.IsAny<int>(), 
-                    It.IsAny<CancellationToken>()))
-                .ReturnsAsync(comment)
-                .Callback((int _commentId, CancellationToken ct) => comment.Id = commentId)
-                .Verifiable();
-
-            _identityServiceMock
-                .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(userId)
-                .Verifiable();
-
-            _identityServiceMock
-                .Setup(_ => _.IsInRole(
-                    It.IsAny<string>(), 
-                    It.IsAny<string>(), 
-                    It.IsAny<CancellationToken>()))
-                .ReturnsAsync(false)
-                .Verifiable();
-
-            _identityServiceMock
-                .Setup(_ => _.IsInRole(
-                    It.IsAny<string>(), 
-                    It.IsAny<string>(), 
-                    It.IsAny<CancellationToken>()))
-                .ReturnsAsync(false)
-                .Verifiable();
-
-            _commentRepositoryMock
-                .Setup(_ => _.Save(
-                    It.IsAny<Domain.Comment>(), 
-                    It.IsAny<CancellationToken>()))
-                .Callback((Domain.Comment comment, CancellationToken ct) => comment.Id = commentId);
         }
     }
 }
