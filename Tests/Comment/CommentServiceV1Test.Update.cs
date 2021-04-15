@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System;
+using WidePictBoard.Domain.General.Exceptions;
 
 namespace WidePictBoard.Tests.Comment
 {
@@ -73,6 +74,60 @@ namespace WidePictBoard.Tests.Comment
             Assert.NotEqual(default, response.Id);
         }
         [Theory]
+        [AutoData]
+        public async Task Update_Throws_Exception_When_No_Rights(
+            Update.Request request,
+            CancellationToken cancellationToken,
+            int userId,
+            int commentId)
+        {
+            // Arrange
+            var comment = new Domain.Comment()
+            {
+                Id = commentId,
+                OwnerId = userId.ToString()
+            };
+
+            _commentRepositoryMock
+                .Setup(_ => _.FindByIdWithUserInclude(
+                    It.IsAny<int>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(comment)
+                .Callback((int _commentId, CancellationToken ct) => comment.Id = commentId)
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.GetCurrentUserId(It.IsAny<CancellationToken>()))
+                .ReturnsAsync("")
+                .Verifiable();
+
+            _identityServiceMock
+                .Setup(_ => _.IsInRole(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(false)
+                .Verifiable();
+
+            // Act
+            await Assert.ThrowsAsync<NoRightsException>(
+                async () => await _commentServiceV1.Update(
+                    request,
+                    cancellationToken));
+        }
+        [Theory]
+        [AutoData]
+        public async Task Update_Throws_Exception_When_Comment_Is_Null(
+            Update.Request request,
+            CancellationToken cancellationToken)
+        {
+            // Act
+            await Assert.ThrowsAsync<CommentNotFoundException>(
+                async () => await _commentServiceV1.Update(
+                    request,
+                    cancellationToken));
+        }
+        [Theory]
         [InlineAutoData(null)]
         public async Task Update_Throws_Exception_When_Request_Is_Null(
             Update.Request request,
@@ -83,7 +138,6 @@ namespace WidePictBoard.Tests.Comment
                 async () => await _commentServiceV1.Update(
                     request, 
                     cancellationToken));
-
         }
     }
 }
