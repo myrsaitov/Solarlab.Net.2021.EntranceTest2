@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace WidePictBoard.Application.Services.Content.Contracts
 {
@@ -24,6 +23,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public string Title { get; set; }
             public string Body { get; set; }
             public decimal Price { get; set; }
+            public string UserName { get; set; }
             public OwnerResponse Owner { get; set; }
             public DateTime CreatedAt { get; set; }
             public int? CategoryId { get; set; }

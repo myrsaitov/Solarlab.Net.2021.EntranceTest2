@@ -64,7 +64,7 @@ namespace WidePictBoard.Tests.Content
                 .Verifiable();
 
             _contentRepositoryMock
-                .Setup(_ => _.GetPagedWithTagsAndOwnerInclude(
+                .Setup(_ => _.GetPagedWithTagsAndOwnerAndCategoryInclude(
                     It.IsAny<int>(),
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
@@ -81,7 +81,7 @@ namespace WidePictBoard.Tests.Content
             Assert.NotNull(response);
             Assert.Equal(contentCount, response.Total);
             Assert.Equal(contentCount, response.Items.Count());
-            Assert.IsType<Paged.Response<GetById.Response>>(response);
+            Assert.IsType<Paged.Response<GetPaged.Response>>(response);
         }
         [Theory]
         [AutoData]
@@ -100,7 +100,7 @@ namespace WidePictBoard.Tests.Content
                 .Verifiable();
 
             _contentRepositoryMock
-                .Setup(_ => _.GetPagedWithTagsAndOwnerInclude(
+                .Setup(_ => _.GetPagedWithTagsAndOwnerAndCategoryInclude(
                     It.IsAny<int>(),
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
@@ -116,7 +116,7 @@ namespace WidePictBoard.Tests.Content
             Assert.NotNull(response);
             Assert.Equal(contentCount, response.Total);
             Assert.Equal(contentCount, response.Items.Count());
-            Assert.IsType<Paged.Response<GetById.Response>>(response);
+            Assert.IsType<Paged.Response<GetPaged.Response>>(response);
         }
         [Theory]
         [InlineAutoData(null)]
@@ -129,7 +129,6 @@ namespace WidePictBoard.Tests.Content
                 async () => await _contentServiceV1.GetPaged(
                     request, 
                     cancellationToken));
-
         }
     }
 }

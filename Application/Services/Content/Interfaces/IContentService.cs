@@ -21,10 +21,10 @@ namespace WidePictBoard.Application.Services.Content.Interfaces
         Task<GetById.Response> GetById(
             GetById.Request request, 
             CancellationToken cancellationToken);
-        Task<Paged.Response<GetById.Response>> GetPaged(
+        Task<Paged.Response<GetPaged.Response>> GetPaged(
             Paged.Request request, 
             CancellationToken cancellationToken);
-        Task<Paged.Response<GetById.Response>> GetPaged(
+        Task<Paged.Response<GetPaged.Response>> GetPaged(
             string tag,
             Paged.Request request,
             CancellationToken cancellationToken);

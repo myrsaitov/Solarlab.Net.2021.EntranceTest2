@@ -9,30 +9,16 @@ namespace WidePictBoard.Application.MapProfiles
         {
             var config = TypeAdapterConfig.GlobalSettings;
 
-            config.NewConfig<Services.Content.Contracts.Create.Request, Domain.Content>()
-                .Map(dest => dest.Title, src => src.Title)
-                .Map(dest => dest.Body, src => src.Body)
-                .Map(dest => dest.Price, src => src.Price)
-                .Map(dest => dest.CategoryId, src => src.CategoryId)
-                .Map(dest => dest.OwnerId, src => src.OwnerId);
-
-            config.NewConfig<Services.Content.Contracts.Update.Request, Domain.Content>()
-                .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Title, src => src.Title)
-                .Map(dest => dest.Body, src => src.Body)
-                .Map(dest => dest.Price, src => src.Price)
-                .Map(dest => dest.CategoryId, src => src.CategoryId);
-
             config.NewConfig<Domain.Content, Services.Content.Contracts.GetById.Response>()
-                .Map(dest => dest.Title, src => src.Title)
-                .Map(dest => dest.Body, src => src.Body)
-                .Map(dest => dest.Price, src => src.Price)
-                .Map(dest => dest.CategoryId, src => src.CategoryId)
                 .Map(dest => dest.Owner.FirstName, src => src.Owner.FirstName)
                 .Map(dest => dest.Owner.LastName, src => src.Owner.LastName)
                 .Map(dest => dest.Owner.MiddleName, src => src.Owner.MiddleName)
-                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
-                .Map(dest => dest.IsDeleted, src => src.IsDeleted)
+                .Map(dest => dest.UserName, src => src.Owner.UserName)
+                .Map(dest => dest.Tags, src => src.Tags.Select(b => b.Body).ToArray());
+
+            config.NewConfig<Domain.Content, Services.Content.Contracts.GetPaged.Response>()
+                .Map(dest => dest.CategoryName, src => src.Category.Name)
+                .Map(dest => dest.UserName, src => src.Owner.UserName)
                 .Map(dest => dest.Tags, src => src.Tags.Select(b => b.Body).ToArray());
 
             return config;

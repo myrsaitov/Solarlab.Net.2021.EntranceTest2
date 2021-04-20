@@ -35,7 +35,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Tags)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
-        public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerInclude(
+        public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
             int offset,
             int limit,
             CancellationToken cancellationToken)
@@ -44,6 +44,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Set<Content>()
                 .Include(a => a.Tags)
                 .Include(a => a.Owner)
+                .Include(a => a.Category)
                 .AsNoTracking(); ;
 
             return await data
@@ -52,7 +53,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Skip(offset)
                 .ToListAsync(cancellationToken);
         }
-        public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerInclude(
+        public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
             string tag,
             int offset,
             int limit,
@@ -62,6 +63,7 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
                 .Set<Content>()
                 .Include(a => a.Tags)
                 .Include(a => a.Owner)
+                .Include(a => a.Category)
                 .AsNoTracking();
 
             return await data

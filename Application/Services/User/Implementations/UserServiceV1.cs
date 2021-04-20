@@ -52,6 +52,7 @@ namespace WidePictBoard.Application.Services.User.Implementations
                     FirstName = registerRequest.FirstName,
                     LastName = registerRequest.LastName,
                     MiddleName = registerRequest.MiddleName,
+                    UserName = registerRequest.Username,
                     CreatedAt = DateTime.UtcNow
                 };
 
@@ -80,6 +81,7 @@ namespace WidePictBoard.Application.Services.User.Implementations
             domainUser.FirstName = request.FirstName;
             domainUser.LastName = request.LastName;
             domainUser.MiddleName = request.MiddleName;
+            domainUser.UserName = request.UserName;
             domainUser.UpdatedAt = DateTime.UtcNow;
 
             await _repository.Save(domainUser, cancellationToken);
