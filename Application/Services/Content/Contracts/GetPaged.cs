@@ -11,7 +11,7 @@ namespace WidePictBoard.Application.Services.Content.Contracts
             public string Body { get; set; }
             public decimal Price { get; set; }
             public string UserName { get; set; }
-            public DateTime CreatedAt { get; set; }
+            public string CreatedAt { get; set; }
             public string CategoryName { get; set; }
             public bool IsDeleted { get; set; }
             public string[] Tags { get; set; }
