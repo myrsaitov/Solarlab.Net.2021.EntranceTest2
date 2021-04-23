@@ -49,8 +49,8 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 
             return await data
                 .OrderBy(e => e.Id)
-                .Take(limit)
                 .Skip(offset)
+                .Take(limit)
                 .ToListAsync(cancellationToken);
         }
         public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
@@ -69,8 +69,8 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
             return await data
                 .Where(a => a.Tags.Any(t => t.Body == tag))
                 .OrderBy(e => e.Id)
-                .Take(limit)
                 .Skip(offset)
+                .Take(limit)
                 .ToListAsync(cancellationToken);
         }
     }

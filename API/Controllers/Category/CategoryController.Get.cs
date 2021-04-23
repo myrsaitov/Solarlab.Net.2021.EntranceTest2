@@ -17,7 +17,7 @@ namespace WidePictBoard.API.Controllers.Category
             {
                 PageSize = request.PageSize,
                 Page = request.Page
-            }, cancellationToken);
+            }, cancellationToken); ;
 
             return Ok(result);
         }

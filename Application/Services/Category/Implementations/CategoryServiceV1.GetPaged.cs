@@ -20,19 +20,21 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             }
             var total = await _categoryRepository.Count(cancellationToken);
 
+            var offset = request.Page * request.PageSize;
+
             if (total == 0)
             {
                 return new Paged.Response<GetById.Response>
                 {
                     Items = Array.Empty<GetById.Response>(),
                     Total = total,
-                    Offset = request.Page,
+                    Offset = offset,
                     Limit = request.PageSize
                 };
             }
 
             var entities = await _categoryRepository.GetPaged(
-                request.Page, 
+                offset, 
                 request.PageSize, 
                 cancellationToken
             );
@@ -41,7 +43,7 @@ namespace WidePictBoard.Application.Services.Category.Implementations
             {
                 Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
                 Total = total,
-                Offset = request.Page,
+                Offset = offset,
                 Limit = request.PageSize
             };
         }

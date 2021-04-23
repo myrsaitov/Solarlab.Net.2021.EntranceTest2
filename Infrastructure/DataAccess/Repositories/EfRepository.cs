@@ -84,8 +84,8 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
 
             return await data
                 .OrderBy(e => e.Id)
-                .Take(limit)
                 .Skip(offset)
+                .Take(limit)
                 .ToListAsync(cancellationToken);
         }
 
@@ -102,8 +102,8 @@ namespace WidePictBoard.Infrastructure.DataAccess.Repositories
             return await data
                 .Where(predicate)
                 .OrderBy(e => e.Id)
-                .Take(limit)
                 .Skip(offset)
+                .Take(limit)
                 .ToListAsync(cancellationToken);
         }
     }

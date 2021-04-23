@@ -34,20 +34,22 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 a => a.ContentId == contentId,
                 cancellationToken);
 
+            var offset = request.Page * request.PageSize;
+
             if (total == 0)
             {
                 return new Paged.Response<GetById.Response>
                 {
                     Items = Array.Empty<GetById.Response>(),
                     Total = total,
-                    Offset = request.Page,
+                    Offset = offset,
                     Limit = request.PageSize
                 };
             }
 
             var entities = await _commentRepository.GetPaged(
                 a => a.ContentId == contentId,
-                request.Page,
+                offset,
                 request.PageSize,
                 cancellationToken
             );
@@ -56,7 +58,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
             {
                 Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
                 Total = total,
-                Offset = request.Page,
+                Offset = offset,
                 Limit = request.PageSize
             };
         }
