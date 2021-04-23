@@ -71,27 +71,33 @@ namespace WidePictBoard.Application.Services.Content.Implementations
             }
             content.Tags.Clear();
 
-            foreach (string body in request.TagBodies)
+            if (request.TagBodies is not null)
             {
-                var tag = await _tagRepository.FindWhere(
-                    a => a.Body == body,
-                    cancellationToken);
-
-                if (tag == null)
+                foreach (string body in request.TagBodies)
                 {
-                    var tagRequest = new Tag.Contracts.Create.Request()
+                    if (body.Length > 0)
                     {
-                        Body = body
-                    };
-
-                    tag = _mapper.Map<Domain.Tag>(tagRequest);
-                    tag.CreatedAt = DateTime.UtcNow;
-                    await _tagRepository.Save(
-                        tag, 
+                        var tag = await _tagRepository.FindWhere(
+                        a => a.Body == body,
                         cancellationToken);
-                }
 
-                content.Tags.Add(tag);
+                        if (tag == null)
+                        {
+                            var tagRequest = new Tag.Contracts.Create.Request()
+                            {
+                                Body = body
+                            };
+
+                            tag = _mapper.Map<Domain.Tag>(tagRequest);
+                            tag.CreatedAt = DateTime.UtcNow;
+                            await _tagRepository.Save(
+                                tag,
+                                cancellationToken);
+                        }
+
+                        content.Tags.Add(tag);
+                    }
+                }
             }
 
             await _contentRepository.Save(
