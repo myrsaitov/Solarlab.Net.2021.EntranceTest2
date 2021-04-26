@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using WidePictBoard.Application.Services.Contracts;
 using WidePictBoard.Application.Services.Tag.Contracts;
 
 namespace WidePictBoard.Application.Services.Tag.Interfaces

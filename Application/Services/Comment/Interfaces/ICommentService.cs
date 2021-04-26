@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Comment.Contracts;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.Application.Services.Comment.Interfaces
 {

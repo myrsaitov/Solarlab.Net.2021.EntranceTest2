@@ -4,6 +4,7 @@ using WidePictBoard.Application.Services.Tag.Interfaces;
 using WidePictBoard.Application.Services.Tag.Contracts;
 using System;
 using System.Linq;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.Application.Services.Tag.Implementations
 {

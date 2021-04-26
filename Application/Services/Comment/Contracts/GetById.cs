@@ -1,4 +1,5 @@
 ﻿using System;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.Application.Services.Comment.Contracts
 {
@@ -13,8 +14,8 @@ namespace WidePictBoard.Application.Services.Comment.Contracts
         {
             public int? Id { get; set; }
             public string Body { get; set; }
-            public string OwnerId { get; set; }
-            public DateTime CreatedAt { get; set; }
+            public OwnerResponse Owner { get; set; }
+            public string CreatedAt { get; set; }
             public bool IsDeleted { get; set; }
             public int ContentId { get; set; }
             public int? ParentCommentId { get; set; }

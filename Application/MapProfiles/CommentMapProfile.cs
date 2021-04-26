@@ -8,23 +8,8 @@ namespace WidePictBoard.Application.MapProfiles
         {
             var config = TypeAdapterConfig.GlobalSettings;
 
-            config.NewConfig<Services.Comment.Contracts.Create.Request, Domain.Comment>()
-                .Map(dest => dest.Body, src => src.Body)
-                .Map(dest => dest.ContentId, src => src.ContentId)
-                .Map(dest => dest.ParentCommentId, src => src.ParentCommentId);
-
-            config.NewConfig<Services.Comment.Contracts.Update.Request, Domain.Comment>()
-                .Map(dest => dest.Id, src => src.Id)
-                .Map(dest => dest.Body, src => src.Body);
-
             config.NewConfig<Domain.Comment, Services.Comment.Contracts.GetById.Response>()
-                .Map(dest => dest.Body, src => src.Body)
-                .Map(dest => dest.OwnerId, src => src.OwnerId)
-                .Map(dest => dest.CreatedAt, src => src.CreatedAt)
-                .Map(dest => dest.IsDeleted, src => src.IsDeleted)
-                .Map(dest => dest.OwnerId, src => src.OwnerId)
-                .Map(dest => dest.ContentId, src => src.ContentId)
-                .Map(dest => dest.ParentCommentId, src => src.ParentCommentId);
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToString("dd/MM/yy H:mm:ss zzz"));
 
             return config;
         }

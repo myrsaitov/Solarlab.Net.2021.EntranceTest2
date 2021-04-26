@@ -6,6 +6,7 @@ using WidePictBoard.Application.Services.Comment.Contracts;
 using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
 using WidePictBoard.Application.Services.Comment.Interfaces;
 using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.Application.Services.Comment.Implementations
 {
@@ -47,7 +48,7 @@ namespace WidePictBoard.Application.Services.Comment.Implementations
                 };
             }
 
-            var entities = await _commentRepository.GetPaged(
+            var entities = await _commentRepository.GetPagedWithOwnerInclude(
                 a => a.ContentId == contentId,
                 offset,
                 request.PageSize,

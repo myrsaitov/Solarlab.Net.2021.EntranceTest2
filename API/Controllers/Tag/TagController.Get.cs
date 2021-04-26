@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.API.Controllers.Tag
 {

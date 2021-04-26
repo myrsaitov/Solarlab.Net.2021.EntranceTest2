@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
+using WidePictBoard.Application.Services.Contracts;
 using WidePictBoard.Application.Services.Category.Interfaces;
 
 namespace WidePictBoard.Application.Services.Category.Implementations

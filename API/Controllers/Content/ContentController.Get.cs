@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using WidePictBoard.Application.Services.Content.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.API.Controllers.Content
 {

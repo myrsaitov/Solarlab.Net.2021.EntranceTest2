@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace WidePictBoard.Application.Services
+namespace WidePictBoard.Application.Services.Contracts
 {
     public static class Paged
     {

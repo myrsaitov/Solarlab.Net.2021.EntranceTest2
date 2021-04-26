@@ -1,4 +1,5 @@
 ﻿using System;
+using WidePictBoard.Application.Services.Contracts;
 
 namespace WidePictBoard.Application.Services.Content.Contracts
 {
@@ -11,19 +12,10 @@ namespace WidePictBoard.Application.Services.Content.Contracts
 
         public sealed class Response
         {
-            public sealed class OwnerResponse
-            {
-                public string Id { get; set; }
-                public string FirstName { get; set; }
-                public string LastName { get; set; }
-                public string MiddleName { get; set; }
-            }
-
             public int Id { get; set; }
             public string Title { get; set; }
             public string Body { get; set; }
             public decimal Price { get; set; }
-            public string UserName { get; set; }
             public OwnerResponse Owner { get; set; }
             public string CreatedAt { get; set; }
             public int? CategoryId { get; set; }
