@@ -1,0 +1,11 @@
+In MSVSCode File => Open Folder => SL2021/Front
+
+npm install
+npm install -g @angular/cli
+
+ng serve
+
+In MSVSCode Run Chrome Debugger [F12 open details]
+
+# if compile errors
+npm i @angular-devkit/build-angular@0.803.26

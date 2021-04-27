@@ -1,0 +1,15 @@
+<div class="card card-">
+  <div class="card-header">
+ 
+   </div>
+  <div class="card-body">
+    <a>{{comment.body}}</a>
+
+  </div>
+  <div class="card-header">
+    <h6>  Добавлено пользователем:
+      <div class="badge badge-secondary" *ngIf="comment?.owner.userName">{{comment.owner.userName}}</div></h6>
+      <div><div class="badge badge-secondary" *ngIf="comment?.createdAt">
+        {{comment.createdAt}}</div></div>
+  </div>
+</div>

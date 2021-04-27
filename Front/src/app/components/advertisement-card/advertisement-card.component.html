@@ -1,0 +1,19 @@
+<div class="card card-">
+  <div class="card-header">
+    <h4 class="card-title font-weight-bold">{{advertisement.title}}</h4>
+    <a class="badge badge-secondary">{{advertisement.categoryName}}</a>
+    <a *ngFor="let tag of advertisement.tags">&nbsp;&nbsp;<a class="badge badge-secondary">{{tag}}</a></a>
+   </div>
+  <div class="card-body">
+    <a>{{advertisement.body.substring(0,100)}}...</a>
+    <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
+  </div>
+  <div class="card-header">
+    <h6>  Добавлено пользователем:
+      <div class="badge badge-secondary" *ngIf="advertisement?.owner.userName">{{advertisement.owner.userName}}</div></h6>
+      <div><div class="badge badge-secondary" *ngIf="advertisement?.createdAt">
+        {{advertisement.createdAt}}</div></div>
+  <h6>  Стоимость:
+    <div class="badge badge-secondary" *ngIf="advertisement?.price">{{advertisement.price}}&nbsp;р</div></h6>
+  </div>
+</div>

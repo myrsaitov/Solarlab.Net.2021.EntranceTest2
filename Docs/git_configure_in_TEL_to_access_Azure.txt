@@ -1,0 +1,6 @@
+In Package Manager Console:
+
+git config --global http.proxy ""
+git config --global http.sslVerify false
+
+

@@ -1,0 +1,8 @@
+Update-Database PreviousMigrationName
+Remove-Migration
+
+
+Update-Database CategoriesAndCommentsWereAdded
+Remove-Migration
+Add-Migration TagsWereAdded
+Update-Database
