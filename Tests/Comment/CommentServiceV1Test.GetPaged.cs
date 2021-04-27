@@ -1,5 +1,4 @@
-﻿using SL2021.Application.Services.Comment.Contracts.Exceptions;
-using Moq;
+﻿using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -7,7 +6,7 @@ using AutoFixture.Xunit2;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
-using SL2021.Application.Services;
+using SL2021.Application.Services.Contracts;
 using SL2021.Application.Services.Content.Contracts.Exceptions;
 
 namespace SL2021.Tests.Comment
