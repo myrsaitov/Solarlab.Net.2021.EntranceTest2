@@ -1,0 +1,35 @@
+src\styles.scss
+
+
+@import "~bootswatch/dist/XXXXXX/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/XXXXXX/bootswatch";
+
+XXXXXX:
+slate - черная, как у меня была
+journal
+
+Темы:
+https://dash-bootstrap-components.opensource.faculty.ai/docs/themes/
+
+CERULEAN +++ белый фон, голубая полоса, голубые кнопки
+COSMO белый фон, таги не читаемы
+CYBORG черный фон
+DARKLY темный фон
+FLATLY белый фон, зеленая полоса
+JOURNAL +++ белый фон, черная полоса, красгые кнопки, серые таги
+LITERA белый фон
+LUMEN белый фон синие кнопки с объемом, таги белые
+LUX ++ белый фон, черные кнопки, белые таги
+MATERIA +++ белый фон, черная полоса, синие кнопки, серые таги
+MINTY белый фон + низкий контраст + красные кнопки
+PULSE белый фон + фиолетовые кнопки
+SANDSTONE белый фон + синие кнопки
+SIMPLEX белый фон + красные кнопки
+SKETCHY +++ стилизация под газету
+SLATE
+SOLAR таги не видны
+SPACELAB + 
+SUPERHERO + приятный голубой фон
+UNITED + приятный белый фон
+YETI

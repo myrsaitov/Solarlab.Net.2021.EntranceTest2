@@ -1,0 +1,3 @@
+Tools => Options => Projects and Solutions => General : [v] Track Active Item in Solution Explorer
+Tools => Options => Projects and Solutions => General : [ ] Show Output window when build starts
+Tools => Options => Projects and Solutions => General : [ ] Enable symbolic renaming when renaming files

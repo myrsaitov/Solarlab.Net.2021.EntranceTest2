@@ -1,0 +1,4 @@
+https://stackoverflow.com/questions/14784796/entity-framework-virtual-properties
+
+
+because virtual is needed to get lazy loading

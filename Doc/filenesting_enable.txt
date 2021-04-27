@@ -1,0 +1,10 @@
+https://github.com/MicrosoftDocs/visualstudio-docs/blob/master/docs/ide/file-nesting-solution-explorer.md
+
+In Solution Explorer RMB Click on project => File Nesting => ... This Adds ".filenesting.json" to the root
+
+Put into each .csproj file this lines:
+
+    <ItemGroup>
+      <ProjectCapability Include="DynamicDependentFile" />
+      <ProjectCapability Include="DynamicFileNesting" />
+    </ItemGroup>

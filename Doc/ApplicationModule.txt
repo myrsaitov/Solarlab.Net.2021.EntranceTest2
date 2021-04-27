@@ -1,0 +1,5 @@
+            services.AddScoped<ICategoryService, CategoryServiceV1>();
+            services.AddScoped<ICommentService, CommentServiceV1>();
+            services.AddScoped<IContentService, ContentServiceV1>();
+            services.AddScoped<ITagService, TagServiceV1>();
+            services.AddScoped<IUserService, UserServiceV1>();
