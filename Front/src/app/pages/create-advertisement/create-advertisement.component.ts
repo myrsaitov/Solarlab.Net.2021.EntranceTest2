@@ -18,7 +18,6 @@ import { TagModel } from 'src/app/models/tag/tag-model';
 export class CreateAdvertisementComponent implements OnInit {
   form: FormGroup;
   categories$: Observable<ICategory[]>;
-  _tags: TagModel[]; ///MKM
 
   constructor(private fb: FormBuilder,
               private advertisementService: AdvertisementService,
