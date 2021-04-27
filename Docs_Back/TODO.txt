@@ -1,0 +1,9 @@
+Тут по хорошему надо добавить доступ только для UI. Но это на будущее. Это плохо когда всем по корсам можно ходить
+
+app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
+
+BaseController в API пока убрал, но нужно разобраться в для ччего его делали и доделать
