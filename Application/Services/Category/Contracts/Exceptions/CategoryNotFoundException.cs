@@ -1,6 +1,6 @@
-﻿using WidePictBoard.Domain.General.Exceptions;
+﻿using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Category.Contracts.Exceptions
+namespace SL2021.Application.Services.Category.Contracts.Exceptions
 {
     public sealed class CategoryNotFoundException : NotFoundException
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WidePictBoard.Infrastructure.Migrations
+namespace SL2021.Infrastructure.Migrations
 {
     public partial class Initial : Migration
     {

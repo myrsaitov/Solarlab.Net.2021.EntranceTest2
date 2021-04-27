@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Content.Contracts;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Content.Interfaces
+namespace SL2021.Application.Services.Content.Interfaces
 {
     public interface IContentService
     {

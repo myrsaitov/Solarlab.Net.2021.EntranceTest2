@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Services.Content.Contracts
+﻿namespace SL2021.Application.Services.Content.Contracts
 {
     public static class Restore
     {

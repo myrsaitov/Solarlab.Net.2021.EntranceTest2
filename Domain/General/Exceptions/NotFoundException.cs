@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Domain.General.Exceptions
+﻿namespace SL2021.Domain.General.Exceptions
 {
     public abstract class NotFoundException : DomainException
     {

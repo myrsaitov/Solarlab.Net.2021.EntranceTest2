@@ -1,10 +1,10 @@
-﻿using WidePictBoard.Application.Identity.Contracts;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.MapProfiles;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.User.Contracts;
-using WidePictBoard.Application.Services.User.Contracts.Exceptions;
-using WidePictBoard.Application.Services.User.Implementations;
+﻿using SL2021.Application.Identity.Contracts;
+using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.MapProfiles;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.User.Contracts;
+using SL2021.Application.Services.User.Contracts.Exceptions;
+using SL2021.Application.Services.User.Implementations;
 using AutoFixture;
 using AutoFixture.Xunit2;
 using Moq;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using MapsterMapper;
 using Xunit;
 
-namespace WidePictBoard.Application.Tests.User
+namespace SL2021.Application.Tests.User
 {
     public class UserServiceV1Tests
     {

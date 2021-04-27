@@ -1,6 +1,6 @@
-﻿using WidePictBoard.Domain.General.Exceptions;
+﻿using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Comment.Contracts.Exceptions
+namespace SL2021.Application.Services.Comment.Contracts.Exceptions
 {
     public sealed class CommentNotFoundException : NotFoundException
     {

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Category.Contracts;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Category.Interfaces
+namespace SL2021.Application.Services.Category.Interfaces
 {
     public interface ICategoryService
     {

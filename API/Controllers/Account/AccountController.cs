@@ -1,9 +1,9 @@
-﻿using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Services.User.Interfaces;
+﻿using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Services.User.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Account
+namespace SL2021.API.Controllers.Account
 {
     [Route("api/v1/account")]
     [ApiController]

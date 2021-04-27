@@ -1,13 +1,13 @@
-﻿using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Comment.Implementations;
+﻿using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Comment.Implementations;
 using Moq;
 using MapsterMapper;
-using WidePictBoard.Application.MapProfiles;
+using SL2021.Application.MapProfiles;
 using Mapster;
 using System.Linq.Expressions;
 
-namespace WidePictBoard.Tests.Comment
+namespace SL2021.Tests.Comment
 {
     public partial class CommentServiceV1Test
     {

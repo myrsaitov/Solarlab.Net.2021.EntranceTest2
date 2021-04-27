@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Identity.Contracts;
+using SL2021.Application.Identity.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Account
+namespace SL2021.API.Controllers.Account
 {
     public partial class AccountController
     {

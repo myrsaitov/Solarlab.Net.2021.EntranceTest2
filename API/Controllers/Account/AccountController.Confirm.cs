@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Account
+namespace SL2021.API.Controllers.Account
 {
     public partial class AccountController
     {

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
-using WidePictBoard.Application.Services;
-using WidePictBoard.Application.Services.Category.Contracts;
+using SL2021.Application.Services;
+using SL2021.Application.Services.Category.Contracts;
 using System.Linq;
 using System;
 
-namespace WidePictBoard.Tests.Category
+namespace SL2021.Tests.Category
 {
     public partial class CategoryServiceV1Test
     {

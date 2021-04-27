@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Content.Contracts;
+using SL2021.Application.Services.Content.Contracts;
 
-namespace WidePictBoard.API.Controllers.Content
+namespace SL2021.API.Controllers.Content
 {
     public partial class ContentController
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Tag.Interfaces;
+using SL2021.Application.Services.Tag.Interfaces;
 
-namespace WidePictBoard.API.Controllers.Tag
+namespace SL2021.API.Controllers.Tag
 {
     [Route("api/v1/tags")]
     [ApiController]

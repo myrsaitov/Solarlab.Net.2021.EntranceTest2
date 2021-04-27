@@ -1,8 +1,8 @@
 ﻿using MapsterMapper;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Tag.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Tag.Interfaces;
 
-namespace WidePictBoard.Application.Services.Tag.Implementations
+namespace SL2021.Application.Services.Tag.Implementations
 {
     public sealed partial class TagServiceV1 : ITagService
     {

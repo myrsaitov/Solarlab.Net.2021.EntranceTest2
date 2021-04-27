@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Services.Contracts
+﻿namespace SL2021.Application.Services.Contracts
 {
     public sealed class OwnerResponse
     {

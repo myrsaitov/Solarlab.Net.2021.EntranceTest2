@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WidePictBoard": {
+    "SL2021": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

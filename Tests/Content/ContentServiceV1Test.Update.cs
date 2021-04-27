@@ -1,4 +1,4 @@
-﻿using WidePictBoard.Application.Services.Content.Contracts;
+﻿using SL2021.Application.Services.Content.Contracts;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,11 +6,11 @@ using Xunit;
 using AutoFixture.Xunit2;
 using System.Linq.Expressions;
 using System;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using WidePictBoard.Domain.General.Exceptions;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
+using SL2021.Application.Services.Content.Contracts.Exceptions;
+using SL2021.Domain.General.Exceptions;
+using SL2021.Application.Services.Category.Contracts.Exceptions;
 
-namespace WidePictBoard.Tests.Content
+namespace SL2021.Tests.Content
 {
     public partial class ContentServiceV1Test
     {

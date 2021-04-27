@@ -1,7 +1,7 @@
 ﻿using System;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Comment.Contracts
+namespace SL2021.Application.Services.Comment.Contracts
 {
     public static class GetById
     {

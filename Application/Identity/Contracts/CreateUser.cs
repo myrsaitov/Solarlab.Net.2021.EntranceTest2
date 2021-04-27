@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Identity.Contracts
+﻿namespace SL2021.Application.Identity.Contracts
 {
     public static class CreateUser
     {

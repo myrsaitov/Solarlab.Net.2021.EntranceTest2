@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.API.Controllers
+﻿namespace SL2021.API.Controllers
 {
     public class GetPagedRequest
     {

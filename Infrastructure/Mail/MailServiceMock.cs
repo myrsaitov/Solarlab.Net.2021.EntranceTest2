@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Mail.Interfaces;
+using SL2021.Application.Services.Mail.Interfaces;
 
-namespace WidePictBoard.Infrastructure.Mail
+namespace SL2021.Infrastructure.Mail
 {
     public class MailServiceMock : IMailService
     {

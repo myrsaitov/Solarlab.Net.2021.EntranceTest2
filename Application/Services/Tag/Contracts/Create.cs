@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WidePictBoard.Application.Services.Tag.Contracts
+namespace SL2021.Application.Services.Tag.Contracts
 {
     public static class Create
     {

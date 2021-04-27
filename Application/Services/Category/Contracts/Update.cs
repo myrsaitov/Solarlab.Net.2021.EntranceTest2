@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WidePictBoard.Application.Services.Category.Contracts
+namespace SL2021.Application.Services.Category.Contracts
 {
     public static class Update
     {

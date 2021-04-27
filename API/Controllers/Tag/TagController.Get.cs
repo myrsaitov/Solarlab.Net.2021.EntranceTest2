@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.API.Controllers.Tag
+namespace SL2021.API.Controllers.Tag
 {
     public partial class TagController
     {

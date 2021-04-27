@@ -1,9 +1,9 @@
 ﻿using Mapster;
-using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Identity.Contracts;
-using WidePictBoard.Application.Services.User.Contracts;
+using SL2021.Application.Common;
+using SL2021.Application.Identity.Contracts;
+using SL2021.Application.Services.User.Contracts;
 
-namespace WidePictBoard.Application.MapProfiles
+namespace SL2021.Application.MapProfiles
 {
     public static class UserMapProfile
     {

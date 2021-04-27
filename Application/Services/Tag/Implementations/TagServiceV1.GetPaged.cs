@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Tag.Interfaces;
-using WidePictBoard.Application.Services.Tag.Contracts;
+using SL2021.Application.Services.Tag.Interfaces;
+using SL2021.Application.Services.Tag.Contracts;
 using System;
 using System.Linq;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Tag.Implementations
+namespace SL2021.Application.Services.Tag.Implementations
 {
     public sealed partial class TagServiceV1 : ITagService
     {

@@ -1,19 +1,19 @@
-﻿using WidePictBoard.Application.Services.Content.Implementations;
-using WidePictBoard.Application.Services.Content.Interfaces;
-using WidePictBoard.Application.Services.Mail.Interfaces;
-using WidePictBoard.Application.Services.User.Implementations;
-using WidePictBoard.Application.Services.User.Interfaces;
-using WidePictBoard.Infrastructure.Mail;
+﻿using SL2021.Application.Services.Content.Implementations;
+using SL2021.Application.Services.Content.Interfaces;
+using SL2021.Application.Services.Mail.Interfaces;
+using SL2021.Application.Services.User.Implementations;
+using SL2021.Application.Services.User.Interfaces;
+using SL2021.Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.Application.Services.Tag.Implementations;
-using WidePictBoard.Application.Services.Tag.Interfaces;
-using WidePictBoard.Application.Services.Category.Implementations;
-using WidePictBoard.Application.Services.Category.Interfaces;
-using WidePictBoard.Application.Services.Comment.Implementations;
-using WidePictBoard.Application.Services.Comment.Interfaces;
+using SL2021.Application.Services.Tag.Implementations;
+using SL2021.Application.Services.Tag.Interfaces;
+using SL2021.Application.Services.Category.Implementations;
+using SL2021.Application.Services.Category.Interfaces;
+using SL2021.Application.Services.Comment.Implementations;
+using SL2021.Application.Services.Comment.Interfaces;
 
-namespace WidePictBoard.Infrastructure
+namespace SL2021.Infrastructure
 {
     public static class ApplicationModule
     {

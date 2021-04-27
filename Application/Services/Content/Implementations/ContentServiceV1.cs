@@ -1,9 +1,9 @@
 ﻿using MapsterMapper;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Content.Interfaces;
+using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Content.Interfaces;
 
-namespace WidePictBoard.Application.Services.Content.Implementations
+namespace SL2021.Application.Services.Content.Implementations
 {
     public sealed partial class ContentServiceV1 : IContentService
     {

@@ -1,8 +1,8 @@
-﻿using WidePictBoard.Domain;
+﻿using SL2021.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration
+namespace SL2021.Infrastructure.DataAccess.EntitiesConfiguration
 {
     public class ContentConfiguration : IEntityTypeConfiguration<Content>
     {

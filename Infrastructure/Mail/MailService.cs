@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Mail.Interfaces;
+using SL2021.Application.Services.Mail.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace WidePictBoard.Infrastructure.Mail
+namespace SL2021.Infrastructure.Mail
 {
     public class MailService : IMailService
     {

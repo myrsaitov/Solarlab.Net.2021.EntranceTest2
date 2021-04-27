@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Infrastructure.Mail
+﻿namespace SL2021.Infrastructure.Mail
 {
     public class MailSettings
     {

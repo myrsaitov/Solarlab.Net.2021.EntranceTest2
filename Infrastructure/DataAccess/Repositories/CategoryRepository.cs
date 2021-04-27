@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Domain;
+using SL2021.Application.Repositories;
+using SL2021.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace WidePictBoard.Infrastructure.DataAccess.Repositories
+namespace SL2021.Infrastructure.DataAccess.Repositories
 {
     public sealed class CategoryRepository : EfRepository<Category, int>, ICategoryRepository
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Domain.General;
+using SL2021.Domain.General;
 
-namespace WidePictBoard.Application.Repositories
+namespace SL2021.Application.Repositories
 {
     public interface IRepository<TEntity, in TId>
         where TEntity : Entity<TId>

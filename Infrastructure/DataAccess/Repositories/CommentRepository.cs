@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Domain;
+using SL2021.Application.Repositories;
+using SL2021.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Linq.Expressions;
 
-namespace WidePictBoard.Infrastructure.DataAccess.Repositories
+namespace SL2021.Infrastructure.DataAccess.Repositories
 {
     public sealed class CommentRepository : EfRepository<Comment, int>, ICommentRepository
     {

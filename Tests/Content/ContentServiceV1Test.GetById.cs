@@ -1,5 +1,5 @@
-﻿using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+﻿using SL2021.Application.Services.Content.Contracts;
+using SL2021.Application.Services.Content.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using AutoFixture.Xunit2;
 using System.Collections.Generic;
 using System;
 
-namespace WidePictBoard.Tests.Content
+namespace SL2021.Tests.Content
 {
     public partial class ContentServiceV1Test
     {

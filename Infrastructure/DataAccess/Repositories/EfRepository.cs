@@ -4,11 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Domain.General;
+using SL2021.Application.Repositories;
+using SL2021.Domain.General;
 using Microsoft.EntityFrameworkCore;
 
-namespace WidePictBoard.Infrastructure.DataAccess.Repositories
+namespace SL2021.Infrastructure.DataAccess.Repositories
 {
     public class EfRepository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : Entity<TId>

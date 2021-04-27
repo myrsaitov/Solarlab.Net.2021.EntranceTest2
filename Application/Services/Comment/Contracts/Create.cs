@@ -1,7 +1,7 @@
 ﻿using System;
-using WidePictBoard.Domain.General;
+using SL2021.Domain.General;
 
-namespace WidePictBoard.Application.Services.Comment.Contracts
+namespace SL2021.Application.Services.Comment.Contracts
 {
     public static class Create
     {

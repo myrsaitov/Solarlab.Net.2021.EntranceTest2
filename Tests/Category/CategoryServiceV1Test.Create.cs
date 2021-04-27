@@ -1,13 +1,13 @@
-﻿using WidePictBoard.Application.Services.Category.Contracts;
+﻿using SL2021.Application.Services.Category.Contracts;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System;
-using WidePictBoard.Domain.General.Exceptions;
+using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Tests.Category
+namespace SL2021.Tests.Category
 {
     public partial class CategoryServiceV1Test
     {

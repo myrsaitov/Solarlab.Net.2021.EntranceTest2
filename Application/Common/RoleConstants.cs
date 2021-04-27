@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Common
+﻿namespace SL2021.Application.Common
 {
     public static class RoleConstants
     {

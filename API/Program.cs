@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace WidePictBoard.API
+namespace SL2021.API
 {
     public class Program
     {

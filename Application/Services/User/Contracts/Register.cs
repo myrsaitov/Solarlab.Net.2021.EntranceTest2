@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Services.User.Contracts
+﻿namespace SL2021.Application.Services.User.Contracts
 {
     public static class Register
     {

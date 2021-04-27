@@ -1,12 +1,12 @@
-﻿using WidePictBoard.Application.Common;
-using WidePictBoard.Domain;
-using WidePictBoard.Infrastructure.DataAccess.EntitiesConfiguration;
+﻿using SL2021.Application.Common;
+using SL2021.Domain;
+using SL2021.Infrastructure.DataAccess.EntitiesConfiguration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using IdentityUser = WidePictBoard.Infrastructure.Identity.IdentityUser;
+using IdentityUser = SL2021.Infrastructure.Identity.IdentityUser;
 
-namespace WidePictBoard.Infrastructure.DataAccess
+namespace SL2021.Infrastructure.DataAccess
 {
     public class DatabaseContext : IdentityDbContext<IdentityUser>
     {

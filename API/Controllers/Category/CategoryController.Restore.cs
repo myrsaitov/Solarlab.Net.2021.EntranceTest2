@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Category.Contracts;
+using SL2021.Application.Services.Category.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Category
+namespace SL2021.API.Controllers.Category
 {
     public partial class CategoryController
     {

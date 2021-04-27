@@ -1,4 +1,4 @@
-﻿using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
+﻿using SL2021.Application.Services.Comment.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,10 +7,10 @@ using AutoFixture.Xunit2;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
-using WidePictBoard.Application.Services;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
+using SL2021.Application.Services;
+using SL2021.Application.Services.Content.Contracts.Exceptions;
 
-namespace WidePictBoard.Tests.Comment
+namespace SL2021.Tests.Comment
 {
     public partial class CommentServiceV1Test
     {

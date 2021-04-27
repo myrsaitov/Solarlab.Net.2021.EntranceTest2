@@ -1,14 +1,14 @@
-﻿using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Content.Implementations;
+﻿using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Content.Implementations;
 using Moq;
 using MapsterMapper;
-using WidePictBoard.Application.MapProfiles;
+using SL2021.Application.MapProfiles;
 using Mapster;
 using System.Linq.Expressions;
 using System.Linq;
 
-namespace WidePictBoard.Tests.Content
+namespace SL2021.Tests.Content
 {
     public partial class ContentServiceV1Test
     {

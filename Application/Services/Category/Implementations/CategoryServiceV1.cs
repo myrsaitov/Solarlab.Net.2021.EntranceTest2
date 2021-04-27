@@ -1,9 +1,9 @@
 ﻿using MapsterMapper;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Category.Interfaces;
+using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Category.Interfaces;
 
-namespace WidePictBoard.Application.Services.Category.Implementations
+namespace SL2021.Application.Services.Category.Implementations
 {
     public sealed partial class CategoryServiceV1 : ICategoryService
     {

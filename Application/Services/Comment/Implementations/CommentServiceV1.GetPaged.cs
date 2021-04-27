@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Comment.Contracts;
-using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Comment.Interfaces;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Comment.Contracts;
+using SL2021.Application.Services.Comment.Contracts.Exceptions;
+using SL2021.Application.Services.Comment.Interfaces;
+using SL2021.Application.Services.Content.Contracts.Exceptions;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Comment.Implementations
+namespace SL2021.Application.Services.Comment.Implementations
 {
     public sealed partial class CommentServiceV1 : ICommentService
     {

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WidePictBoard.Application.Repositories
+namespace SL2021.Application.Repositories
 {
     public interface ITagRepository : IRepository<Domain.Tag, int>
     {

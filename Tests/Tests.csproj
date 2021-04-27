@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
         <IsPackable>false</IsPackable>
-    <RootNamespace>WidePictBoard.Tests</RootNamespace>
+    <RootNamespace>SL2021.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

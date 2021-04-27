@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Domain;
+using SL2021.Domain;
 
-namespace WidePictBoard.Application.Repositories
+namespace SL2021.Application.Repositories
 {
     public interface ICategoryRepository : IRepository<Domain.Category, int>
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WidePictBoard.API.Controllers
+namespace SL2021.API.Controllers
 {
     public static class ApplicationExceptionExtensions
     {

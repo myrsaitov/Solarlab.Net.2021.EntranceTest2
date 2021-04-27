@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace WidePictBoard.Application.Services.Mail.Interfaces
+namespace SL2021.Application.Services.Mail.Interfaces
 {
     public interface IMailService
     {

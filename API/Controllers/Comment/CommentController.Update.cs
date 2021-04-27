@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Comment.Contracts;
+using SL2021.Application.Services.Comment.Contracts;
 
-namespace WidePictBoard.API.Controllers.Comment
+namespace SL2021.API.Controllers.Comment
 {
     public partial class CommentController
     {

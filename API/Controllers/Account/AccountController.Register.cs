@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.User.Contracts;
-using WidePictBoard.Application.Services.User.Validators;
+using SL2021.Application.Services.User.Contracts;
+using SL2021.Application.Services.User.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Account
+namespace SL2021.API.Controllers.Account
 {
     public partial class AccountController
     {

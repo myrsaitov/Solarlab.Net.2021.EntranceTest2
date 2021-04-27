@@ -1,13 +1,13 @@
-﻿using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Tag.Implementations;
+﻿using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Tag.Implementations;
 using Moq;
 using MapsterMapper;
-using WidePictBoard.Application.MapProfiles;
+using SL2021.Application.MapProfiles;
 using Mapster;
 using System.Linq.Expressions;
 
-namespace WidePictBoard.Tests.Tag
+namespace SL2021.Tests.Tag
 {
     public partial class TagServiceV1Test
     {

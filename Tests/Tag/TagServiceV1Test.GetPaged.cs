@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
-using WidePictBoard.Application.Services;
-using WidePictBoard.Application.Services.Tag.Contracts;
+using SL2021.Application.Services;
+using SL2021.Application.Services.Tag.Contracts;
 using System;
 using System.Linq;
 
-namespace WidePictBoard.Tests.Tag
+namespace SL2021.Tests.Tag
 {
     public partial class TagServiceV1Test
     {

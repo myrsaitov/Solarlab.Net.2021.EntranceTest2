@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Comment.Interfaces;
+using SL2021.Application.Services.Comment.Interfaces;
 
-namespace WidePictBoard.API.Controllers.Comment
+namespace SL2021.API.Controllers.Comment
 {
     [Route("api/v1/comments")]
     [ApiController]

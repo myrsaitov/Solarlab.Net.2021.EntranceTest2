@@ -1,11 +1,11 @@
 ﻿using System;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Infrastructure.DataAccess;
-using WidePictBoard.Infrastructure.DataAccess.Repositories;
+using SL2021.Application.Repositories;
+using SL2021.Infrastructure.DataAccess;
+using SL2021.Infrastructure.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WidePictBoard.Infrastructure
+namespace SL2021.Infrastructure
 {
     public static class DataAccessModule
     {

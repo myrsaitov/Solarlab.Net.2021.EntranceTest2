@@ -7,17 +7,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using WidePictBoard.Application.Identity.Contracts;
-using WidePictBoard.Application.Identity.Contracts.Exceptions;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Services.Mail.Interfaces;
-using WidePictBoard.Domain.General.Exceptions;
+using SL2021.Application.Identity.Contracts;
+using SL2021.Application.Identity.Contracts.Exceptions;
+using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Services.Mail.Interfaces;
+using SL2021.Domain.General.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace WidePictBoard.Infrastructure.Identity
+namespace SL2021.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {

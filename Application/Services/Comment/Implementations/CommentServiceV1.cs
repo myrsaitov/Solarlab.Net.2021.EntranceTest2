@@ -1,9 +1,9 @@
 ﻿using MapsterMapper;
-using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Comment.Interfaces;
+using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Comment.Interfaces;
 
-namespace WidePictBoard.Application.Services.Comment.Implementations
+namespace SL2021.Application.Services.Comment.Implementations
 {
     public sealed partial class CommentServiceV1 : ICommentService
     {

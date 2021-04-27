@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Comment.Contracts;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Comment.Contracts;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Comment.Interfaces
+namespace SL2021.Application.Services.Comment.Interfaces
 {
     public interface ICommentService
     {

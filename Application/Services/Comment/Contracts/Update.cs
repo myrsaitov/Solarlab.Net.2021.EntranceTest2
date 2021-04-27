@@ -1,4 +1,4 @@
-﻿namespace WidePictBoard.Application.Services.Comment.Contracts
+﻿namespace SL2021.Application.Services.Comment.Contracts
 {
     public static class Update
     {

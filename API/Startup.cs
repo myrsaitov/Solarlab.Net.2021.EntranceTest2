@@ -1,16 +1,16 @@
 using MapsterMapper;
-using WidePictBoard.Infrastructure;
-using WidePictBoard.Infrastructure.DataAccess;
-using WidePictBoard.API.Controllers;
+using SL2021.Infrastructure;
+using SL2021.Infrastructure.DataAccess;
+using SL2021.API.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WidePictBoard.Application.MapProfiles;
+using SL2021.Application.MapProfiles;
 
 
-namespace WidePictBoard.API
+namespace SL2021.API
 {
     public class Startup
     {

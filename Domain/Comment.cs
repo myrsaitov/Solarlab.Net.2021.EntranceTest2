@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WidePictBoard.Domain.General;
+using SL2021.Domain.General;
 
-namespace WidePictBoard.Domain
+namespace SL2021.Domain
 {
     public class Comment : EntityMutable<int>
     {

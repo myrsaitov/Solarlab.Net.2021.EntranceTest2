@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>WidePictBoard.Domain</RootNamespace>
+        <RootNamespace>SL2021.Domain</RootNamespace>
     </PropertyGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using WidePictBoard.Domain.General;
+using SL2021.Domain.General;
 
-namespace WidePictBoard.Domain
+namespace SL2021.Domain
 {
     public class Category : EntityMutable<int>
     {

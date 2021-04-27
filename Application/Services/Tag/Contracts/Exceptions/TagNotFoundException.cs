@@ -1,6 +1,6 @@
-﻿using WidePictBoard.Domain.General.Exceptions;
+﻿using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Tag.Contracts.Exceptions
+namespace SL2021.Application.Services.Tag.Contracts.Exceptions
 {
     public sealed class TagNotFoundException : NotFoundException
     {

@@ -1,13 +1,13 @@
-﻿using WidePictBoard.Application.Identity.Interfaces;
-using WidePictBoard.Application.Repositories;
-using WidePictBoard.Application.Services.Category.Implementations;
+﻿using SL2021.Application.Identity.Interfaces;
+using SL2021.Application.Repositories;
+using SL2021.Application.Services.Category.Implementations;
 using Moq;
 using MapsterMapper;
-using WidePictBoard.Application.MapProfiles;
+using SL2021.Application.MapProfiles;
 using Mapster;
 using System.Linq.Expressions;
 
-namespace WidePictBoard.Tests.Category
+namespace SL2021.Tests.Category
 {
     public partial class CategoryServiceV1Test
     {

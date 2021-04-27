@@ -1,6 +1,6 @@
-﻿using WidePictBoard.Domain.General.Exceptions;
+﻿using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.User.Contracts.Exceptions
+namespace SL2021.Application.Services.User.Contracts.Exceptions
 {
     public class UserRegisteredException : DomainException
     {

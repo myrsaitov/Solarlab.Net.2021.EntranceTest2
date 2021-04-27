@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Identity.Contracts;
+using SL2021.Application.Identity.Contracts;
 
-namespace WidePictBoard.Application.Identity.Interfaces
+namespace SL2021.Application.Identity.Interfaces
 {
     public interface IIdentityService
     {

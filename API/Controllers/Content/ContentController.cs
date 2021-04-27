@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WidePictBoard.Application.Services.Content.Interfaces;
+using SL2021.Application.Services.Content.Interfaces;
 
-namespace WidePictBoard.API.Controllers.Content
+namespace SL2021.API.Controllers.Content
 {
     [Route("api/v1/contents")]
     [ApiController]

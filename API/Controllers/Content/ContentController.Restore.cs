@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Content.Contracts;
+using SL2021.Application.Services.Content.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WidePictBoard.API.Controllers.Content
+namespace SL2021.API.Controllers.Content
 {
     public partial class ContentController
     {

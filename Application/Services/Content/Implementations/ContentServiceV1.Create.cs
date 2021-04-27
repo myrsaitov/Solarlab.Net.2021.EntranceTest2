@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Content.Interfaces;
+using SL2021.Application.Services.Category.Contracts.Exceptions;
+using SL2021.Application.Services.Content.Contracts;
+using SL2021.Application.Services.Content.Contracts.Exceptions;
+using SL2021.Application.Services.Content.Interfaces;
 
-namespace WidePictBoard.Application.Services.Content.Implementations
+namespace SL2021.Application.Services.Content.Implementations
 {
     public sealed partial class ContentServiceV1 : IContentService
     {

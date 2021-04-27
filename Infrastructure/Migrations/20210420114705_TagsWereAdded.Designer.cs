@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WidePictBoard.Infrastructure.DataAccess;
+using SL2021.Infrastructure.DataAccess;
 
-namespace WidePictBoard.Infrastructure.Migrations
+namespace SL2021.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
     [Migration("20210420114705_TagsWereAdded")]
@@ -190,7 +190,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
+            modelBuilder.Entity("SL2021.Domain.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,7 +264,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Comment", b =>
+            modelBuilder.Entity("SL2021.Domain.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -304,7 +304,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
+            modelBuilder.Entity("SL2021.Domain.Content", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -344,7 +344,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.ToTable("Contents");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Tag", b =>
+            modelBuilder.Entity("SL2021.Domain.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -364,7 +364,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.User", b =>
+            modelBuilder.Entity("SL2021.Domain.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -403,7 +403,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.ToTable("DomainUsers");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Infrastructure.Identity.IdentityUser", b =>
+            modelBuilder.Entity("SL2021.Infrastructure.Identity.IdentityUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -486,13 +486,13 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("ContentTag", b =>
                 {
-                    b.HasOne("WidePictBoard.Domain.Content", null)
+                    b.HasOne("SL2021.Domain.Content", null)
                         .WithMany()
                         .HasForeignKey("ContentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WidePictBoard.Domain.Tag", null)
+                    b.HasOne("SL2021.Domain.Tag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -510,7 +510,7 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WidePictBoard.Infrastructure.Identity.IdentityUser", null)
+                    b.HasOne("SL2021.Infrastructure.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -519,7 +519,7 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WidePictBoard.Infrastructure.Identity.IdentityUser", null)
+                    b.HasOne("SL2021.Infrastructure.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -534,7 +534,7 @@ namespace WidePictBoard.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WidePictBoard.Infrastructure.Identity.IdentityUser", null)
+                    b.HasOne("SL2021.Infrastructure.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -543,35 +543,35 @@ namespace WidePictBoard.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WidePictBoard.Infrastructure.Identity.IdentityUser", null)
+                    b.HasOne("SL2021.Infrastructure.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
+            modelBuilder.Entity("SL2021.Domain.Category", b =>
                 {
-                    b.HasOne("WidePictBoard.Domain.Category", "ParentCategory")
+                    b.HasOne("SL2021.Domain.Category", "ParentCategory")
                         .WithMany("ChildCategories")
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Comment", b =>
+            modelBuilder.Entity("SL2021.Domain.Comment", b =>
                 {
-                    b.HasOne("WidePictBoard.Domain.Content", "Content")
+                    b.HasOne("SL2021.Domain.Content", "Content")
                         .WithMany("Comments")
                         .HasForeignKey("ContentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WidePictBoard.Domain.User", "Owner")
+                    b.HasOne("SL2021.Domain.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
-                    b.HasOne("WidePictBoard.Domain.Comment", "ParentComment")
+                    b.HasOne("SL2021.Domain.Comment", "ParentComment")
                         .WithMany()
                         .HasForeignKey("ParentCommentId");
 
@@ -582,15 +582,15 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Navigation("ParentComment");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
+            modelBuilder.Entity("SL2021.Domain.Content", b =>
                 {
-                    b.HasOne("WidePictBoard.Domain.Category", "Category")
+                    b.HasOne("SL2021.Domain.Category", "Category")
                         .WithMany("Contents")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WidePictBoard.Domain.User", "Owner")
+                    b.HasOne("SL2021.Domain.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
@@ -599,14 +599,14 @@ namespace WidePictBoard.Infrastructure.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Category", b =>
+            modelBuilder.Entity("SL2021.Domain.Category", b =>
                 {
                     b.Navigation("ChildCategories");
 
                     b.Navigation("Contents");
                 });
 
-            modelBuilder.Entity("WidePictBoard.Domain.Content", b =>
+            modelBuilder.Entity("SL2021.Domain.Content", b =>
                 {
                     b.Navigation("Comments");
                 });

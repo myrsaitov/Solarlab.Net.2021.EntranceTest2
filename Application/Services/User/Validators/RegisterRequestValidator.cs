@@ -1,7 +1,7 @@
-﻿using WidePictBoard.Application.Services.User.Contracts;
+﻿using SL2021.Application.Services.User.Contracts;
 using FluentValidation;
 
-namespace WidePictBoard.Application.Services.User.Validators
+namespace SL2021.Application.Services.User.Validators
 {
     public class RegisterRequestValidator : AbstractValidator<Register.Request>
     {

@@ -1,6 +1,6 @@
-﻿using WidePictBoard.Domain.General;
+﻿using SL2021.Domain.General;
 
-namespace WidePictBoard.Domain
+namespace SL2021.Domain
 {
     public sealed class User : EntityMutable<string>
     {

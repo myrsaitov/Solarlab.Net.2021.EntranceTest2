@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WidePictBoard.Domain.General.Exceptions;
+using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.API.Controllers
+namespace SL2021.API.Controllers
 {
     public class ApplicationExceptionHandler
     {

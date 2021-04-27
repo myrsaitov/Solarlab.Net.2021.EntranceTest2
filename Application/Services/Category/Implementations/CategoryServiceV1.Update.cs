@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Category.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Category.Interfaces;
-using WidePictBoard.Domain.General.Exceptions;
+using SL2021.Application.Common;
+using SL2021.Application.Services.Category.Contracts;
+using SL2021.Application.Services.Category.Contracts.Exceptions;
+using SL2021.Application.Services.Category.Interfaces;
+using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Category.Implementations
+namespace SL2021.Application.Services.Category.Implementations
 {
     public sealed partial class CategoryServiceV1 : ICategoryService
     {

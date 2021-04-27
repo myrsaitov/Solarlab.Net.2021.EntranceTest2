@@ -1,6 +1,6 @@
-﻿using WidePictBoard.Domain.General.Exceptions;
+﻿using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Identity.Contracts.Exceptions
+namespace SL2021.Application.Identity.Contracts.Exceptions
 {
     public class IdentityUserNotFoundException : NotFoundException
     {

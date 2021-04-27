@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WidePictBoard.Domain.General
+namespace SL2021.Domain.General
 {
     public class EntityMutable<TId> : Entity<TId>
     {

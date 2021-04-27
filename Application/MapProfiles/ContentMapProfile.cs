@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using System.Linq;
 
-namespace WidePictBoard.Application.MapProfiles
+namespace SL2021.Application.MapProfiles
 {
     public static class ContentMapProfile
     {

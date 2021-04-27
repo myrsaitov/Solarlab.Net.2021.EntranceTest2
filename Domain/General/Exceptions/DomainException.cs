@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WidePictBoard.Domain.General.Exceptions
+namespace SL2021.Domain.General.Exceptions
 {
     public class DomainException : ApplicationException
     {

@@ -3,11 +3,11 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Content.Contracts;
-using WidePictBoard.Application.Services.Content.Interfaces;
-using WidePictBoard.Application.Services.Contracts;
+using SL2021.Application.Services.Content.Contracts;
+using SL2021.Application.Services.Content.Interfaces;
+using SL2021.Application.Services.Contracts;
 
-namespace WidePictBoard.Application.Services.Content.Implementations
+namespace SL2021.Application.Services.Content.Implementations
 {
     public sealed partial class ContentServiceV1 : IContentService
     {

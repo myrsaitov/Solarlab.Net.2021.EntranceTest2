@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <RootNamespace>WidePictBoard.API</RootNamespace>
+        <RootNamespace>SL2021.API</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Common;
-using WidePictBoard.Application.Services.Comment.Contracts;
-using WidePictBoard.Application.Services.Comment.Contracts.Exceptions;
-using WidePictBoard.Application.Services.Comment.Interfaces;
-using WidePictBoard.Domain.General.Exceptions;
+using SL2021.Application.Common;
+using SL2021.Application.Services.Comment.Contracts;
+using SL2021.Application.Services.Comment.Contracts.Exceptions;
+using SL2021.Application.Services.Comment.Interfaces;
+using SL2021.Domain.General.Exceptions;
 
-namespace WidePictBoard.Application.Services.Comment.Implementations
+namespace SL2021.Application.Services.Comment.Implementations
 {
     public sealed partial class CommentServiceV1 : ICommentService
     {

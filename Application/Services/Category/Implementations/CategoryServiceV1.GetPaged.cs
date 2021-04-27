@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using WidePictBoard.Application.Services.Category.Contracts;
-using WidePictBoard.Application.Services.Contracts;
-using WidePictBoard.Application.Services.Category.Interfaces;
+using SL2021.Application.Services.Category.Contracts;
+using SL2021.Application.Services.Contracts;
+using SL2021.Application.Services.Category.Interfaces;
 
-namespace WidePictBoard.Application.Services.Category.Implementations
+namespace SL2021.Application.Services.Category.Implementations
 {
     public sealed partial class CategoryServiceV1 : ICategoryService
     {
