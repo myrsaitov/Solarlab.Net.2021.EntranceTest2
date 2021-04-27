@@ -14,6 +14,7 @@ import {GetPagedCommentResponseModel} from '../../models/comment/get-paged-comme
 import {BehaviorSubject, Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {ChangeDetectionStrategy} from '@angular/core';
+import {CreateComment, ICreateComment} from '../../models/comment/comment-create-model';
 
 @Component({
   selector: 'app-advertisement',
@@ -43,11 +44,13 @@ export class AdvertisementComponent implements OnInit {
               private authService: AuthService,
               private toastService: ToastService,
               private categoryService: CategoryService,
-              private commentService: CommentService,
-              private modalService: NgbModal) {
+              private commentService: CommentService) {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      commentBody: ['', Validators.required]
+    });
 
     this.route.params.pipe(pluck('id')).subscribe(advertisementId => {
 
@@ -81,21 +84,6 @@ export class AdvertisementComponent implements OnInit {
       ));
   }
 
-  submit() {
-
-    }
-
-  delete(id: number) {
-    this.advertisementService.delete(id).pipe(take(1)).subscribe(() => {
-      this.toastService.show('Объявление успешено удалено', {classname: 'bg-success text-light'});
-      this.router.navigate(['/']);
-    });
-  }
-
-  openDeleteModal(content: TemplateRef<any>) {
-    this.modalService.open(content, {centered: true});
-  }
-
   get commentsFilter() {
     this.commentsFilterSubject$.value.contentId = this.advertisement.id;
     return this.commentsFilterSubject$.value;
@@ -105,6 +93,29 @@ export class AdvertisementComponent implements OnInit {
     this.commentsFilterSubject$.next({
       ...this.commentsFilter,
       page
+    });
+  }
+
+  get commentBody() {
+    return this.form.get('commentBody');
+  }
+
+
+  submit() {
+    const model: Partial<ICreateComment> = {
+      body: this.commentBody.value,
+      contentId: this.advertisement.id,
+      parentCommentId: null
+    };
+
+    if(model.body.length == 0)
+    {
+      return;
+    }
+
+    this.commentService.create(new CreateComment(model)).pipe(take(1)).subscribe(() => {
+      this.toastService.show('Комментарий успешено добавлен', {classname: 'bg-success text-light'});
+      this.router.navigate(['/']);
     });
   }
 }

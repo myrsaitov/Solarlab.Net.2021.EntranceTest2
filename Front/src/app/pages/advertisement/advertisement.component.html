@@ -1,4 +1,5 @@
 <div class="container" *ngIf="advertisement; else loadingBlock">
+  <ng-container [formGroup]="form">
   <article class="card">
     <div class="card-header d-flex">
       <div>
@@ -33,10 +34,12 @@
   </article>
 
   <div class="form-group">
-    <label for="comment-body">Добавить комментарий</label>
-    <textarea class="form-control" id="comment-body" formControlName="comment-body" placeholder="Введите комментарий" autofocus [class.is-invalid]="body.invalid"></textarea>
+    <label for="commentBody">Добавить комментарий</label>
+    <textarea class="form-control" id="commentBody" formControlName="commentBody" placeholder="Введите комментарий" autofocus></textarea>
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="submit()">Добавить</button>
+  <button type="submit" class="btn btn-primary" (click)="submit()">Добавить</button>
+
+</ng-container>
 
   <div class="row">
     <div class="col-12 justify-content-center" *ngIf="response$ | async as response; else loadingBlock">

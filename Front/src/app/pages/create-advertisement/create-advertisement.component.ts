@@ -8,7 +8,6 @@ import {ToastService} from '../../services/toast.service';
 import {CategoryService} from '../../services/category.service';
 import {Observable} from 'rxjs';
 import {ICategory} from '../../models/category/category-model';
-import { TagModel } from 'src/app/models/tag/tag-model';
 
 @Component({
   selector: 'app-create-advertisement',
@@ -60,31 +59,19 @@ export class CreateAdvertisementComponent implements OnInit {
     return this.form.get('tags');
   }
 
-  submit() {
+  submit()
+  {
     if (this.form.invalid) {
       return;
     }
 
+    var tagStr = this.tags.value;
 
-// Взяли строку с тагами с формы
-var TagStr = this.tags.value;
-
-if(TagStr != null)
-{
-
-  console.log("TAG string:");
-  console.log(TagStr);
-
-  var TagStr_ = TagStr.replace(/[~!@"'#$%^:;&?*()+=\s]/g, ' ');
-
-  console.log("TAG string with removed non-car symbols:");
-  console.log(TagStr_);
-
-  var arrayOfStrings = TagStr_.split(/[\s,]+/);
-  console.log("Splitted TAG string:");
-  console.log(arrayOfStrings);
-
-}
+    if(tagStr != null)
+    {
+      var tagStr_ = tagStr.replace(/[~!@"'#$%^:;&?*()+=\s]/g, ' ');
+      var arrayOfStrings = tagStr_.split(/[\s,]+/);
+    }
 
     const model: Partial<ICreateAdvertisement> = {
       title: this.title.value,
