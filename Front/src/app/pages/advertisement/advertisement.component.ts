@@ -117,7 +117,13 @@ export class AdvertisementComponent implements OnInit {
 
     this.commentService.create(new CreateComment(model)).pipe(take(1)).subscribe(() => {
       this.toastService.show('Комментарий успешено добавлен', {classname: 'bg-success text-light'});
-      this.router.navigate(['/']);
+    
+      this.router.navigate(['/',this.advertisement.id]);
+
+      this.commentsFilterSubject$.next({
+        ...this.commentsFilter
+      })
+
     });
   }
 }
