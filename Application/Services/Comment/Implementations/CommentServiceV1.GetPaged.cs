@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,9 +56,24 @@ namespace SL2021.Application.Services.Comment.Implementations
                 cancellationToken
             );
 
+
+            var SortedByParent = new List<Domain.Comment>();
+            int ParentId;
+            foreach(var entity in entities)
+            {
+                if(entity.ParentCommentId is null)
+                {
+                    SortedByParent.Add(entity);
+                    ParentId = entity.Id;
+                }
+
+            }
+                
+                
+
             return new Paged.Response<GetById.Response>
             {
-                Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
+                Items = sortedbyparent.Select(entity => _mapper.Map<GetById.Response>(entity)),
                 Total = total,
                 Offset = offset,
                 Limit = request.PageSize

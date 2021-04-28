@@ -54,6 +54,8 @@ export class AdvertisementComponent implements OnInit {
 
     this.route.params.pipe(pluck('id')).subscribe(advertisementId => {
 
+      this.commentsFilterSubject$.value.contentId = advertisementId;
+
       this.advertisementService.getAdvertisementById(advertisementId).subscribe(advertisement => {
         if (isNullOrUndefined(advertisement)) {
           this.router.navigate(['/']);
