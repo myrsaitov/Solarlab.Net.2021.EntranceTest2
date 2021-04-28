@@ -64,14 +64,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "e6e6c8df-8275-471e-91b5-d4333e6e5122",
+                            ConcurrencyStamp = "5ea95c6b-e773-4a0f-9313-792d18bc312b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "cbdb62a4-023b-4169-aafe-7ab6af4a3a39",
+                            ConcurrencyStamp = "6d5dd627-3614-4c25-b449-0063b2c56d3a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -221,42 +221,42 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 4, 20, 11, 47, 4, 537, DateTimeKind.Utc).AddTicks(9005),
+                            CreatedAt = new DateTime(2021, 4, 28, 8, 2, 9, 496, DateTimeKind.Utc).AddTicks(7635),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 4, 20, 11, 47, 4, 537, DateTimeKind.Utc).AddTicks(9790),
+                            CreatedAt = new DateTime(2021, 4, 28, 8, 2, 9, 496, DateTimeKind.Utc).AddTicks(8421),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 4, 20, 11, 47, 4, 537, DateTimeKind.Utc).AddTicks(9794),
+                            CreatedAt = new DateTime(2021, 4, 28, 8, 2, 9, 496, DateTimeKind.Utc).AddTicks(8425),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 4, 20, 11, 47, 4, 537, DateTimeKind.Utc).AddTicks(9795),
+                            CreatedAt = new DateTime(2021, 4, 28, 8, 2, 9, 496, DateTimeKind.Utc).AddTicks(8426),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 4, 20, 11, 47, 4, 537, DateTimeKind.Utc).AddTicks(9796),
+                            CreatedAt = new DateTime(2021, 4, 28, 8, 2, 9, 496, DateTimeKind.Utc).AddTicks(8427),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 4, 20, 11, 47, 4, 537, DateTimeKind.Utc).AddTicks(9797),
+                            CreatedAt = new DateTime(2021, 4, 28, 8, 2, 9, 496, DateTimeKind.Utc).AddTicks(8428),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -470,13 +470,13 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05ac7b50-96fa-4c91-9240-11730a4c2418",
+                            ConcurrencyStamp = "9a9ce20e-9cf0-4c39-8797-26b01c25d6ee",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIWmywC+T6gCn7NMaTktNQYEruQ+KMqbYajSGUX12nghX+F5ytTpIA+6Co/gRB5KMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELGH1SvH5WMrbpUuMAovtP/5Wz3PU7biO1eL3uhqDsRTspDR81ZtPxs2ut96mzJAyA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "91dc2486-36b3-4dc7-880f-12ff3e73b7c8",
+                            SecurityStamp = "fdcf79e6-1355-4d32-b800-0f1c98f1e07f",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -570,7 +570,7 @@ namespace SL2021.Infrastructure.Migrations
                         .HasForeignKey("OwnerId");
 
                     b.HasOne("SL2021.Domain.Comment", "ParentComment")
-                        .WithMany()
+                        .WithMany("ChildComments")
                         .HasForeignKey("ParentCommentId");
 
                     b.Navigation("Content");
@@ -602,6 +602,11 @@ namespace SL2021.Infrastructure.Migrations
                     b.Navigation("ChildCategories");
 
                     b.Navigation("Contents");
+                });
+
+            modelBuilder.Entity("SL2021.Domain.Comment", b =>
+                {
+                    b.Navigation("ChildComments");
                 });
 
             modelBuilder.Entity("SL2021.Domain.Content", b =>

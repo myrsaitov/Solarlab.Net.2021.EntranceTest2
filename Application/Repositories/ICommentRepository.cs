@@ -15,7 +15,7 @@ namespace SL2021.Application.Repositories
         Task<Domain.Comment> FindByIdWithUserAndCommentsInclude(
             int id, 
             CancellationToken cancellationToken);
-        Task<IEnumerable<Comment>> GetPagedWithOwnerInclude(
+        Task<IEnumerable<Comment>> GetPagedWithOwnerAndCommentInclude(
             Expression<Func<Comment, bool>> predicate,
             int offset,
             int limit,

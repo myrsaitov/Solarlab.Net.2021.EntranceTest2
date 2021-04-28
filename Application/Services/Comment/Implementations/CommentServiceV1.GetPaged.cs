@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SL2021.Application.Services.Comment.Contracts;
-using SL2021.Application.Services.Comment.Contracts.Exceptions;
 using SL2021.Application.Services.Comment.Interfaces;
 using SL2021.Application.Services.Content.Contracts.Exceptions;
 using SL2021.Application.Services.Contracts;
+using SL2021.Application.Services.Extensions;
 
 namespace SL2021.Application.Services.Comment.Implementations
 {
@@ -48,32 +48,19 @@ namespace SL2021.Application.Services.Comment.Implementations
                     Limit = request.PageSize
                 };
             }
-
-            var entities = await _commentRepository.GetPagedWithOwnerInclude(
+            
+            var entities = await _commentRepository.GetPagedWithOwnerAndCommentInclude(
                 a => a.ContentId == contentId,
                 offset,
                 request.PageSize,
                 cancellationToken
             );
 
-
-            var SortedByParent = new List<Domain.Comment>();
-            int ParentId;
-            foreach(var entity in entities)
-            {
-                if(entity.ParentCommentId is null)
-                {
-                    SortedByParent.Add(entity);
-                    ParentId = entity.Id;
-                }
-
-            }
-                
-                
+            //var tree_entities = entities.ToList().ToTree(item => item.Id, item => item.ParentCommentId);
 
             return new Paged.Response<GetById.Response>
             {
-                Items = sortedbyparent.Select(entity => _mapper.Map<GetById.Response>(entity)),
+                Items = entities.Select(entity => _mapper.Map<GetById.Response>(entity)),
                 Total = total,
                 Offset = offset,
                 Limit = request.PageSize

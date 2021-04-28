@@ -29,10 +29,11 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .Set<Comment>()
                 .Include(a => a.Owner)
                 .Include(a => a.ParentComment)
+                .Include(a => a.ChildComments)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
 
-        public async Task<IEnumerable<Comment>> GetPagedWithOwnerInclude(
+        public async Task<IEnumerable<Comment>> GetPagedWithOwnerAndCommentInclude(
             Expression<Func<Comment, bool>> predicate,
             int offset,
             int limit,
@@ -41,6 +42,8 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
             var data = DbСontext
                 .Set<Comment>()
                 .Include(a => a.Owner)
+                .Include(a => a.ParentComment)
+                .Include(a => a.ChildComments)
                 .AsNoTracking(); ;
 
             return await data
