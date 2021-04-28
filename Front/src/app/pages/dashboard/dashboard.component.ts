@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   isAuth = this.authService.isAuth;
 
   private advertisementsFilterSubject$ = new BehaviorSubject({
-    pageSize: 10,
+    pageSize: 9,
     page: 0
   });
   advertisementsFilterChange$ = this.advertisementsFilterSubject$.asObservable();

@@ -53,7 +53,7 @@ namespace SL2021.Tests.Comment
                 .Verifiable();
 
             _commentRepositoryMock
-                .Setup(_ => _.GetPagedWithOwnerInclude(
+                .Setup(_ => _.GetPagedWithOwnerAndCommentInclude(
                     It.IsAny<Expression<Func<Domain.Comment, bool>>>(),
                     It.IsAny<int>(),
                     It.IsAny<int>(),

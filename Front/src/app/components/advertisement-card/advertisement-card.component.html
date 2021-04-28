@@ -6,9 +6,9 @@
    </div>
   <div class="card-body">
     <a>{{advertisement.body.substring(0,100)}}...</a>
-    <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
   </div>
   <div class="card-header">
+    <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
     <h6>  Добавлено пользователем:
       <div class="badge badge-secondary" *ngIf="advertisement?.owner.userName">{{advertisement.owner.userName}}</div></h6>
       <div><div class="badge badge-secondary" *ngIf="advertisement?.createdAt">

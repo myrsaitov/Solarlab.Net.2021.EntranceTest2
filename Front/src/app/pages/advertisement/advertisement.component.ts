@@ -102,6 +102,19 @@ export class AdvertisementComponent implements OnInit {
     return this.form.get('commentBody');
   }
 
+  delete_comment(){
+    this.commentService.delete(1).pipe(take(1)).subscribe(() => {
+      this.toastService.show('Комментарий успешено удален', {classname: 'bg-success text-light'});
+    
+      this.router.navigate(['/',this.advertisement.id]);
+
+      this.commentsFilterSubject$.next({
+        ...this.commentsFilter
+      })
+
+    });
+
+  }
 
   submit() {
     const model: Partial<ICreateComment> = {

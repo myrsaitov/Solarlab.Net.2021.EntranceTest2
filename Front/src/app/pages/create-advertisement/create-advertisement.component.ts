@@ -76,7 +76,7 @@ export class CreateAdvertisementComponent implements OnInit {
     const model: Partial<ICreateAdvertisement> = {
       title: this.title.value,
       body: this.body.value,
-      price: 10,
+      price: this.price.value,
       categoryId: +this.categoryId.value,
       tags: arrayOfStrings
     };
