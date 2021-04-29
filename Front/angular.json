@@ -17,6 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies" : [
+                            "socket.io-client",
+                            "socket.io-parser",
+                            "debug",
+                            "lodash"
+                          ], 
             "outputPath": "dist/SL2021-spa",
             "index": "src/index.html",
             "main": "src/main.ts",
