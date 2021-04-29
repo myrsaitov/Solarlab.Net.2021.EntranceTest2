@@ -11,3 +11,10 @@
   "middleName": "Michailovich",
   "password": "Zxs123!@#$%^&*()"
 }
+
+myrsaitov
+myrsaitov@gmail.com
+Konstantin
+Myrsaitov
+Michailovich
+Zxs123!@#$%^&*()
