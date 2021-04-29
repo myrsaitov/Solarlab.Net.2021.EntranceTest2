@@ -1,15 +1,35 @@
+<ng-container [formGroup]="form">
 <div class="card card-">
   <div class="card-header">
- 
-   </div>
-  <div class="card-body">
-    <a>{{comment.body}}</a>
-
-  </div>
-  <div class="card-header">
-    <h6>  Добавлено пользователем:
-      <div class="badge badge-secondary" *ngIf="comment?.owner.userName">{{comment.owner.userName}}</div></h6>
-      <div><div class="badge badge-secondary" *ngIf="comment?.createdAt">
-        {{comment.createdAt}}</div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-2">
+          <h6>  Пользователь:<br>
+            <div class="badge badge-secondary" *ngIf="comment?.owner.userName">
+              {{comment.owner.userName}}
+            </div>
+          </h6>
+        </div>
+        <div class="col">
+          <div class="card-header">
+            <div class="badge badge-secondary" *ngIf="comment?.createdAt">
+              {{comment.createdAt}}
+            </div>
+            <div class="card-body">
+              <a>{{comment.body}}</a>
+            </div>
+           </div>
+        </div>
+        <div class="col-1">
+          <div class="row">
+            <button type="button" class="btn btn-danger" (click)="delete_comment(comment.id); c('Delete click')">Удалить</button>
+          </div>
+          <div class="row">
+            <button type="submit" class="btn btn-primary" (click)="submit()">Ответить</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+</ng-container>

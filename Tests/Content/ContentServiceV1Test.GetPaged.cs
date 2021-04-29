@@ -1,11 +1,10 @@
-﻿using SL2021.Application.Services.Content.Contracts.Exceptions;
-using Moq;
+﻿using Moq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
-using SL2021.Application.Services;
+using SL2021.Application.Services.Contracts;
 using SL2021.Application.Services.Content.Contracts;
 using System.Linq;
 using System;

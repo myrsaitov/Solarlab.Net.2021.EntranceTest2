@@ -1,0 +1,45 @@
+In MSVSCode File => Open Folder => SL2021/Front
+
+npm install
+npm install -g @angular/cli
+
+#https://www.npmjs.com/package/angular-tag-cloud-module
+npm install --save angular-tag-cloud-module@3.8.2 
+
+ng serve
+
+In MSVSCode Run Chrome Debugger [F12 open details]
+
+# if compile errors
+npm i @angular-devkit/build-angular@0.803.26
+
+
+##########################################
+# From Blank Project
+##########################################
+
+# Version
+ng --version
+
+# Create project
+ng new SL2021Board --style=scss
+
+# Install
+ng add @ng-bootstrap/ng-bootstrap
+npm install angular-sanitize
+npm install --save angular-tag-cloud-module
+npm install bootswatch
+npm install jquery
+npm install ngx-auth
+npm i @angular/language-service
+npm install --save @types/jasminewd2
+npm install --save @codelyzer
+
+npm install -g typescript
+tsc --version
+
+# To tsconfig.json
+...
+"strictPropertyInitialization": false,
+"suppressImplicitAnyIndexErrors": true,
+...

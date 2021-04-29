@@ -99,8 +99,8 @@ export class SignupComponent implements OnInit {
     
       const payload: ILogin = this.form.getRawValue();
 
-      sessionStorage.setItem('currentUser', payload.userName);
-      console.log(sessionStorage.getItem('currentUser'));
+      localStorage.setItem('currentUser', payload.userName);
+      console.log(localStorage.getItem('currentUser'));
 
       console.log("LOGIN");
       await this.baseService.post(ApiUrls.login, payload)

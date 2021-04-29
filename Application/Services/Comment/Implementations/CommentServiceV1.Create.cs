@@ -52,25 +52,40 @@ namespace SL2021.Application.Services.Comment.Implementations
                 
                 if (parentComment != null)
                 {
-                    await _commentRepository.Save(parentComment, cancellationToken);
                     comment.ParentComment = parentComment;
+                    if(parentComment.ChildComments is null)
+                    {
+                        parentComment.ChildComments = new List<Domain.Comment>()
+                        {
+                            comment
+                        };
+                    }
+                    else
+                        parentComment.ChildComments.Add(comment);
+
+                    await _commentRepository.Save(parentComment, cancellationToken);
                 }
                 else 
                 {
                     throw new ParentCommentNotFoundException(request.ParentCommentId);
                 }
 
-                await _commentRepository.Save(comment, cancellationToken);
+                //await _commentRepository.Save(comment, cancellationToken);
             }
 
-            content.Comments = new List<Domain.Comment>()
+            if (content.Comments is null)
             {
-                comment
-            };
-
-            await _contentRepository.Save(content, cancellationToken);
+                content.Comments = new List<Domain.Comment>()
+                {
+                    comment
+                };
+            }
+            else
+                content.Comments.Add(comment);
 
             await _commentRepository.Save(comment, cancellationToken);
+
+            await _contentRepository.Save(content, cancellationToken);
 
             return new Create.Response
             {

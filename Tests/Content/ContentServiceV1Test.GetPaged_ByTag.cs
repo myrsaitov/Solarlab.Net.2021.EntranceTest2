@@ -1,5 +1,4 @@
 ﻿using SL2021.Application.Services.Content.Contracts;
-using SL2021.Application.Services.Content.Contracts.Exceptions;
 using Moq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using AutoFixture.Xunit2;
 using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
-using SL2021.Application.Services;
+using SL2021.Application.Services.Contracts;
 using System.Linq;
 
 namespace SL2021.Tests.Content

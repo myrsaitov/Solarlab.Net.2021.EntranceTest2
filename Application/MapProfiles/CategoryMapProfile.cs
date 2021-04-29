@@ -22,7 +22,6 @@ namespace SL2021.Application.MapProfiles
                 .Map(dest => dest.ParentCategoryId, src => src.ParentCategoryId)
                 .Map(dest => dest.IsDeleted, src => src.IsDeleted);
 
-
             return config;
         }
     }

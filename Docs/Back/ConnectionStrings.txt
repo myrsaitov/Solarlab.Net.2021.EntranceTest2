@@ -1,6 +1,6 @@
-"SqlServerDb": "Data Source=S-PC652\\SQLEXPRESS;initial catalog=WidePictDb;User Id=sa;Password=qwertyuiop"
+"SqlServerDb": "Data Source=S-PC652\\SQLEXPRESS;initial catalog=SL2021Db;User Id=sa;Password=qwertyuiop"
 
-"SqlServerDb": "Data Source=localhost;initial catalog=WidePictDb;User Id=sa;Password=qwerty"
+"SqlServerDb": "Data Source=localhost;initial catalog=SL2021Db;User Id=sa;Password=qwerty"
 
 "SqlServerDb": "Server=tcp:localhost; Database=Advertisement;Integrated Security=false;uid=sa;password=qwerty"
 

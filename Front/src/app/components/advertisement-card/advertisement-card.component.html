@@ -1,14 +1,14 @@
-<div class="card card-">
-  <div class="card-header">
+<div class="card" style="width: 18rem;">
+  <div class="card-header" style="width: 18rem; height: 5rem;">
     <h4 class="card-title font-weight-bold">{{advertisement.title}}</h4>
     <a class="badge badge-secondary">{{advertisement.categoryName}}</a>
     <a *ngFor="let tag of advertisement.tags">&nbsp;&nbsp;<a class="badge badge-secondary">{{tag}}</a></a>
    </div>
-  <div class="card-body">
+  <div class="card-body" style="width: 18rem; height: 10rem;">
     <a>{{advertisement.body.substring(0,100)}}...</a>
-    <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
   </div>
-  <div class="card-header">
+  <div class="card-header" style="width: 18rem; height: 10rem;">
+    <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
     <h6>  Добавлено пользователем:
       <div class="badge badge-secondary" *ngIf="advertisement?.owner.userName">{{advertisement.owner.userName}}</div></h6>
       <div><div class="badge badge-secondary" *ngIf="advertisement?.createdAt">

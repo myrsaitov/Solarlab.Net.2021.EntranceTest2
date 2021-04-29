@@ -1,0 +1,25 @@
+myrsaitov
+Zxs123!@#$%^&*()
+
+{
+  "username": "myrsaitov",
+  "password": "Zxs123!@#$%^&*()"
+}
+
+
+myrsaitov
+myrsaitov@gmail.com
+Konstantin
+Myrsaitov
+Michailovich
+Zxs123!@#$%^&*()
+
+{
+  "username": "myrsaitov",
+  "email": "myrsaitov@gmail.com",
+  "firstName": "Konstantin",
+  "lastName": "Myrsaitov",
+  "middleName": "Michailovich",
+  "password": "Zxs123!@#$%^&*()"
+}
+

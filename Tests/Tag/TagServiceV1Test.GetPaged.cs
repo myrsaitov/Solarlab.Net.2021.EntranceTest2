@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Xunit;
 using AutoFixture.Xunit2;
 using System.Collections.Generic;
-using SL2021.Application.Services;
+using SL2021.Application.Services.Contracts;
 using SL2021.Application.Services.Tag.Contracts;
 using System;
 using System.Linq;

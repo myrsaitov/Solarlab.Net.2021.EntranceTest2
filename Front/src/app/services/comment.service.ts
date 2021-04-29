@@ -5,6 +5,7 @@ import {EMPTY, Observable} from 'rxjs';
 import {GetPagedCommentModel} from '../models/comment/get-paged-comment-model';
 import {GetPagedCommentResponseModel} from '../models/comment/get-paged-comment-response-model';
 import {ICreateComment} from '../models/comment/comment-create-model';
+import {IComment} from '../models/comment/i-comment';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,13 @@ export class CommentService {
       }));
   }
 
+  delete(id: number) {
+    return this.http.delete<IComment>(`${this.ROOT_URL}/${id}`)
+      .pipe(catchError((err) => {
+        console.error(err);
+        return EMPTY;
+      }));
+  }
 /*
 
 
@@ -70,12 +78,6 @@ export class CommentService {
       }));
   }
 
-  delete(id: number) {
-    return this.http.delete<IAdvertisement>(`${this.ROOT_URL}/${id}`)
-      .pipe(catchError((err) => {
-        console.error(err);
-        return EMPTY;
-      }));
-  }
+
   */
 }
