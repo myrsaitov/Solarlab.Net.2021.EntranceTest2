@@ -49,8 +49,7 @@ export class LoginComponent implements OnInit {
     }
     const payload: ILogin = this.loginForm.getRawValue();
 
-    sessionStorage.setItem('currentUser', payload.userName);
-    console.log(sessionStorage.getItem('currentUser'));
+    localStorage.setItem('currentUser', payload.userName);
    
     await this.baseService.post(ApiUrls.login, payload)
       .then(res => {

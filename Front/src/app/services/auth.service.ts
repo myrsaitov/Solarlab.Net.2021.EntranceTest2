@@ -16,22 +16,26 @@ export class AuthService {
   }
 
   saveSession(token: string): void {
-    sessionStorage.setItem(this.tokenName, JSON.parse(token).token);
+    localStorage.setItem(this.tokenName, JSON.parse(token).token);
+    this.isAuthSubject$.next(!!this.getSession());
+  }
+
+  loadSession(): void {
     this.isAuthSubject$.next(!!this.getSession());
   }
 
   getSession(): string {
-    return sessionStorage.getItem(this.tokenName);
+    return localStorage.getItem(this.tokenName);
   }
 
   deleteSession(): void {
-    sessionStorage.removeItem(this.tokenName);
+    localStorage.removeItem(this.tokenName);
     this.isAuthSubject$.next(!!this.getSession());
   }
 
   getUsername() {
 
-    return sessionStorage.getItem('currentUser');
+    return localStorage.getItem('currentUser');
 
   }
 

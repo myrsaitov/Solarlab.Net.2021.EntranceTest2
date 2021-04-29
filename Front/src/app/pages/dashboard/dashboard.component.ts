@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.loadSession();
+
       this.response$ = this.advertisementsFilterChange$.pipe(
       switchMap(advertisementsFilter => this.advertisementService.getAdvertisementsList(advertisementsFilter)
       ));

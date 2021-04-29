@@ -64,7 +64,7 @@ export class AdvertisementComponent implements OnInit {
 
         this.advertisement = advertisement;
 
-        if(this.advertisement.owner.userName == sessionStorage.getItem('currentUser'))
+        if(this.advertisement.owner.userName == localStorage.getItem('currentUser'))
         {this.isEditable = true;}
           else
           {this.isEditable = false;}
