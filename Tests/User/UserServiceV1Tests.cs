@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using MapsterMapper;
 using Xunit;
 
-namespace SL2021.Application.Tests.User
+namespace SL2021.Tests.User
 {
     public class UserServiceV1Tests
     {
