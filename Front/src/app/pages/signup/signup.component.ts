@@ -30,11 +30,11 @@ export class SignupComponent implements OnInit {
     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[+!@#$%^&*]).{6,20}/g;
 
     this.form = this.fb.group({
-      userName: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9_]*")]],
+      userName: ['', [Validators.required,Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-Z0-9_]*")]],
       email: ['', [Validators.required, Validators.email]],
-      firstName: ['', Validators.pattern("[a-zA-Z]*")],
-      lastName: ['', Validators.pattern("[a-zA-Z]*")],
-      middleName: ['', Validators.pattern("[a-zA-Z]*")],
+      firstName: ['', Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")],
+      lastName: ['', Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z]+([ '-.][a-zA-Z]+)*")],
+      middleName: ['',Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern(pattern)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
     }, {validators: confirmPasswordValidator});

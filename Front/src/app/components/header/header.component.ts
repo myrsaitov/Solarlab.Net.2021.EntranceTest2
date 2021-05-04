@@ -41,6 +41,10 @@ export class HeaderComponent {
     });
   }
 
+  getContentByTag(tag: string){
+    this.router.navigate(['/'], { queryParams: { tag: tag } });
+  }
+
   userName(){
 
     return this.authService.getUsername();

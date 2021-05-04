@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GetPagedContentResponseModel } from '../../models/advertisement/get-paged-content-response-model';
 import { ActivatedRoute } from '@angular/router';
-
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,29 +28,32 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private advertisementService: AdvertisementService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private readonly router: Router,) {
   }
 
   ngOnInit() {
+
+    this.route.queryParams.subscribe(params => {
+      if('tag' in params){
+        this.tag = params.tag;
+        this.advertisementsFilterSubject$.value.tag = params.tag;
+        this.router.navigate(['/']);
+      }
+
+    });
+
     this.authService.loadSession();
-    this.advertisementsFilter.tag = "543";
+    this.advertisementsFilter.tag = this.tag;
 
       this.response$ = this.advertisementsFilterChange$.pipe(
       switchMap(advertisementsFilter => this.advertisementService.getAdvertisementsList(advertisementsFilter)
       ));
 
-
-      this.route.queryParams
-        .subscribe(params => {
-            console.log(params);
-            this.tag = params.tag;
-          }
-        );
-
-
   }
-
+  
   get advertisementsFilter() {
+    this.advertisementsFilterSubject$.value.tag = this.tag;
     return this.advertisementsFilterSubject$.value;
   }
 

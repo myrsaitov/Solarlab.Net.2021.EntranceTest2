@@ -29,4 +29,17 @@
       <ProjectCapability Include="DynamicFileNesting" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Category\Validators\" />
+      <Folder Include="Services\Comment\Validators\" />
+      <Folder Include="Services\Content\Validators\" />
+      <Folder Include="Services\Tag\Validators\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Services\User\Implementations\UserServiceV1 - Copy.Register.cs">
+        <DependentUpon>UserServiceV1.Register.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

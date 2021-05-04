@@ -14,7 +14,7 @@ namespace SL2021.API.Controllers.Account
         {
             [Required]
             [MaxLength(30, ErrorMessage = "Максимальная длина логина не должна превышать 30 символов")]
-            public string Username { get; set; }
+            public string UserName { get; set; }
 
             [Required]
             [MaxLength(100, ErrorMessage = "Максимальная длина Email не должна превышать 100 символов")]
@@ -41,7 +41,7 @@ namespace SL2021.API.Controllers.Account
         {
             var registrationResult = await _userService.Register(new Register.Request
             {
-                Username = request.Username,
+                UserName = request.UserName,
                 Email = request.Email,
                 Password = request.Password,
                 FirstName = request.FirstName,

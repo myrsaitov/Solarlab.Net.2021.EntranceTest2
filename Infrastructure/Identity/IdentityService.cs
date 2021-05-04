@@ -53,7 +53,7 @@ namespace SL2021.Infrastructure.Identity
 
         public async Task<CreateUser.Response> CreateUser(CreateUser.Request request, CancellationToken cancellationToken = default)
         {
-            var existedUser = await _userManager.FindByNameAsync(request.Username);
+            var existedUser = await _userManager.FindByNameAsync(request.UserName);
             if (existedUser != null)
             {
                 throw new ConflictException("Пользователь с таким именем уже существует");
@@ -61,7 +61,7 @@ namespace SL2021.Infrastructure.Identity
 
             var identityUser = new IdentityUser
             {
-                UserName = request.Username,
+                UserName = request.UserName,
                 Email = request.Email
             };
 
