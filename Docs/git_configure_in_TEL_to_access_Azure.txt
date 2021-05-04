@@ -4,3 +4,8 @@ git config --global http.proxy ""
 git config --global http.sslVerify false
 
 
+git config --global user.name "mirkm"
+git config --global user.email "mirkm@tavrida.com"
+
+git config --global user.name "Konstantin Myrsaitov"
+git config --global user.email "myrsaitov@gmail.com"
