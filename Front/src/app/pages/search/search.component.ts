@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit {
   isAuth = this.authService.isAuth;
 
   private advertisementsFilterSubject$ = new BehaviorSubject({
+    tag: null,
     pageSize: 10,
     page: 0
   });

@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using SL2021.Application.Services.Category.Contracts.Exceptions;
 using SL2021.Application.Services.Content.Contracts;
-using SL2021.Application.Services.Content.Contracts.Exceptions;
 using SL2021.Application.Services.Content.Interfaces;
 
 namespace SL2021.Application.Services.Content.Implementations

@@ -20,7 +20,7 @@ export class AdvertisementService {
 
   getAdvertisementsList(model: GetPagedAdvertisementModel): Observable<GetPagedContentResponseModel> {
     
-    const {page, pageSize} = model;
+    const {tag, page, pageSize} = model;
     if (page == null || pageSize == null) {
       return;
     }
@@ -32,16 +32,38 @@ export class AdvertisementService {
       this.decpage = page - 1;
     }
 
-    const params = new HttpParams()
+    if(tag == null)
+    {
+      const params = new HttpParams()
+      .set('page', `${this.decpage}`)
+      .set('pageSize', `${pageSize}`);
+
+
+      var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
+      return ret;
+
+    }
+    else
+    {
+      const params = new HttpParams()
+      .set('tag', `${tag}`)
       .set('page', `${this.decpage}`)
       .set('pageSize', `${pageSize}`);
 
       var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
-    .pipe(catchError((err) => {
-      console.error(err);
-      return EMPTY;
-    }));
-    return ret;
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
+      return ret;
+    }
+
+
+
   }
 
   getAdvertisementsListByTag(model: GetPagedAdvertisementModel, tag: string): Observable<GetPagedContentResponseModel> {
