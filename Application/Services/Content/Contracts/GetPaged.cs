@@ -12,6 +12,7 @@ namespace SL2021.Application.Services.Content.Contracts
             public decimal Price { get; set; }
             public OwnerResponse Owner { get; set; }
             public string CreatedAt { get; set; }
+            public int CategoryId { get; set; }
             public string CategoryName { get; set; }
             public bool IsDeleted { get; set; }
             public string[] Tags { get; set; }

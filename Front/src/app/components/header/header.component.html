@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark mb-4 d-flex">
   <a class="navbar-brand"
-     routerLink="/">Доска объявлений</a>
+  role="button" (click)="getContent()">Доска объявлений</a>
 
      <a *ngFor="let tag of tags"><a class="badge badge-secondary" role="button" (click)="getContentByTag(tag.body)">{{tag.body}}</a>&nbsp;&nbsp;</a>
   <ul class="nav nav-pills ml-auto">

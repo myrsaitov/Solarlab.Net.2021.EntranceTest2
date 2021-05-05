@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GetPagedContentResponseModel } from '../../models/advertisement/get-paged-content-response-model';
 import { ActivatedRoute } from '@angular/router';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,9 +16,10 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit {
   response$: Observable<GetPagedContentResponseModel>;
   isAuth = this.authService.isAuth;
-  tag: string;
 
   private advertisementsFilterSubject$ = new BehaviorSubject({
+    user: null,
+    category: null,
     tag: null,
     pageSize: 9,
     page: 0
@@ -28,23 +28,34 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private advertisementService: AdvertisementService,
-              private route: ActivatedRoute,
-              private readonly router: Router,) {
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
 
     this.route.queryParams.subscribe(params => {
-      if('tag' in params){
-        this.tag = params.tag;
+      if('user' in params){
+        this.advertisementsFilterSubject$.value.user = params.user;
+      }
+      else if('category' in params){
+        this.advertisementsFilterSubject$.value.category = params.category;
+      }
+      else if('tag' in params){
         this.advertisementsFilterSubject$.value.tag = params.tag;
-        this.router.navigate(['/']);
+      }
+      else{
+        this.advertisementsFilterSubject$.value.user = null;
+        this.advertisementsFilterSubject$.value.category = null;
+        this.advertisementsFilterSubject$.value.tag = null;
       }
 
+      this.advertisementsFilterSubject$.next({
+        ...this.advertisementsFilter
+      });
     });
 
+
     this.authService.loadSession();
-    this.advertisementsFilter.tag = this.tag;
 
       this.response$ = this.advertisementsFilterChange$.pipe(
       switchMap(advertisementsFilter => this.advertisementService.getAdvertisementsList(advertisementsFilter)
@@ -53,7 +64,6 @@ export class DashboardComponent implements OnInit {
   }
   
   get advertisementsFilter() {
-    this.advertisementsFilterSubject$.value.tag = this.tag;
     return this.advertisementsFilterSubject$.value;
   }
 

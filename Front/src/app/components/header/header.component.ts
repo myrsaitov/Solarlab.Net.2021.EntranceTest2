@@ -22,7 +22,7 @@ export class HeaderComponent {
     private authService: AuthService,
     private tagService: TagService,
     private readonly baseService: BaseService,
-    private readonly router: Router,
+    private readonly router: Router
   ) {
   }
 
@@ -41,6 +41,9 @@ export class HeaderComponent {
     });
   }
 
+  getContent(){
+    this.router.navigate(['/']);
+  }
   getContentByTag(tag: string){
     this.router.navigate(['/'], { queryParams: { tag: tag } });
   }
