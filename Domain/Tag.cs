@@ -8,6 +8,7 @@ namespace SL2021.Domain
     {
         [MaxLength(32)]
         public string Body { get; set; }
+        public int Count { get; set; }
         public virtual ICollection<Content> Contents { get; set; }
     }
 }

@@ -9,8 +9,9 @@
 
         public sealed class Response
         {
-            public int? Id { get; set; }
+            public int Id { get; set; }
             public string Body { get; set; }
+            public int Count { get; set; }
         }
     }
 }
