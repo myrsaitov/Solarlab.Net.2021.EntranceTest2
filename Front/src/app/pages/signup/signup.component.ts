@@ -32,9 +32,9 @@ export class SignupComponent implements OnInit {
     this.form = this.fb.group({
       userName: ['', [Validators.required,Validators.minLength(5), Validators.maxLength(50), Validators.pattern("[a-zA-Z0-9_]*")]],
       email: ['', [Validators.required, Validators.email]],
-      firstName: ['', Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")],
-      lastName: ['', Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z]+([ '-.][a-zA-Z]+)*")],
-      middleName: ['',Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")],
+      firstName: ['', [Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")]],
+      lastName: ['', [Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")]],
+      middleName: ['', [Validators.minLength(1), Validators.maxLength(50), Validators.pattern("[A-Z][a-z]*")]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern(pattern)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
     }, {validators: confirmPasswordValidator});
@@ -69,7 +69,6 @@ export class SignupComponent implements OnInit {
   }
 
 
-
   public async register() {
 
     console.log("Called register()");
@@ -78,19 +77,18 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    console.log("REGISTER");
 
 
 
- var RES = await this.accountService.register(this.form.value)
-   .toPromise();
+ var RES = await this.accountService
+  .register(this.form.value)
+  .toPromise();
 
    
 
     //LOGIN
   if(RES)
   {
-      console.log("REGISTER Success");
       this.form.markAllAsTouched();
       if (this.form.invalid) 
       {  
@@ -98,11 +96,7 @@ export class SignupComponent implements OnInit {
       }
     
       const payload: ILogin = this.form.getRawValue();
-
       localStorage.setItem('currentUser', payload.userName);
-      console.log(localStorage.getItem('currentUser'));
-
-      console.log("LOGIN");
       await this.baseService.post(ApiUrls.login, payload)
         .then(res => {
           if (res) 
@@ -114,8 +108,6 @@ export class SignupComponent implements OnInit {
   }
   else
   {
-    //Ошибка региистрации
-    console.log("REGISTER Error");
     this.notregisterstatus = true;
   }
 

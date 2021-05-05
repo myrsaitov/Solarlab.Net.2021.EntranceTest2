@@ -17,7 +17,7 @@ namespace SL2021.Application.Services.User.Validators
                 .MinimumLength(1)
                 .MaximumLength(50);
             RuleFor(x => x.LastName)
-                .Matches("[A-Z]+([ '-.][a-zA-Z]+)*").WithMessage("LastName не валидный!")
+                .Matches("[A-Z][a-z]*").WithMessage("LastName не валидный!")
                 .MinimumLength(1)
                 .MaximumLength(50);
             RuleFor(x => x.MiddleName)
