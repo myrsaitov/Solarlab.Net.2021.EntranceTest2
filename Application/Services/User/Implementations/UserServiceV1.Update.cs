@@ -12,16 +12,10 @@ namespace SL2021.Application.Services.User.Implementations
 {
     public sealed partial class UserServiceV1 : IUserService
     {
-        public async Task Update(Update.Request request, CancellationToken cancellationToken)
+        public async Task Update(
+            Update.Request request, 
+            CancellationToken cancellationToken)
         {
-            UpdateRequestValidator validator = new();
-            var result = await validator.ValidateAsync(request);
-
-            if (!result.IsValid)
-            {
-                throw new UserUpdateException(string.Join(';', result.Errors.Select(x => x.ErrorMessage)));
-            }
-
             var domainUser = await _repository.FindById(request.Id, cancellationToken);
             if (domainUser == null)
             {
@@ -34,7 +28,12 @@ namespace SL2021.Application.Services.User.Implementations
                 throw new NoRightsException("Нет прав");
             }
 
-            await _repository.Save(_mapper.Map<Domain.User>(request), cancellationToken);
+            domainUser.FirstName = request.FirstName;
+            domainUser.LastName = request.LastName;
+            domainUser.MiddleName = request.MiddleName;
+            domainUser.UpdatedAt = DateTime.UtcNow;
+
+            await _repository.Save(domainUser, cancellationToken);
         }
     }
 }

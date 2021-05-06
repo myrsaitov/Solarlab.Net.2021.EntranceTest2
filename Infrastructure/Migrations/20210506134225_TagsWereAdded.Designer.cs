@@ -10,7 +10,7 @@ using SL2021.Infrastructure.DataAccess;
 namespace SL2021.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210505151551_TagsWereAdded")]
+    [Migration("20210506134225_TagsWereAdded")]
     partial class TagsWereAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,14 +66,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "45032bb6-051d-4b60-bf53-c0784bc5be99",
+                            ConcurrencyStamp = "c2667dd2-a173-4b62-a6bd-7053367ce0bb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "b55784ac-d18e-44b1-a14e-892b4a8743e4",
+                            ConcurrencyStamp = "a4d3ff15-9e4b-4e5e-97dc-b5f1eff4b337",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -223,42 +223,42 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 5, 5, 15, 15, 50, 723, DateTimeKind.Utc).AddTicks(1714),
+                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(1428),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 5, 5, 15, 15, 50, 723, DateTimeKind.Utc).AddTicks(2489),
+                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2222),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 5, 5, 15, 15, 50, 723, DateTimeKind.Utc).AddTicks(2493),
+                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2225),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 5, 5, 15, 15, 50, 723, DateTimeKind.Utc).AddTicks(2494),
+                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2227),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 5, 5, 15, 15, 50, 723, DateTimeKind.Utc).AddTicks(2495),
+                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2228),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 5, 5, 15, 15, 50, 723, DateTimeKind.Utc).AddTicks(2496),
+                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2229),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -370,6 +370,7 @@ namespace SL2021.Infrastructure.Migrations
             modelBuilder.Entity("SL2021.Domain.User", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -399,7 +400,10 @@ namespace SL2021.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -475,13 +479,13 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "01e7e342-ac22-4f07-88d4-af19a2f31b07",
+                            ConcurrencyStamp = "47c7ef15-bd9b-4808-958d-d4aecce492cb",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJQ2sKThzAAwwPlpUK3wzFzMWeK886P3TrqvZmz4pqoN5zQSIlEI/nvuYM+lryhxkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPLemrMwkDlj1Xk6dnWEEk64QBckZtmxU/BET86XCN58zBbLNHBSCcYpQZAW9oLQWg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f46ba405-7850-4944-80e2-17f51ee7500f",
+                            SecurityStamp = "8bfbba3c-5a29-483e-934d-0d1d92cb585e",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

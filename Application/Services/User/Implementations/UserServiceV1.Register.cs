@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SL2021.Application.Identity.Contracts;
@@ -29,7 +30,18 @@ namespace SL2021.Application.Services.User.Implementations
 
             if (response.IsSuccess)
             {
-                await _repository.Save(_mapper.Map<Domain.User>(response), cancellationToken);
+                var domainUser = new Domain.User
+                {
+                    Id = response.UserId,
+                    UserName = registerRequest.UserName,
+                    FirstName = registerRequest.FirstName,
+                    LastName = registerRequest.LastName,
+                    MiddleName = registerRequest.MiddleName,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _repository.Save(domainUser, cancellationToken);
+
                 return _mapper.Map<Register.Response>(response);
             }
 

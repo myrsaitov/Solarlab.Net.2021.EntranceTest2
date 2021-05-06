@@ -9,8 +9,13 @@ namespace SL2021.Infrastructure.DataAccess.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(u => u.Id);
+            builder.Property(u => u.Id).ValueGeneratedOnAdd();
             builder.Property(u => u.CreatedAt).IsRequired();
             builder.Property(u => u.UpdatedAt).IsRequired(false);
+            builder.Property(u => u.UserName)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode();
             builder.Property(u => u.FirstName)
                 .IsRequired()
                 .HasMaxLength(100)

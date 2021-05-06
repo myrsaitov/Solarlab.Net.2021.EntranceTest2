@@ -117,6 +117,9 @@ export class AdvertisementComponent implements OnInit {
   }
 
   submit() {
+
+
+
     const model: Partial<ICreateComment> = {
       body: this.commentBody.value,
       contentId: this.advertisement.id,
@@ -138,5 +141,11 @@ export class AdvertisementComponent implements OnInit {
       })
 
     });
+
+
+    this.form = this.fb.group({
+      commentBody: ['', Validators.required]
+    });
+
   }
 }

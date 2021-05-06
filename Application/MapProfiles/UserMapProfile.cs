@@ -15,9 +15,6 @@ namespace SL2021.Application.MapProfiles
             config.NewConfig<CreateUser.Response, Register.Response>()
                 .Map(dest => dest.UserId, src => src.UserId);
 
-            config.NewConfig<CreateUser.Response, Domain.User>()
-                .Map(dest => dest.CreatedAt, src => DateTime.UtcNow);
-
             config.NewConfig<Update.Request, Domain.User>()
                 .Ignore(dest => dest.Id)
                 .Map(dest => dest.CreatedAt, src => DateTime.UtcNow);
