@@ -48,10 +48,12 @@ export class HeaderComponent {
     this.router.navigate(['/'], { queryParams: { tag: tag } });
   }
 
+  getContentByUserName(){
+    this.router.navigate(['/'], { queryParams: { userName: this.authService.getUsername() } });
+  }
+  
   userName(){
-
     return this.authService.getUsername();
-
   }
 
   logout() {

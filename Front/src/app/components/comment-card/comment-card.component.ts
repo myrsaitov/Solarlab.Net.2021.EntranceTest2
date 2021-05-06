@@ -1,9 +1,10 @@
-import {Component, Input} from '@angular/core';
-import {IComment} from '../../models/comment/i-comment';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CommentService} from '../../services/comment.service';
-import {AuthService} from '../../services/auth.service';
-import {ToastService} from '../../services/toast.service';
+import { Component, Input } from '@angular/core';
+import { IComment } from '../../models/comment/i-comment';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CommentService } from '../../services/comment.service';
+import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment-card',
@@ -18,6 +19,7 @@ export class CommentCardComponent {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private toastService: ToastService,
+    private router: Router,
     private commentService: CommentService) {
 }
 
@@ -27,10 +29,10 @@ delete_comment(){
  
 
     });
+}
 
-
-
-
+getContentByUserName(userName: string){
+  this.router.navigate(['/'], { queryParams: { userName: userName } });
 }
 
 }

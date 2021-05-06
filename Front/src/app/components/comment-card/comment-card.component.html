@@ -5,9 +5,7 @@
       <div class="row">
         <div class="col-2">
           <h6>  Пользователь:<br>
-            <div class="badge badge-secondary" *ngIf="comment?.owner.userName">
-              {{comment.owner.userName}}
-            </div>
+            <a class="badge badge-secondary" *ngIf="comment?.owner.userName" role="button" (click)="getContentByUserName(comment.owner.userName)">{{comment.owner.userName}}</a>
           </h6>
         </div>
         <div class="col">

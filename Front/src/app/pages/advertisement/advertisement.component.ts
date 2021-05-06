@@ -1,20 +1,19 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {pluck, take} from 'rxjs/operators';
-import {isNullOrUndefined} from 'util';
-import {AdvertisementService} from '../../services/advertisement.service';
-import {CommentService} from '../../services/comment.service';
-import {IAdvertisement} from '../../models/advertisement/i-advertisement';
-import {AuthService} from '../../services/auth.service';
-import {ToastService} from '../../services/toast.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CategoryService} from '../../services/category.service';
-import {GetPagedCommentResponseModel} from '../../models/comment/get-paged-comment-response-model';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {CreateComment, ICreateComment} from '../../models/comment/comment-create-model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { pluck, take } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+import { AdvertisementService } from '../../services/advertisement.service';
+import { CommentService } from '../../services/comment.service';
+import { IAdvertisement } from '../../models/advertisement/i-advertisement';
+import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
+import { CategoryService } from '../../services/category.service';
+import { GetPagedCommentResponseModel } from '../../models/comment/get-paged-comment-response-model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { CreateComment, ICreateComment } from '../../models/comment/comment-create-model';
 
 @Component({
   selector: 'app-advertisement',
@@ -114,6 +113,15 @@ export class AdvertisementComponent implements OnInit {
 
     });
 
+  }
+  getContentByTag(tag: string){
+    this.router.navigate(['/'], { queryParams: { tag: tag } });
+  }
+  getContentByCategory(categoryId: number){
+    this.router.navigate(['/'], { queryParams: { categoryId: categoryId } });
+  }
+  getContentByUserName(userName: string){
+    this.router.navigate(['/'], { queryParams: { userName: userName } });
   }
 
   submit() {

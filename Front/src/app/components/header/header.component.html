@@ -29,7 +29,7 @@
                 (click)="logout()">Выход
         </button>
         <h4>Вы вошли под именем: 
-          <span class="badge badge-secondary">{{userName()}}</span></h4>
+          <span class="badge badge-secondary" *ngIf="userName" role="button" (click)="getContentByUserName()">{{userName()}}</span></h4>
       </li>
     </ng-template>
   </ul>

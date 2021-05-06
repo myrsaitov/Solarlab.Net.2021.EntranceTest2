@@ -11,7 +11,7 @@ namespace SL2021.API.Controllers.Content
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPaged([FromQuery] GetPagedTaggedRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged([FromQuery] GetPagedContentRequest request, CancellationToken cancellationToken)
         {
             Paged.Response<GetPaged.Response> result;
 

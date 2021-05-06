@@ -22,4 +22,7 @@ export class AdvertisementCardComponent {
   getContentByTag(tag: string){
     this.router.navigate(['/'], { queryParams: { tag: tag } });
   }
+  getContentByUserName(userName: string){
+    this.router.navigate(['/'], { queryParams: { userName: userName } });
+  }
 }

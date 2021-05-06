@@ -18,8 +18,8 @@ export class DashboardComponent implements OnInit {
   isAuth = this.authService.isAuth;
 
   private advertisementsFilterSubject$ = new BehaviorSubject({
-    user: null,
-    category: null,
+    userName: null,
+    categoryId: null,
     tag: null,
     pageSize: 9,
     page: 0
@@ -34,18 +34,18 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     this.route.queryParams.subscribe(params => {
-      if('user' in params){
-        this.advertisementsFilterSubject$.value.user = params.user;
+      if('userName' in params){
+        this.advertisementsFilterSubject$.value.userName = params.userName;
       }
-      else if('category' in params){
-        this.advertisementsFilterSubject$.value.category = params.category;
+      else if('categoryId' in params){
+        this.advertisementsFilterSubject$.value.categoryId = params.categoryId;
       }
       else if('tag' in params){
         this.advertisementsFilterSubject$.value.tag = params.tag;
       }
       else{
-        this.advertisementsFilterSubject$.value.user = null;
-        this.advertisementsFilterSubject$.value.category = null;
+        this.advertisementsFilterSubject$.value.userName = null;
+        this.advertisementsFilterSubject$.value.categoryId = null;
         this.advertisementsFilterSubject$.value.tag = null;
       }
 
