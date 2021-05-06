@@ -2,7 +2,11 @@
   <a class="navbar-brand"
   role="button" (click)="getContent()">Доска объявлений</a>
 
-     <a *ngFor="let tag of tags"><a class="badge badge-secondary" role="button" (click)="getContentByTag(tag.body)">{{tag.body}}</a>&nbsp;&nbsp;</a>
+  <a *ngFor="let tag of tags">
+    <a class="badge badge-secondary" *ngIf="tag.count > 0" role="button" (click)="getContentByTag(tag.body)">{{tag.body}}({{tag.count}})
+    </a>
+    &nbsp;&nbsp;
+  </a>
   <ul class="nav nav-pills ml-auto">
     <ng-container *ngIf="!(isAuth$ | async); else noAuthenticated">
       <li class="nav-item">
