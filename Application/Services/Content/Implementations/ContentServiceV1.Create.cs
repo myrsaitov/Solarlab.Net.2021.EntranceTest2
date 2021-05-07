@@ -19,18 +19,13 @@ namespace SL2021.Application.Services.Content.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var categoryRequest = new Category.Contracts.GetById.Request()
-            {
-                Id = request.CategoryId
-            };
-
             var category = await _categoryRepository.FindById(
-                categoryRequest.Id,
+                request.CategoryId,
                 cancellationToken);
 
             if (category is null)
             {
-                throw new CategoryNotFoundException(categoryRequest.Id);
+                throw new CategoryNotFoundException(request.CategoryId);
             }
 
             string userId = await _identityService.GetCurrentUserId(cancellationToken);

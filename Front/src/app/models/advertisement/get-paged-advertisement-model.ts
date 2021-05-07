@@ -1,5 +1,6 @@
 export class GetPagedAdvertisementModel 
 {
+    public searchStr: string;
     public userName: string;
     public categoryId: number;
     public tag: string;

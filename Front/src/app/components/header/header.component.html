@@ -3,8 +3,7 @@
   role="button" (click)="getContent()">Доска объявлений</a>
 
   <a *ngFor="let tag of tags">
-    <a class="badge badge-secondary" *ngIf="tag.count > 0" role="button" (click)="getContentByTag(tag.body)">{{tag.body}}({{tag.count}})
-    </a>
+    <a class="badge badge-secondary" *ngIf="tag.count > 0" role="button" (click)="getContentByTag(tag.body)">{{tag.body}}({{tag.count}})</a>
     &nbsp;&nbsp;
   </a>
   <ul class="nav nav-pills ml-auto">
@@ -29,8 +28,19 @@
                 (click)="logout()">Выход
         </button>
         <h4>Вы вошли под именем: 
-          <span class="badge badge-secondary" *ngIf="userName" role="button" (click)="getContentByUserName()">{{userName()}}</span></h4>
+          <span class="badge badge-secondary" *ngIf="userName" role="button" (click)="getContentByUserName()">{{userName()}}</span>&nbsp;&nbsp;</h4>
       </li>
     </ng-template>
   </ul>
+
+  
+
+  <ng-container [formGroup]="form">
+<div class="form-group">
+  <a class="navbar-brand">Поиск</a><br>
+  <input type="text" class="form-control" id="searchStr" formControlName="searchStr" placeholder="Поиск" autofocus>&nbsp;&nbsp;
+  <button class="btn btn-outline-primary"
+                (click)="getContentBySearchStr()">Искать</button>
+</div>
+</ng-container>
 </nav>

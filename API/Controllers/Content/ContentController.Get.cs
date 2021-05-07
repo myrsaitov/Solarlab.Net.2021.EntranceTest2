@@ -16,7 +16,7 @@ namespace SL2021.API.Controllers.Content
         {
             var result = new Paged.Response<GetPaged.Response>();
 
-            if((request.UserName is null)&&(request.CategoryId is null)&&(request.Tag is null))
+            if((request.SearchStr is null) && (request.UserName is null) && (request.CategoryId is null) && (request.Tag is null))
             {
                 result = await _contentService.GetPaged(new Paged.Request
                 {
@@ -24,7 +24,17 @@ namespace SL2021.API.Controllers.Content
                     Page = request.Page
                 }, cancellationToken);
             }
-            else if ((request.UserName is not null) && (request.CategoryId is null) && (request.Tag is null))
+            else if ((request.SearchStr is not null) && (request.UserName is null) && (request.CategoryId is null) && (request.Tag is null))
+            {
+                result = await _contentService.GetPaged(
+                    o => o.Body.ToLower().Contains(request.SearchStr.ToLower()) || o.Title.ToLower().Contains(request.SearchStr.ToLower()),
+                    new Paged.Request
+                    {
+                        PageSize = request.PageSize,
+                        Page = request.Page
+                    }, cancellationToken);
+            }
+            else if ((request.SearchStr is null) && (request.UserName is not null) && (request.CategoryId is null) && (request.Tag is null))
             {
                 result = await _contentService.GetPaged(
                     a => a.Owner.UserName == request.UserName,
@@ -34,7 +44,7 @@ namespace SL2021.API.Controllers.Content
                         Page = request.Page
                     }, cancellationToken);
             }
-            else if ((request.UserName is null) && (request.CategoryId is not null) && (request.Tag is null))
+            else if ((request.SearchStr is null) && (request.UserName is null) && (request.CategoryId is not null) && (request.Tag is null))
             {
                 result = await _contentService.GetPaged(
                     a => a.CategoryId == request.CategoryId,
@@ -44,7 +54,7 @@ namespace SL2021.API.Controllers.Content
                         Page = request.Page
                     }, cancellationToken);
             }
-            else if ((request.UserName is null) && (request.CategoryId is null) && (request.Tag is not null))
+            else if ((request.SearchStr is null) && (request.UserName is null) && (request.CategoryId is null) && (request.Tag is not null))
             {
                 result = await _contentService.GetPaged(
                     a => a.Tags.Any(t => t.Body == request.Tag),
