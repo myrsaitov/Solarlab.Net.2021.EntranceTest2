@@ -22,6 +22,12 @@
       </li>
       
     </ng-container>
+
+    <ng-container [formGroup]="form">
+      <div class="form-group">
+        <input type="text" class="form-control" (keydown.enter)="getContentBySearchStr($event)" id="searchStr" formControlName="searchStr" placeholder="Поиск" autofocus>&nbsp;&nbsp;
+      </div>
+    </ng-container>
     <ng-template #noAuthenticated>
       <li class="nav-item">
         <button class="btn btn-outline-primary"
@@ -32,15 +38,4 @@
       </li>
     </ng-template>
   </ul>
-
-  
-
-  <ng-container [formGroup]="form">
-<div class="form-group">
-  <a class="navbar-brand">Поиск</a><br>
-  <input type="text" class="form-control" (keydown.enter)="getContentBySearchStr($event)" id="searchStr" formControlName="searchStr" placeholder="Поиск" autofocus>&nbsp;&nbsp;
-  <button class="btn btn-outline-primary"
-                (click)="getContentBySearchStr()">Искать</button>
-</div>
-</ng-container>
 </nav>

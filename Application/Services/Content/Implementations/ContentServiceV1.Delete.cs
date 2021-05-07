@@ -20,7 +20,7 @@ namespace SL2021.Application.Services.Content.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var content = await _contentRepository.FindByIdWithUserInclude(
+            var content = await _contentRepository.FindByIdWithUserAndTagsInclude(
                 request.Id,
                 cancellationToken);
 
@@ -43,6 +43,17 @@ namespace SL2021.Application.Services.Content.Implementations
 
             content.IsDeleted = true;
             content.UpdatedAt = DateTime.UtcNow;
+
+            // TODO Сделать нормальный подсчет количества Tags
+            foreach (var tag in content.Tags)
+            {
+                if (tag.Count > 0)
+                {
+                    tag.Count -= 1;
+                    await _tagRepository.Save(tag, cancellationToken);
+                }
+            }
+
             await _contentRepository.Save(content, cancellationToken);
         }
     }

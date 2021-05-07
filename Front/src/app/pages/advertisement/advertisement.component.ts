@@ -14,7 +14,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CreateComment, ICreateComment } from '../../models/comment/comment-create-model';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-advertisement',

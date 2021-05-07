@@ -23,7 +23,14 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Owner)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
-
+        public async Task<Content> FindByIdWithUserAndTagsInclude(int id, CancellationToken cancellationToken)
+        {
+            return await DbСontext
+                .Set<Content>()
+                .Include(a => a.Owner)
+                .Include(a => a.Tags)
+                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+        }
         public async Task<Content> FindByIdWithUserAndCategoryAndTags(int id, CancellationToken cancellationToken)
         {
             return await DbСontext

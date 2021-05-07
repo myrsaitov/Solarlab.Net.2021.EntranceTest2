@@ -12,6 +12,9 @@ namespace SL2021.Application.Repositories
         Task<Domain.Content> FindByIdWithUserInclude(
             int id, 
             CancellationToken cancellationToken);
+        Task<Domain.Content> FindByIdWithUserAndTagsInclude(
+            int id,
+            CancellationToken cancellationToken);
         Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
             CancellationToken cancellationToken);

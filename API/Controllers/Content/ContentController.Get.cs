@@ -26,8 +26,13 @@ namespace SL2021.API.Controllers.Content
             }
             else if ((request.SearchStr is not null) && (request.UserName is null) && (request.CategoryId is null) && (request.Tag is null))
             {
+                // Поиск
                 result = await _contentService.GetPaged(
-                    o => o.Body.ToLower().Contains(request.SearchStr.ToLower()) || o.Title.ToLower().Contains(request.SearchStr.ToLower()),
+                    o => o.Body.ToLower().Contains(request.SearchStr.ToLower())  // В теле объявления
+                    || o.Title.ToLower().Contains(request.SearchStr.ToLower())  // В названии объявления
+                    || o.Owner.UserName.ToLower().Contains(request.SearchStr.ToLower()) // В UserName
+                    || o.Category.Name.ToLower().Contains(request.SearchStr.ToLower()) // По имени категории
+                    || o.Tags.Select(a => a.Body).ToArray().Contains(request.SearchStr.ToLower()), // По  tag
                     new Paged.Request
                     {
                         PageSize = request.PageSize,
