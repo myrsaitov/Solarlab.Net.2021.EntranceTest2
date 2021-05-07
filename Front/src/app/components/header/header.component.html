@@ -38,7 +38,7 @@
   <ng-container [formGroup]="form">
 <div class="form-group">
   <a class="navbar-brand">Поиск</a><br>
-  <input type="text" class="form-control" id="searchStr" formControlName="searchStr" placeholder="Поиск" autofocus>&nbsp;&nbsp;
+  <input type="text" class="form-control" (keydown.enter)="getContentBySearchStr($event)" id="searchStr" formControlName="searchStr" placeholder="Поиск" autofocus>&nbsp;&nbsp;
   <button class="btn btn-outline-primary"
                 (click)="getContentBySearchStr()">Искать</button>
 </div>
