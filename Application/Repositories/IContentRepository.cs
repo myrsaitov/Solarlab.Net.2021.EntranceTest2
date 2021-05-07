@@ -20,7 +20,7 @@ namespace SL2021.Application.Repositories
             int limit,
             CancellationToken cancellationToken);
         Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
-            string tag,
+            Expression<Func<Content, bool>> predicate,
             int offset,
             int limit,
             CancellationToken cancellationToken);

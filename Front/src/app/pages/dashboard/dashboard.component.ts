@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   isAuth = this.authService.isAuth;
 
   private advertisementsFilterSubject$ = new BehaviorSubject({
+    searchStr: null,
     userName: null,
     categoryId: null,
     tag: null,
@@ -32,9 +33,20 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.loadSession();
+    this.isAuth = this.authService.isAuth;
 
     this.route.queryParams.subscribe(params => {
-      if('userName' in params){
+
+      this.advertisementsFilterSubject$.value.searchStr = null;
+      this.advertisementsFilterSubject$.value.userName = null;
+      this.advertisementsFilterSubject$.value.categoryId = null;
+      this.advertisementsFilterSubject$.value.tag = null;
+
+      if('searchStr' in params){
+        this.advertisementsFilterSubject$.value.searchStr = params.searchStr;
+      }
+      else if('userName' in params){
         this.advertisementsFilterSubject$.value.userName = params.userName;
       }
       else if('categoryId' in params){
@@ -43,11 +55,6 @@ export class DashboardComponent implements OnInit {
       else if('tag' in params){
         this.advertisementsFilterSubject$.value.tag = params.tag;
       }
-      else{
-        this.advertisementsFilterSubject$.value.userName = null;
-        this.advertisementsFilterSubject$.value.categoryId = null;
-        this.advertisementsFilterSubject$.value.tag = null;
-      }
 
       this.advertisementsFilterSubject$.next({
         ...this.advertisementsFilter
@@ -55,7 +62,7 @@ export class DashboardComponent implements OnInit {
     });
 
 
-    this.authService.loadSession();
+
 
       this.response$ = this.advertisementsFilterChange$.pipe(
       switchMap(advertisementsFilter => this.advertisementService.getAdvertisementsList(advertisementsFilter)

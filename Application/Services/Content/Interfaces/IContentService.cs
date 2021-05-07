@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using SL2021.Application.Services.Content.Contracts;
 using SL2021.Application.Services.Contracts;
@@ -26,7 +28,7 @@ namespace SL2021.Application.Services.Content.Interfaces
             Paged.Request request, 
             CancellationToken cancellationToken);
         Task<Paged.Response<GetPaged.Response>> GetPaged(
-            string tag,
+            Expression<Func<Domain.Content, bool>> predicate,
             Paged.Request request,
             CancellationToken cancellationToken);
     }

@@ -73,7 +73,7 @@ export class AdvertisementService {
             console.error(err);
             return EMPTY;
           }));
-      return ret;
+    return ret;
     }
     else if((userName == null)&&(categoryId == null)&&(tag != null))
     {

@@ -54,7 +54,7 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .ToListAsync(cancellationToken);
         }
         public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
-            string tag,
+            Expression<Func<Content, bool>> predicate,
             int offset,
             int limit,
             CancellationToken cancellationToken)
@@ -67,7 +67,7 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .AsNoTracking();
 
             return await data
-                .Where(a => a.Tags.Any(t => t.Body == tag))
+                .Where(predicate)
                 .OrderBy(e => e.Id)
                 .Skip(offset)
                 .Take(limit)
