@@ -75,7 +75,7 @@ namespace SL2021.Tests.Content
 
             _contentRepositoryMock
                 .Setup(_ => _.GetPagedWithTagsAndOwnerAndCategoryInclude(
-                    It.IsAny<string>(),
+                    It.IsAny<Expression<Func<Domain.Content, bool>>>(),
                     It.IsAny<int>(),
                     It.IsAny<int>(),
                     It.IsAny<CancellationToken>()))
@@ -84,7 +84,7 @@ namespace SL2021.Tests.Content
 
             // Act
             var response = await _contentServiceV1.GetPaged(
-                tagSearch, 
+                a => a.Tags.Any(t => t.Body == tagSearch), 
                 request, 
                 cancellationToken);
 
@@ -100,7 +100,7 @@ namespace SL2021.Tests.Content
         public async Task GetPaged_ByTag_Returns_Response_Success_Total_eq_0(
             Paged.Request request,
             CancellationToken cancellationToken,
-            string tagSearch)
+            Expression<Func<Domain.Content, bool>> predicate)
         {
             // Arrange
             int contentCount = 0;
@@ -116,7 +116,7 @@ namespace SL2021.Tests.Content
 
             // Act
             var response = await _contentServiceV1.GetPaged(
-                tagSearch,
+                predicate,
                 request,
                 cancellationToken);
 
@@ -132,12 +132,12 @@ namespace SL2021.Tests.Content
         public async Task GetPaged_ByTag_Throws_Exception_When_Request_Is_Null(
             Paged.Request request,
             CancellationToken cancellationToken,
-            string tagSearch)
+            Expression<Func<Domain.Content, bool>> predicate)
         {
             // Act
             await Assert.ThrowsAsync<ArgumentNullException>(
                 async () => await _contentServiceV1.GetPaged(
-                    tagSearch, 
+                    predicate, 
                     request, 
                     cancellationToken));
         }

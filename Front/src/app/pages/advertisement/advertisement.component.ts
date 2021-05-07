@@ -1,20 +1,20 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {pluck, take} from 'rxjs/operators';
-import {isNullOrUndefined} from 'util';
-import {AdvertisementService} from '../../services/advertisement.service';
-import {CommentService} from '../../services/comment.service';
-import {IAdvertisement} from '../../models/advertisement/i-advertisement';
-import {AuthService} from '../../services/auth.service';
-import {ToastService} from '../../services/toast.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CategoryService} from '../../services/category.service';
-import {GetPagedCommentResponseModel} from '../../models/comment/get-paged-comment-response-model';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
-import {ChangeDetectionStrategy} from '@angular/core';
-import {CreateComment, ICreateComment} from '../../models/comment/comment-create-model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { pluck, take } from 'rxjs/operators';
+import { isNullOrUndefined } from 'util';
+import { AdvertisementService } from '../../services/advertisement.service';
+import { CommentService } from '../../services/comment.service';
+import { IAdvertisement } from '../../models/advertisement/i-advertisement';
+import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
+import { CategoryService } from '../../services/category.service';
+import { GetPagedCommentResponseModel } from '../../models/comment/get-paged-comment-response-model';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { CreateComment, ICreateComment } from '../../models/comment/comment-create-model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-advertisement',
@@ -44,7 +44,8 @@ export class AdvertisementComponent implements OnInit {
               private authService: AuthService,
               private toastService: ToastService,
               private categoryService: CategoryService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -115,8 +116,35 @@ export class AdvertisementComponent implements OnInit {
     });
 
   }
+  getContentByTag(tag: string){
+    this.router.navigate(['/'], { queryParams: { tag: tag } });
+  }
+  getContentByCategory(categoryId: number){
+    this.router.navigate(['/'], { queryParams: { categoryId: categoryId } });
+  }
+  getContentByUserName(userName: string){
+    this.router.navigate(['/'], { queryParams: { userName: userName } });
+  }
+
+
+
+
+  delete(id: number) {
+    this.advertisementService.delete(id).pipe(take(1)).subscribe(() => {
+      this.toastService.show('Объявление успешено удалено', {classname: 'bg-success text-light'});
+      this.router.navigate(['/']);
+    });
+  }
+
+  openDeleteModal(content: TemplateRef<any>) {
+    this.modalService.open(content, {centered: true});
+  }
+
 
   submit() {
+
+
+
     const model: Partial<ICreateComment> = {
       body: this.commentBody.value,
       contentId: this.advertisement.id,
@@ -138,5 +166,11 @@ export class AdvertisementComponent implements OnInit {
       })
 
     });
+
+
+    this.form = this.fb.group({
+      commentBody: ['', Validators.required]
+    });
+
   }
 }

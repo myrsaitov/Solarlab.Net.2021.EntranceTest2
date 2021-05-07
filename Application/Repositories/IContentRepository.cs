@@ -12,15 +12,22 @@ namespace SL2021.Application.Repositories
         Task<Domain.Content> FindByIdWithUserInclude(
             int id, 
             CancellationToken cancellationToken);
+        Task<Domain.Content> FindByIdWithUserAndTagsInclude(
+            int id,
+            CancellationToken cancellationToken);
         Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
+            CancellationToken cancellationToken);
+        Task<int> CountWithOutDeleted(CancellationToken cancellationToken);
+        Task<int> CountWithOutDeleted(
+            Expression<Func<Content, bool>> predicate,
             CancellationToken cancellationToken);
         Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
             int offset,
             int limit,
             CancellationToken cancellationToken);
         Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
-            string tag,
+            Expression<Func<Content, bool>> predicate,
             int offset,
             int limit,
             CancellationToken cancellationToken);

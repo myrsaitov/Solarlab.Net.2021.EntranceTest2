@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SL2021.Application.Services.Content.Contracts;
 using SL2021.Application.Services.Content.Interfaces;
 using SL2021.Application.Services.Contracts;
+using System.Linq.Expressions;
 
 namespace SL2021.Application.Services.Content.Implementations
 {
@@ -22,7 +23,7 @@ namespace SL2021.Application.Services.Content.Implementations
 
             var offset = request.Page * request.PageSize;
 
-            var total = await _contentRepository.Count(cancellationToken);
+            var total = await _contentRepository.CountWithOutDeleted(cancellationToken);
 
             if (total == 0)
             {
@@ -50,7 +51,7 @@ namespace SL2021.Application.Services.Content.Implementations
             };
         }
         public async Task<Paged.Response<GetPaged.Response>> GetPaged(
-            string tag,
+            Expression<Func<Domain.Content, bool>> predicate,
             Paged.Request request,
             CancellationToken cancellationToken)
         {
@@ -59,8 +60,8 @@ namespace SL2021.Application.Services.Content.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var total = await _contentRepository.Count(
-                a => a.Tags.Any(t => t.Body == tag),
+            var total = await _contentRepository.CountWithOutDeleted(
+                predicate,
                 cancellationToken);
 
             var offset = request.Page * request.PageSize;
@@ -77,7 +78,7 @@ namespace SL2021.Application.Services.Content.Implementations
             }
 
             var entities = await _contentRepository.GetPagedWithTagsAndOwnerAndCategoryInclude(
-                tag,
+                predicate,
                 offset,
                 request.PageSize,
                 cancellationToken

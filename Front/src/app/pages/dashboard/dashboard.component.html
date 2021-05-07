@@ -19,12 +19,14 @@
   </div>
   <div class="row">
     <div class="col-12  justify-content-center" *ngIf="response$ | async as response; else loadingBlock">
+      <div *ngIf="response.total > advertisementsFilter.pageSize">
       <ngb-pagination
         [page]="advertisementsFilter.page"
         (pageChange)="updateAdvertisementsFilterPage($event)"
         [pageSize]="advertisementsFilter.pageSize"
         [collectionSize]="response.total">
       </ngb-pagination>
+      </div>
     </div>
   </div>
   <div class="row mb-2" *ngIf="response$ | async as response; else loadingBlock">
@@ -38,12 +40,14 @@
   </div>
   <div class="row">
     <div class="col-12  justify-content-center" *ngIf="response$ | async as response; else loadingBlock">
+      <div *ngIf="response.total > advertisementsFilter.pageSize">
       <ngb-pagination
         [page]="advertisementsFilter.page"
         (pageChange)="updateAdvertisementsFilterPage($event)"
         [pageSize]="advertisementsFilter.pageSize"
         [collectionSize]="response.total">
       </ngb-pagination>
+    </div>
     </div>
   </div>
 </div>

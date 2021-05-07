@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using SL2021.Application.Services.Category.Contracts.Exceptions;
 using SL2021.Application.Services.Content.Contracts;
-using SL2021.Application.Services.Content.Contracts.Exceptions;
 using SL2021.Application.Services.Content.Interfaces;
 
 namespace SL2021.Application.Services.Content.Implementations
@@ -20,18 +19,13 @@ namespace SL2021.Application.Services.Content.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var categoryRequest = new Category.Contracts.GetById.Request()
-            {
-                Id = request.CategoryId
-            };
-
             var category = await _categoryRepository.FindById(
-                categoryRequest.Id,
+                request.CategoryId,
                 cancellationToken);
 
             if (category is null)
             {
-                throw new CategoryNotFoundException(categoryRequest.Id);
+                throw new CategoryNotFoundException(request.CategoryId);
             }
 
             string userId = await _identityService.GetCurrentUserId(cancellationToken);
@@ -62,9 +56,19 @@ namespace SL2021.Application.Services.Content.Implementations
 
                             tag = _mapper.Map<Domain.Tag>(tagRequest);
                             tag.CreatedAt = DateTime.UtcNow;
+                            tag.Count = 1;
+
+                            await _tagRepository.Save(
+                                tag, 
+                                cancellationToken);
+                        }
+                        else
+                        {
+                            // TODO Переделать с поиском в базе, учесть удаленные объявления
+                            tag.Count += 1;
                             await _tagRepository.Save(tag, cancellationToken);
                         }
-                    
+
                         content.Tags.Add(tag);
                     }
                 }

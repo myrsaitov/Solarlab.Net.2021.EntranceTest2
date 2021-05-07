@@ -48,7 +48,7 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
 
             return await data
                 .Where(predicate)
-                .OrderBy(e => e.Id)
+                .OrderByDescending(e => e.CreatedAt)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync(cancellationToken);

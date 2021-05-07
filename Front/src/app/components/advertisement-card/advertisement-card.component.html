@@ -1,16 +1,17 @@
 <div class="card" style="width: 18rem;">
   <div class="card-header" style="width: 18rem; height: 5rem;">
-    <h4 class="card-title font-weight-bold">{{advertisement.title}}</h4>
-    <a class="badge badge-secondary">{{advertisement.categoryName}}</a>
-    <a *ngFor="let tag of advertisement.tags">&nbsp;&nbsp;<a class="badge badge-secondary">{{tag}}</a></a>
-   </div>
+    <h4 class="card-title font-weight-bold">{{advertisement.title.substring(0,15)}}...</h4>
+    <a class="badge badge-secondary" role="button" (click)="getContentByCategory(advertisement.categoryId)">{{advertisement.categoryName}}</a>
+    <a *ngFor="let tag of advertisement.tags">&nbsp;&nbsp;<a class="badge badge-secondary" role="button" (click)="getContentByTag(tag)">{{tag}}</a>
+    </a>
+  </div>
   <div class="card-body" style="width: 18rem; height: 10rem;">
     <a>{{advertisement.body.substring(0,100)}}...</a>
   </div>
   <div class="card-header" style="width: 18rem; height: 10rem;">
     <a routerLink="{{advertisement.id}}" class="btn btn-primary">Подробнее</a>
     <h6>  Добавлено пользователем:
-      <div class="badge badge-secondary" *ngIf="advertisement?.owner.userName">{{advertisement.owner.userName}}</div></h6>
+      <a class="badge badge-secondary" *ngIf="advertisement?.owner.userName" role="button" (click)="getContentByUserName(advertisement.owner.userName)">{{advertisement.owner.userName}}</a></h6>
       <div><div class="badge badge-secondary" *ngIf="advertisement?.createdAt">
         {{advertisement.createdAt}}</div></div>
   <h6>  Стоимость:

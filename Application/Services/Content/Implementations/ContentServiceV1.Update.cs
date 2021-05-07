@@ -90,9 +90,17 @@ namespace SL2021.Application.Services.Content.Implementations
 
                             tag = _mapper.Map<Domain.Tag>(tagRequest);
                             tag.CreatedAt = DateTime.UtcNow;
+                            tag.Count = 1;
+
                             await _tagRepository.Save(
                                 tag,
                                 cancellationToken);
+                        }
+                        else
+                        {
+                            // TODO Переделать с поиском в базе, учесть удаленные объявления
+                            tag.Count += 1;
+                            await _tagRepository.Save(tag, cancellationToken);
                         }
 
                         content.Tags.Add(tag);

@@ -5,9 +5,7 @@
       <div class="row">
         <div class="col-2">
           <h6>  Пользователь:<br>
-            <div class="badge badge-secondary" *ngIf="comment?.owner.userName">
-              {{comment.owner.userName}}
-            </div>
+            <a class="badge badge-secondary" *ngIf="comment?.owner.userName" role="button" (click)="getContentByUserName(comment.owner.userName)">{{comment.owner.userName}}</a>
           </h6>
         </div>
         <div class="col">
@@ -22,10 +20,10 @@
         </div>
         <div class="col-1">
           <div class="row">
-            <button type="button" class="btn btn-danger" (click)="delete_comment(comment.id); c('Delete click')">Удалить</button>
+            
           </div>
           <div class="row">
-            <button type="submit" class="btn btn-primary" (click)="submit()">Ответить</button>
+            
           </div>
         </div>
       </div>

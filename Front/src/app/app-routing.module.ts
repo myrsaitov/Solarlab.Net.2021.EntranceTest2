@@ -1,8 +1,8 @@
 import {AdvertisementComponent} from './pages/advertisement/advertisement.component';
+import {ParserComponent} from './pages/parser/parser.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {LoginComponent} from './pages/login/login.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
-import {SearchComponent} from './pages/search/search.component';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
@@ -14,10 +14,6 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-  },
-  {
-    path: 'search',
-    component: SearchComponent
   },
   {
     path: 'login',
@@ -48,6 +44,10 @@ const routes: Routes = [
   {
     path: '**',
     component: DashboardComponent,
+  },
+  {
+    path: 'parser',
+    component: ParserComponent,
   }
 ];
 

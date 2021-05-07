@@ -23,7 +23,14 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Owner)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
-
+        public async Task<Content> FindByIdWithUserAndTagsInclude(int id, CancellationToken cancellationToken)
+        {
+            return await DbСontext
+                .Set<Content>()
+                .Include(a => a.Owner)
+                .Include(a => a.Tags)
+                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+        }
         public async Task<Content> FindByIdWithUserAndCategoryAndTags(int id, CancellationToken cancellationToken)
         {
             return await DbСontext
@@ -34,6 +41,29 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Category.ParentCategory)
                 .Include(a => a.Tags)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+        }
+        public async Task<int> CountWithOutDeleted(CancellationToken cancellationToken)
+        {
+            var data = DbСontext
+                .Set<Content>()
+                .AsNoTracking(); ;
+
+            return await data
+                .Where(c => c.IsDeleted == false)
+                .CountAsync(cancellationToken);
+        }
+        public async Task<int> CountWithOutDeleted(
+            Expression<Func<Content, bool>> predicate,
+            CancellationToken cancellationToken)
+        {
+            var data = DbСontext
+                .Set<Content>()
+                .AsNoTracking(); ;
+
+            return await data
+                .Where(c => c.IsDeleted == false)
+                .Where(predicate)
+                .CountAsync(cancellationToken);
         }
         public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
             int offset,
@@ -48,13 +78,14 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .AsNoTracking(); ;
 
             return await data
+                .Where(c => c.IsDeleted == false)
                 .OrderBy(e => e.Id)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync(cancellationToken);
         }
         public async Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
-            string tag,
+            Expression<Func<Content, bool>> predicate,
             int offset,
             int limit,
             CancellationToken cancellationToken)
@@ -67,7 +98,8 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .AsNoTracking();
 
             return await data
-                .Where(a => a.Tags.Any(t => t.Body == tag))
+                .Where(c => c.IsDeleted == false)
+                .Where(predicate)
                 .OrderBy(e => e.Id)
                 .Skip(offset)
                 .Take(limit)

@@ -8,7 +8,6 @@ import { TagCloudComponent } from './components/tag-cloud/tag-cloud.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SearchComponent } from './pages/search/search.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Provider } from '@angular/core';
 
@@ -40,7 +39,6 @@ import { ConnectionpageComponent } from './components/connectionpage/connectionp
     AppComponent,
     TagCloudComponent,
     DashboardComponent,
-    SearchComponent,
     HeaderComponent,
     FooterComponent,
     LoginComponent,

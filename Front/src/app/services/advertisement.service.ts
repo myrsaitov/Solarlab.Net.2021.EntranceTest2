@@ -20,7 +20,7 @@ export class AdvertisementService {
 
   getAdvertisementsList(model: GetPagedAdvertisementModel): Observable<GetPagedContentResponseModel> {
     
-    const {page, pageSize} = model;
+    const {searchStr, userName, categoryId, tag, page, pageSize} = model;
     if (page == null || pageSize == null) {
       return;
     }
@@ -32,16 +32,79 @@ export class AdvertisementService {
       this.decpage = page - 1;
     }
 
-    const params = new HttpParams()
+    if((searchStr == null)&&(userName == null)&&(categoryId == null)&&(tag == null))
+    {
+      const params = new HttpParams()
+      .set('page', `${this.decpage}`)
+      .set('pageSize', `${pageSize}`);
+
+
+      var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
+      return ret;
+
+    }
+    else if((searchStr != null)&&(userName == null)&&(categoryId == null)&&(tag == null))
+    {
+      const params = new HttpParams()
+      .set('searchStr', `${searchStr}`)
       .set('page', `${this.decpage}`)
       .set('pageSize', `${pageSize}`);
 
       var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
-    .pipe(catchError((err) => {
-      console.error(err);
-      return EMPTY;
-    }));
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
+      return ret;
+    }
+    else if((searchStr == null)&&(userName != null)&&(categoryId == null)&&(tag == null))
+    {
+      const params = new HttpParams()
+      .set('userName', `${userName}`)
+      .set('page', `${this.decpage}`)
+      .set('pageSize', `${pageSize}`);
+
+      var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
+      return ret;
+    }
+    else if((searchStr == null)&&(userName == null)&&(categoryId != null)&&(tag == null))
+    {
+      const params = new HttpParams()
+      .set('categoryId', `${categoryId}`)
+      .set('page', `${this.decpage}`)
+      .set('pageSize', `${pageSize}`);
+
+      var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
     return ret;
+    }
+    else if((searchStr == null)&&(userName == null)&&(categoryId == null)&&(tag != null))
+    {
+      const params = new HttpParams()
+      .set('tag', `${tag}`)
+      .set('page', `${this.decpage}`)
+      .set('pageSize', `${pageSize}`);
+
+      var ret = this.http.get<GetPagedContentResponseModel>(`${this.ROOT_URL}`, {params})
+        .pipe(catchError((err) => {
+            console.error(err);
+            return EMPTY;
+          }));
+      return ret;
+    }
+
+
   }
 
   getAdvertisementsListByTag(model: GetPagedAdvertisementModel, tag: string): Observable<GetPagedContentResponseModel> {
