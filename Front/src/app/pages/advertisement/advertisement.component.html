@@ -43,12 +43,14 @@
 
   <div class="row">
     <div class="col-12 justify-content-center" *ngIf="response$ | async as response; else loadingBlock">
+      <div *ngIf="response.total > commentsFilter.pageSize">
       <ngb-pagination
         [page]="commentsFilter.page"
         (pageChange)="updateCommentsFilterPage($event)"
         [pageSize]="commentsFilter.pageSize"
         [collectionSize]="response.total">
       </ngb-pagination>
+    </div>
     </div>
   </div>
 
@@ -66,12 +68,14 @@
 
   <div class="row">
     <div class="col-12 justify-content-center" *ngIf="response$ | async as response; else loadingBlock">
+      <div *ngIf="response.total > commentsFilter.pageSize">
       <ngb-pagination
         [page]="commentsFilter.page"
         (pageChange)="updateCommentsFilterPage($event)"
         [pageSize]="commentsFilter.pageSize"
         [collectionSize]="response.total">
       </ngb-pagination>
+      </div>
     </div>
   </div>
 

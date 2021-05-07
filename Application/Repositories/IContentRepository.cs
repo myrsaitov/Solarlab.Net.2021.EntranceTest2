@@ -18,6 +18,10 @@ namespace SL2021.Application.Repositories
         Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
             CancellationToken cancellationToken);
+        Task<int> CountWithOutDeleted(CancellationToken cancellationToken);
+        Task<int> CountWithOutDeleted(
+            Expression<Func<Content, bool>> predicate,
+            CancellationToken cancellationToken);
         Task<IEnumerable<Content>> GetPagedWithTagsAndOwnerAndCategoryInclude(
             int offset,
             int limit,

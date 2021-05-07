@@ -23,7 +23,7 @@ namespace SL2021.Application.Services.Content.Implementations
 
             var offset = request.Page * request.PageSize;
 
-            var total = await _contentRepository.Count(cancellationToken);
+            var total = await _contentRepository.CountWithOutDeleted(cancellationToken);
 
             if (total == 0)
             {
@@ -60,7 +60,7 @@ namespace SL2021.Application.Services.Content.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var total = await _contentRepository.Count(
+            var total = await _contentRepository.CountWithOutDeleted(
                 predicate,
                 cancellationToken);
 
@@ -92,6 +92,5 @@ namespace SL2021.Application.Services.Content.Implementations
                 Limit = request.PageSize
             };
         }
-
     }
 }
