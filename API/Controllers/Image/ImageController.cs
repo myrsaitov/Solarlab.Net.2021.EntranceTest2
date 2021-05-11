@@ -13,53 +13,48 @@ namespace SL2021.API.Controllers.Image
     [ApiController]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class StudentsController : ControllerBase
+    public class ImageController : ControllerBase
     {
-        private readonly ILogger<StudentsController> _logger;
+        private readonly ILogger<ImageController> _logger;
 
-        public StudentsController(ILogger<StudentsController> logger)
+        public ImageController(ILogger<ImageController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet("{id:int}/forms/{formId:int}")]
-        [ProducesResponseType(typeof(StudentFormSubmissionResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ImageFormResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<StudentFormSubmissionResult> ViewForm(int id, int formId)
+        public async Task<ImageFormResponse> ViewForm(int id, int formId)
         {
-            _logger.LogInformation($"viewing the form#{formId} for Student ID={id}");
+            _logger.LogInformation($"viewing the form#{formId} for Content ID={id}");
             await Task.Delay(1000);
-            return new StudentFormSubmissionResult { FormId = formId, StudentId = id };
+            return new ImageFormResponse { FormId = formId, ContentId = id };
         }
 
         [HttpPost("{id:int}/forms")]
-        [ProducesResponseType(typeof(StudentFormSubmissionResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ImageFormResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequestSizeLimit(long.MaxValue)]
-        public async Task<ActionResult<StudentFormSubmissionResult>> SubmitForm(int id, [FromForm] StudentForm form)
+        public async Task<ActionResult<ImageFormResponse>> SubmitForm(int id, [FromForm] ImageFormRequest form)
         {
-            _logger.LogInformation($"Validating the form#{form.FormId} for Student ID={id}");
+            _logger.LogInformation($"Validating the form#{form.FormId} for Content ID={id}");
 
-            if (form.Courses == null || form.Courses.Length == 0)
-            {
-                return BadRequest("Please enter at least one course.");
-            }
-
-            if (form.StudentFile == null || form.StudentFile.Length < 1)
+            if (form.ImageFile == null || form.ImageFile.Length < 1)
             {
                 return BadRequest("The uploaded file is empty.");
             }
 
-            var filePath = Path.Combine(@"App_Data", $"{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(form.StudentFile.FileName)}");
+            var filePath = Path.Combine(@"App_Data", $"{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(form.ImageFile.FileName)}");
             new FileInfo(filePath).Directory?.Create();
             await using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                _logger.LogInformation($"Saving file [{form.StudentFile.FileName}]");
-                await form.StudentFile.CopyToAsync(stream);
+                _logger.LogInformation($"Saving file [{form.ImageFile.FileName}]");
+                await form.ImageFile.CopyToAsync(stream);
                 _logger.LogInformation($"\t The uploaded file is saved as [{filePath}].");
             }
 
-            var result = new StudentFormSubmissionResult { FormId = form.FormId, StudentId = id, FileSize = form.StudentFile.Length };
+            var result = new ImageFormResponse { FormId = form.FormId, ContentId = id, FileSize = form.ImageFile.Length };
             return CreatedAtAction(nameof(ViewForm), new { id, form.FormId }, result);
         }
 
@@ -73,9 +68,9 @@ namespace SL2021.API.Controllers.Image
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [RequestSizeLimit(long.MaxValue)]
-        public async Task<ActionResult<List<CertificateSubmissionResult>>> SubmitCertificates(int id, [Required] List<IFormFile> certificates)
+        public async Task<ActionResult<List<CertificateResponse>>> SubmitCertificates(int id, [Required] List<IFormFile> certificates)
         {
-            var result = new List<CertificateSubmissionResult>();
+            var result = new List<CertificateResponse>();
 
             if (certificates == null || certificates.Count == 0)
             {
@@ -91,7 +86,7 @@ namespace SL2021.API.Controllers.Image
                 await certificate.CopyToAsync(stream);
                 _logger.LogInformation($"The uploaded file [{certificate.FileName}] is saved as [{filePath}].");
 
-                result.Add(new CertificateSubmissionResult { FileName = certificate.FileName, FileSize = certificate.Length });
+                result.Add(new CertificateResponse { FileName = certificate.FileName, FileSize = certificate.Length });
             }
 
             return Ok(result);
@@ -119,21 +114,20 @@ namespace SL2021.API.Controllers.Image
         }
     }
 
-    public class StudentForm
+    public class ImageFormRequest
     {
         [Required] public int FormId { get; set; }
-        [Required] public string[] Courses { get; set; }
-        [Required] public IFormFile StudentFile { get; set; }
+        [Required] public IFormFile ImageFile { get; set; }
     }
 
-    public class StudentFormSubmissionResult
+    public class ImageFormResponse
     {
-        public int StudentId { get; set; }
+        public int ContentId { get; set; }
         public int FormId { get; set; }
         public long FileSize { get; set; }
     }
 
-    public class CertificateSubmissionResult
+    public class CertificateResponse
     {
         public string FileName { get; set; }
         public long FileSize { get; set; }
