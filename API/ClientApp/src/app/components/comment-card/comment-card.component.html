@@ -1,0 +1,33 @@
+<ng-container [formGroup]="form">
+<div class="card card-">
+  <div class="card-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-2">
+          <h6>  Пользователь:<br>
+            <a class="badge badge-secondary" *ngIf="comment?.owner.userName" role="button" (click)="getContentByUserName(comment.owner.userName)">{{comment.owner.userName}}</a>
+          </h6>
+        </div>
+        <div class="col">
+          <div class="card-header">
+            <div class="badge badge-secondary" *ngIf="comment?.createdAt">
+              {{comment.createdAt}}
+            </div>
+            <div class="card-body">
+              <a>{{comment.body}}</a>
+            </div>
+           </div>
+        </div>
+        <div class="col-1">
+          <div class="row">
+            
+          </div>
+          <div class="row">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-container>

@@ -1,4 +1,5 @@
-﻿using SL2021.Application.Services.Image.Interfaces;
+﻿using SL2021.Application.Repositories;
+using SL2021.Application.Services.Image.Interfaces;
 
 namespace SL2021.Application.Services.Image.Implementations
 {

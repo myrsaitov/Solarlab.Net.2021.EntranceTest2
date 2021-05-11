@@ -8,7 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SL2021.Application.MapProfiles;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
+using System;
+using System.IO;
+using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 namespace SL2021.API
 {
@@ -42,12 +48,26 @@ namespace SL2021.API
 
             services.AddSwaggerModule();
 
-           //Mapster
+            //  Adding Angular ClientApp
+            //  https://rramname.medium.com/add-angular-7-0-client-application-to-asp-net-core-2-2-web-api-project-ce1617d1d38d
+            //
+            //  Need to install:
+            //    Microsoft.AspNetCore.SpaServices
+            //    Microsoft.AspNetCore.SpaServices.Extensions
+            //    Microsoft.CodeAnalysis
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
+
+            //Mapster
             services.AddSingleton(CategoryMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(CommentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(ContentMapProfile.GetConfiguredMappingConfig());
             services.AddSingleton(UserMapProfile.GetConfiguredMappingConfig());
-            
+            services.AddSingleton(TagMapProfile.GetConfiguredMappingConfig());
+
             services.AddScoped<IMapper, ServiceMapper>();
             
             services.AddApplicationException(config => { config.DefaultErrorStatusCode = 500; });
@@ -60,6 +80,16 @@ namespace SL2021.API
             using var scope = app.ApplicationServices.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
             db.Database.Migrate();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
@@ -75,6 +105,29 @@ namespace SL2021.API
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+
+            //  Adding Angular ClientApp
+            app.UseStaticFiles();
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
+
+
+
+
+
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
     }
 }
