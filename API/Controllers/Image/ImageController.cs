@@ -50,12 +50,7 @@ namespace SL2021.API.Controllers.Image
                 return BadRequest("The uploaded file is empty.");
             }
 
-            if (Path.GetExtension(form.StudentFile.FileName) != ".pdf")
-            {
-                return BadRequest($"The uploaded file {form.StudentFile.Name} is not a PDF file.");
-            }
-
-            var filePath = Path.Combine(@"App_Data", $"{DateTime.Now:yyyyMMddHHmmss}.pdf");
+            var filePath = Path.Combine(@"App_Data", $"{DateTime.Now:yyyyMMddHHmmss}{Path.GetExtension(form.StudentFile.FileName)}");
             new FileInfo(filePath).Directory?.Create();
             await using (var stream = new FileStream(filePath, FileMode.Create))
             {
