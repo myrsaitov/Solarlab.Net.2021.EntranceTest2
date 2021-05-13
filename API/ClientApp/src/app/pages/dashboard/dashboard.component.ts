@@ -5,6 +5,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { GetPagedContentResponseModel } from '../../models/advertisement/get-paged-content-response-model';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { TagService } from '../../services/tag.service';
+import { TagModel } from 'src/app/models/tag/tag-model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
   response$: Observable<GetPagedContentResponseModel>;
   isAuth = this.authService.isAuth;
+  tags: TagModel[];
 
   private advertisementsFilterSubject$ = new BehaviorSubject({
     searchStr: null,
@@ -29,10 +34,22 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private advertisementService: AdvertisementService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private readonly router: Router,
+              private tagService: TagService) {
   }
 
   ngOnInit() {
+    this.tagService.getTags().subscribe(getPagedTags => 
+      {
+        if (isNullOrUndefined(getPagedTags)) {
+          this.router.navigate(['/']);
+          return;
+        }
+  
+        this.tags = getPagedTags.items;
+      });
+
     this.authService.loadSession();
     this.isAuth = this.authService.isAuth;
 
@@ -70,6 +87,10 @@ export class DashboardComponent implements OnInit {
 
   }
   
+  getContentByTag(tag: string){
+    this.router.navigate(['/'], { queryParams: { tag: tag } });
+  }
+
   get advertisementsFilter() {
     return this.advertisementsFilterSubject$.value;
   }

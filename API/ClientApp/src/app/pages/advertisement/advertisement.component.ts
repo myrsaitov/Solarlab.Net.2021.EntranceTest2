@@ -2,7 +2,6 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pluck, take } from 'rxjs/operators';
-import { isNullOrUndefined } from 'util';
 import { AdvertisementService } from '../../services/advertisement.service';
 import { CommentService } from '../../services/comment.service';
 import { IAdvertisement } from '../../models/advertisement/i-advertisement';
@@ -15,6 +14,9 @@ import { switchMap } from 'rxjs/operators';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { CreateComment, ICreateComment } from '../../models/comment/comment-create-model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TagService } from '../../services/tag.service';
+import { TagModel } from 'src/app/models/tag/tag-model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-advertisement',
@@ -29,6 +31,7 @@ export class AdvertisementComponent implements OnInit {
   isAuth = this.authService.isAuth;
   isEditable: boolean;
   response$: Observable<GetPagedCommentResponseModel>;
+  tags: TagModel[];
 
   private commentsFilterSubject$ = new BehaviorSubject({
     contentId: 1,
@@ -45,10 +48,21 @@ export class AdvertisementComponent implements OnInit {
               private toastService: ToastService,
               private categoryService: CategoryService,
               private commentService: CommentService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private tagService: TagService) {
   }
 
   ngOnInit() {
+
+    this.tagService.getTags().subscribe(getPagedTags => 
+      {
+        if (isNullOrUndefined(getPagedTags)) {
+          this.router.navigate(['/']);
+          return;
+        }
+  
+        this.tags = getPagedTags.items;
+      });
     this.form = this.fb.group({
       commentBody: ['', Validators.required]
     });

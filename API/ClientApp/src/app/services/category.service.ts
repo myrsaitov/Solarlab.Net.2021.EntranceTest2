@@ -43,27 +43,6 @@ export class CategoryService {
   return source;
   }
 
-
-  /*
-  getCategoryList(filter: ICategoryFilter) {
-    const {page, pageSize} = filter;
-    if (page == null || pageSize == null) {
-      return;
-    }
-
-    const params = new HttpParams()
-      .set('page', `${page}`)
-      .set('pageSize', `${pageSize}`);
-      
-      //debugger;
-    return this.http.get<ICategory[]>(`${this.ROOT_URL}`, {params})
-      .pipe(catchError((err) => {
-        console.error(err);
-        return EMPTY;
-      }));
-  }
-*/
-
   getCategoryById(id: number) {
 
     return this.http.get<ICategory>(`${this.ROOT_URL}/${id}`)

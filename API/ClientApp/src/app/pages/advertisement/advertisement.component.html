@@ -1,4 +1,16 @@
 <div class="container" *ngIf="advertisement; else loadingBlock">
+
+  <div class="row">  
+    <div class="col-2">
+      <ul>  
+      <div *ngFor="let tag of tags">
+        <a class="badge badge-secondary" *ngIf="tag.count > 0" role="button" (click)="getContentByTag(tag.body)">{{tag.body}}({{tag.count}})</a>
+        &nbsp;&nbsp;
+      </div>
+      </ul>
+    </div>
+    <div class="col">
+
   <ng-container [formGroup]="form">
   <article class="card">
     <div class="card-header d-flex">
@@ -78,7 +90,8 @@
       </div>
     </div>
   </div>
-
+</div>
+</div>
 </div>
 <ng-template #loadingBlock>
   <div class="container">

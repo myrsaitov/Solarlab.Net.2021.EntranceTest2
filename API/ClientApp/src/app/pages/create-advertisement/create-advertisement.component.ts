@@ -8,6 +8,9 @@ import {ToastService} from '../../services/toast.service';
 import {CategoryService} from '../../services/category.service';
 import {Observable} from 'rxjs';
 import {ICategory} from '../../models/category/category-model';
+import { TagService } from '../../services/tag.service';
+import { TagModel } from 'src/app/models/tag/tag-model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-create-advertisement',
@@ -17,21 +20,34 @@ import {ICategory} from '../../models/category/category-model';
 export class CreateAdvertisementComponent implements OnInit {
   form: FormGroup;
   categories$: Observable<ICategory[]>;
+  tags: TagModel[];
 
   constructor(private fb: FormBuilder,
               private advertisementService: AdvertisementService,
               private categoryService: CategoryService,
               private router: Router,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private tagService: TagService) {
   }
 
   ngOnInit() {
+
+    this.tagService.getTags().subscribe(getPagedTags => 
+      {
+        if (isNullOrUndefined(getPagedTags)) {
+          this.router.navigate(['/']);
+          return;
+        }
+  
+        this.tags = getPagedTags.items;
+      });
+
     this.form = this.fb.group({
       title: ['', Validators.required],
       body: ['', Validators.required],
       price: ['', Validators.pattern("[0-9,]*")],
       categoryId: [null, Validators.required],
-      tags: [null]
+      input_tags: [null]
     });
     this.categories$ = this.categoryService.getCategoryList({
       pageSize: 1000,
@@ -55,17 +71,21 @@ export class CreateAdvertisementComponent implements OnInit {
     return this.form.get('categoryId');
   }
 
-  get tags() {
-    return this.form.get('tags');
+  get input_tags() {
+    return this.form.get('input_tags');
   }
 
+  getContentByTag(tag: string){
+    this.router.navigate(['/'], { queryParams: { tag: tag } });
+  }
+  
   submit()
   {
     if (this.form.invalid) {
       return;
     }
 
-    var tagStr = this.tags.value;
+    var tagStr = this.input_tags.value;
 
     if(tagStr != null)
     {

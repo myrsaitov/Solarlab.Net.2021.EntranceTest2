@@ -8,6 +8,9 @@ import {CategoryService} from '../../services/category.service';
 import {Observable, Subject} from 'rxjs';
 import {ICategory} from '../../models/category/category-model';
 import {EditAdvertisement, IEditAdvertisement} from '../../models/advertisement/advertisement-edit-model';
+import { TagService } from '../../services/tag.service';
+import { TagModel } from 'src/app/models/tag/tag-model';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-edit-advertisement',
@@ -20,16 +23,29 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
   advertisementId$ = this.route.params.pipe(pluck('id'));
   destroy$ = new Subject();
   tagstr: string;
+  tags: TagModel[];
 
   constructor(private fb: FormBuilder,
               private advertisementService: AdvertisementService,
               private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private tagService: TagService) {
   }
 
   ngOnInit() {
+
+    this.tagService.getTags().subscribe(getPagedTags => 
+      {
+        if (isNullOrUndefined(getPagedTags)) {
+          this.router.navigate(['/']);
+          return;
+        }
+  
+        this.tags = getPagedTags.items;
+      });
+
     this.categories$ = this.categoryService.getCategoryList({
       pageSize: 1000,
       page: 0,
@@ -39,7 +55,7 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
       body: ['', Validators.required],
       price: ['', Validators.pattern("[0-9,]*")],
       categoryId: ['', Validators.required],
-      tags: ['',Validators.required]
+      input_tags: ['',Validators.required]
     });
     this.advertisementId$.pipe(switchMap(advertisementId => {
       return this.advertisementService.getAdvertisementById(advertisementId);
@@ -57,12 +73,14 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
 
       },this);
 
-      this.tags.patchValue(this.tagstr);
+      this.input_tags.patchValue(this.tagstr);
 
 
     });
   }
-
+  getContentByTag(tag: string){
+    this.router.navigate(['/'], { queryParams: { tag: tag } });
+  }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.unsubscribe();
@@ -84,8 +102,8 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
     return this.form.get('categoryId');
   }
 
-  get tags() {
-    return this.form.get('tags');
+  get input_tags() {
+    return this.form.get('input_tags');
   }
 
   submit() {
@@ -95,7 +113,7 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
 
 
 // Взяли строку с тагами с формы
-var tagStr = this.tags.value;
+var tagStr = this.input_tags.value;
 
 if(tagStr != null)
 {
