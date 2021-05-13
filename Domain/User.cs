@@ -8,5 +8,6 @@ namespace SL2021.Domain
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         public string UserName { get; set; }
+        public string ImageURL { get; set; }
     }
 }

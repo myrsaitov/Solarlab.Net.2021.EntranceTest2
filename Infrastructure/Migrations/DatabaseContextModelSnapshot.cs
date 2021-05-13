@@ -64,14 +64,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "c2667dd2-a173-4b62-a6bd-7053367ce0bb",
+                            ConcurrencyStamp = "ae51265a-abc7-44c3-afe3-5953f9cbf979",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "a4d3ff15-9e4b-4e5e-97dc-b5f1eff4b337",
+                            ConcurrencyStamp = "724022c8-08ef-48c4-b697-ef02fd026186",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -221,42 +221,42 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(1428),
+                            CreatedAt = new DateTime(2021, 5, 13, 9, 59, 3, 97, DateTimeKind.Utc).AddTicks(442),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2222),
+                            CreatedAt = new DateTime(2021, 5, 13, 9, 59, 3, 97, DateTimeKind.Utc).AddTicks(1258),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2225),
+                            CreatedAt = new DateTime(2021, 5, 13, 9, 59, 3, 97, DateTimeKind.Utc).AddTicks(1261),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2227),
+                            CreatedAt = new DateTime(2021, 5, 13, 9, 59, 3, 97, DateTimeKind.Utc).AddTicks(1262),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2228),
+                            CreatedAt = new DateTime(2021, 5, 13, 9, 59, 3, 97, DateTimeKind.Utc).AddTicks(1264),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 5, 6, 13, 42, 25, 302, DateTimeKind.Utc).AddTicks(2229),
+                            CreatedAt = new DateTime(2021, 5, 13, 9, 59, 3, 97, DateTimeKind.Utc).AddTicks(1265),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -380,6 +380,9 @@ namespace SL2021.Infrastructure.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -477,13 +480,13 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "47c7ef15-bd9b-4808-958d-d4aecce492cb",
+                            ConcurrencyStamp = "336f0db1-9a8f-4bf3-b64e-3c4c88a3b905",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPLemrMwkDlj1Xk6dnWEEk64QBckZtmxU/BET86XCN58zBbLNHBSCcYpQZAW9oLQWg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAARzaAqfJTSIQ3gfROqMLuZqBPIv5B8O9YqdMfvMz4OkTKqd+pLgwlF9cPdWftY/Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8bfbba3c-5a29-483e-934d-0d1d92cb585e",
+                            SecurityStamp = "1f1087fa-4ec5-4c55-a6c5-873432d770aa",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
