@@ -12,7 +12,9 @@ namespace SL2021.API.Controllers.Content
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create(ContentCreateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Create(
+            ContentCreateRequest request, 
+            CancellationToken cancellationToken)
         {
             var response = await _contentService.Create(new Create.Request
             {

@@ -6,8 +6,11 @@ namespace SL2021.Application.Services.Image.Interfaces
 {
     public interface IImageService
     {
-        Task<Create.Response> Create(
-            Create.Request request, 
+        Task<UploadContents.Response> UploadContents(
+            UploadContents.Request request, 
+            CancellationToken cancellationToken);
+        Task<UploadUser.Response> UploadUser(
+            UploadUser.Request request,
             CancellationToken cancellationToken);
     }
 }

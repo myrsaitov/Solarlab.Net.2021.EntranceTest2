@@ -5,11 +5,13 @@ namespace SL2021.Application.Services.Image.Implementations
 {
     public sealed partial class ImageServiceV1 : IImageService
     {
+        private readonly IContentRepository _contentRepository;
         private readonly IImageRepository _imageRepository;
-
         public ImageServiceV1(
+            IContentRepository contentRepository,
             IImageRepository imageRepository) 
         {
+            _contentRepository = contentRepository;
             _imageRepository = imageRepository;
         }
     }

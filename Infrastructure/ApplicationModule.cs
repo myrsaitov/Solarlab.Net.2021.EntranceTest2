@@ -12,6 +12,8 @@ using SL2021.Application.Services.Category.Implementations;
 using SL2021.Application.Services.Category.Interfaces;
 using SL2021.Application.Services.Comment.Implementations;
 using SL2021.Application.Services.Comment.Interfaces;
+using SL2021.Application.Services.Image.Implementations;
+using SL2021.Application.Services.Image.Interfaces;
 
 namespace SL2021.Infrastructure
 {
@@ -23,6 +25,7 @@ namespace SL2021.Infrastructure
             services.AddScoped<ICategoryService, CategoryServiceV1>();
             services.AddScoped<ICommentService, CommentServiceV1>();
             services.AddScoped<IContentService, ContentServiceV1>();
+            services.AddScoped<IImageService, ImageServiceV1>();
             services.AddScoped<ITagService, TagServiceV1>();
             services.AddScoped<IUserService, UserServiceV1>();
 

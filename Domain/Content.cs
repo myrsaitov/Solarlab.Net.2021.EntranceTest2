@@ -9,7 +9,7 @@ namespace SL2021.Domain
         public string Title { get; set; }
         public string Body { get; set; }
         public decimal Price { get; set; }
-        [NotMapped] public string[] ImageURLs { get; set; }
+        [NotMapped] public ICollection<string> ImageURLs { get; set; }
         public string OwnerId { get; set; }
         public virtual User Owner { get; set; }
       
