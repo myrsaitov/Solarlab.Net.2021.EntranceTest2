@@ -3,3 +3,5 @@
             services.AddScoped<IContentService, ContentServiceV1>();
             services.AddScoped<ITagService, TagServiceV1>();
             services.AddScoped<IUserService, UserServiceV1>();
+            services.AddScoped<IImageService, ImageServiceV1>();
+            services.AddScoped<IUserPicService, UserPicServiceV1>();

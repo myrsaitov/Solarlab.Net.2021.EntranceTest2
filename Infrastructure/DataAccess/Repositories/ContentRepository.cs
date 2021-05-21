@@ -42,6 +42,14 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .Include(a => a.Tags)
                 .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
         }
+        public async Task<Content> FindByIdWithUserAndImages(int id, CancellationToken cancellationToken)
+        {
+            return await DbСontext
+                .Set<Content>()
+                .Include(a => a.Owner)
+                .Include(a => a.Images)
+                .FirstOrDefaultAsync(a => a.Id == id, cancellationToken);
+        }
         public async Task<int> CountWithOutDeleted(CancellationToken cancellationToken)
         {
             var data = DbСontext

@@ -1,6 +1,16 @@
+        public DbSet<Content> Contents { get; set; }
+        public DbSet<User> DomainUsers { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<UserPic> UserPics { get; set; }
+
+
             modelBuilder.ApplyConfiguration(new ContentConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new TagConfiguration());
-            modelBuilder.ApplyConfiguration(new ContentTagConfiguration());
+            modelBuilder.ApplyConfiguration(new ImageConfiguration());
+            modelBuilder.ApplyConfiguration(new UserPicConfiguration());

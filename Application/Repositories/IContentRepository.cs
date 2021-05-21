@@ -18,6 +18,9 @@ namespace SL2021.Application.Repositories
         Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
             CancellationToken cancellationToken);
+        Task<Domain.Content> FindByIdWithUserAndImages(
+    int id,
+    CancellationToken cancellationToken);
         Task<int> CountWithOutDeleted(CancellationToken cancellationToken);
         Task<int> CountWithOutDeleted(
             Expression<Func<Content, bool>> predicate,

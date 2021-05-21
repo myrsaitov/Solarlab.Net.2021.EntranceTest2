@@ -44,6 +44,7 @@ namespace SL2021.Infrastructure
             moduleConfiguration.Services.AddScoped<ICommentRepository, CommentRepository>();
             moduleConfiguration.Services.AddScoped<ITagRepository, TagRepository>();
             moduleConfiguration.Services.AddScoped<IImageRepository, ImageRepository>();
+            moduleConfiguration.Services.AddScoped<IUserPicRepository, UserPicRepository>();
         }
     }
 }

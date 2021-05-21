@@ -7,7 +7,7 @@ namespace SL2021.Domain
     {
         public string URL { get; set; }
         public byte[] ImageData { get; set; }
-        public string OwnerId { get; set; }
-        public virtual User Owner { get; set; }
+        public int ContentId { get; set; }
+        public virtual Content Content { get; set; }
     }
 }

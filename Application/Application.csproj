@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="9.5.2" />
+      <PackageReference Include="Flurl.Http" Version="3.2.0" />
       <PackageReference Include="Mapster" Version="7.1.5" />
       <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
@@ -34,6 +35,7 @@
       <Folder Include="Services\Comment\Validators\" />
       <Folder Include="Services\Content\Validators\" />
       <Folder Include="Services\Tag\Validators\" />
+      <Folder Include="Services\UserPic\Validators\" />
     </ItemGroup>
 
     <ItemGroup>
