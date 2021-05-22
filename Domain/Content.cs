@@ -8,7 +8,13 @@ namespace SL2021.Domain
     {
         public string Title { get; set; }
         public string Body { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price_1 { get; set; }
+        public decimal Price_2 { get; set; }
+        public decimal Price_3 { get; set; }
+
+        //Нет пересечений тоже показывать
+        //Leroy Merlin
+        //23 june deadline
         public virtual ICollection<Image> Images { get; set; }
         public string OwnerId { get; set; }
         public virtual User Owner { get; set; }
