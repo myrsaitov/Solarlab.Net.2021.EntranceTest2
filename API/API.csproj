@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <PackageReference Include="ExpressionDebugger" Version="2.2.0" />
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.33" />
         <PackageReference Include="Mapster" Version="7.1.5" />
         <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
@@ -25,6 +26,7 @@
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
         <PackageReference Include="System.Text.Json" Version="5.0.1" />
+        <PackageReference Include="TurnerSoftware.SitemapTools" Version="0.6.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,6 +36,7 @@
 
     <ItemGroup>
       <Folder Include="App_Data\" />
+      <Folder Include="Controllers\Parser\" />
     </ItemGroup>
 
     <ItemGroup>
