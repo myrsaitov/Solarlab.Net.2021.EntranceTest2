@@ -7,20 +7,20 @@ using SL2021.Domain;
 
 namespace SL2021.Application.Repositories
 {
-    public interface IContentRepository : IRepository<Domain.Content, int>
+    public interface IContentRepository : IRepository<Content, int>
     {
-        Task<Domain.Content> FindByIdWithUserInclude(
+        Task<Content> FindByIdWithUserInclude(
             int id, 
             CancellationToken cancellationToken);
-        Task<Domain.Content> FindByIdWithUserAndTagsInclude(
+        Task<Content> FindByIdWithUserAndTagsInclude(
             int id,
             CancellationToken cancellationToken);
-        Task<Domain.Content> FindByIdWithUserAndCategoryAndTags(
+        Task<Content> FindByIdWithUserAndCategoryAndTags(
             int id, 
             CancellationToken cancellationToken);
-        Task<Domain.Content> FindByIdWithUserAndImages(
-    int id,
-    CancellationToken cancellationToken);
+        Task<Content> FindByIdWithUserAndImages(
+            int id,
+            CancellationToken cancellationToken);
         Task<int> CountWithOutDeleted(CancellationToken cancellationToken);
         Task<int> CountWithOutDeleted(
             Expression<Func<Content, bool>> predicate,

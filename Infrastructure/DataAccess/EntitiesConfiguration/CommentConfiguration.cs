@@ -1,5 +1,4 @@
-﻿using System;
-using SL2021.Domain;
+﻿using SL2021.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

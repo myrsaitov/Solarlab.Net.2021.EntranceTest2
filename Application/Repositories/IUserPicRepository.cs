@@ -1,6 +1,8 @@
-﻿namespace SL2021.Application.Repositories
+﻿using SL2021.Domain;
+
+namespace SL2021.Application.Repositories
 {
-    public interface IUserPicRepository : IRepository<Domain.UserPic, int>
+    public interface IUserPicRepository : IRepository<UserPic, int>
     {
     }
 }

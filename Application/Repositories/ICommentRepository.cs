@@ -7,12 +7,12 @@ using SL2021.Domain;
 
 namespace SL2021.Application.Repositories
 {
-    public interface ICommentRepository : IRepository<Domain.Comment, int>
+    public interface ICommentRepository : IRepository<Comment, int>
     {
-        Task<Domain.Comment> FindByIdWithUserInclude(
+        Task<Comment> FindByIdWithUserInclude(
             int id, 
             CancellationToken cancellationToken);
-        Task<Domain.Comment> FindByIdWithUserAndCommentsInclude(
+        Task<Comment> FindByIdWithUserAndCommentsInclude(
             int id, 
             CancellationToken cancellationToken);
         Task<IEnumerable<Comment>> GetPagedWithOwnerAndCommentInclude(

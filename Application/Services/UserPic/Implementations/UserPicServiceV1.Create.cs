@@ -7,6 +7,7 @@ using SL2021.Application.Services.UserPic.Contracts;
 using SL2021.Application.Services.UserPic.Contracts.Exceptions;
 using SL2021.Application.Services.UserPic.Interfaces;
 using Flurl;  // NuGet Flurl.Http
+using SL2021.Application.Services.User.Contracts.Exceptions;
 
 namespace SL2021.Application.Services.UserPic.Implementations
 {
@@ -28,17 +29,34 @@ namespace SL2021.Application.Services.UserPic.Implementations
                 throw new NotAnImageException();
             }
 
+            var user = await _userRepository.FindByUserName(
+                request.UserName,
+                cancellationToken);
+
+            if (user is null)
+            {
+                throw new UserNotFoundException(request.UserName);
+            }
+
+            var fileName = $"{request.UserName}{Path.GetExtension(request.Image.FileName)}";
+
             var domainUserPic = new Domain.UserPic()
             {
                 URL = Url.Combine(
                     request.BaseURL,
                     "api/v1/images/userpics",
-                    request.Image.FileName),
+                    fileName),
                 CreatedAt = DateTime.UtcNow,
                 IsDeleted = false
             };
 
-            var fileName = $"{request.UserName}{Path.GetExtension(request.Image.FileName)}";
+            user.UserPic = domainUserPic;
+            user.UpdatedAt = DateTime.UtcNow;
+
+            await _userRepository.Save(
+                user,
+                cancellationToken);
+
             var filePath = Path.Combine(@"Images", @"Users", fileName);
             new FileInfo(filePath).Directory?.Create();
 
