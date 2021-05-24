@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SL2021.Application.Services.UserPic.Contracts;
 using SL2021.Application.Services.UserPic.Contracts.Exceptions;
 using SL2021.Application.Services.UserPic.Interfaces;
+using Flurl;  // NuGet Flurl.Http
 
 namespace SL2021.Application.Services.UserPic.Implementations
 {
@@ -26,6 +27,16 @@ namespace SL2021.Application.Services.UserPic.Implementations
             {
                 throw new NotAnImageException();
             }
+
+            var domainUserPic = new Domain.UserPic()
+            {
+                URL = Url.Combine(
+                    request.BaseURL,
+                    "api/v1/images/userpics",
+                    request.Image.FileName),
+                CreatedAt = DateTime.UtcNow,
+                IsDeleted = false
+            };
 
             var fileName = $"{request.UserName}{Path.GetExtension(request.Image.FileName)}";
             var filePath = Path.Combine(@"Images", @"Users", fileName);

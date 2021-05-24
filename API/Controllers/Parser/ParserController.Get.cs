@@ -13,6 +13,11 @@ namespace SL2021.API.Controllers.Parser
 {
     public partial class ParserController
     {
+
+        //Нет пересечений тоже показывать
+        //Leroy Merlin
+        //23 june deadline
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(

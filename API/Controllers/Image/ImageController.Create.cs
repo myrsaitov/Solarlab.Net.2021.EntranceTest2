@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace SL2021.API.Controllers.Image
 {
@@ -19,13 +20,18 @@ namespace SL2021.API.Controllers.Image
             [Required] List<IFormFile> images,
             CancellationToken cancellationToken)
         {
-            var request = new Create.Request
-            {
-                Id = id,
-                Images = new List<IFormFile>(images)
-            };
+            string baseUrl = string.Format(
+                "{0}://{1}",
+                HttpContext.Request.Scheme, HttpContext.Request.Host);
 
-            var response = await _imageService.Create(request, cancellationToken);
+            var response = await _imageService.Create(
+                new Create.Request
+                {
+                    Id = id,
+                    Images = new List<IFormFile>(images),
+                    BaseURL = baseUrl
+                }, 
+                cancellationToken);
 
             return Ok(response);
         }

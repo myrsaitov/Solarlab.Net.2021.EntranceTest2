@@ -40,7 +40,7 @@ namespace SL2021.Application.Services.User.Implementations
                     CreatedAt = DateTime.UtcNow
                 };
 
-                await _repository.Save(domainUser, cancellationToken);
+                await _userRepository.Save(domainUser, cancellationToken);
 
                 return _mapper.Map<Register.Response>(response);
             }

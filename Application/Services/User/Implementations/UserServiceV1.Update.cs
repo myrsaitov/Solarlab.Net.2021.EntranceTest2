@@ -16,7 +16,7 @@ namespace SL2021.Application.Services.User.Implementations
             Update.Request request, 
             CancellationToken cancellationToken)
         {
-            var domainUser = await _repository.FindById(request.Id, cancellationToken);
+            var domainUser = await _userRepository.FindById(request.Id, cancellationToken);
             if (domainUser == null)
             {
                 throw new UserNotFoundException($"Пользователь с идентификатором {request.Id} не найден");
@@ -33,7 +33,7 @@ namespace SL2021.Application.Services.User.Implementations
             domainUser.MiddleName = request.MiddleName;
             domainUser.UpdatedAt = DateTime.UtcNow;
 
-            await _repository.Save(domainUser, cancellationToken);
+            await _userRepository.Save(domainUser, cancellationToken);
         }
     }
 }

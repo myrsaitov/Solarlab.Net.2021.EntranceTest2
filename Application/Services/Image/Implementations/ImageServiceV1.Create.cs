@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Flurl;
-using Microsoft.AspNetCore.Http;
+using Flurl;  // NuGet Flurl.Http
 using SL2021.Application.Common;
 using SL2021.Application.Services.Content.Contracts.Exceptions;
 using SL2021.Application.Services.Image.Contracts;
 using SL2021.Application.Services.Image.Interfaces;
 using SL2021.Application.Services.Images.Contracts.Exceptions;
 using SL2021.Domain.General.Exceptions;
+
 
 namespace SL2021.Application.Services.Image.Implementations
 {
@@ -65,17 +65,13 @@ namespace SL2021.Application.Services.Image.Implementations
             {
                 if (ImageExtensions.Contains(Path.GetExtension(image.FileName).ToUpperInvariant()))
                 {
-                    var domain_image = new Domain.Image()
+                    var domainImage = new Domain.Image()
                     {
-                        // NuGet Flurl.Http
-                        //URL = $"https://localhost:44377/api/v1/images/contents/1/IMG_20180722_102430_HDR.jpg",
                         URL = Url.Combine(
-                            // TODO Get Current Domain
-                            "https://localhost:44377", 
+                            request.BaseURL,
                             "api/v1/images/contents", 
                             request.Id.ToString(), 
                             image.FileName),
-
                         CreatedAt = DateTime.UtcNow,
                         IsDeleted = false
                     };
@@ -87,7 +83,7 @@ namespace SL2021.Application.Services.Image.Implementations
                     await image.CopyToAsync(stream);
 
                     result.Add(new UploadImageResponse { FileName = image.FileName, FileSize = image.Length });
-                    content.Images.Add(domain_image);
+                    content.Images.Add(domainImage);
                 }
             }
 

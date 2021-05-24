@@ -9,6 +9,7 @@ namespace SL2021.Application.Services.Image.Contracts
         {
             public int Id { get; set; }
             public List<IFormFile> Images { get; set; }
+            public string BaseURL { get; set; }
         }
         public sealed class Response : List<UploadImageResponse>
         {

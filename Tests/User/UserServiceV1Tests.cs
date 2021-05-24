@@ -17,7 +17,7 @@ namespace SL2021.Tests.User
 {
     public class UserServiceV1Tests
     {
-        private Mock<IRepository<Domain.User, string>> _repositoryMock;
+        private Mock<IUserRepository> _userRepositoryMock;
         private Mock<IIdentityService> _identityServiceMock;
         private IMapper _mapper;
 
@@ -25,13 +25,13 @@ namespace SL2021.Tests.User
 
         public UserServiceV1Tests()
         {
-            _repositoryMock = new Mock<IRepository<Domain.User, string>>();
+            _userRepositoryMock = new Mock<IUserRepository>();
             _identityServiceMock = new Mock<IIdentityService>();
 
             _mapper = new Mapper();
             UserMapProfile.GetConfiguredMappingConfig().Compile();
 
-            _userServiceV1 = new UserServiceV1(_repositoryMock.Object, _identityServiceMock.Object, _mapper);
+            _userServiceV1 = new UserServiceV1(_userRepositoryMock.Object, _identityServiceMock.Object, _mapper);
         }
 
         [Theory]

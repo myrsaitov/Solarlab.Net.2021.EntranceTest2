@@ -43,10 +43,16 @@ namespace SL2021.API.Controllers.UserPic
                 return BadRequest("No file is uploaded.");
             }
 
-            var response = await _userPicService.Create(new Create.Request
+            string baseUrl = string.Format(
+                "{0}://{1}",
+                HttpContext.Request.Scheme, HttpContext.Request.Host);
+
+            var response = await _userPicService.Create(
+                new Create.Request
                 {
                     UserName = userName,
-                    Image = image
+                    Image = image,
+                    BaseURL = baseUrl
                 }, 
                 cancellationToken);
 
