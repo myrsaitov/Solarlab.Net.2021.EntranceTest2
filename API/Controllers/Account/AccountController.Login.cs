@@ -9,13 +9,17 @@ namespace SL2021.API.Controllers.Account
     public partial class AccountController
     {
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLoginRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login(
+            UserLoginRequest request, 
+            CancellationToken cancellationToken)
         {
-            var token = await _identityService.CreateToken(new CreateToken.Request
-            {
-                Username = request.UserName,
-                Password = request.Password
-            }, cancellationToken);
+            var token = await _identityService.CreateToken(
+                new CreateToken.Request
+                {
+                    Username = request.UserName,
+                    Password = request.Password
+                }, 
+                cancellationToken);
 
             return Ok(token);
         }

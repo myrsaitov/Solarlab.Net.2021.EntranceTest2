@@ -11,13 +11,18 @@ namespace SL2021.API.Controllers.Comment
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPaged([FromQuery] GetPagedCommentsRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged(
+            [FromQuery] GetPagedCommentsRequest request,
+            CancellationToken cancellationToken)
         {
-            var result = await _commentService.GetPaged(request.ContentId, new Paged.Request
-            {
-                PageSize = request.PageSize,
-                Page = request.Page
-            }, cancellationToken);
+            var result = await _commentService.GetPaged(
+                request.ContentId, 
+                new Paged.Request
+                {
+                    PageSize = request.PageSize,
+                    Page = request.Page
+                }, 
+                cancellationToken);
 
             return Ok(result);
         }

@@ -37,17 +37,21 @@ namespace SL2021.API.Controllers.Account
 
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Register(UserRegisterRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register(
+            UserRegisterRequest request, 
+            CancellationToken cancellationToken)
         {
-            var registrationResult = await _userService.Register(new Register.Request
-            {
-                UserName = request.UserName,
-                Email = request.Email,
-                Password = request.Password,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                MiddleName = request.MiddleName
-            }, cancellationToken);
+            var registrationResult = await _userService.Register(
+                new Register.Request
+                {
+                    UserName = request.UserName,
+                    Email = request.Email,
+                    Password = request.Password,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    MiddleName = request.MiddleName
+                }, 
+                cancellationToken);
 
             return Created($"api/v1/account/{registrationResult.UserId}", new { });
         }

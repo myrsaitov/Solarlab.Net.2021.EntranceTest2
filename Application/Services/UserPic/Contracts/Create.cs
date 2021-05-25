@@ -6,7 +6,6 @@ namespace SL2021.Application.Services.UserPic.Contracts
     {
         public sealed class Request
         {
-            public string UserName { get; set; }
             public IFormFile Image { get; set; }
             public string BaseURL { get; set; }
         }

@@ -31,16 +31,10 @@ namespace SL2021.Application.Services.UserPic.Implementations
                 throw new NotAnImageException();
             }
 
-            var user = await _userRepository.FindByUserName(
-                request.UserName,
-                cancellationToken);
-
-            if (user is null)
-            {
-                throw new UserNotFoundException(request.UserName);
-            }
 
             var userId = await _identityService.GetCurrentUserId(cancellationToken);
+
+            var user = await _userRepository.FindById(userId, cancellationToken);
 
             var isAdmin = await _identityService.IsInRole(
                 userId,
@@ -52,7 +46,7 @@ namespace SL2021.Application.Services.UserPic.Implementations
                 throw new NoRightsException("Нет прав для выполнения операции.");
             }
 
-            var fileName = $"{request.UserName}{Path.GetExtension(request.Image.FileName)}";
+            var fileName = $"{user.UserName}{Path.GetExtension(request.Image.FileName)}";
 
             if (user.UserPic is null)
             {
@@ -61,7 +55,7 @@ namespace SL2021.Application.Services.UserPic.Implementations
                     URL = Url.Combine(
                         request.BaseURL,
                         "api/v1/userpics",
-                        request.UserName),
+                        user.UserName),
                     CreatedAt = DateTime.UtcNow,
                     IsDeleted = false
                 };

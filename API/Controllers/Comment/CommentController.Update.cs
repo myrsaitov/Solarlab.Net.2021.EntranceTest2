@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL2021.Application.Services.Comment.Contracts;
@@ -11,6 +12,7 @@ namespace SL2021.API.Controllers.Comment
     {
         [HttpPut("update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize]
         public async Task<IActionResult> Update(int id, CommentUpdateRequest request, CancellationToken cancellationToken)
         {
             var response = await _commentService.Update(new Update.Request

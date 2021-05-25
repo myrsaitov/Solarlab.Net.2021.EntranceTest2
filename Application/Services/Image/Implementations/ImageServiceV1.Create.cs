@@ -69,8 +69,8 @@ namespace SL2021.Application.Services.Image.Implementations
                     {
                         URL = Url.Combine(
                             request.BaseURL,
-                            "api/v1/images/contents", 
-                            request.Id.ToString(), 
+                            "api/v1/images",
+                            request.Id.ToString(),
                             image.FileName),
                         CreatedAt = DateTime.UtcNow,
                         IsDeleted = false

@@ -12,7 +12,9 @@ namespace SL2021.API.Controllers.Content
     {
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPaged([FromQuery] GetPagedContentRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPaged(
+            [FromQuery] GetPagedContentRequest request, 
+            CancellationToken cancellationToken)
         {
             var result = new Paged.Response<GetPaged.Response>();
 
@@ -98,11 +100,12 @@ namespace SL2021.API.Controllers.Content
             int id, 
             CancellationToken cancellationToken)
         {
-            var found = await _contentService.GetById(new GetById.Request
-            {
-                Id = id
-            },
-            cancellationToken);
+            var found = await _contentService.GetById(
+                new GetById.Request
+                {
+                    Id = id
+                },
+                cancellationToken);
 
             return Ok(found);
         }

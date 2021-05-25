@@ -6,7 +6,9 @@ namespace SL2021.API.Controllers.Account
     public partial class AccountController
     {
         [HttpGet("confirm")]
-        public async Task<IActionResult> Confirm(string userId, string token)
+        public async Task<IActionResult> Confirm(
+            string userId, 
+            string token)
         {
             var isSuccessful = await _identityService.ConfirmEmail(userId, token);
             if (isSuccessful)

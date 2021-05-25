@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL2021.Application.Services.Content.Contracts;
@@ -12,18 +12,21 @@ namespace SL2021.API.Controllers.Content
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize]
         public async Task<IActionResult> Create(
             ContentCreateRequest request, 
             CancellationToken cancellationToken)
         {
-            var response = await _contentService.Create(new Create.Request
-            {
-                Title = request.Title,
-                Body = request.Body,
-                Price = request.Price,
-                CategoryId = request.CategoryId,
-                TagBodies = request.Tags
-            }, cancellationToken);
+            var response = await _contentService.Create(
+                new Create.Request
+                {
+                    Title = request.Title,
+                    Body = request.Body,
+                    Price = request.Price,
+                    CategoryId = request.CategoryId,
+                    TagBodies = request.Tags
+                }, 
+                cancellationToken);
 
             return Created($"api/v1/contents/{response.Id}", new { });
         }

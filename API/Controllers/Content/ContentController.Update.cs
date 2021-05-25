@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL2021.Application.Services.Content.Contracts;
@@ -11,7 +12,11 @@ namespace SL2021.API.Controllers.Content
     {
         [HttpPut("update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Update(int id, ContentUpdateRequest request, CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<IActionResult> Update(
+            int id, 
+            ContentUpdateRequest request, 
+            CancellationToken cancellationToken)
         {
             var response = await _contentService.Update(new Update.Request
             {

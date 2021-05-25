@@ -8,7 +8,7 @@ namespace SL2021.API.Controllers.UserPic
     public partial class UserPicController
     {
         [HttpGet("{userName}")]
-        public async Task<ActionResult> GetImageUser(string userName)
+        public async Task<ActionResult> Get(string userName)
         {
             var filePath = $"Images/Users/{userName}.jpg";
             if (!System.IO.File.Exists(filePath))
@@ -19,7 +19,7 @@ namespace SL2021.API.Controllers.UserPic
             var provider = new FileExtensionContentTypeProvider();
             if (!provider.TryGetContentType(filePath, out var contentType))
             {
-                contentType = "application/octet-stream";
+                contentType = "image/jpeg";
             }
 
             var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
