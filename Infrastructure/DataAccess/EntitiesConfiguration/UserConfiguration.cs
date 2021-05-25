@@ -27,8 +27,9 @@ namespace SL2021.Infrastructure.DataAccess.EntitiesConfiguration
             builder.Property(u => u.MiddleName)
                 .HasMaxLength(100)
                 .IsUnicode();
-            builder.HasOne(x => x.UserPic);
-                
+            builder.HasOne(u => u.UserPic)
+                .WithOne(up => up.Owner)
+                .HasForeignKey<UserPic>(u => u.OwnerId);
         }
     }
 }

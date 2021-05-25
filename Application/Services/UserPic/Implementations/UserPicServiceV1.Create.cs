@@ -8,6 +8,8 @@ using SL2021.Application.Services.UserPic.Contracts.Exceptions;
 using SL2021.Application.Services.UserPic.Interfaces;
 using Flurl;  // NuGet Flurl.Http
 using SL2021.Application.Services.User.Contracts.Exceptions;
+using SL2021.Application.Common;
+using SL2021.Domain.General.Exceptions;
 
 namespace SL2021.Application.Services.UserPic.Implementations
 {
@@ -38,19 +40,41 @@ namespace SL2021.Application.Services.UserPic.Implementations
                 throw new UserNotFoundException(request.UserName);
             }
 
+            var userId = await _identityService.GetCurrentUserId(cancellationToken);
+
+            var isAdmin = await _identityService.IsInRole(
+                userId,
+                RoleConstants.AdminRole,
+                cancellationToken);
+
+            if (!isAdmin && user.Id != userId)
+            {
+                throw new NoRightsException("Нет прав для выполнения операции.");
+            }
+
             var fileName = $"{request.UserName}{Path.GetExtension(request.Image.FileName)}";
 
-            var domainUserPic = new Domain.UserPic()
+            if (user.UserPic is null)
             {
-                URL = Url.Combine(
-                    request.BaseURL,
-                    "api/v1/images/userpics",
-                    fileName),
-                CreatedAt = DateTime.UtcNow,
-                IsDeleted = false
-            };
+                var domainUserPic = new Domain.UserPic()
+                {
+                    URL = Url.Combine(
+                        request.BaseURL,
+                        "api/v1/userpics",
+                        request.UserName),
+                    CreatedAt = DateTime.UtcNow,
+                    IsDeleted = false
+                };
 
-            user.UserPic = domainUserPic;
+                user.UserPic = domainUserPic;
+
+                await _userPicRepository.Save(
+                    domainUserPic,
+                    cancellationToken);
+            }
+
+            user.UserPic.UpdatedAt = DateTime.UtcNow;
+            user.IsDeleted = false;
             user.UpdatedAt = DateTime.UtcNow;
 
             await _userRepository.Save(

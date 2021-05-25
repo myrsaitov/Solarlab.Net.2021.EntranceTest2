@@ -18,6 +18,7 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
         {
             return await DbСontext
                 .Set<User>()
+                .Include(u => u.UserPic)
                 .FirstOrDefaultAsync(a => a.UserName == userName, cancellationToken);
         }
     }

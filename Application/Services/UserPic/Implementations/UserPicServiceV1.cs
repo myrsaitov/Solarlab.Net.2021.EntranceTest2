@@ -8,15 +8,15 @@ namespace SL2021.Application.Services.UserPic.Implementations
     {
         private readonly IUserRepository _userRepository;
         private readonly IIdentityService _identityService;
-        private readonly IUserPicRepository _userpicRepository;
+        private readonly IUserPicRepository _userPicRepository;
         public UserPicServiceV1(
             IUserRepository userRepository,
             IIdentityService identityService,
-            IUserPicRepository userpicRepository) 
+            IUserPicRepository userPicRepository) 
         {
             _userRepository = userRepository;
             _identityService = identityService;
-            _userpicRepository = userpicRepository;
+            _userPicRepository = userPicRepository;
         }
     }
 }
