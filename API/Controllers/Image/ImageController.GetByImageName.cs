@@ -12,24 +12,9 @@ namespace SL2021.API.Controllers.Image
 {
     public partial class ImageController
     {
-
-        [HttpGet("{id:int}")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetPaged([FromQuery] GetPagedRequest request, int id, CancellationToken cancellationToken)
-        {
-            var result = await _imageService.GetPaged(
-                a => a.ContentId == id,
-                new Paged.Request
-                {
-                    PageSize = request.PageSize,
-                    Page = request.Page
-                }, 
-                cancellationToken);
-
-            return Ok(result);
-        }
         [HttpGet("{id:int}/{imageName}")]
-        public async Task<ActionResult> Get(
+        [AllowAnonymous]
+        public async Task<ActionResult> GetByImageName(
             int id,
             string imageName)
         {

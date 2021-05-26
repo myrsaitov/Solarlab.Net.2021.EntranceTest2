@@ -56,7 +56,7 @@ namespace SL2021.Application.Services.Comment.Implementations
                 cancellationToken
             );
 
-            //var tree_entities = entities.ToList().ToTree(item => item.Id, item => item.ParentCommentId);
+            //TODO Выводить комметарии в виде дерева. Сейчас отсортированы по дате
 
             return new Paged.Response<GetById.Response>
             {

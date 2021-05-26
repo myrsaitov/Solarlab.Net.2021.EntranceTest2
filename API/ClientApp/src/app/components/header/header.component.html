@@ -33,9 +33,12 @@
         <button class="btn btn-outline-primary"
                 (click)="logout()">Выход
         </button>
+        
         <h4>Вы вошли под именем: 
-          <span class="badge badge-secondary" *ngIf="userName" role="button" (click)="getContentByUserName()">{{userName()}}</span>&nbsp;&nbsp;</h4>
+          <span class="badge badge-secondary" *ngIf="userName" role="button" (click)="getContentByUserName()">{{userName()}}</span>&nbsp;&nbsp;
+          </h4>
       </li>
+      <a *ngIf="userName" role="button" (click)="getContentByUserName(userName)"><img src="/api/v1/userpics/{{userName()}}" width="100" height="100">&nbsp;&nbsp;</a>
     </ng-template>
   </ul>
 </nav>

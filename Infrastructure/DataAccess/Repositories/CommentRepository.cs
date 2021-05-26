@@ -42,6 +42,7 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
             var data = DbСontext
                 .Set<Comment>()
                 .Include(a => a.Owner)
+                .Include(a => a.Owner.UserPic)
                 .Include(a => a.ParentComment)
                 .Include(a => a.ChildComments)
                 .AsNoTracking(); ;

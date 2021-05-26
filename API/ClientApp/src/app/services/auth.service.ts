@@ -33,7 +33,7 @@ export class AuthService {
     this.isAuthSubject$.next(!!this.getSession());
   }
 
-  getUsername() {
+  getUserName() {
 
     return localStorage.getItem('currentUser');
 

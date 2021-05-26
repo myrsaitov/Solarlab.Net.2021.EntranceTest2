@@ -65,7 +65,7 @@ export class HeaderComponent {
     this.router.navigate(['/'], { queryParams: { categoryId: categoryId } });
   }
   getContentByUserName(){
-    this.router.navigate(['/'], { queryParams: { userName: this.authService.getUsername() } });
+    this.router.navigate(['/'], { queryParams: { userName: this.authService.getUserName() } });
   }
 
   get searchStr() {
@@ -77,7 +77,7 @@ export class HeaderComponent {
   }
 
   userName(){
-    return this.authService.getUsername();
+    return this.authService.getUserName();
   }
 
   logout() {

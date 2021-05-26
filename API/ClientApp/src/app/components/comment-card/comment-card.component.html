@@ -6,6 +6,7 @@
         <div class="col-2">
           <h6>  Пользователь:<br>
             <a class="badge badge-secondary" *ngIf="comment?.owner.userName" role="button" (click)="getContentByUserName(comment.owner.userName)">{{comment.owner.userName}}</a>
+            <a *ngIf="comment?.owner.userName" role="button" (click)="getContentByUserName(comment.owner.userName)"><img src="/api/v1/userpics/{{comment.owner.userName}}" width="100" height="100"></a>
           </h6>
         </div>
         <div class="col">
