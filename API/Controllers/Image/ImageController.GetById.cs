@@ -12,7 +12,7 @@ namespace SL2021.API.Controllers.Image
 {
     public partial class ImageController
     {
-        [HttpGet("{id:int}/{imageId}")]
+        /*[HttpGet("{id:int}/{imageId}")]
         [AllowAnonymous]
         public async Task<ActionResult> GetById(
             int id,
@@ -32,6 +32,6 @@ namespace SL2021.API.Controllers.Image
 
             var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
             return File(bytes, contentType, Path.GetFileName(filePath));
-        }
+        }*/
     }
 }
