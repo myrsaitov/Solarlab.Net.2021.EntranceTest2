@@ -16,6 +16,8 @@ using SL2021.Application.Services.Image.Implementations;
 using SL2021.Application.Services.Image.Interfaces;
 using SL2021.Application.Services.UserPic.Implementations;
 using SL2021.Application.Services.UserPic.Interfaces;
+using SL2021.Application.Services.WebLink.Implementations;
+using SL2021.Application.Services.WebLink.Interfaces;
 
 namespace SL2021.Infrastructure
 {
@@ -31,6 +33,7 @@ namespace SL2021.Infrastructure
             services.AddScoped<IUserService, UserServiceV1>();
             services.AddScoped<IImageService, ImageServiceV1>();
             services.AddScoped<IUserPicService, UserPicServiceV1>();
+            services.AddScoped<IWebLinkService, WebLinkServiceV1>();
 
             services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
             services.AddScoped<IMailService, MailServiceMock>();
