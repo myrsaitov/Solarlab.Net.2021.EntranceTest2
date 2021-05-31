@@ -9,80 +9,80 @@ using HtmlAgilityPack; //nuget HtmlAgilityPack
 using TurnerSoftware.SitemapTools; ///nuget TurnerSoftware.SitemapTools
 using System.Collections.Generic;
 using System.Net;
+using System;
 
 namespace SL2021.API.Controllers.Parser
 {
     public partial class ParserController
     {
 
-        //Нет пересечений тоже показывать
-        //Leroy Merlin
-        //23 june deadline
+        //  Нет пересечений тоже показывать
+        //  Leroy Merlin
+        //  23 june deadline
+        //  https://stroypark.su/
+        //  https://leroymerlin.ru/
+        //  https://vseinstrumenti.ru/
+        //  https://petrovich.ru/
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(
-            string Text, 
+            string Text,
             CancellationToken cancellationToken)
         {
-            //var doc = new HtmlAgilityPack.HtmlDocument();
-            //HtmlWeb web = new HtmlWeb();
-            
             var ress = new List<string>();
 
+            string target_host = "https://stroypark.su";
 
-            HtmlWeb hw = new HtmlWeb();
-            HtmlDocument doc = hw.Load("https://stroypark.su/");
-            foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
+            // If there is proxy, you need this block
+            //----------------------------------------------------
+            var web = new HtmlWeb();
+            web.PreRequest = delegate (HttpWebRequest webRequest)
             {
-                string hrefValue = link.GetAttributeValue("href", string.Empty);
-                ress.Add(hrefValue);
+                webRequest.Timeout = 1200000;
+                return true;
+            };
+            var proxy = new WebProxy() { UseDefaultCredentials = true };
+            var doc = web.Load(target_host, "GET", proxy, CredentialCache.DefaultNetworkCredentials);
+            //----------------------------------------------------
+
+            try
+            {
+                if (doc.DocumentNode.SelectNodes("//a[@href]") is not null)
+                {
+                    foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
+                    {
+                        string hrefValue = link.GetAttributeValue("href", string.Empty);
+                        if (hrefValue.StartsWith(target_host))
+                        {
+                            ress.Add(hrefValue);
+                        }
+                        else if (hrefValue.StartsWith("/"))
+                        {
+                            if (target_host.EndsWith("/"))
+                            {
+                                string res = target_host.Remove(target_host.Length - 1) + hrefValue;
+                                ress.Add(res);
+                            }
+                            else
+                            {
+                                string res = target_host + hrefValue;
+                                ress.Add(res);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ress.Add("There are no Hyperlinks!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
-
-
-            //doc = web.Load("https://stroypark.su/");
-
-            //string res = doc.DocumentNode.SelectSingleNode($"//*[text()[contains(., '{Text}')]]").InnerText;
-
-            //ress.Add(res);
-
             return Ok(ress);
-
-            /*
-                        string res = doc.DocumentNode.SelectSingleNode($"//*[text()[contains(., '{Text}')]]").InnerText;
-                        if (ress is not null)
-                        {
-                            ress.Add(res);
-                        }
-                        else
-                        {
-                            ress.Add("null");
-                        }
-
-                        doc = web.Load("https://petrovich.ru/");
-                        res = doc.DocumentNode.SelectSingleNode($"//*[text()[contains(., '{Text}')]]").InnerText;
-                        if (ress is not null)
-                        {
-                            ress.Add(res);
-                        }
-                        else
-                        {
-                            ress.Add("null");
-                        }
-
-                        doc = web.Load("https://www.vseinstrumenti.ru/");
-                        res = doc.DocumentNode.SelectSingleNode($"//*[text()[contains(., '{Text}')]]").InnerText;
-                        if (ress is not null)
-                        {
-                            ress.Add(res);
-                        }
-                        else
-                        {
-                            ress.Add("null");
-                        }*/
-
-
         }
     }
 }
