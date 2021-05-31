@@ -1,12 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using SL2021.Application.Services.Content.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SL2021.Application.Services.Contracts;
-using System.Linq;
 using HtmlAgilityPack; //nuget HtmlAgilityPack
-using TurnerSoftware.SitemapTools; ///nuget TurnerSoftware.SitemapTools
 using System.Collections.Generic;
 using System.Net;
 using System;
@@ -32,9 +28,12 @@ namespace SL2021.API.Controllers.Parser
         {
             var ress = new List<string>();
 
-            string target_host = "https://stroypark.su";
+            string target_host_domain = "stroypark.su";
+            string target_host_protocol = "https";
 
-            // If there is proxy, you need this block
+            string target_host = target_host_protocol + "://" + target_host_domain;
+
+            // If there is a proxy, you will need this block
             //----------------------------------------------------
             var web = new HtmlWeb();
             web.PreRequest = delegate (HttpWebRequest webRequest)
@@ -52,13 +51,24 @@ namespace SL2021.API.Controllers.Parser
                 {
                     foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
                     {
+                        // Получить адрес гиперссылки
                         string hrefValue = link.GetAttributeValue("href", string.Empty);
+
+                        // Если гиперрсылка начинается с исследуемого адреса
                         if (hrefValue.StartsWith(target_host))
                         {
                             ress.Add(hrefValue);
                         }
+                        // Если гиперссылка "относительная" (начинается с "//")  "//stroypark.su"
+                        else if (hrefValue.StartsWith("//" + target_host_domain))
+                        {
+                            string res = target_host_protocol + ":" + hrefValue;
+                            ress.Add(res);
+                        }
+                        // Если гиперссылка "относительная" (начинается с "/")  "/Catalog/..."
                         else if (hrefValue.StartsWith("/"))
                         {
+                            // Если в конце адреса вдруг поставили "/"
                             if (target_host.EndsWith("/"))
                             {
                                 string res = target_host.Remove(target_host.Length - 1) + hrefValue;
@@ -66,6 +76,7 @@ namespace SL2021.API.Controllers.Parser
                             }
                             else
                             {
+                                // Если в конце адреса не поставили "/"
                                 string res = target_host + hrefValue;
                                 ress.Add(res);
                             }
