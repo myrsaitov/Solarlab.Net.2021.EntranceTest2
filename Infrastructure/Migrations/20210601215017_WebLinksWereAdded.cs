@@ -15,6 +15,7 @@ namespace SL2021.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsSearched = table.Column<bool>(type: "bit", nullable: false),
+                    ReferedCount = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -29,63 +30,63 @@ namespace SL2021.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "5a944af4-5893-489c-bf53-3640b33905d3");
+                value: "5a18005a-a39d-456c-a3b8-49b8dc2ebc5d");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "de662a0e-319b-4f54-8d42-7e5d06f5e742");
+                value: "4ada91bb-526f-43b5-abd3-3a28cff8b0fc");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "3c3e276c-d2ae-4f0c-8d15-237a37df9498", "AQAAAAEAACcQAAAAEPNXmaqBzldW063qzNpru2z2OM9PED9Vz+93CrDbfkJmJLBmihGoMuDh2uBlGi110A==", "c3501d69-b2f8-494e-a734-ce9425087716" });
+                values: new object[] { "46306b52-b1ab-40b4-b70f-d8055066b7b4", "AQAAAAEAACcQAAAAENzdsn1BPjMLLSHZU3JjxYWIafEXZ9ew8ZzNtm/4n9twYRmI8Azp/7vMctU0YxQrGg==", "c9ac9241-f0a8-4eb7-8c35-904ab6db1d72" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(8755));
+                value: new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(2245));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9625));
+                value: new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3029));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9628));
+                value: new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3031));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9630));
+                value: new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3032));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9631));
+                value: new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3034));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9632));
+                value: new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3034));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -35,6 +35,13 @@ namespace SL2021.Application.Services.WebLink.Implementations
                     weblink,
                     cancellationToken);
             }
+            else
+            {
+                weblink.ReferedCount += 1;
+                await _webLinkRepository.Save(
+                    weblink,
+                    cancellationToken);
+            }
 
             return new Create.Response
             {

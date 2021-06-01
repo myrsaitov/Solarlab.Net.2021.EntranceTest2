@@ -1,4 +1,4 @@
-In MSVSCode File => Open Folder => SL2021/Front
+In MSVSCode File => Open Folder => SL2021/API/ClientApp
 
 npm install
 npm install -g @angular/cli

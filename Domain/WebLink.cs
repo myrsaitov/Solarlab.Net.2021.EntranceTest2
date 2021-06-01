@@ -11,6 +11,9 @@ namespace SL2021.Domain
         // Была ли просмотрена эта ссылка на предмет поиска других ссылок
         public bool IsSearched { get; set; }
 
+        // Сколько раз ссылались на эту страницу
+        public int ReferedCount { get; set; }
+
         // Аккаунт, под которым записана эта страница
         //public string OwnerId { get; set; }
         //public virtual User Owner { get; set; }

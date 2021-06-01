@@ -10,7 +10,7 @@ using SL2021.Infrastructure.DataAccess;
 namespace SL2021.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210601165252_WebLinksWereAdded")]
+    [Migration("20210601215017_WebLinksWereAdded")]
     partial class WebLinksWereAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,14 +66,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "de662a0e-319b-4f54-8d42-7e5d06f5e742",
+                            ConcurrencyStamp = "4ada91bb-526f-43b5-abd3-3a28cff8b0fc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "5a944af4-5893-489c-bf53-3640b33905d3",
+                            ConcurrencyStamp = "5a18005a-a39d-456c-a3b8-49b8dc2ebc5d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -223,42 +223,42 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(8755),
+                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(2245),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9625),
+                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3029),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9628),
+                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3031),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9630),
+                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3032),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9631),
+                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3034),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9632),
+                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3034),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -495,6 +495,9 @@ namespace SL2021.Infrastructure.Migrations
                     b.Property<bool>("IsSearched")
                         .HasColumnType("bit");
 
+                    b.Property<int>("ReferedCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
 
@@ -575,13 +578,13 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c3e276c-d2ae-4f0c-8d15-237a37df9498",
+                            ConcurrencyStamp = "46306b52-b1ab-40b4-b70f-d8055066b7b4",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPNXmaqBzldW063qzNpru2z2OM9PED9Vz+93CrDbfkJmJLBmihGoMuDh2uBlGi110A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENzdsn1BPjMLLSHZU3JjxYWIafEXZ9ew8ZzNtm/4n9twYRmI8Azp/7vMctU0YxQrGg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3501d69-b2f8-494e-a734-ce9425087716",
+                            SecurityStamp = "c9ac9241-f0a8-4eb7-8c35-904ab6db1d72",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
