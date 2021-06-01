@@ -64,14 +64,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "05642974-f1b8-4ebc-9bb6-98d6ef8710de",
+                            ConcurrencyStamp = "de662a0e-319b-4f54-8d42-7e5d06f5e742",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "aae46164-86d9-4d04-8042-5a2619cd9107",
+                            ConcurrencyStamp = "5a944af4-5893-489c-bf53-3640b33905d3",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -221,42 +221,42 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(8273),
+                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(8755),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9132),
+                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9625),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9136),
+                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9628),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9137),
+                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9630),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9138),
+                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9631),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9139),
+                            CreatedAt = new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9632),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -484,17 +484,14 @@ namespace SL2021.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ContentId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<bool>("IsSearched")
+                        .HasColumnType("bit");
 
                     b.Property<string>("URL")
                         .HasColumnType("nvarchar(max)");
@@ -503,10 +500,6 @@ namespace SL2021.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ContentId");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("WebLinks");
                 });
@@ -580,31 +573,16 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90579177-a832-4bf6-a379-1b39aff6f37a",
+                            ConcurrencyStamp = "3c3e276c-d2ae-4f0c-8d15-237a37df9498",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDEmd+gETiqWheLOK+mCjJu0XbLfFR71tY1y/jKDOCu/pW/BxtZl3cGGRMp19CihUw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPNXmaqBzldW063qzNpru2z2OM9PED9Vz+93CrDbfkJmJLBmihGoMuDh2uBlGi110A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0ba65aca-705d-4fdd-820b-f0b3c60a3c83",
+                            SecurityStamp = "c3501d69-b2f8-494e-a734-ce9425087716",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
-                });
-
-            modelBuilder.Entity("WebLinkWebLink", b =>
-                {
-                    b.Property<int>("ChildPagesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ParentPagesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ChildPagesId", "ParentPagesId");
-
-                    b.HasIndex("ParentPagesId");
-
-                    b.ToTable("WebLinkWebLink");
                 });
 
             modelBuilder.Entity("ContentTag", b =>
@@ -740,38 +718,6 @@ namespace SL2021.Infrastructure.Migrations
                         .HasForeignKey("SL2021.Domain.UserPic", "OwnerId");
 
                     b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("SL2021.Domain.WebLink", b =>
-                {
-                    b.HasOne("SL2021.Domain.Content", "Content")
-                        .WithMany()
-                        .HasForeignKey("ContentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SL2021.Domain.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Content");
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("WebLinkWebLink", b =>
-                {
-                    b.HasOne("SL2021.Domain.WebLink", null)
-                        .WithMany()
-                        .HasForeignKey("ChildPagesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SL2021.Domain.WebLink", null)
-                        .WithMany()
-                        .HasForeignKey("ParentPagesId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SL2021.Domain.Category", b =>

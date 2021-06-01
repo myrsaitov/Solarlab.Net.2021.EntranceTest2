@@ -9,5 +9,8 @@ namespace SL2021.Application.Services.WebLink.Interfaces
         Task<Create.Response> Create(
             Create.Request request,
             CancellationToken cancellationToken);
+        Task<GetLinksFromPage.Response> GetLinksFromPage(
+            GetLinksFromPage.Request request,
+            CancellationToken cancellationToken);
     }
 }

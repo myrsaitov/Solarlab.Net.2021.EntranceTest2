@@ -17,16 +17,24 @@ namespace SL2021.Application.Services.WebLink.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
-            string userId = await _identityService.GetCurrentUserId(cancellationToken);
+            //string userId = await _identityService.GetCurrentUserId(cancellationToken);
 
-            var weblink = _mapper.Map<Domain.WebLink>(request);
-            weblink.IsDeleted = false;
-            weblink.OwnerId = userId;
-            weblink.CreatedAt = DateTime.UtcNow;
+            // Ищем в БД эту ссылку
+            var weblink = await _webLinkRepository.FindByURL(request.URL, cancellationToken);
+            
+            // Если ссылка не найдена, то создаем новый объект в БД
+            if (weblink is null)
+            {
+                weblink = _mapper.Map<Domain.WebLink>(request);
+                weblink.IsDeleted = false;
+                weblink.IsSearched = false;
+                //weblink.OwnerId = userId;
+                weblink.CreatedAt = DateTime.UtcNow;
 
-            await _webLinkRepository.Save(
-                weblink, 
-                cancellationToken);
+                await _webLinkRepository.Save(
+                    weblink,
+                    cancellationToken);
+            }
 
             return new Create.Response
             {

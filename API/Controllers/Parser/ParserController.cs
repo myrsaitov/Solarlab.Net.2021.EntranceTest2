@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SL2021.Application.Services.Content.Interfaces;
+using SL2021.Application.Services.WebLink.Interfaces;
 
 namespace SL2021.API.Controllers.Parser
 {
@@ -10,9 +11,13 @@ namespace SL2021.API.Controllers.Parser
     public partial class ParserController : ControllerBase
     {
         private readonly IContentService _contentService;
-        public ParserController(IContentService contentService)
+        private readonly IWebLinkService _webLinkService;
+        public ParserController(
+            IContentService contentService, 
+            IWebLinkService webLinkService)
         {
             _contentService = contentService;
+            _webLinkService = webLinkService;
         }
     }
 }

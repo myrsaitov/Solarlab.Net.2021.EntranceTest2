@@ -1,6 +1,11 @@
 Update-Database PreviousMigrationName
 Remove-Migration
 
+Update-Database ImagesAndUserPicsWereAdded
+Remove-Migration
+Add-Migration WebLinksWereAdded
+Update-Database
+
 Update-Database TagsWereAdded
 Remove-Migration
 Add-Migration ImagesAndUserPicsWereAdded

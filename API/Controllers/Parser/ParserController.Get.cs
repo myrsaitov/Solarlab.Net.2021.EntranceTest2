@@ -6,6 +6,7 @@ using HtmlAgilityPack; //nuget HtmlAgilityPack
 using System.Collections.Generic;
 using System.Net;
 using System;
+using SL2021.Application.Services.WebLink.Contracts;
 
 namespace SL2021.API.Controllers.Parser
 {
@@ -26,74 +27,14 @@ namespace SL2021.API.Controllers.Parser
             string Text,
             CancellationToken cancellationToken)
         {
-            var ress = new List<string>();
-
-            string target_host_domain = "stroypark.su";
-            string target_host_protocol = "https";
-
-            string target_host = target_host_protocol + "://" + target_host_domain;
-
-            // If there is a proxy, you will need this block
-            //----------------------------------------------------
-            var web = new HtmlWeb();
-            web.PreRequest = delegate (HttpWebRequest webRequest)
+            var request = new GetLinksFromPage.Request()
             {
-                webRequest.Timeout = 1200000;
-                return true;
+                URL = "https://stroypark.su/"
             };
-            var proxy = new WebProxy() { UseDefaultCredentials = true };
-            var doc = web.Load(target_host, "GET", proxy, CredentialCache.DefaultNetworkCredentials);
-            //----------------------------------------------------
 
-            try
-            {
-                if (doc.DocumentNode.SelectNodes("//a[@href]") is not null)
-                {
-                    foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
-                    {
-                        // Получить адрес гиперссылки
-                        string hrefValue = link.GetAttributeValue("href", string.Empty);
+            return Ok(await _webLinkService.GetLinksFromPage(request, cancellationToken));
 
-                        // Если гиперрсылка начинается с исследуемого адреса
-                        if (hrefValue.StartsWith(target_host))
-                        {
-                            ress.Add(hrefValue);
-                        }
-                        // Если гиперссылка "относительная" (начинается с "//")  "//stroypark.su"
-                        else if (hrefValue.StartsWith("//" + target_host_domain))
-                        {
-                            string res = target_host_protocol + ":" + hrefValue;
-                            ress.Add(res);
-                        }
-                        // Если гиперссылка "относительная" (начинается с "/")  "/Catalog/..."
-                        else if (hrefValue.StartsWith("/"))
-                        {
-                            // Если в конце адреса вдруг поставили "/"
-                            if (target_host.EndsWith("/"))
-                            {
-                                string res = target_host.Remove(target_host.Length - 1) + hrefValue;
-                                ress.Add(res);
-                            }
-                            else
-                            {
-                                // Если в конце адреса не поставили "/"
-                                string res = target_host + hrefValue;
-                                ress.Add(res);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    ress.Add("There are no Hyperlinks!");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
 
-            return Ok(ress);
         }
     }
 }

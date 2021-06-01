@@ -14,8 +14,7 @@ namespace SL2021.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ContentId = table.Column<int>(type: "int", nullable: false),
+                    IsSearched = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -23,42 +22,6 @@ namespace SL2021.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WebLinks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WebLinks_Contents_ContentId",
-                        column: x => x.ContentId,
-                        principalTable: "Contents",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_WebLinks_DomainUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "DomainUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WebLinkWebLink",
-                columns: table => new
-                {
-                    ChildPagesId = table.Column<int>(type: "int", nullable: false),
-                    ParentPagesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WebLinkWebLink", x => new { x.ChildPagesId, x.ParentPagesId });
-                    table.ForeignKey(
-                        name: "FK_WebLinkWebLink_WebLinks_ChildPagesId",
-                        column: x => x.ChildPagesId,
-                        principalTable: "WebLinks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_WebLinkWebLink_WebLinks_ParentPagesId",
-                        column: x => x.ParentPagesId,
-                        principalTable: "WebLinks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.UpdateData(
@@ -66,85 +29,67 @@ namespace SL2021.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "aae46164-86d9-4d04-8042-5a2619cd9107");
+                value: "5a944af4-5893-489c-bf53-3640b33905d3");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "05642974-f1b8-4ebc-9bb6-98d6ef8710de");
+                value: "de662a0e-319b-4f54-8d42-7e5d06f5e742");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "90579177-a832-4bf6-a379-1b39aff6f37a", "AQAAAAEAACcQAAAAEDEmd+gETiqWheLOK+mCjJu0XbLfFR71tY1y/jKDOCu/pW/BxtZl3cGGRMp19CihUw==", "0ba65aca-705d-4fdd-820b-f0b3c60a3c83" });
+                values: new object[] { "3c3e276c-d2ae-4f0c-8d15-237a37df9498", "AQAAAAEAACcQAAAAEPNXmaqBzldW063qzNpru2z2OM9PED9Vz+93CrDbfkJmJLBmihGoMuDh2uBlGi110A==", "c3501d69-b2f8-494e-a734-ce9425087716" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "CreatedAt",
-                value: new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(8273));
+                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(8755));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "CreatedAt",
-                value: new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9132));
+                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9625));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "CreatedAt",
-                value: new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9136));
+                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9628));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "CreatedAt",
-                value: new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9137));
+                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9630));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "CreatedAt",
-                value: new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9138));
+                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9631));
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "CreatedAt",
-                value: new DateTime(2021, 5, 31, 15, 58, 59, 676, DateTimeKind.Utc).AddTicks(9139));
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WebLinks_ContentId",
-                table: "WebLinks",
-                column: "ContentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WebLinks_OwnerId",
-                table: "WebLinks",
-                column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WebLinkWebLink_ParentPagesId",
-                table: "WebLinkWebLink",
-                column: "ParentPagesId");
+                value: new DateTime(2021, 6, 1, 16, 52, 52, 18, DateTimeKind.Utc).AddTicks(9632));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "WebLinkWebLink");
-
             migrationBuilder.DropTable(
                 name: "WebLinks");
 
