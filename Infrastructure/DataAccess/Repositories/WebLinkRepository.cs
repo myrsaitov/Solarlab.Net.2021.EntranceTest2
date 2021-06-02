@@ -19,5 +19,12 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
                 .Set<WebLink>()
                 .FirstOrDefaultAsync(a => a.URL == URL, cancellationToken);
         }
+
+        public async Task<WebLink> FindNoneIndexed(CancellationToken cancellationToken)
+        {
+            return await DbСontext
+                .Set<WebLink>()
+                .FirstOrDefaultAsync(a => a.IsIndexed == false, cancellationToken);
+        }
     }
 }

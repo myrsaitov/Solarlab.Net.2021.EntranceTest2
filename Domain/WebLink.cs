@@ -9,7 +9,7 @@ namespace SL2021.Domain
         public string URL { get; set; }
 
         // Была ли просмотрена эта ссылка на предмет поиска других ссылок
-        public bool IsSearched { get; set; }
+        public bool IsIndexed { get; set; }
 
         // Сколько раз ссылались на эту страницу
         public int ReferedCount { get; set; }

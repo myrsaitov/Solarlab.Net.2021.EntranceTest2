@@ -27,7 +27,7 @@ namespace SL2021.Application.Services.WebLink.Implementations
             {
                 weblink = _mapper.Map<Domain.WebLink>(request);
                 weblink.IsDeleted = false;
-                weblink.IsSearched = false;
+                weblink.IsIndexed = false;
                 //weblink.OwnerId = userId;
                 weblink.CreatedAt = DateTime.UtcNow;
 

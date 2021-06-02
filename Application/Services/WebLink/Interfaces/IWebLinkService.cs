@@ -12,5 +12,9 @@ namespace SL2021.Application.Services.WebLink.Interfaces
         Task<GetLinksFromPage.Response> GetLinksFromPage(
             GetLinksFromPage.Request request,
             CancellationToken cancellationToken);
+
+        Task<GetLinksRecursive.Response> GetLinksRecursive(
+            GetLinksRecursive.Request request,
+            CancellationToken cancellationToken);
     }
 }

@@ -23,18 +23,17 @@ namespace SL2021.API.Controllers.Parser
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetById(
-            string Text,
+        public async Task<IActionResult> GetLinksFromPage(
+            string URL,
             CancellationToken cancellationToken)
         {
             var request = new GetLinksFromPage.Request()
             {
-                URL = "https://stroypark.su/"
+                //URL = "https://stroypark.su/"
+                URL = URL
             };
 
             return Ok(await _webLinkService.GetLinksFromPage(request, cancellationToken));
-
-
         }
     }
 }

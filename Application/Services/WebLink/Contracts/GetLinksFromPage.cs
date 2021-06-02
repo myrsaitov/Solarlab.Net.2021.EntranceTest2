@@ -10,7 +10,6 @@ namespace SL2021.Application.Services.WebLink.Contracts
         }
         public sealed class Response
         {
-            public ICollection<string> URLs;
         }
     }
 }

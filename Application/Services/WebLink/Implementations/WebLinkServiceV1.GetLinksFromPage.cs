@@ -6,6 +6,7 @@ using SL2021.Application.Services.WebLink.Contracts;
 using SL2021.Application.Services.WebLink.Interfaces;
 using HtmlAgilityPack;
 using System.Net;
+using System.Linq;
 
 namespace SL2021.Application.Services.WebLink.Implementations
 {
@@ -20,9 +21,17 @@ namespace SL2021.Application.Services.WebLink.Implementations
                 throw new ArgumentNullException(nameof(request));
             }
 
+            // Если страница уже проиндексирована, то стоп
+            var weblink_check = await _webLinkRepository.FindByURL(request.URL, cancellationToken);
+            if (weblink_check is not null)
+            {
+                if (weblink_check.IsIndexed == true)
+                {
+                    return new GetLinksFromPage.Response();
+                }
+            }
+
             var ress = new List<string>();
-
-
             Uri myUri = new Uri(request.URL);                                   // "https://www.domain.com/index.htm"
 
             string target_host_domain = myUri.Host;                             // => "www.domain.com";
@@ -38,7 +47,7 @@ namespace SL2021.Application.Services.WebLink.Implementations
                 return true;
             };
             var proxy = new WebProxy() { UseDefaultCredentials = true };
-            var doc = web.Load(target_host, "GET", proxy, CredentialCache.DefaultNetworkCredentials);
+            var doc = web.Load(request.URL, "GET", proxy, CredentialCache.DefaultNetworkCredentials);
             //----------------------------------------------------
 
             var create_request = new Create.Request();
@@ -51,6 +60,7 @@ namespace SL2021.Application.Services.WebLink.Implementations
                     {
                         // Получить адрес гиперссылки
                         string hrefValue = link.GetAttributeValue("href", string.Empty);
+
 
                         // Если гиперрсылка начинается с исследуемого адреса
                         if (hrefValue.StartsWith(target_host))
@@ -76,6 +86,7 @@ namespace SL2021.Application.Services.WebLink.Implementations
                             else
                             {
                                 // Если в конце адреса не поставили "/"
+
                                 string res = target_host + hrefValue;
                                 ress.Add(res);
                             }
@@ -98,16 +109,21 @@ namespace SL2021.Application.Services.WebLink.Implementations
                 {
                     ress.Add("There are no Hyperlinks!");
                 }
+
+                // Ищем в базе стартовую ссылку и присваиваем ей статус "Проиндексировано"
+                var weblink = await _webLinkRepository.FindByURL(request.URL, cancellationToken);
+                if (weblink is not null)
+                {
+                    weblink.IsIndexed = true;
+                    await _webLinkRepository.Save(weblink, cancellationToken);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-            return new GetLinksFromPage.Response
-            {
-                URLs = ress
-            };
+            return new GetLinksFromPage.Response();
         }
     }
 }

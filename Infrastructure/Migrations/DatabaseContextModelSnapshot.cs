@@ -64,14 +64,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "4ada91bb-526f-43b5-abd3-3a28cff8b0fc",
+                            ConcurrencyStamp = "6689fa7a-982e-45e9-a149-7d66b8c8ecf7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "5a18005a-a39d-456c-a3b8-49b8dc2ebc5d",
+                            ConcurrencyStamp = "07587dc0-a703-4c01-b0f7-73eab6abf56e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -221,42 +221,42 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(2245),
+                            CreatedAt = new DateTime(2021, 6, 2, 13, 26, 41, 746, DateTimeKind.Utc).AddTicks(7271),
                             IsDeleted = false,
                             Name = "Транспорт"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3029),
+                            CreatedAt = new DateTime(2021, 6, 2, 13, 26, 41, 746, DateTimeKind.Utc).AddTicks(8174),
                             IsDeleted = false,
                             Name = "Недвижимость"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3031),
+                            CreatedAt = new DateTime(2021, 6, 2, 13, 26, 41, 746, DateTimeKind.Utc).AddTicks(8177),
                             IsDeleted = false,
                             Name = "Мебель"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3032),
+                            CreatedAt = new DateTime(2021, 6, 2, 13, 26, 41, 746, DateTimeKind.Utc).AddTicks(8179),
                             IsDeleted = false,
                             Name = "Одежда"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3034),
+                            CreatedAt = new DateTime(2021, 6, 2, 13, 26, 41, 746, DateTimeKind.Utc).AddTicks(8180),
                             IsDeleted = false,
                             Name = "Бытовая техника"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2021, 6, 1, 21, 50, 16, 809, DateTimeKind.Utc).AddTicks(3034),
+                            CreatedAt = new DateTime(2021, 6, 2, 13, 26, 41, 746, DateTimeKind.Utc).AddTicks(8181),
                             IsDeleted = false,
                             Name = "Книги"
                         });
@@ -490,7 +490,7 @@ namespace SL2021.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSearched")
+                    b.Property<bool>("IsIndexed")
                         .HasColumnType("bit");
 
                     b.Property<int>("ReferedCount")
@@ -576,13 +576,13 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "46306b52-b1ab-40b4-b70f-d8055066b7b4",
+                            ConcurrencyStamp = "66a4d40f-0a01-4301-b71f-be7ad1c8c849",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENzdsn1BPjMLLSHZU3JjxYWIafEXZ9ew8ZzNtm/4n9twYRmI8Azp/7vMctU0YxQrGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENYpNssEUbQBYB/4FLhmrl5ghrvhps0UCoYuuv71kS2jrhih7q51iQao5fXrP0wxag==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c9ac9241-f0a8-4eb7-8c35-904ab6db1d72",
+                            SecurityStamp = "7552da4c-719e-44ea-bf15-51f2403e3a56",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

@@ -9,5 +9,6 @@ namespace SL2021.Application.Repositories
         Task<WebLink> FindByURL(
             string URL,
             CancellationToken cancellationToken);
+        Task<WebLink> FindNoneIndexed(CancellationToken cancellationToken);
     }
 }
