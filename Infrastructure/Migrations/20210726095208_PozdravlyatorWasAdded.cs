@@ -26,6 +26,18 @@ namespace SL2021.Infrastructure.Migrations
                 name: "Price",
                 table: "Contents");
 
+            migrationBuilder.RenameColumn(
+                name: "Body",
+                table: "Contents",
+                newName: "CongratulationsText");
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "HolidayDate",
+                table: "Contents",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
             migrationBuilder.AddColumn<string>(
                 name: "PersonId",
                 table: "Contents",
@@ -37,42 +49,42 @@ namespace SL2021.Infrastructure.Migrations
                 keyColumn: "Id",
                 keyValue: "185230d2-58d8-4e29-aefd-a257fb82a150",
                 column: "ConcurrencyStamp",
-                value: "f241b10a-5ad0-41d7-b325-6f15faf2437e");
+                value: "30ea8c9f-56f9-4d8f-9d01-bd1cb1162a4b");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
                 column: "ConcurrencyStamp",
-                value: "cecb3ad0-6f5c-46d9-8094-8ab03ac02575");
+                value: "f5049851-95e0-4a9b-b68d-aaa976ea474e");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "98b651ae-c9aa-4731-9996-57352d525f7e",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "bca30efe-2309-4367-a022-10312c3807eb", "AQAAAAEAACcQAAAAEPLP4dCIXfKmBU0B7coRO9BlyyXzdNMS4WhK5uFILw4K4/kgoSj8xvFnR6xnJOsiNg==", "cc746adc-e19e-43c5-96fd-43ab5e060906" });
+                values: new object[] { "ab88bf8c-920e-4c78-accd-edac543b931b", "AQAAAAEAACcQAAAAEBLBDkzSIesXQpM2B8UdCzq9oxC/EDJa6CgjrYnLegQufhTPTfdr8Ii/2t4U4iCtsQ==", "cbe33d2b-f086-4502-8672-a32e706ada5a" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedAt", "Name" },
-                values: new object[] { new DateTime(2021, 7, 26, 5, 49, 49, 459, DateTimeKind.Utc).AddTicks(9842), "Дни рождения" });
+                values: new object[] { new DateTime(2021, 7, 26, 9, 52, 8, 80, DateTimeKind.Utc).AddTicks(691), "Дни рождения" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 2,
                 columns: new[] { "CreatedAt", "Name" },
-                values: new object[] { new DateTime(2021, 7, 26, 5, 49, 49, 460, DateTimeKind.Utc).AddTicks(656), "Дни свадьбы" });
+                values: new object[] { new DateTime(2021, 7, 26, 9, 52, 8, 80, DateTimeKind.Utc).AddTicks(1495), "Дни свадьбы" });
 
             migrationBuilder.UpdateData(
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3,
                 columns: new[] { "CreatedAt", "Name" },
-                values: new object[] { new DateTime(2021, 7, 26, 5, 49, 49, 460, DateTimeKind.Utc).AddTicks(659), "Именины" });
+                values: new object[] { new DateTime(2021, 7, 26, 9, 52, 8, 80, DateTimeKind.Utc).AddTicks(1538), "Именины" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contents_PersonId",
@@ -99,8 +111,17 @@ namespace SL2021.Infrastructure.Migrations
                 table: "Contents");
 
             migrationBuilder.DropColumn(
+                name: "HolidayDate",
+                table: "Contents");
+
+            migrationBuilder.DropColumn(
                 name: "PersonId",
                 table: "Contents");
+
+            migrationBuilder.RenameColumn(
+                name: "CongratulationsText",
+                table: "Contents",
+                newName: "Body");
 
             migrationBuilder.AddColumn<decimal>(
                 name: "Price",

@@ -10,7 +10,7 @@ using SL2021.Infrastructure.DataAccess;
 namespace SL2021.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210726054949_PozdravlyatorWasAdded")]
+    [Migration("20210726095208_PozdravlyatorWasAdded")]
     partial class PozdravlyatorWasAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,14 +66,14 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = "d3300ca5-846f-4e6b-ac5f-1d3933115e67",
-                            ConcurrencyStamp = "cecb3ad0-6f5c-46d9-8094-8ab03ac02575",
+                            ConcurrencyStamp = "f5049851-95e0-4a9b-b68d-aaa976ea474e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "185230d2-58d8-4e29-aefd-a257fb82a150",
-                            ConcurrencyStamp = "f241b10a-5ad0-41d7-b325-6f15faf2437e",
+                            ConcurrencyStamp = "30ea8c9f-56f9-4d8f-9d01-bd1cb1162a4b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -223,21 +223,21 @@ namespace SL2021.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 7, 26, 5, 49, 49, 459, DateTimeKind.Utc).AddTicks(9842),
+                            CreatedAt = new DateTime(2021, 7, 26, 9, 52, 8, 80, DateTimeKind.Utc).AddTicks(691),
                             IsDeleted = false,
                             Name = "Дни рождения"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2021, 7, 26, 5, 49, 49, 460, DateTimeKind.Utc).AddTicks(656),
+                            CreatedAt = new DateTime(2021, 7, 26, 9, 52, 8, 80, DateTimeKind.Utc).AddTicks(1495),
                             IsDeleted = false,
                             Name = "Дни свадьбы"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2021, 7, 26, 5, 49, 49, 460, DateTimeKind.Utc).AddTicks(659),
+                            CreatedAt = new DateTime(2021, 7, 26, 9, 52, 8, 80, DateTimeKind.Utc).AddTicks(1538),
                             IsDeleted = false,
                             Name = "Именины"
                         });
@@ -290,13 +290,16 @@ namespace SL2021.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CongratulationsText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HolidayDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -529,13 +532,13 @@ namespace SL2021.Infrastructure.Migrations
                         {
                             Id = "98b651ae-c9aa-4731-9996-57352d525f7e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bca30efe-2309-4367-a022-10312c3807eb",
+                            ConcurrencyStamp = "ab88bf8c-920e-4c78-accd-edac543b931b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPLP4dCIXfKmBU0B7coRO9BlyyXzdNMS4WhK5uFILw4K4/kgoSj8xvFnR6xnJOsiNg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBLBDkzSIesXQpM2B8UdCzq9oxC/EDJa6CgjrYnLegQufhTPTfdr8Ii/2t4U4iCtsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cc746adc-e19e-43c5-96fd-43ab5e060906",
+                            SecurityStamp = "cbe33d2b-f086-4502-8672-a32e706ada5a",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
