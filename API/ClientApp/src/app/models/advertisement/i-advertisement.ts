@@ -3,7 +3,7 @@ import { OwnerModel } from "../owner/owner-model";
 export interface IAdvertisement {
   id: number;
   title: string;
-  body: string;
+  congratulationsText: string;
   owner: OwnerModel;
   categoryName: string;
   category: any;

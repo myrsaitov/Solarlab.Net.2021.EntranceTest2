@@ -14,7 +14,7 @@ namespace SL2021.Application.Services.Content.Contracts
         {
             public int Id { get; set; }
             public string Title { get; set; }
-            public string Body { get; set; }
+            public string CongratulationsText { get; set; }
             public OwnerResponse Owner { get; set; }
             public string CreatedAt { get; set; }
             public int? CategoryId { get; set; }

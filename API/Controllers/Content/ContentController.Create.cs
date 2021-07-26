@@ -21,7 +21,7 @@ namespace SL2021.API.Controllers.Content
                 new Create.Request
                 {
                     Title = request.Title,
-                    Body = request.Body,
+                    CongratulationsText = request.CongratulationsText,
                     CategoryId = request.CategoryId,
                     TagBodies = request.Tags
                 }, 
@@ -38,7 +38,7 @@ namespace SL2021.API.Controllers.Content
 
             [Required]
             [MaxLength(1000)]
-            public string Body { get; set; }
+            public string CongratulationsText { get; set; }
 
             [Required]
             [Range(1, 100_000_000_000)]

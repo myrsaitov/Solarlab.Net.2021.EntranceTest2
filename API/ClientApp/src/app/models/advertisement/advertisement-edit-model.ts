@@ -3,14 +3,14 @@ import {TagModel} from '../tag/tag-model';
 export interface IEditAdvertisement {
   id: number;
   title: string;
-  body: string;
+  congratulationsText: string;
   categoryId: number;
   tags: string[];
 }
 
 export class EditAdvertisement implements IEditAdvertisement {
   id: number;
-  body: string;
+  congratulationsText: string;
   categoryId: number;
   tags: string[];
   title: string;
@@ -18,7 +18,7 @@ export class EditAdvertisement implements IEditAdvertisement {
   constructor(data?: Partial<IEditAdvertisement>) {
     const defaults: IEditAdvertisement = {
       id: 0,
-      body: '',
+      congratulationsText: '',
       categoryId: null,
       tags: [],
       title: '',
@@ -26,7 +26,7 @@ export class EditAdvertisement implements IEditAdvertisement {
     };
 
     this.id = defaults.id;
-    this.body = defaults.body;
+    this.congratulationsText = defaults.congratulationsText;
     this.categoryId = defaults.categoryId;
     this.tags = defaults.tags;
     this.title = defaults.title;

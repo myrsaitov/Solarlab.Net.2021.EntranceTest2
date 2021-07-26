@@ -20,7 +20,7 @@ namespace SL2021.Tests.Content
             CancellationToken cancellationToken, 
             int userId,
             string contentTitle,
-            string contentBody,
+            string contentCongratulationsText,
             string[] tagBodies,
             int categoryId)
         {
@@ -35,7 +35,7 @@ namespace SL2021.Tests.Content
                 {
                     Id = contentId,
                     Title = contentTitle,
-                    CongratulationsText = contentBody,
+                    CongratulationsText = contentCongratulationsText,
                     OwnerId = userId.ToString(),
                     Category = new Domain.Category()
                     {

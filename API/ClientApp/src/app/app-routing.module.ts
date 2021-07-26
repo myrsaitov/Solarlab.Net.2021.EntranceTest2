@@ -1,5 +1,4 @@
 import {AdvertisementComponent} from './pages/advertisement/advertisement.component';
-import {ParserComponent} from './pages/parser/parser.component';
 import {SignupComponent} from './pages/signup/signup.component';
 import {LoginComponent} from './pages/login/login.component';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -44,10 +43,6 @@ const routes: Routes = [
   {
     path: '**',
     component: DashboardComponent,
-  },
-  {
-    path: 'parser',
-    component: ParserComponent,
   }
 ];
 

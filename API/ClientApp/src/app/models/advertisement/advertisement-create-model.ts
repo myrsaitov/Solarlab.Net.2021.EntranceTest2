@@ -2,14 +2,14 @@ import {TagModel} from '../tag/tag-model';
 
 export interface ICreateAdvertisement {
   title: string;
-  body: string;
+  congratulationsText: string;
   categoryId: number;
   tags: string[];
 }
 
 export class CreateAdvertisement implements ICreateAdvertisement {
   title: string;
-  body: string;
+  congratulationsText: string;
   categoryId: number;
   tags: string[];
   
@@ -17,13 +17,13 @@ export class CreateAdvertisement implements ICreateAdvertisement {
   constructor(data?: Partial<ICreateAdvertisement>) {
     const defaults: ICreateAdvertisement = {
       title: '',
-      body: '',
+      congratulationsText: '',
       categoryId: null,
       tags: [],
       ...data
     };
     this.title = defaults.title;
-    this.body = defaults.body;
+    this.congratulationsText = defaults.congratulationsText;
     this.categoryId = defaults.categoryId;
     this.tags = defaults.tags;
     

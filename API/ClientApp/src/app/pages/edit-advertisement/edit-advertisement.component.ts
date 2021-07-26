@@ -9,7 +9,7 @@ import {Observable, Subject} from 'rxjs';
 import {ICategory} from '../../models/category/category-model';
 import {EditAdvertisement, IEditAdvertisement} from '../../models/advertisement/advertisement-edit-model';
 import { TagService } from '../../services/tag.service';
-import { TagModel } from 'src/app/models/tag/tag-model';
+import { TagModel } from '../../models/tag/tag-model';
 import { isNullOrUndefined } from 'util';
 
 @Component({
@@ -52,7 +52,7 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
     });
     this.form = this.fb.group({
       title: ['', Validators.required],
-      body: ['', Validators.required],
+      congratulationsText: ['', Validators.required],
       categoryId: ['', Validators.required],
       input_tags: ['',Validators.required]
     });
@@ -61,7 +61,7 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
     }), takeUntil(this.destroy$)).subscribe(advertisement => {
 
       this.title.patchValue(advertisement.title);
-      this.body.patchValue(advertisement.body);
+      this.congratulationsText.patchValue(advertisement.congratulationsText);
       this.categoryId.patchValue(advertisement.categoryId);
       this.tagstr = "";
       advertisement.tags.forEach(function (value) 
@@ -88,8 +88,8 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
     return this.form.get('title');
   }
 
-  get body() {
-    return this.form.get('body');
+  get congratulationsText() {
+    return this.form.get('congratulationsText');
   }
 
   get categoryId() {
@@ -129,7 +129,7 @@ if(tagStr != null)
       const model: Partial<IEditAdvertisement> = {
         id: +id,
         title: this.title.value,
-        body: this.body.value,
+        congratulationsText: this.congratulationsText.value,
         tags: arrayOfStrings,
         categoryId: +this.categoryId.value
       };

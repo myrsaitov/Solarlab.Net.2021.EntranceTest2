@@ -44,7 +44,7 @@ export class CreateAdvertisementComponent implements OnInit {
 
     this.form = this.fb.group({
       title: ['', Validators.required],
-      body: ['', Validators.required],
+      congratulationsText: ['', Validators.required],
       categoryId: [null, Validators.required],
       input_tags: [null]
     });
@@ -58,7 +58,7 @@ export class CreateAdvertisementComponent implements OnInit {
     return this.form.get('title');
   }
 
-  get body() {
+  get congratulationsText() {
     return this.form.get('body');
   }
 
@@ -90,7 +90,7 @@ export class CreateAdvertisementComponent implements OnInit {
 
     const model: Partial<ICreateAdvertisement> = {
       title: this.title.value,
-      body: this.body.value,
+      congratulationsText: this.congratulationsText.value,
       categoryId: +this.categoryId.value,
       tags: arrayOfStrings
     };
