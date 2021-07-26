@@ -35,7 +35,7 @@ namespace SL2021.Tests.Content
                 {
                     Id = contentId,
                     Title = contentTitle,
-                    Body = contentBody,
+                    CongratulationsText = contentBody,
                     OwnerId = userId.ToString(),
                     Category = new Domain.Category()
                     {

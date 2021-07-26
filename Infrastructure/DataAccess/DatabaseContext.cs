@@ -21,7 +21,6 @@ namespace SL2021.Infrastructure.DataAccess
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<UserPic> UserPics { get; set; }
-        public DbSet<WebLink> WebLinks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,7 +31,6 @@ namespace SL2021.Infrastructure.DataAccess
             modelBuilder.ApplyConfiguration(new TagConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
             modelBuilder.ApplyConfiguration(new UserPicConfiguration());
-            modelBuilder.ApplyConfiguration(new WebLinkConfiguration());
 
             SeedIdentity(modelBuilder);
 

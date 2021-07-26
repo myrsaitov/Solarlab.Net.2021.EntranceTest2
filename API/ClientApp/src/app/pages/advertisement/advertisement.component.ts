@@ -145,7 +145,7 @@ export class AdvertisementComponent implements OnInit {
 
   delete(id: number) {
     this.advertisementService.delete(id).pipe(take(1)).subscribe(() => {
-      this.toastService.show('Объявление успешено удалено', {classname: 'bg-success text-light'});
+      this.toastService.show('Поздравление успешено удалено', {classname: 'bg-success text-light'});
       this.router.navigate(['/']);
     });
   }

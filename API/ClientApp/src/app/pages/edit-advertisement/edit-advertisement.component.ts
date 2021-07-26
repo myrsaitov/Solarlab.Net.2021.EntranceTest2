@@ -53,7 +53,6 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       title: ['', Validators.required],
       body: ['', Validators.required],
-      price: ['', Validators.pattern("[0-9,]*")],
       categoryId: ['', Validators.required],
       input_tags: ['',Validators.required]
     });
@@ -63,7 +62,6 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
 
       this.title.patchValue(advertisement.title);
       this.body.patchValue(advertisement.body);
-      this.price.patchValue(advertisement.price);
       this.categoryId.patchValue(advertisement.categoryId);
       this.tagstr = "";
       advertisement.tags.forEach(function (value) 
@@ -94,10 +92,6 @@ export class EditAdvertisementComponent implements OnInit, OnDestroy {
     return this.form.get('body');
   }
 
-  get price() {
-    return this.form.get('price');
-  }
-  
   get categoryId() {
     return this.form.get('categoryId');
   }
@@ -136,14 +130,13 @@ if(tagStr != null)
         id: +id,
         title: this.title.value,
         body: this.body.value,
-        price: this.price.value,
         tags: arrayOfStrings,
         categoryId: +this.categoryId.value
       };
 
       return this.advertisementService.edit(new EditAdvertisement(model));
     }), take(1)).subscribe(() => {
-      this.toastService.show('Объявление успешено обновлено', {classname: 'bg-success text-light'});
+      this.toastService.show('Поздравление успешено обновлено', {classname: 'bg-success text-light'});
       this.router.navigate(['/']);
     });
   }

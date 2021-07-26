@@ -36,7 +36,7 @@ namespace SL2021.API.Controllers.Content
             {
                 // Общий поиск
                 result = await _contentService.GetPaged(
-                    o => o.Body.ToLower().Contains(request.SearchStr.ToLower())  // В теле объявления
+                    o => o.CongratulationsText.ToLower().Contains(request.SearchStr.ToLower())  // В теле объявления
                     || o.Title.ToLower().Contains(request.SearchStr.ToLower())  // В названии объявления
                     || o.Owner.UserName.ToLower().Contains(request.SearchStr.ToLower()) // В UserName
                     || o.Category.Name.ToLower().Contains(request.SearchStr.ToLower()) // По имени категории

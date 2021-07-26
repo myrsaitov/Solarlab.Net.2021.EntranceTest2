@@ -87,7 +87,7 @@ namespace SL2021.Infrastructure.DataAccess.Repositories
 
             return await data
                 .Where(c => c.IsDeleted == false)
-                .OrderBy(e => e.Id)
+                .OrderBy(e => e.HolidayDate)
                 .Skip(offset)
                 .Take(limit)
                 .ToListAsync(cancellationToken);

@@ -44,8 +44,7 @@ namespace SL2021.Application.Services.Content.Implementations
             }
 
             content.Title = request.Title;
-            content.Body = request.Body;
-            content.Price = request.Price;
+            content.CongratulationsText = request.Body;
             content.CategoryId = request.CategoryId;
 
             content.IsDeleted = false;

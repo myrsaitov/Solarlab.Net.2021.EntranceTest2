@@ -27,7 +27,7 @@ namespace SL2021.Tests.Content
             var content = new Domain.Content()
             {
                 Title = contentTitle,
-                Body = contentBody,
+                CongratulationsText = contentBody,
                 OwnerId = userId.ToString(),
                 Category = new Domain.Category()
                 {

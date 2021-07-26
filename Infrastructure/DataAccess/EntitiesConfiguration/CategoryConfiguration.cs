@@ -12,14 +12,14 @@ namespace SL2021.Infrastructure.DataAccess.EntitiesConfiguration
             new Category
             {
                 Id = 1,
-                Name = "Транспорт",
+                Name = "Дни рождения",
                 CreatedAt = DateTime.UtcNow,
                 IsDeleted = false
             },
             new Category
             {
                 Id = 2,
-                Name = "Недвижимость",
+                Name = "Дни свадьбы",
                 CreatedAt = DateTime.UtcNow,
                 IsDeleted = false
 
@@ -27,31 +27,10 @@ namespace SL2021.Infrastructure.DataAccess.EntitiesConfiguration
             new Category
             {
                 Id = 3,
-                Name = "Мебель",
+                Name = "Именины",
                 CreatedAt = DateTime.UtcNow,
                 IsDeleted = false
             },
-            new Category
-            {
-                Id = 4,
-                Name = "Одежда",
-                CreatedAt = DateTime.UtcNow,
-                IsDeleted = false
-            },
-            new Category
-            {
-                Id = 5,
-                Name = "Бытовая техника",
-                CreatedAt = DateTime.UtcNow,
-                IsDeleted = false
-            },
-            new Category
-            {
-                Id = 6,
-                Name = "Книги",
-                CreatedAt = DateTime.UtcNow,
-                IsDeleted = false
-            }
         };
 
         public void Configure(EntityTypeBuilder<Category> builder)

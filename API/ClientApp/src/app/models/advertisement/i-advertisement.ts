@@ -7,7 +7,6 @@ export interface IAdvertisement {
   owner: OwnerModel;
   categoryName: string;
   category: any;
-  price: number;
   categoryId: number;
   comments: any[];
   createdAt: string;

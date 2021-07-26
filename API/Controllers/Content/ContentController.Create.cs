@@ -22,7 +22,6 @@ namespace SL2021.API.Controllers.Content
                 {
                     Title = request.Title,
                     Body = request.Body,
-                    Price = request.Price,
                     CategoryId = request.CategoryId,
                     TagBodies = request.Tags
                 }, 
@@ -40,10 +39,6 @@ namespace SL2021.API.Controllers.Content
             [Required]
             [MaxLength(1000)]
             public string Body { get; set; }
-
-            [Required]
-            [Range(0, 100_000_000_000)]
-            public decimal Price { get; set; }
 
             [Required]
             [Range(1, 100_000_000_000)]

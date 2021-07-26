@@ -4,7 +4,6 @@ export interface IEditAdvertisement {
   id: number;
   title: string;
   body: string;
-  price: number;
   categoryId: number;
   tags: string[];
 }
@@ -12,7 +11,6 @@ export interface IEditAdvertisement {
 export class EditAdvertisement implements IEditAdvertisement {
   id: number;
   body: string;
-  price: number;
   categoryId: number;
   tags: string[];
   title: string;
@@ -21,7 +19,6 @@ export class EditAdvertisement implements IEditAdvertisement {
     const defaults: IEditAdvertisement = {
       id: 0,
       body: '',
-      price: 0,
       categoryId: null,
       tags: [],
       title: '',
@@ -33,6 +30,5 @@ export class EditAdvertisement implements IEditAdvertisement {
     this.categoryId = defaults.categoryId;
     this.tags = defaults.tags;
     this.title = defaults.title;
-    this.price = defaults.price;
   }
 }

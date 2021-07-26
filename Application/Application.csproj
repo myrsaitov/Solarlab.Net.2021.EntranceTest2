@@ -37,7 +37,6 @@
       <Folder Include="Services\Content\Validators\" />
       <Folder Include="Services\Tag\Validators\" />
       <Folder Include="Services\UserPic\Validators\" />
-      <Folder Include="Services\WebLink\Validators\" />
     </ItemGroup>
 
     <ItemGroup>

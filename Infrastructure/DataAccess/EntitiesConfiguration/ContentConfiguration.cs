@@ -11,7 +11,6 @@ namespace SL2021.Infrastructure.DataAccess.EntitiesConfiguration
             builder.HasKey(con => con.Id);
             builder.Property(con => con.CreatedAt).IsRequired();
             builder.Property(con => con.UpdatedAt).IsRequired(false);
-            builder.Property(con => con.Price).HasColumnType("money");
             builder.HasMany(con => con.Tags)
                 .WithMany(t => t.Contents)
                 .UsingEntity(j => j.ToTable("TagContent"));

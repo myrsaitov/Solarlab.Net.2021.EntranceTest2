@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark mb-4 d-flex">
   <a class="navbar-brand"
-  role="button" (click)="getContent()">Доска объявлений</a>
+  role="button" (click)="getContent()">Доска поздравлений</a>
   <div *ngIf="categories$ | async as categories">
   <a *ngFor="let category of categories">
     <a class="badge badge-secondary" role="button" (click)="getContentByCategory(category.id)">{{category.name}}</a>&nbsp;&nbsp;</a>
